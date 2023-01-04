@@ -4,6 +4,7 @@ import { Header, Navbar, Content, Footer } from "./components";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { Faw } from "../main/ui/Faw";
+import Legal from "./ui/Legal";
 
 const index = () => {
   const [linkLoad, setLinkLoad] = useState(undefined);
@@ -49,7 +50,10 @@ const index = () => {
             })}
           </ul>
         ) : null}
-        <span className="page-name">mini-cms</span>
+        <span className="align-middle text-center">
+            <span className="page-name">mini-cms&nbsp;-&nbsp;</span><Legal/>
+
+        </span>
         <div className="source-link">
           <a target="_blank" href="https://github.com/Arckanics/mini-cms#readme">
             <Faw icon="github" cls="icon" />

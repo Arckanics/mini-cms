@@ -1,4 +1,5 @@
 import React from 'react'
+import Legal from "../ui/Legal";
 
 const Footer = ({children}) => {
   return (
@@ -6,7 +7,7 @@ const Footer = ({children}) => {
       <div className="footer-container">
 
         { children }
-        
+
       </div>
     </footer>
   )

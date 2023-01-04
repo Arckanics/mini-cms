@@ -48,50 +48,6 @@
     }
   }
 
-  .article {
-    @apply p-2 container m-auto shadow-xl rounded-sm border-b-2;
-    border-color: transparentize($color: $primary, $amount: .5);
-    $outline: darken(
-      $color: $primary,
-      $amount: 40%,
-    );
-    &-title {
-      @apply text-2xl pt-1 px-2 ;
-    }
-
-    .separator {
-      @apply m-2 opacity-60 shadow-2xl border;
-      border-color: $primary;
-    }
-
-    &-content {
-      @apply p-2 px-3;
-
-      & > p {
-        @apply drop-shadow;
-      }
-  
-      img {
-        @apply float-left mr-4 duration-150;
-        &[at_end="true"] {
-          @apply float-right ml-4 mr-0;
-        }
-  
-        outline: 1px solid transparentize($color: $outline, $amount: 0.8);
-  
-        @apply xl:max-w-xs lg:max-w-sm sm:max-w-[50%] rounded-md shadow-md;
-        &:hover {
-          @apply saturate-150;
-        }
-      }
-
-    }
-  }
-
-  .list-ordered {
-    @apply list-inside;
-    list-style-type: decimal;
-  }
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -110,6 +66,52 @@
   &::-webkit-scrollbar-button {
     height: 4px;
   }
+}
+
+
+.article {
+  @apply p-2 container m-auto shadow-xl rounded-sm border-b-2;
+  border-color: transparentize($color: $primary, $amount: .5);
+  $outline: darken(
+      $color: $primary,
+      $amount: 40%,
+  );
+  &-title {
+    @apply text-2xl pt-1 px-2 ;
+  }
+
+  .separator {
+    @apply m-2 opacity-60 shadow-2xl border;
+    border-color: $primary;
+  }
+
+  &-content {
+    @apply p-2 px-3;
+
+    & > p {
+      @apply drop-shadow;
+    }
+
+    img {
+      @apply float-left mr-4 duration-150;
+      &[at_end="true"] {
+        @apply float-right ml-4 mr-0;
+      }
+
+      outline: 1px solid transparentize($color: $outline, $amount: 0.8);
+
+      @apply xl:max-w-xs lg:max-w-sm sm:max-w-[50%] rounded-md shadow-md;
+      &:hover {
+        @apply saturate-150;
+      }
+    }
+
+  }
+}
+
+.list-ordered {
+  @apply list-inside;
+  list-style-type: decimal;
 }
 
 @media (prefers-color-scheme: dark) {
