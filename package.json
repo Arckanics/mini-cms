@@ -18,7 +18,11 @@
   "homepage": "https://github.com/Arckanics/mini-cms#readme",
   "dependencies": {
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.0",
+    "react-dom": "^18.0"
+  },
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
+    "@symfony/ux-react": "file:vendor/symfony/ux-react/assets"
   }
 }
