@@ -1,7 +1,9 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 
-export default class extends Component {
-  render () {
-    return <h1>Hello World!!</h1>
-  }
+import Hello from '../components/helloWorld';
+
+function Main() {
+  return <div><Hello/></div>
 }
+
+export default Main
