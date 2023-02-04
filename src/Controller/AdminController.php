@@ -6,9 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/mini-admin', name: 'app_admin_base')]
 class AdminController extends AbstractController
 {
-    #[Route('/mini-admin', name: 'app_admin')]
+    #[Route('/', name: 'app_admin')]
     public function index(): JsonResponse
     {
         return $this->json([
