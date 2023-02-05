@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mini-CMS{% endblock %}
+{% block title %} 
+  Mini-CMS {% if url is defined %} {{ url }} {% endif %}
+{% endblock %}
 
 {% block body %}
   <div id="root">
