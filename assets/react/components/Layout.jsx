@@ -2,9 +2,7 @@ import React from 'react'
 
 const Layout = ({ children }) => {
   return (
-    <section 
-      id="layout"
-    >
+    <section id="layout">
       { children }
     </section>
   )
