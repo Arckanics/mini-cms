@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} 
-  Mini-CMS {% if url is defined %} {{ url }} {% endif %}
+  Mini-CMS {% if url is defined %} -> {{ url }} {% endif %}
 {% endblock %}
 
 {% block body %}
-  <div id="root">
-    <div {{ react_component('main_admin') }}></div>
-  </div>
+  <div {{ react_component('main_admin') }} id="root"></div>
 {% endblock %}

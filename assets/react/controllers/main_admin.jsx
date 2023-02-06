@@ -1,11 +1,18 @@
-import React, { Component, Fragment } from "react"
+import React from "react"
+import Navbar from "../components/Navbar";
+import { BrowserRouter as Router } from "react-router-dom";
+import Layout from "../components/Layout";
+import Content from "../components/Content";
 
-import Hello from '../components/helloWorld';
-
-// Index Root Component
+// Admin Root Component
 
 function MainAdmin() {
-  return <div><Hello/></div>
+  return <Router>
+    <Layout>
+      <Navbar/>
+      <Content/>
+    </Layout>
+  </Router>
 }
 
 export default MainAdmin
