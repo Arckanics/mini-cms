@@ -4,6 +4,10 @@
   Mini-CMS {% if url is defined %} -> {{ url }} {% endif %}
 {% endblock %}
 
+{% block head %}
+  <meta name="_token" value="{{ csrf_token('token') }}" />
+{% endblock %}
+
 {% block body %}
   <div {{ react_component('main_admin') }} id="root"></div>
 {% endblock %}

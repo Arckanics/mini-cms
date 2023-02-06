@@ -2,8 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+// classes
+
+.btn {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px 0 #D34627;
+}
+
+// elements
 body {
   background-color: #EDE9E8;
+}
+
+#layout {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 10px;
+  gap: 10px;
+  @apply flex flex-nowrap justify-start;
+}
+
+#login {
+  position: absolute;
+  overflow: auto;
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+  left: 50%;
+  padding: 10px;
 }
 
 #navbar {
@@ -69,16 +98,6 @@ body {
       }
     }
   }
-}
-
-#layout {
-  height: 100vh;
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 10px;
-  gap: 10px;
-  @apply flex flex-nowrap justify-start;
 }
 
 #content {
