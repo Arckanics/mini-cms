@@ -15,9 +15,14 @@ class AdminSecurityController extends AbstractController
         if ($this->getUser()) {
           return $this->redirectToRoute('app_admin');
         }
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('admin/index.html.twig', [
-          'url' => 'Login'
+          'url' => 'Login',
+          'last_username' => $lastUsername,
+          'error'         => $error
         ]);
     }
 

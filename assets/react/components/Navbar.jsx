@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import NavLink from './ui/NavLink'
+import NavLi from './ui/NavLi'
 
 const Pages = [
   {name: "Parametres", path: "/"},
@@ -17,7 +16,7 @@ const Navbar = () => {
       <nav>
         <ul>
         {
-          Pages.map(({name,path},i) => <NavLink key={i} to={`/mini-admin${path}`.replace(/\/$/g, '')}><div className='link-txt'>{name}</div></NavLink>)
+          Pages.map(({name,path},i) => <NavLi key={i} to={`/mini-admin${path}`.replace(/\/$/g, '')}><div className='link-txt'>{name}</div></NavLi>)
         }
         </ul>
       </nav>

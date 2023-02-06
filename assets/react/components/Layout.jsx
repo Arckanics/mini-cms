@@ -1,9 +1,12 @@
 import React from 'react'
+import Login from './pages/Login'
 
 const Layout = ({ children }) => {
   return (
     <section id="layout">
-      { children }
+      {
+        !window.location.pathname.match(/login|login\//) ? children : <Login/>
+      }
     </section>
   )
 }
