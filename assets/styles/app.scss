@@ -10,6 +10,43 @@
   box-shadow: 0 0 8px 0 #D34627;
 }
 
+.bg-primary {
+  background-color: #D34627;
+}
+
+.color-primary {
+  color: #D34627;
+}
+
+.bg-light {
+  background-color: #EDE9E8;
+}
+
+.color-light {
+  color: #EDE9E8;
+}
+
+.bg-dark {
+  background-color: #042B29;
+}
+
+.color-dark {
+  color: #042B29;
+}
+
+.input-dark {
+  @apply block p-3 bg-light rounded-md text-lg color-dark;
+  &:focus {
+    outline-color: #D34627;
+  }
+  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5);
+}
+
+.btn-primary {
+  @apply bg-primary color-light block w-full p-3 rounded-md text-lg;
+  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5);
+}
+
 // elements
 body {
   background-color: #EDE9E8;

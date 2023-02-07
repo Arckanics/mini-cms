@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use ErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,7 @@ class AdminSecurityController extends AbstractController
     #[Route(path: '/mini-admin/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+      
         if ($this->getUser()) {
           return $this->redirectToRoute('app_admin');
         }
