@@ -5,9 +5,15 @@
 {% endblock %}
 
 {% block head %}
-  <meta name="_token" value="{{ csrf_token('token') }}" />
+  {% if url is defined %}
+    {% if url == 'Login' %}
+      <meta name="_token" value="{{ csrf_token('authenticate') }}" />
+    {% endif %}
+    
+  {% endif %}
+  
 {% endblock %}
 
-{% block body %}
+{% block body %}  
   <div {{ react_component('main_admin') }} id="root"></div>
 {% endblock %}
