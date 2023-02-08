@@ -10,7 +10,10 @@ function MainAdmin() {
   return <Router>
     <Layout>
       <Navbar/>
-      <Content/>
+      <Content>
+        <h1>Test</h1>
+
+      </Content>
     </Layout>
   </Router>
 }
