@@ -18,7 +18,7 @@ class Login extends Component {
           />
         </div>
         <Button
-          divCls='p-2'
+          divCls='pt-1 p-4'
           btnCls='btn-primary'
         >Me Connecter</Button>
       </form>
