@@ -7,17 +7,20 @@ class Login extends Component {
   render () {
     return (
       <form method="POST" id="login" className='rounded-lg bg-white color-dark'>
+        <div className='form-title'>Connexion</div>
         <CSRFInput/>
-        <TxtInput type="text" label="Compte(Email)" id="email" placeholder="adresse email..."
-          inputCls='input-dark'
-        />
-        <TxtInput type="password" label="Mot de passe" id="password" placeholder="mot de passe..."
-          inputCls='input-dark'
-        />
+        <div className='input-group-clear-outline'>
+          <TxtInput type="text" label="Compte(Email)" id="email" placeholder="adresse email..."
+            inputCls='input-txt' labelCls='label'
+          />
+          <TxtInput type="password" label="Mot de passe" id="password" placeholder="mot de passe..."
+            inputCls='input-txt' labelCls='label'
+          />
+        </div>
         <Button
           divCls='p-2'
           btnCls='btn-primary'
-        >Connexion</Button>
+        >Me Connecter</Button>
       </form>
     )
   }
