@@ -4,61 +4,147 @@
 
 // classes
 
+$primary : #D34627 ;
+$dark : #042B29;
+$light : #EDE9E8;
+
 .btn {
   padding: 10px;
   border-radius: 8px;
-  box-shadow: 0 0 8px 0 #D34627;
+  box-shadow: 0 0 8px 0 $primary;
 }
 
 .bg-primary {
-  background-color: #D34627;
+  background-color: $primary;
 }
 
 .color-primary {
-  color: #D34627;
+  color: $primary;
 }
 
 .bg-light {
-  background-color: #EDE9E8;
+  background-color: $light;
 }
 
 .color-light {
-  color: #EDE9E8;
+  color: $light;
 }
 
 .bg-dark {
-  background-color: #042B29;
+  background-color: $dark;
 }
 
 .color-dark {
-  color: #042B29;
+  color: $dark;
 }
 
-.input-dark {
-  @apply block p-3 bg-light rounded-md text-lg color-dark;
-  &:focus {
-    outline-color: #D34627;
+
+// forms fields
+  //labels (.label)
+
+.label {
+  transition: 150ms;
+  background-color: none;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: transparentize($color: $dark, $amount: .6);
+  @apply block py-1 font-semibold;
+}
+
+  // form title
+
+.form-title {
+  border-bottom: solid $primary 2px;
+  margin-bottom: -2px;
+  @apply p-2 pb-0 mx-2 text-2xl font-bold;
+}
+
+  //input + label container
+ 
+.input-wrap {
+  transition: 150ms;
+  & > * {
+    transition: 150ms;
   }
-  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5);
+  &.active {
+    & .label {
+      @apply pl-2;
+      color: $primary;
+      text-decoration-color: transparent;
+    }
+  }
+  border-radius: 8px;
+  &:hover, &.active {
+    background-color: transparentize($color: $primary, $amount: .9)
+  }
+
+}
+//input(text - password)
+.input-txt[type=text], .input-txt[type=password] {
+  @apply block p-3 rounded-md text-lg color-dark;
+  background-color: hsl(12, 12%, 92%);
+  outline: solid transparent 2px;
+  &:focus, &:hover {
+    outline-color: $primary;
+  }
+  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5) inset;
+  &::placeholder {
+    color: transparentize($color: $primary, $amount: .3);
+  }
+  
 }
 
 .btn-primary {
   transition: 150ms;
   @apply bg-primary color-light block w-full p-3 rounded-md text-lg;
   box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5);
-  border: 1px solid #D34627;
-  &:hover {
+  outline: solid transparent 2px;
+  outline-offset: -2px;
+  &:hover, &:focus, &:focus-visible{
     background-color: whitesmoke;
-    color: #D34627;
+    outline-color: $primary;
+    color: $primary;
+  }
+
+}
+
+$inp-style: (
+  "primary": $primary,
+  "dark": $dark,
+  "clear": transparent
+);
+
+.input-group {
+  
+
+  @each $key, $val in $inp-style {
+    &-#{$key}-outline {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: .5rem;
+      
+      @if $key != "clear" {
+        @apply p-2 m-2;
+      } @else {
+        @apply p-0 m-2;
+      }
+      border-radius: 8px;
+      outline-offset: -2px;
+      outline: solid transparent 2px;
+      outline-color: transparentize($color: $val, $amount: 0.8);
+    }
   }
 }
 
 // elements
 body {
-  background-color: #EDE9E8;
+  background-color: darken($color: $light, $amount: 3);
+  color: $dark;
 }
 
 #layout {
+  background-color: $light;
   position: relative;
   height: 100vh;
   width: 100%;
@@ -66,6 +152,7 @@ body {
   margin: 0 auto;
   padding: 10px;
   gap: 10px;
+  box-shadow: 0 0 8px 0 $light;
   @apply flex flex-nowrap justify-start;
 }
 
@@ -80,7 +167,7 @@ body {
 }
 
 #navbar {
-  background-color: #D34627;
+  background-color: $primary;
   color: white;
   margin: 0 auto;
   border-radius: 8px;
@@ -133,11 +220,11 @@ body {
     }
 
     &:hover, .active {
-      background-color: #EDE9E8;
-      color: #D34627;
+      background-color: $light;
+      color: $primary;
       & .link-txt {
         &::after {
-          background-color: #D34627;
+          background-color: $primary;
         }
       }
     }
