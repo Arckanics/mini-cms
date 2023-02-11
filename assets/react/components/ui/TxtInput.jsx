@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function TxtInput({ id, value, label, placeholder, type, inputCls, divCls = 'input-wrap p-2', labelCls = 'block p-2' }) {
+function TxtInput({ id, value, label, placeholder, type, inputCls, divCls = 'input-wrap p-2', labelCls = 'block p-2', onChange }) {
   const [isActive, setActive] = useState(false)
   const handleFocus = () => {
     setActive(!isActive);
@@ -8,7 +8,7 @@ function TxtInput({ id, value, label, placeholder, type, inputCls, divCls = 'inp
   return (
     <div className={(divCls + (isActive ? " active" : ""))}>
       <label htmlFor={id} className={labelCls}>{label}</label>
-      <input type={type} id={id} className={inputCls} name={id} value={value} onFocus={handleFocus} onBlur={handleFocus} placeholder={placeholder} />
+      <input type={type} id={id} className={inputCls} name={id} value={value ? value : ""} onFocus={handleFocus} onBlur={handleFocus} onChange={onChange} placeholder={placeholder} />
     </div>
   )
 }

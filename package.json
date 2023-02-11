@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Arckanics/mini-cms#readme",
   "dependencies": {
     "@symfony/stimulus-bridge": "github:symfony/stimulus-bridge",
+    "axios": "^1.3.2",
     "babel-loader": "^9.1.2",
     "core-js": "^3.27.1",
     "prop-types": "^15.8.1",

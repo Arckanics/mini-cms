@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use ErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -11,7 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AdminSecurityController extends AbstractController
 {
     #[Route(path: '/mini-admin/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response|JsonResponse
     {
       
         if ($this->getUser()) {
@@ -20,6 +22,10 @@ class AdminSecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $authenticationUtils->getLastUsername();
+
+        if ($request->isXmlHttpRequest()) {
+          
+        }
 
         return $this->render('admin/index.html.twig', [
           'url' => 'Login',
