@@ -2,17 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+// font
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+
 // classes
 
 $primary : #D34627 ;
 $dark : #042B29;
 $light : #EDE9E8;
 
-.btn {
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 8px 0 $primary;
+
+// root
+
+.admin-root {
+  font-family: 'Comfortaa', cursive;
 }
+
+// Custom color class
 
 .bg-primary {
   background-color: $primary;
@@ -37,6 +45,10 @@ $light : #EDE9E8;
 .color-dark {
   color: $dark;
 }
+
+
+
+
 
 
 // forms fields
@@ -93,6 +105,13 @@ $light : #EDE9E8;
   }
   
 }
+  // buttons
+
+  .btn {
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px 0 $primary;
+  }
 
 .btn-primary {
   transition: 150ms;
