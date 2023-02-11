@@ -1,35 +1,42 @@
 import React, { Component } from 'react'
 import Button from '../ui/Button'
-import CSRFInput from '../ui/CSRFInput'
 import TxtInput from '../ui/TxtInput'
-import fx from '../Functions/Security'
+import {getToken} from '../Functions/Security'
 
 class Login extends Component {
   constructor(props) {
     super(props)
-
+    this.ajax = props.ajax
     this.state = {
       email: null,
       password: null,
-      token: fx.getToken()
+      _token: getToken()
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
 
   }
 
   handleChange(e) {
-    console.log(e.target.name)
     this.setState(state => ({
+      ...state,
       [e.target.name]: e.target.value
     }))
   }
 
+  handleSubmit(e) {
+    e.preventDefault()
+    const {ajax} = this
+    this.state
+    ajax.post('/login', {...this.state})
+  }
+
   render () {
     const {email, password} = this.state
-    const {handleChange} = this
+    const {handleChange, handleSubmit} = this
     return (
-      <form method="POST" id="login" className='rounded-lg bg-white color-dark'>
+      <form method="POST" id="login" className='rounded-lg bg-white color-dark' onSubmit={handleSubmit}>
         <div className='form-title'>Connexion</div>
         <div className='input-group-clear-outline'>
           <TxtInput type="text" label="Compte(Email)" id="email" value={email} placeholder="adresse email..."

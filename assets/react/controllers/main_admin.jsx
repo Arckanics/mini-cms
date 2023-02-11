@@ -1,10 +1,8 @@
 import React from "react"
-import Navbar from "../components/Navbar";
+import Navbar from "../components/admin/Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
-import Layout from "../components/Layout";
-import Content from "../components/Content";
-
-// Admin Root Component
+import Layout from "../components/admin/Layout";
+import Content from "../components/admin/Content";
 
 function MainAdmin() {
   return <Router>
