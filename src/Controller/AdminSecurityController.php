@@ -16,22 +16,22 @@ class AdminSecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response|JsonResponse
     {
       
-        if ($this->getUser()) {
-          return $this->redirectToRoute('app_admin');
-        }
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        if ($request->isXmlHttpRequest()) {
+          if ($this->getUser()) {
+            return $this->redirectToRoute('app_admin_baseapp_admin');
+          }
+          $error = $authenticationUtils->getLastAuthenticationError();
           
-        }
+          if ($error) {
+            $error = $error->getMessage();
+          }
 
-        return $this->render('admin/index.html.twig', [
-          'url' => 'Login',
-          'last_username' => $lastUsername,
-          'error'         => $error
-        ]);
+          $lastUsername = $authenticationUtils->getLastUsername();
+  
+          return $this->render('admin/index.html.twig', [
+            'url' => 'Login',
+            'last_username' => $lastUsername,
+            'error'         => $error
+          ]);
     }
 
     #[Route(path: '/mini-admin/logout', name: 'app_logout')]
