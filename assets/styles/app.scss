@@ -194,6 +194,7 @@ body {
 }
 
 #navbar {
+  transition: 200ms;
   background-color: $primary;
   color: white;
   margin: 0 auto;
@@ -261,7 +262,6 @@ body {
   }
 }
 
-
 #nav-opts {
 
   .icon-nav {
@@ -291,4 +291,11 @@ body {
 
 #content {
   width: 100%;
+}
+
+// Animation class Classes
+
+.fadeOutLeft {
+  opacity: 0;
+  transform: translateX(-100%);
 }

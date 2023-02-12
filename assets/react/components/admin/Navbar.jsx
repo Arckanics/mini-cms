@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavLi from './ui/NavLi'
 import Logout from '../../icon/icon-ui/Logout.jsx'
 
-const Pages = [
-  {name: "Parametres", path: "/"},
-  {name: "Pages", path: "/pages"},
-  {name: "Articles", path: "/articles"},
-]
+const Navbar = ({Pages}) => {
 
-const Navbar = () => {
+  const [enable, setEnable] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setEnable(true)
+    }, 50)
+
+  }, [])
 
   const handleLogout = () => {
     updateTitle(n)
@@ -30,7 +33,7 @@ const Navbar = () => {
   }
 
   return (
-    <section id='navbar'>
+    <section id='navbar' className={!enable ? 'fadeOutLeft' : ''}>
       <section id="navbar-top">
         <div id="nav-title">
           <h1>Mini-CMS</h1>
