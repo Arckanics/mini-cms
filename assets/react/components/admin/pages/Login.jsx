@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Button from '../ui/Button'
 import TxtInput from '../ui/TxtInput'
-import {getToken} from '../Functions/Security'
+import { getToken } from '../Functions/Security'
+import { useNavigate } from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Login extends Component {
     this.state = {
       email: null,
       password: null,
-      _token: getToken()
+      _token: getToken(),
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -30,6 +31,10 @@ class Login extends Component {
     const {ajax} = this
     this.state
     ajax.post('/login', {...this.state})
+      .then(res => {
+        const nav = useNavigate()
+        nav('/mini-admin'+res.url)
+      })
   }
 
   render () {

@@ -4,16 +4,21 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "../components/admin/Layout";
 import Content from "../components/admin/Content";
 
-function MainAdmin() {
-  return <Router>
-    <Layout>
-      <Navbar/>
-      <Content>
-        <h1>Test</h1>
+import { Provider } from "react-redux";
+import store from '../components/admin/store'
 
-      </Content>
-    </Layout>
-  </Router>
+function MainAdmin() {
+  return <Provider store={store}>
+      <Router>
+      <Layout>
+        <Navbar/>
+        <Content>
+          <h1>Test</h1>
+
+        </Content>
+      </Layout>
+    </Router>
+  </Provider>
 }
 
 export default MainAdmin

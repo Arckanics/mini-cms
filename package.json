@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Arckanics/mini-cms#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
     "@symfony/stimulus-bridge": "github:symfony/stimulus-bridge",
     "axios": "^1.3.2",
     "babel-loader": "^9.1.2",
