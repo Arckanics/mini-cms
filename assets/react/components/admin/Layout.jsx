@@ -4,7 +4,11 @@ import axios from 'axios'
 import { getBaseURL } from '../Functions/app'
 
 const AdminXML = axios.create({
-  baseURL: getBaseURL('mini-admin')
+  baseURL: getBaseURL('mini-admin'),
+  headers: {
+    'XMLHttpRequest': true,
+    'Content-Type': 'application/json'
+  }
 })
 
 const Layout = ({ children }) => {

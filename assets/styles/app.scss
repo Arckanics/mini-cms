@@ -266,7 +266,7 @@ body {
 
   .icon-nav {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     .nav-link {
       transition: 150ms;
       background-color: $light;

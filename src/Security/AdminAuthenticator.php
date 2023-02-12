@@ -30,15 +30,16 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
   {
     $XMLRequest = json_decode($request->getContent());
     if ($XMLRequest) {
-
-      $email = $XMLRequest->email;
-      $password = $XMLRequest->password;
-      $token = $XMLRequest->_token;
+      $email = $XMLRequest->email ? $XMLRequest->email : '';
+      $password = $XMLRequest->password ? $XMLRequest->password : '';
+      $token = $XMLRequest->_token ? $XMLRequest->_token : '';
     } else {
       $email = $request->request->get('email', '');
       $password = $request->request->get('password', '');
       $token = $request->request->get('_token');
     }
+
+    $token = new CsrfTokenBadge('authenticate', $token);
 
     $request->getSession()->set(Security::LAST_USERNAME, $email);
 
@@ -46,19 +47,20 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
       new UserBadge($email),
       new PasswordCredentials($password),
       [
-        new CsrfTokenBadge('authenticate', $token),
+        $token,
       ]
     );
   }
 
   public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
   {
-
     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-      return new RedirectResponse($targetPath);
+      $response = new RedirectResponse($targetPath);
+      return $response;
     }
     // For example:
-    return new RedirectResponse($this->urlGenerator->generate('app_admin'));
+    $response = new RedirectResponse($this->urlGenerator->generate('app_admin'));
+    return $response;
 
     // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
   }
