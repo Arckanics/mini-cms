@@ -17,54 +17,54 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AdminAuthenticator extends AbstractLoginFormAuthenticator
 {
-    use TargetPathTrait;
+  use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+  public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
-    {
+  public function __construct(private UrlGeneratorInterface $urlGenerator)
+  {
     $this->urlGenerator = $urlGenerator;
+  }
+
+  public function authenticate(Request $request): Passport
+  {
+    $XMLRequest = json_decode($request->getContent());
+    if ($XMLRequest) {
+
+      $email = $XMLRequest->email;
+      $password = $XMLRequest->password;
+      $token = $XMLRequest->_token;
+    } else {
+      $email = $request->request->get('email', '');
+      $password = $request->request->get('password', '');
+      $token = $request->request->get('_token');
     }
 
-    public function authenticate(Request $request): Passport
-    {
-      $XMLRequest = json_decode($request->getContent());
-          if ($XMLRequest) {
-            
-            $email = $XMLRequest->email;
-            $password = $XMLRequest->password;
-            $token = $XMLRequest->_token;
-          } else {
-            $email = $request->request->get('email', '');
-            $password = $request->request->get('password', '');
-            $token = $request->request->get('_token');
-          }
-          
-          $request->getSession()->set(Security::LAST_USERNAME, $email);
+    $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-          return new Passport(
-              new UserBadge($email),
-              new PasswordCredentials($password),
-              [
-                  new CsrfTokenBadge('authenticate', $token),
-              ]
-          );
+    return new Passport(
+      new UserBadge($email),
+      new PasswordCredentials($password),
+      [
+        new CsrfTokenBadge('authenticate', $token),
+      ]
+    );
+  }
+
+  public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+  {
+
+    if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+      return new RedirectResponse($targetPath);
     }
+    // For example:
+    return new RedirectResponse($this->urlGenerator->generate('app_admin'));
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
-          
-          if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-          }
-          // For example:
-          return new RedirectResponse($this->urlGenerator->generate('app_admin'));
+    // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+  }
 
-        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-    }
-
-    protected function getLoginUrl(Request $request): string
-    {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
-    }
+  protected function getLoginUrl(Request $request): string
+  {
+    return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+  }
 }
