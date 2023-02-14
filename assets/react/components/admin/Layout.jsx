@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Login from './pages/Login'
 import Navbar from './Navbar'
 import Content from './Content'
 import axios from 'axios'
-import { setBaseUrl } from '../Functions/app'
+import { setBaseUrl, strContains } from '../Functions/app'
 import { Route, Routes } from 'react-router-dom'
 import Settings from './pages/Settings'
+import Footer from './Footer'
 
 const AdminXML = axios.create({
   baseURL: setBaseUrl('mini-admin'),
@@ -22,17 +23,29 @@ const Pages = [
 ]
 
 const Layout = () => {
+  const [state, setState] = useState();
+
+  const swapPage = (path) => {
+    AdminXML.get(path)
+      .then(res => {
+        console.log(res);
+      })
+  }
+
   return (
     <section id="layout">
+      {
+        !strContains(window.location.pathname, 'login') && <Navbar Pages={Pages} Ajax={AdminXML} swapPage={swapPage}/>
+      }
       <Routes>
         <Route path='mini-admin/login' element={<Login ajax={AdminXML} />} />
         {
           Pages.map(({path,name,Page},i) => {
             return <Route key={i} path={`mini-admin${path}`} element={
               <>
-                <Navbar Pages={Pages}/>
                 <Content>
                   <Page/>
+                  <Footer/>
                 </Content>
               </>
             } />
