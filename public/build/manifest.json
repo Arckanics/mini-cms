@@ -2,5 +2,10 @@
   "build/app.css": "/build/app.css",
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
-  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_symfony_ux-react_dist-d0f2d2.js": "/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_symfony_ux-react_dist-d0f2d2.js"
+  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_symfony_ux-react_dist-d0f2d2.js": "/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_symfony_ux-react_dist-d0f2d2.js",
+  "build/fonts/Comfortaa-SemiBold.ttf": "/build/fonts/Comfortaa-SemiBold.47b7aa55.ttf",
+  "build/fonts/Comfortaa-Medium.ttf": "/build/fonts/Comfortaa-Medium.db5c74bd.ttf",
+  "build/fonts/Comfortaa-Regular.ttf": "/build/fonts/Comfortaa-Regular.051d6908.ttf",
+  "build/fonts/Comfortaa-Light.ttf": "/build/fonts/Comfortaa-Light.2d79c8b6.ttf",
+  "build/fonts/Comfortaa-Bold.ttf": "/build/fonts/Comfortaa-Bold.059cc3e0.ttf"
 }
