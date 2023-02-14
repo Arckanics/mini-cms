@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import NavLi from './ui/NavLi'
 import Logout from '../../icon/icon-ui/Logout.jsx'
+import { matchRoutes, useLocation } from 'react-router-dom'
+import { updateTitle, endOfPath, uppercase } from '../Functions/app'
 
 const Navbar = ({Pages}) => {
-
+  const location = useLocation()
   const [enable, setEnable] = useState(false)
 
   useEffect(() => {
+    updateTitle(endOfPath(location.pathname))
     setTimeout(() => {
       setEnable(true)
     }, 50)
@@ -16,16 +19,6 @@ const Navbar = ({Pages}) => {
   const handleLogout = () => {
     updateTitle(n)
     console.log('logout');
-  }
-
-  const uppercase = (txt) => {
-    return txt.charAt(0).toUpperCase() + txt.slice(1)
-  }
-
-  const updateTitle = (n) => {
-    n = n.replace(/\//g, "")
-    let title = document.querySelector('title')
-    title.innerText = `Mini-CMS -> ${(n.length > 0 ? uppercase(n) : "Settings")}`
   }
 
   const setNav = (n) => {

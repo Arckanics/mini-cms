@@ -3,12 +3,12 @@ import Login from './pages/Login'
 import Navbar from './Navbar'
 import Content from './Content'
 import axios from 'axios'
-import { getBaseURL } from '../Functions/app'
+import { setBaseUrl } from '../Functions/app'
 import { Route, Routes } from 'react-router-dom'
 import Settings from './pages/Settings'
 
 const AdminXML = axios.create({
-  baseURL: getBaseURL('mini-admin'),
+  baseURL: setBaseUrl('mini-admin'),
   headers: {
     'XMLHttpRequest': true,
     'Content-Type': 'application/json'
@@ -25,17 +25,17 @@ const Layout = () => {
   return (
     <section id="layout">
       <Routes>
-        {
-          Pages.map((p,i) => {
-            return <Route key={i} path={`mini-admin${p.path}`} element={<Navbar Pages={Pages}/>} />
-          })
-        }
-      </Routes>
-      <Routes>
         <Route path='mini-admin/login' element={<Login ajax={AdminXML} />} />
         {
           Pages.map(({path,name,Page},i) => {
-            return <Route key={i} path={`mini-admin${path}`} element={<Content><Page/></Content>} />
+            return <Route key={i} path={`mini-admin${path}`} element={
+              <>
+                <Navbar Pages={Pages}/>
+                <Content>
+                  <Page/>
+                </Content>
+              </>
+            } />
           })
         }
       </Routes>
