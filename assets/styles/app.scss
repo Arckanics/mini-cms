@@ -225,7 +225,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
 
-  &>* {
+  & > * {
     padding: 10px;
   }
 
@@ -269,7 +269,7 @@ body {
     }
 
     &:hover,
-    .active {
+    &.active {
       background-color: $light;
       color: $primary;
 
@@ -295,7 +295,6 @@ body {
 
       &:hover {
         background-color: $primary;
-
         .svg-icon {
           fill: $light;
         }

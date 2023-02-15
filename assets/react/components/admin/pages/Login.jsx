@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Login = (props) => {
   const nav = useNavigate()
+  const baseUrl = '/mini-admin'
   const ajax = props.ajax
   const [state, setState] = useState({
     email: null,
@@ -26,9 +27,10 @@ const Login = (props) => {
     e.preventDefault()
     ajax.post('/login', { ...state })
       .then(res => {
-        nav('/mini-admin/')
+        console.log(res);
+        nav(`${baseUrl}${res.data.url}`)
       }).catch(res => {
-        nav('/mini-admin/login')
+        nav(`${baseUrl}/login`)
       })
   }
 

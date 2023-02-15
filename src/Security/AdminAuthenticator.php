@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -54,14 +55,35 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
 
   public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
   {
+    $XMLRequest = json_decode($request->getContent());
+    if (!$XMLRequest) {
+      if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+        $response = new RedirectResponse($targetPath);
+        return $response;
+      }
+      // For example:
+      $response = new RedirectResponse($this->urlGenerator->generate('app_admin'));
+      return $response;
+    }
+
+    function fixURL ($url): string {
+      $filterURL = "/\/[^\/]+$|\/$/";
+      $apply = preg_match($filterURL, $url, $matches);
+      return $matches[0];
+    }
+
+
+
     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-      $response = new RedirectResponse($targetPath);
+      
+      $response = new JsonResponse([ 'url' => fixURL($targetPath) ]);
       return $response;
     }
     // For example:
-    $response = new RedirectResponse($this->urlGenerator->generate('app_admin'));
+    $response = new JsonResponse([ 'url' => fixURL($this->urlGenerator->generate('app_admin')) ]);
     return $response;
 
+    
     // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
   }
 
