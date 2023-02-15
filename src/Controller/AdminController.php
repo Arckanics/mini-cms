@@ -10,10 +10,12 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/mini-admin', name: 'app_admin_base')]
+
 class AdminController extends AbstractController
 {
-    #[IsGranted('ROLE_ADMIN')]
+    
     #[Route('/', name: 'app_admin')]
     public function index(): Response
     {
