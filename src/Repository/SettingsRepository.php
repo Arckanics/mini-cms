@@ -39,6 +39,10 @@ class SettingsRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAll(): array {
+      return $this->findAll();
+    }
+
 //    /**
 //     * @return Settings[] Returns an array of Settings objects
 //     */
