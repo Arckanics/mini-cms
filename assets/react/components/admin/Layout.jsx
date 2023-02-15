@@ -3,7 +3,7 @@ import Login from './pages/Login'
 import Navbar from './Navbar'
 import Content from './Content'
 import axios from 'axios'
-import { setBaseUrl, strContains } from '../Functions/app'
+import { endOfPath, setBaseUrl, strContains } from '../Functions/app'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Settings from './pages/Settings'
 import Footer from './Footer'
@@ -23,16 +23,18 @@ const Pages = [
 ]
 
 const Layout = () => {
-  const [state, setState] = useState();
+  const [state, setState] = useState({});
   const nav = useNavigate()
+
   useEffect(() => {
+    swapPage(endOfPath(location.pathname));
     return location.pathname.match(/\/$/, '') ? nav(location.pathname.replace(/\/$/, '')) : undefined
-    
-  })
+  }, [])
+
   const swapPage = (path) => {
     AdminXML.get(path)
       .then(res => {
-        console.log(res);
+        setState(state => ({...state, data: res.data}))
       })
   }
 
