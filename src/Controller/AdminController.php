@@ -29,10 +29,13 @@ class AdminController extends AbstractController
 
       if ($this->isXmlHttpReq($req)) {
         $Settings = $em->getRepository(Settings::class);
-        return new JsonResponse([
-          'url' => '/',
-          'settings' => $Settings->findAll()
-        ]);
+        $res = $Settings->find(1);
+        return $this->json(['url' => '/', 'data' => [
+          'Author' => $res->getMetaAuthor(),
+          'Description' => $res->getMetaDesc(),
+          'SiteName' => $res->getMetaSiteName(),
+          'Landing' => $res->getLandingPage()
+        ] ], 200);
       }
 
       return $this->render('admin/index.html.twig', [
