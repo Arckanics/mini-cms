@@ -5,7 +5,7 @@ import { matchRoutes, useLocation, useNavigation } from 'react-router-dom'
 import { updateTitle, endOfPath, uppercase } from '../Functions/app'
 import { produceWithPatches } from 'immer'
 
-const Navbar = ({Pages , Ajax, swapPage}) => {
+const Navbar = ({Pages, swapPage}) => {
   const location = useLocation()
   const [enable, setEnable] = useState(false)
 
