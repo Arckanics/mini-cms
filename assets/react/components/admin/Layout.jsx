@@ -32,10 +32,7 @@ const Layout = () => {
   }, [])
 
   const swapPage = (path) => {
-    AdminXML.get(path)
-      .then(res => {
-        setState(state => ({...state, data: res.data}))
-      })
+    setState({url: path})
   }
 
   return (
@@ -48,7 +45,7 @@ const Layout = () => {
               <>
                 <Navbar Pages={Pages} Ajax={AdminXML} swapPage={swapPage}/>
                 <Content>
-                  <Page/>
+                  <Page data={state} ajax={AdminXML}/>
                   <Footer/>
                 </Content>
               </>
