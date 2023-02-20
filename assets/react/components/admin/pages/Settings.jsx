@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { uppercase } from '../../Functions/app'
+import Selector from '../ui/Selector'
 import TxtInput from '../ui/TxtInput'
 
 const Settings = ({ data, ajax }) => {
@@ -12,15 +13,6 @@ const Settings = ({ data, ajax }) => {
         setState(res.data.data)
       })
   }, [])
-
-  const objectToArray = (d) => {
-    let format = []
-    for (const [key, value] of Object.entries(d)) {
-      console.log(key, ": ", value);
-      format.push({[key]: value})
-    }
-    return format;
-  }
 
   const changeName = (v) => {
     switch (v) {
@@ -52,7 +44,9 @@ const Settings = ({ data, ajax }) => {
             <TxtInput type="text" label={uppercase(changeName("SiteName"))} id="SiteName" value={state.SiteName} placeholder={changeName("SiteName")}
               inputCls='input-txt w-full' labelCls='label'
             />
-            <h1 className='text-xl text-red-500'> choix de page </h1>
+            <Selector cls='selector' iconCls='icon' active={state.Landing} list={state.Pages}>
+              <h2 className='block py-2'>Page</h2>
+            </Selector>
           </> : 
           null
         }
