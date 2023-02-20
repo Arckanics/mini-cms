@@ -97,4 +97,5 @@ class Pages
 
         return $this;
     }
+
 }

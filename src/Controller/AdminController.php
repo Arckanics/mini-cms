@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Settings;
+use App\Entity\Pages;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Functions\GlobalEntityManager;
 
 
 #[IsGranted('ROLE_ADMIN')]
@@ -28,13 +29,15 @@ class AdminController extends AbstractController
     {
 
       if ($this->isXmlHttpReq($req)) {
-        $Settings = $em->getRepository(Settings::class);
-        $res = $Settings->find(1);
+        $res = $em->getRepository(Settings::class)->find(1);
+        $Pages = $em->getRepository(Pages::class);
+        $gem = new GlobalEntityManager($Pages, Pages::class);
         return $this->json(['url' => '/', 'data' => [
           'Author' => $res->getMetaAuthor(),
           'Description' => $res->getMetaDesc(),
           'SiteName' => $res->getMetaSiteName(),
-          'Landing' => $res->getLandingPage()
+          'Landing' => $res->getLandingPage()->getId(),
+          'Pages' => $gem->exportData()
         ] ], 200);
       }
 
