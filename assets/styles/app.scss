@@ -94,11 +94,61 @@ $rad-sm: 5px;
 
 }
 
+.selector {
+  position: relative;
+  transition: 150ms;
+  svg {
+    fill: $dark;
+  }
+  .opt {
+    @apply select-none;
+  }
+  @apply p-2 text-lg rounded-md;
+  .active {
+    transition: 150ms;
+    @apply p-3 pl-4 align-middle rounded-md cursor-pointer;
+    background-color: hsl(12, 12%, 92%);
+    box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5) inset;
+    display: flex;
+    outline: solid transparent 2px;
+    .txt {
+      width: 100%;
+    }
+
+    .icon {
+      height: 28px;
+    }
+  }
+  .opt-wrapper {
+    position: absolute;
+    background-color: #042B29;
+    width: calc(100% - 32px);
+    margin: auto;
+    left: 0px; right: 0px;
+    top: calc(100% + 2px - .5rem);
+    background-color: white;
+    border: 1px solid $primary;
+    border-top: none;
+    @apply rounded-b-md;
+    .opt {
+      @apply p-2 px-3 text-lg rounded-md;
+    }
+  }
+
+  &:hover, &:focus, &:focus-within {
+    background-color: transparentize($color: $primary, $amount: .9);
+    .active {
+      outline-color: $primary;
+    }
+  }
+}
+
 //input(text - password)
 .input-txt[type=text],
 .input-txt[type=password] {
   @apply block p-3 rounded-md text-lg color-dark;
   background-color: hsl(12, 12%, 92%);
+  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5) inset;
   outline: solid transparent 2px;
 
   &:focus,
@@ -106,7 +156,7 @@ $rad-sm: 5px;
     outline-color: $primary;
   }
 
-  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5) inset;
+  
 
   &::placeholder {
     color: transparentize($color: $primary, $amount: .3);
@@ -329,6 +379,10 @@ body {
     @apply p-3 pb-0 text-2xl font-bold;
     background-color: transparentize($color: $primary, $amount: .9);
     border-radius: 7px 7px 0 0;
+  }
+
+  .sub-title {
+    @apply px-1 pb-1 text-lg font-bold;
   }
 }
 
