@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Functions;
+namespace App\Functions\Entities;
 
 class GlobalEntityManager {
   private $em;
