@@ -45,7 +45,7 @@ const Layout = () => {
               <>
                 <Navbar Pages={Pages} Ajax={AdminXML} swapPage={swapPage}/>
                 <Content>
-                  <Page data={state} ajax={AdminXML}/>
+                  <Page data={{url: path}} ajax={AdminXML}/>
                   <Footer/>
                 </Content>
               </>

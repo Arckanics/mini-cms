@@ -10,6 +10,7 @@ const Settings = ({ data, ajax }) => {
   useEffect(() => {
     ajax.get(data.url)
       .then(res => {
+        console.log(data.url);
         setState(res.data.data)
       })
   }, [])
