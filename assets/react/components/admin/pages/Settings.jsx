@@ -29,6 +29,10 @@ const Settings = ({ data, ajax }) => {
     }
   }
 
+  const setLanding = (v) => {
+    setState({...state, Landing: v})
+  }
+
   return (
     <div className="content-full">
       <div className='title mb-8'>Paramètres</div>
@@ -44,7 +48,7 @@ const Settings = ({ data, ajax }) => {
             <TxtInput type="text" label={uppercase(changeName("SiteName"))} id="SiteName" value={state.SiteName} placeholder={changeName("SiteName")}
               inputCls='input-txt w-full' labelCls='label'
             />
-            <Selector cls='selector' iconCls='icon' active={state.Landing} list={state.Pages}>
+            <Selector cls='' iconCls='icon' active={state.Landing} list={state.Pages} action={setLanding}>
               <h2 className='block py-2'>Page</h2>
             </Selector>
           </> : 
