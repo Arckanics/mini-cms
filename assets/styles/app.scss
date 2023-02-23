@@ -97,13 +97,24 @@ $rad-sm: 5px;
 .selector {
   position: relative;
   transition: 150ms;
+
   svg {
     fill: $dark;
   }
+
   .opt {
-    @apply select-none;
+    @apply select-none cursor-pointer;
+
+    &:not(.active) {
+      &:hover {
+        background-color: $primary;
+        color: $light;
+      }
+    }
   }
+
   @apply p-2 text-lg rounded-md;
+
   .active {
     transition: 150ms;
     @apply p-3 pl-4 align-middle rounded-md cursor-pointer;
@@ -111,6 +122,7 @@ $rad-sm: 5px;
     box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5) inset;
     display: flex;
     outline: solid transparent 2px;
+
     .txt {
       width: 100%;
     }
@@ -119,24 +131,36 @@ $rad-sm: 5px;
       height: 28px;
     }
   }
+
   .opt-wrapper {
     position: absolute;
-    background-color: #042B29;
     width: calc(100% - 32px);
     margin: auto;
-    left: 0px; right: 0px;
-    top: calc(100% + 2px - .5rem);
+    left: 0px;
+    right: 0px;
+    top: calc(100% + .4rem);
     background-color: white;
+    box-shadow: 0 0 4px 0 transparentize($color: $primary, $amount: .5);
     border: 1px solid $primary;
-    border-top: none;
-    @apply rounded-b-md;
+    @apply rounded-md;
+
     .opt {
-      @apply p-2 px-3 text-lg rounded-md;
+      @apply p-2 px-3 text-lg;
+
+      &:first-child {
+        @apply rounded-t-md;
+      }
+      &:last-child {
+        @apply rounded-b-md;
+      }
     }
   }
 
-  &:hover, &:focus, &:focus-within {
+  &:hover,
+  &:focus,
+  &:focus-within {
     background-color: transparentize($color: $primary, $amount: .9);
+
     .active {
       outline-color: $primary;
     }
@@ -156,7 +180,7 @@ $rad-sm: 5px;
     outline-color: $primary;
   }
 
-  
+
 
   &::placeholder {
     color: transparentize($color: $primary, $amount: .3);
@@ -275,7 +299,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
 
-  & > * {
+  &>* {
     padding: 10px;
   }
 
@@ -345,6 +369,7 @@ body {
 
       &:hover {
         background-color: $primary;
+
         .svg-icon {
           fill: $light;
         }
@@ -368,6 +393,7 @@ body {
   height: 100%;
   gap: 10px;
   @apply flex flex-col;
+
   .content-full {
     height: 100%;
     @apply p-2;
@@ -391,7 +417,8 @@ body {
 
 // footer
 
-#admin-footer, .content-full {
+#admin-footer,
+.content-full {
   background-color: whitesmoke;
   padding: 10px 14px;
   box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .8);
