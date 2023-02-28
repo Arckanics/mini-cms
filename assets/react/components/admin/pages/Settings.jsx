@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { uppercase } from '../../Functions/app'
+import { capitalize } from '../../Functions/app'
 import Selector from '../ui/Selector'
 import TxtInput from '../ui/TxtInput'
 
@@ -40,14 +40,14 @@ const Settings = ({ data, ajax }) => {
       <div className='flex flex-col gap-3 py-3 justify-between'>
         {
           state ? <>
-            <TxtInput type="text" label={uppercase(changeName("Author"))} id="Author" value={state.Author} placeholder={changeName("Author")}
-              inputCls='input-txt w-full' labelCls='label'
+            <TxtInput type="text" label={capitalize(changeName("Author"))} id="Author" value={state.Author} placeholder={changeName("Author")}
+              inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
             />
-            <TxtInput type="text" label={uppercase(changeName("Description"))} id="Description" value={state.Description} placeholder={changeName("Description")}
-              inputCls='input-txt w-full' labelCls='label'
+            <TxtInput type="text" label={capitalize(changeName("Description"))} id="Description" value={state.Description} placeholder={changeName("Description")}
+              inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
             />
-            <TxtInput type="text" label={uppercase(changeName("SiteName"))} id="SiteName" value={state.SiteName} placeholder={changeName("SiteName")}
-              inputCls='input-txt w-full' labelCls='label'
+            <TxtInput type="text" label={capitalize(changeName("SiteName"))} id="SiteName" value={state.SiteName} placeholder={changeName("SiteName")}
+              inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
             />
             <Selector cls='' iconCls='icon' active={state.Landing} list={state.Pages} action={setLanding}>
               <h2 className='block py-2'>Page</h2>

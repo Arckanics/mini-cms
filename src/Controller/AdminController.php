@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use App\Functions\Entities\GlobalEntityManager;
+use App\Functions\Entities\ExtEntityManager;
 
 
 #[IsGranted('ROLE_ADMIN')]
@@ -30,7 +30,7 @@ class AdminController extends AbstractController
       if ($this->isXmlHttpReq($req)) {
         $res = $em->getRepository(Settings::class)->find(1);
         $Pages = $em->getRepository(Pages::class);
-        $gem = new GlobalEntityManager($Pages, Pages::class);
+        $gem = new ExtEntityManager($Pages, Pages::class);
         return $this->json(['url' => '/', 'data' => [
           'Author' => $res->getMetaAuthor(),
           'Description' => $res->getMetaDesc(),
@@ -46,8 +46,13 @@ class AdminController extends AbstractController
     }
 
     #[Route('/pages', name: 'app_admin_pages')]
-    public function pages(Request $req): Response
+    public function pages(Request $req, EntityManagerInterface $em): Response
     {
+      if ($this->isXmlHttpReq($req)) {
+        $pages = $em->getRepository(Pages::class);
+        $gem = new ExtEntityManager($pages, Pages::class);
+        return $this->json($gem->exportData(), 200);
+      }
       return $this->render('admin/index.html.twig', [
         'url' => 'Pages',
       ]);

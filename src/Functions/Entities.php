@@ -2,7 +2,7 @@
 
 namespace App\Functions\Entities;
 
-class GlobalEntityManager {
+class ExtEntityManager {
   private $em;
   private $entity;
   public function __construct($EntityManager, $entity) {

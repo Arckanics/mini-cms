@@ -6,6 +6,7 @@ import axios from 'axios'
 import { endOfPath, setBaseUrl, strContains } from '../Functions/app'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Settings from './pages/Settings'
+import Pages from './pages/Pages'
 import Footer from './Footer'
 
 const AdminXML = axios.create({
@@ -16,9 +17,9 @@ const AdminXML = axios.create({
   }
 })
 
-const Pages = [
+const Menu = [
   {name: "Parametres", path: "/", Page: Settings},
-  {name: "Pages", path: "/pages", Page: Settings},
+  {name: "Pages", path: "/pages", Page: Pages},
   {name: "Articles", path: "/articles", Page: Settings},
 ]
 
@@ -40,10 +41,10 @@ const Layout = () => {
       <Routes>
         <Route path='mini-admin/login' element={<Login ajax={AdminXML} />} />
         {
-          Pages.map(({path,Page},i) => {
+          Menu.map(({path,Page},i) => {
             return <Route key={i} path={`mini-admin${path}`} element={
               <>
-                <Navbar Pages={Pages} Ajax={AdminXML} swapPage={swapPage}/>
+                <Navbar Pages={Menu} Ajax={AdminXML} swapPage={swapPage}/>
                 <Content>
                   <Page data={{url: path}} ajax={AdminXML}/>
                   <Footer/>
