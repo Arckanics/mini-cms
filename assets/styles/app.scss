@@ -58,7 +58,7 @@ $rad-sm: 5px;
   text-decoration: underline;
   text-decoration-style: dotted;
   text-decoration-color: transparentize($color: $dark, $amount: .6);
-  @apply block py-1 font-semibold;
+  @apply block py-1 font-semibold select-none;
 }
 
 // form title
@@ -66,7 +66,7 @@ $rad-sm: 5px;
 .form-title {
   border-bottom: solid $primary 2px;
   margin-bottom: -2px;
-  @apply p-2 pb-0 mx-2 text-2xl font-bold;
+  @apply p-2 pb-0 mx-2 text-2xl font-bold select-none;
 }
 
 //custom react select
@@ -280,7 +280,30 @@ $inp-style: (
   @include growScale;
   &-header {
     background-color: transparentize($color: $secondary, $amount: 0.3);
-    @apply flex p-3;
+    @apply flex p-3 select-none;
+    .header-field {
+      min-width: 180px;
+      @apply text-center;
+    }
+  }
+
+  .content-inner {
+    box-shadow: 0 0 8px 0 transparentize($color: $secondary, $amount: .8) inset;
+    @apply rounded-b-xl;
+    .content-row {
+      @apply flex p-3;
+      &:nth-child(even) {
+        background-color: transparentize($color: $secondary, $amount: .8);
+      }
+      .row-field {
+        min-width: 180px;
+        @apply text-center;
+        
+        &:last-child {
+          @apply rounded-b-xl;
+        }
+      }
+    }
   }
 }
 // elements
@@ -441,13 +464,13 @@ body {
   .title {
     border-bottom: solid $secondary 2px;
     margin-bottom: -2px;
-    @apply p-3 pb-0 text-2xl font-bold;
+    @apply p-3 pb-0 text-2xl font-bold select-none;
     background-color: transparentize($color: $secondary, $amount: .9);
     border-radius: 7px 7px 0 0;
   }
 
   .sub-title {
-    @apply px-1 pb-1 text-lg font-bold;
+    @apply px-1 pb-1 text-lg font-bold select-none;
   }
 }
 

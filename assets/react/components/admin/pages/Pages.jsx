@@ -9,19 +9,19 @@ const Pages = ({ data, ajax }) => {
     ajax.get(data.url)
       .then(res => {
         console.log(data.url);
-        setState(res.data.data)
+        setState(res.data)
       })
   }, [])
 
   const header = [
-    {tag: 'title', name: 'titre', draw: 'value', colSize: 4},
+    {tag: 'title', name: 'titre', draw: 'value', colSize: 6},
     {tag: 'settings', name: 'landing', draw: 'bool', colSize: 1}
   ]
 
   return (
     <div className="content-full">
       <div className='title mb-8'>Pages</div>
-      { !state && <ContentNav data={state} header={header} />}
+      { state && <ContentNav data={state} header={header} />}
     </div>
   )
 }
