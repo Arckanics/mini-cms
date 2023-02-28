@@ -30,7 +30,7 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
 
 
   return (
-    <div className={cls + ' selector'} onFocus={toggleSelect} onBlur={toggleSelect} tabIndex={-1}>
+    <div className={cls ? 'selector ' + cls : 'selector'} onFocus={toggleSelect} onBlur={toggleSelect} tabIndex={-1}>
       { children }
       <div className='opt active' value={landing.id} onClick={toggle ? toggleSelect : null}>
         <div className='txt'>{capitalize(landing.title)}</div><Expand cls={iconCls}/>
