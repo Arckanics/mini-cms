@@ -9,6 +9,7 @@
 // classes
 
 $primary : #D34627;
+$secondary : #5EB7BF;
 $dark : #042B29;
 $light : #EDE9E8;
 
@@ -70,7 +71,7 @@ $rad-sm: 5px;
 
 //input + label container
 
-.input-wrap {
+@mixin inputWrap($color) {
   transition: 150ms;
 
   &>* {
@@ -80,7 +81,7 @@ $rad-sm: 5px;
   &.active {
     & .label {
       @apply pl-2;
-      color: $primary;
+      color: darken($color: $color, $amount: 10);
       text-decoration-color: transparent;
     }
   }
@@ -89,9 +90,15 @@ $rad-sm: 5px;
 
   &:hover,
   &.active {
-    background-color: transparentize($color: $primary, $amount: .9)
+    background-color: transparentize($color: $color, $amount: .9)
   }
+}
 
+.input-wrap {
+  @include inputWrap($primary);
+  &.secondary {
+    @include inputWrap($secondary);
+  }
 }
 
 .selector {
@@ -167,23 +174,30 @@ $rad-sm: 5px;
   }
 }
 
-//input(text - password)
-.input-txt[type=text],
-.input-txt[type=password] {
+@mixin inputTxt ($active-color) {
   @apply block p-3 rounded-md text-lg color-dark;
   background-color: hsl(12, 12%, 92%);
-  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5) inset;
+  box-shadow: 0 0 4px 0 transparentize($color: $active-color, $amount: 0.5) inset;
   outline: solid transparent 2px;
 
   &:focus,
   &:hover {
-    outline-color: $primary;
+    outline-color: $active-color;
   }
 
 
 
   &::placeholder {
-    color: transparentize($color: $primary, $amount: .3);
+    color: transparentize($color: $active-color, $amount: .3);
+  }
+}
+
+//input(text - password)
+.input-txt[type=text],
+.input-txt[type=password] {
+  @include inputTxt($primary);
+  &.secondary {
+    @include inputTxt($secondary);
   }
 
 }
@@ -246,12 +260,30 @@ $inp-style: (
   }
 }
 
+@mixin growScale () {
+  $scales: 1,2,3,4,5,6,7,8,9,10;
+  @each $scale in $scales {
+    .colsize-#{$scale} {
+      flex-grow: $scale;
+    }
+  }
+}
+
+.content-nav {
+  @include growScale;
+  &-header {
+    background-color: transparentize($color: $secondary, $amount: 0.3);
+    @apply flex p-3;
+  }
+}
 // elements
 body {
   background-color: darken($color: $light, $amount: 3);
   color: $dark;
 }
 
+
+//layout
 #layout {
   background-color: $light;
   position: relative;
@@ -400,10 +432,10 @@ body {
   }
 
   .title {
-    border-bottom: solid $primary 2px;
+    border-bottom: solid $secondary 2px;
     margin-bottom: -2px;
     @apply p-3 pb-0 text-2xl font-bold;
-    background-color: transparentize($color: $primary, $amount: .9);
+    background-color: transparentize($color: $secondary, $amount: .9);
     border-radius: 7px 7px 0 0;
   }
 
@@ -411,8 +443,6 @@ body {
     @apply px-1 pb-1 text-lg font-bold;
   }
 }
-
-
 
 
 // footer

@@ -7,8 +7,8 @@ const setBaseUrl = (ext = "") => {
 
 // première lettre en majuscule
 
-const uppercase = (txt) => {
-  return txt.charAt(0).toUpperCase() + txt.slice(1)
+const capitalize = (txt) => {
+  return txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()
 }
 
 // obtenir l'url relative
@@ -20,7 +20,7 @@ const endOfPath = (path) => {
 const updateTitle = (n) => {
   n = n.replace(/\//g, "")
   let title = document.querySelector('title')
-  title.innerText = `Mini-CMS -> ${(n.length > 0 ? uppercase(n) : "Settings")}`
+  title.innerText = `Mini-CMS -> ${(n.length > 0 ? capitalize(n) : "Settings")}`
   return;
 }
 
@@ -29,4 +29,4 @@ const strContains = (str, search) => {
   return str.search(re) >= 0 ? true : false
 }
 
-export { setBaseUrl, uppercase, updateTitle, endOfPath, strContains };
+export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains };

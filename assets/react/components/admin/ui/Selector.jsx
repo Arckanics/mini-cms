@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Expand from '../../../icon/icon-ui/Expand'
-import { uppercase } from '../../Functions/app'
+import { capitalize } from '../../Functions/app'
 
 const Selector = ({ cls, list, active, iconCls, children, action }) => {
   const [toggle, setToggle] = useState(false)
@@ -33,14 +33,14 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
     <div className={cls + ' selector'} onFocus={toggleSelect} onBlur={toggleSelect} tabIndex={-1}>
       { children }
       <div className='opt active' value={landing.id} onClick={toggle ? toggleSelect : null}>
-        <div className='txt'>{uppercase(landing.title)}</div><Expand cls={iconCls}/>
+        <div className='txt'>{capitalize(landing.title)}</div><Expand cls={iconCls}/>
       </div>
       {
         toggle ? <div className='opt-wrapper'>
           {
             avaible.map(({id,title},k) => 
               <div key={k} className='opt' value={id} onClick={(e) => changeValue(e,id)} >
-                <div className='txt'>{uppercase(title)}</div>
+                <div className='txt'>{capitalize(title)}</div>
               </div>
             )
           }
