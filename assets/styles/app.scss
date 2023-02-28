@@ -69,7 +69,106 @@ $rad-sm: 5px;
   @apply p-2 pb-0 mx-2 text-2xl font-bold;
 }
 
-//input + label container
+//custom react select
+
+@mixin selector($color) {
+  position: relative;
+  transition: 150ms;
+
+  svg {
+    fill: $dark;
+  }
+
+  .opt {
+    @apply select-none cursor-pointer;
+
+    &:not(.active) {
+      &:hover {
+        background-color: $color;
+        color: $light;
+      }
+    }
+  }
+
+  @apply p-2 text-lg rounded-md;
+
+  .active {
+    transition: 150ms;
+    @apply p-3 pl-4 align-middle rounded-md cursor-pointer;
+    background-color: $light;
+    box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.5) inset;
+    display: flex;
+    outline: solid transparent 2px;
+
+    .txt {
+      width: 100%;
+    }
+
+    .icon {
+      height: 28px;
+    }
+  }
+
+  .opt-wrapper {
+    position: absolute;
+    width: calc(100% - 32px);
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    top: calc(100% + .4rem);
+    background-color: white;
+    box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5);
+    border: 1px solid $color;
+    @apply rounded-md;
+
+    .opt {
+      @apply p-2 px-3 text-lg;
+
+      &:first-child {
+        @apply rounded-t-md;
+      }
+      &:last-child {
+        @apply rounded-b-md;
+      }
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    background-color: transparentize($color: $color, $amount: .9);
+
+    .active {
+      outline-color: $color;
+    }
+  }
+}
+
+.selector {
+  @include selector($primary);
+  &.secondary {
+    @include selector($secondary)
+  }
+}
+
+//input wrapper, input label, input(text - password)
+@mixin inputTxt ($active-color) {
+  @apply block p-3 rounded-md text-lg color-dark;
+  background-color: hsl(12, 12%, 92%);
+  box-shadow: 0 0 4px 0 transparentize($color: $active-color, $amount: 0.5) inset;
+  outline: solid transparent 2px;
+
+  &:focus,
+  &:hover {
+    outline-color: $active-color;
+  }
+
+
+
+  &::placeholder {
+    color: transparentize($color: $active-color, $amount: .3);
+  }
+}
 
 @mixin inputWrap($color) {
   transition: 150ms;
@@ -101,98 +200,6 @@ $rad-sm: 5px;
   }
 }
 
-.selector {
-  position: relative;
-  transition: 150ms;
-
-  svg {
-    fill: $dark;
-  }
-
-  .opt {
-    @apply select-none cursor-pointer;
-
-    &:not(.active) {
-      &:hover {
-        background-color: $primary;
-        color: $light;
-      }
-    }
-  }
-
-  @apply p-2 text-lg rounded-md;
-
-  .active {
-    transition: 150ms;
-    @apply p-3 pl-4 align-middle rounded-md cursor-pointer;
-    background-color: hsl(12, 12%, 92%);
-    box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5) inset;
-    display: flex;
-    outline: solid transparent 2px;
-
-    .txt {
-      width: 100%;
-    }
-
-    .icon {
-      height: 28px;
-    }
-  }
-
-  .opt-wrapper {
-    position: absolute;
-    width: calc(100% - 32px);
-    margin: auto;
-    left: 0px;
-    right: 0px;
-    top: calc(100% + .4rem);
-    background-color: white;
-    box-shadow: 0 0 4px 0 transparentize($color: $primary, $amount: .5);
-    border: 1px solid $primary;
-    @apply rounded-md;
-
-    .opt {
-      @apply p-2 px-3 text-lg;
-
-      &:first-child {
-        @apply rounded-t-md;
-      }
-      &:last-child {
-        @apply rounded-b-md;
-      }
-    }
-  }
-
-  &:hover,
-  &:focus,
-  &:focus-within {
-    background-color: transparentize($color: $primary, $amount: .9);
-
-    .active {
-      outline-color: $primary;
-    }
-  }
-}
-
-@mixin inputTxt ($active-color) {
-  @apply block p-3 rounded-md text-lg color-dark;
-  background-color: hsl(12, 12%, 92%);
-  box-shadow: 0 0 4px 0 transparentize($color: $active-color, $amount: 0.5) inset;
-  outline: solid transparent 2px;
-
-  &:focus,
-  &:hover {
-    outline-color: $active-color;
-  }
-
-
-
-  &::placeholder {
-    color: transparentize($color: $active-color, $amount: .3);
-  }
-}
-
-//input(text - password)
 .input-txt[type=text],
 .input-txt[type=password] {
   @include inputTxt($primary);

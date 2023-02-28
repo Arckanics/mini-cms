@@ -49,7 +49,7 @@ const Settings = ({ data, ajax }) => {
             <TxtInput type="text" label={capitalize(changeName("SiteName"))} id="SiteName" value={state.SiteName} placeholder={changeName("SiteName")}
               inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
             />
-            <Selector cls='' iconCls='icon' active={state.Landing} list={state.Pages} action={setLanding}>
+            <Selector cls='secondary' iconCls='icon' active={state.Landing} list={state.Pages} action={setLanding}>
               <h2 className='block py-2'>Page</h2>
             </Selector>
           </> : 
