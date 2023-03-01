@@ -30,7 +30,6 @@ const Login = () => {
     e.preventDefault()
     ajax.post('/login', { ...state })
       .then(res => {
-        //console.log(res);
         nav(`${baseUrl}${res.data.url}`)
       }).catch(res => {
         nav(`${baseUrl}/login`)

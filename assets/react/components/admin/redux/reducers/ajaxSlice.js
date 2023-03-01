@@ -6,7 +6,7 @@ import axios from 'axios'
 export const ajaxSlice = createSlice({
   name: 'ajax',
   initialState: {
-    url: '/',
+    url: '',
     axios: {
       baseURL: setBaseUrl('mini-admin'),
       headers: {
