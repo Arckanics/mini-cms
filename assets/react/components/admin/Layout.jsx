@@ -21,6 +21,7 @@ const Layout = () => {
   const url = useSelector((state) => state.ajax.url)
   const dispatch = useDispatch()
   const nav = useNavigate()
+
   useEffect(() => {
     location.pathname.match(/\/$/, '') ? nav(cleanPath(location.pathname)) : undefined
   })
@@ -28,6 +29,8 @@ const Layout = () => {
   const swapPage = (path) => {
     dispatch(setUrl(path))
   }
+
+  url === "" ? swapPage(cleanPath(location.pathname)) : null
 
   return (
     <section id="layout">
