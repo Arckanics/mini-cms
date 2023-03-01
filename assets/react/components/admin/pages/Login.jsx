@@ -3,11 +3,14 @@ import Button from '../ui/Button'
 import TxtInput from '../ui/TxtInput'
 import { getToken } from '../Functions/Security'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 
-const Login = (props) => {
+const Login = () => {
   const nav = useNavigate()
   const baseUrl = '/mini-admin'
-  const ajax = props.ajax
+  const axiosSet = useSelector((state) => state.ajax.axios)
+  const ajax = axios.create({...axiosSet})
   const [state, setState] = useState({
     email: null,
     password: null,
