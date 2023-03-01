@@ -18,7 +18,6 @@ const Navbar = ({Pages, swapPage}) => {
 
   const handleLogout = () => {
     updateTitle(n)
-    console.log('logout');
   }
 
   return (

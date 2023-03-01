@@ -3,7 +3,7 @@ import Login from './pages/Login'
 import Navbar from './Navbar'
 import Content from './Content'
 import axios from 'axios'
-import { endOfPath, setBaseUrl, strContains } from '../Functions/app'
+import { endOfPath, setBaseUrl, cleanPath } from '../Functions/app'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Settings from './pages/Settings'
 import Pages from './pages/Pages'
@@ -13,7 +13,6 @@ const AdminXML = axios.create({
   baseURL: setBaseUrl('mini-admin'),
   headers: {
     'XMLHttpRequest': true,
-    'Content-Type': 'application/json'
   }
 })
 
@@ -28,12 +27,11 @@ const Layout = () => {
   const nav = useNavigate()
 
   useEffect(() => {
-    swapPage(endOfPath(location.pathname));
-    return location.pathname.match(/\/$/, '') ? nav(location.pathname.replace(/\/$/, '')) : undefined
-  }, [])
+    location.pathname.match(/\/$/, '') ? nav(cleanPath(location.pathname)) : undefined
+  })
 
   const swapPage = (path) => {
-    setState({url: path})
+    setState({url: cleanPath(path)})
   }
 
   return (
