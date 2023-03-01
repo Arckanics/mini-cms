@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { capitalize } from '../../Functions/app'
+import { useSelector } from 'react-redux'
 import Selector from '../ui/Selector'
 import TxtInput from '../ui/TxtInput'
+import axios from 'axios'
 
-const Settings = ({ data, ajax }) => {
-
+const Settings = ({ data }) => {
+  const axiosSet = useSelector((state) => state.ajax.axios)
+  const ajax = axios.create({...axiosSet})
   const [state, setState] = useState(null)
   
   useEffect(() => {

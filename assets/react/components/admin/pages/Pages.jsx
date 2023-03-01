@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import ContentNav from '../ui/ContentNav'
+import axios from 'axios'
 
-const Pages = ({ data, ajax }) => {
-
+const Pages = ({ data }) => {
+  const axiosSet = useSelector((state) => state.ajax.axios)
+  const ajax = axios.create({...axiosSet})
   const [state, setState] = useState(null)
 
   useEffect(() => {
@@ -20,7 +23,7 @@ const Pages = ({ data, ajax }) => {
   return (
     <div className="content-full">
       <div className='title mb-8'>Pages</div>
-      { state && <ContentNav data={state} header={header} />}
+      { state && <ContentNav data={state} header={header} action={null} />}
     </div>
   )
 }
