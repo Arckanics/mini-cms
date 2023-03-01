@@ -32,7 +32,7 @@ const Layout = () => {
   return (
     <section id="layout">
       <Routes>
-        <Route path='mini-admin/login' element={<Login />} />
+        <Route path='mini-admin/login' element={<Login/>} />
         {
           Menu.map(({path,Page},i) => {
             return <Route key={i} path={`mini-admin${path}`} element={
