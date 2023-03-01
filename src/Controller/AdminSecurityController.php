@@ -34,7 +34,6 @@ class AdminSecurityController extends AbstractController
         'url' => 'Login',
         'last_username' => $lastUsername,
         'error'         => $error,
-        'ajax'          => $ajax ? 'true' : 'false'
       ]);
     }
 
