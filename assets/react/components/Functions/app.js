@@ -2,8 +2,10 @@
 // url de base pour faciliter la navigation
 
 const setBaseUrl = (ext = "") => {
-  return `${window.location.origin}/${ext}`
+  return `${window.location.origin}${ext.length > 0 ? "/" : null}${ext}`
 }
+
+const cleanPath = path => path.replace(/^\/$|\/$/, '')
 
 // première lettre en majuscule
 
@@ -29,4 +31,4 @@ const strContains = (str, search) => {
   return str.search(re) >= 0 ? true : false
 }
 
-export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains };
+export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains, cleanPath };
