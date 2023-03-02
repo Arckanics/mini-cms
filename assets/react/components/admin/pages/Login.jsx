@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { setUrl } from '../redux/reducers/ajaxSlice'
-import { cleanPath } from '../../Functions/app'
+import { cleanPath } from '../../../Functions/app'
 
 const Login = () => {
   const nav = useNavigate()
