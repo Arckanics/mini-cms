@@ -11,15 +11,13 @@ const Settings = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
   const ajax = axios.create({...axiosSet})
   const data = useSelector((state) => state.ajax.data.settings)
-  const loaded_data = useSelector((state) => state.ajax.data.loaded_settings)
   const dispatch = useDispatch()
-  const [state, setState] = useState({...data})
+  const [ change, setChange ] = useState(false)
   
   useEffect(() => {
     !data ? ajax.get(url)
       .then(res => {
         dispatch(pushData({ name: 'settings', data: res.data }))
-        dispatch(pushData({ name: 'loaded_settings', data: res.data }))
       }) : ajax.get('/refresh')
   }, [])
 
@@ -38,13 +36,13 @@ const Settings = ({ url }) => {
     }
   }
 
-  console.log({data, state});
-
   const handleChange = (e, prop) => {
+    !change ? setChange(true) : null
     dispatch(pushData({ name: 'settings', data: {...data, [prop]: e.target.value} }))
   }
 
   const setLanding = (v) => {
+    !change ? setChange(true) : null
     dispatch(pushData({ name: 'settings', data: {...data, Landing: v} }))
   }
 
@@ -70,7 +68,7 @@ const Settings = ({ url }) => {
           null
         }
         {
-          data && data !== loaded_data ? <Button btnCls={'btn secondary'} divCls={"p-2 flex justify-end"}>Sauvegarder</Button> : null 
+          change && <Button btnCls={'btn secondary fadeInLeft'} divCls={"p-2 flex justify-end"}>Sauvegarder</Button>
         }
       </div>
     </div>
