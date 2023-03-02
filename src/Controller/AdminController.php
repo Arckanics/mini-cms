@@ -31,13 +31,13 @@ class AdminController extends AbstractController
         $res = $em->getRepository(Settings::class)->find(1);
         $Pages = $em->getRepository(Pages::class);
         $gem = new ExtEntityManager($Pages, Pages::class);
-        return $this->json(['url' => '/', 'data' => [
+        return $this->json([
           'Author' => $res->getMetaAuthor(),
           'Description' => $res->getMetaDesc(),
           'SiteName' => $res->getMetaSiteName(),
           'Landing' => $res->getLandingPage()->getId(),
           'Pages' => $gem->exportData()
-        ] ], 200);
+        ], 200);
       }
 
       return $this->render('admin/index.html.twig', [

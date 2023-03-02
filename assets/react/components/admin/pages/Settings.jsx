@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { capitalize } from '../../Functions/app'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { pushData } from '../redux/reducers/ajaxSlice'
 import Selector from '../ui/Selector'
 import TxtInput from '../ui/TxtInput'
 import axios from 'axios'
+import Button from '../ui/Button'
 
-const Settings = ({ data }) => {
+const Settings = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
   const ajax = axios.create({...axiosSet})
-  const [state, setState] = useState(null)
+  const data = useSelector((state) => state.ajax.data.settings)
+  const loaded_data = useSelector((state) => state.ajax.data.loaded_settings)
+  const dispatch = useDispatch()
+  const [state, setState] = useState({...data})
   
   useEffect(() => {
-    ajax.get(data.url)
+    !data ? ajax.get(url)
       .then(res => {
-        setState(res.data.data)
-      })
+        dispatch(pushData({ name: 'settings', data: res.data }))
+        dispatch(pushData({ name: 'loaded_settings', data: res.data }))
+      }) : ajax.get('/refresh')
   }, [])
 
   const changeName = (v) => {
@@ -32,8 +38,14 @@ const Settings = ({ data }) => {
     }
   }
 
+  console.log({data, state});
+
+  const handleChange = (e, prop) => {
+    dispatch(pushData({ name: 'settings', data: {...data, [prop]: e.target.value} }))
+  }
+
   const setLanding = (v) => {
-    setState({...state, Landing: v})
+    dispatch(pushData({ name: 'settings', data: {...data, Landing: v} }))
   }
 
   return (
@@ -41,21 +53,24 @@ const Settings = ({ data }) => {
       <div className='title mb-8'>Paramètres</div>
       <div className='flex flex-col gap-3 py-3 justify-between'>
         {
-          state ? <>
-            <TxtInput type="text" label={capitalize(changeName("Author"))} id="Author" value={state.Author} placeholder={changeName("Author")}
+          data ? <>
+            <TxtInput type="text" onChange={(e) => handleChange(e, 'Author')} label={capitalize(changeName("Author"))} id="Author" value={data.Author} placeholder={changeName("Author")}
               inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
             />
-            <TxtInput type="text" label={capitalize(changeName("Description"))} id="Description" value={state.Description} placeholder={changeName("Description")}
+            <TxtInput type="text" onChange={(e) => handleChange(e, 'Description')} label={capitalize(changeName("Description"))} id="Description" value={data.Description} placeholder={changeName("Description")}
               inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
             />
-            <TxtInput type="text" label={capitalize(changeName("SiteName"))} id="SiteName" value={state.SiteName} placeholder={changeName("SiteName")}
+            <TxtInput type="text" onChange={(e) => handleChange(e, 'SiteName')} label={capitalize(changeName("SiteName"))} id="SiteName" value={data.SiteName} placeholder={changeName("SiteName")}
               inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
             />
-            <Selector cls='secondary' iconCls='icon' active={state.Landing} list={state.Pages} action={setLanding}>
+            <Selector cls='secondary' iconCls='icon' active={data.Landing} list={data.Pages} action={setLanding}>
               <h2 className='block py-2'>Page</h2>
             </Selector>
           </> : 
           null
+        }
+        {
+          data && data !== loaded_data ? <Button btnCls={'btn secondary'} divCls={"p-2 flex justify-end"}>Sauvegarder</Button> : null 
         }
       </div>
     </div>

@@ -80,7 +80,7 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
       return $response;
     }
     // For example:
-    $response = new JsonResponse([ 'url' => fixURL($this->urlGenerator->generate('app_admin')) ]);
+    $response = new JsonResponse([ 'url' => fixURL($this->urlGenerator->generate('app_admin_baseapp_admin')) ]);
     return $response;
 
     

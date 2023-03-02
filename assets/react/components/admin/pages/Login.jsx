@@ -3,13 +3,16 @@ import Button from '../ui/Button'
 import TxtInput from '../ui/TxtInput'
 import { getToken } from '../Functions/Security'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import { setUrl } from '../redux/reducers/ajaxSlice'
+import { cleanPath } from '../../Functions/app'
 
 const Login = () => {
   const nav = useNavigate()
   const baseUrl = '/mini-admin'
   const axiosSet = useSelector((state) => state.ajax.axios)
+  const dispatch = useDispatch()
   const ajax = axios.create({...axiosSet})
   const [state, setState] = useState({
     email: null,
@@ -30,7 +33,9 @@ const Login = () => {
     e.preventDefault()
     ajax.post('/login', { ...state })
       .then(res => {
-        nav(`${baseUrl}${res.data.url}`)
+        let url = res.data.url === "/" ? `${baseUrl}` : `${baseUrl}/${res.data.url}`
+        dispatch(setUrl(""))
+        nav(cleanPath(url))
       }).catch(res => {
         nav(`${baseUrl}/login`)
       })
@@ -50,7 +55,7 @@ const Login = () => {
     </div>
     <Button
       divCls='pt-1 p-4'
-      btnCls='btn-primary'
+      btnCls='btn primary w-full'
     >Me Connecter</Button>
   </form>
 

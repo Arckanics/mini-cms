@@ -9,7 +9,7 @@
 // classes
 
 $primary : #D34627;
-$secondary : #5EB7BF;
+$secondary : hsl(185, 43%, 50%);
 $dark : #042B29;
 $light : #EDE9E8;
 
@@ -211,16 +211,11 @@ $rad-sm: 5px;
 
 // buttons
 
-.btn {
-  padding: 10px;
-  border-radius: $rad-md;
-  box-shadow: 0 0 8px 0 $primary;
-}
-
-.btn-primary {
+@mixin btnSetting($color) {
   transition: 150ms;
-  @apply bg-primary color-light block w-full p-3 rounded-md text-lg;
-  box-shadow: 0 0 4px 0 hsla(11, 25%, 49%, .5);
+  @apply color-light block p-3 rounded-md text-lg;
+  background-color: $color;
+  box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.3);
   outline: solid transparent 2px;
   outline-offset: -2px;
 
@@ -228,10 +223,22 @@ $rad-sm: 5px;
   &:focus,
   &:focus-visible {
     background-color: whitesmoke;
-    outline-color: $primary;
-    color: $primary;
+    outline-color: $color;
+    color: $color;
+  }
+}
+
+.btn {
+  padding: 10px;
+  border-radius: $rad-md;
+  
+  &.primary {
+    @include btnSetting($primary);
   }
 
+  &.secondary {
+    @include btnSetting($secondary);
+  }
 }
 
 $inp-style: (
@@ -490,4 +497,9 @@ body {
 .fadeOutLeft {
   opacity: 0;
   transform: translateX(-100%);
+}
+
+.fadeOutDown {
+  opacity: 0;
+  transform: translateY(100%);
 }

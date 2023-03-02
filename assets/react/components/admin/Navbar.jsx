@@ -3,8 +3,11 @@ import NavLi from './ui/NavLi'
 import Logout from '../../icon/icon-ui/Logout.jsx'
 import { useLocation } from 'react-router-dom'
 import { updateTitle, endOfPath } from '../Functions/app'
+import { useDispatch } from 'react-redux'
+import { clearData } from './redux/reducers/ajaxSlice'
 
 const Navbar = ({Pages, swapPage}) => {
+  const dispatch = useDispatch()
   const location = useLocation()
   const [enable, setEnable] = useState(false)
 
@@ -17,6 +20,7 @@ const Navbar = ({Pages, swapPage}) => {
   }, [])
 
   const handleLogout = () => {
+    dispatch(clearData())
     updateTitle(n)
   }
 

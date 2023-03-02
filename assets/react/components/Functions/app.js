@@ -5,7 +5,7 @@ const setBaseUrl = (ext = "") => {
   return `${window.location.origin}${ext.length > 0 ? "/" : null}${ext}`
 }
 
-const cleanPath = path => path.replace(/^\/$|\/$/, '')
+const cleanPath = path => path.replace(/^\/$|\/$/, '').replace(/\/\//g, '/')
 
 // première lettre en majuscule
 
