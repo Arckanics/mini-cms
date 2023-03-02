@@ -57,6 +57,7 @@ class AdminController extends AbstractController
         'url' => 'Pages',
       ]);
     }
+
     #[Route('/articles', name: 'app_admin_articles')]
     public function articles(Request $req): Response
     {
@@ -64,4 +65,11 @@ class AdminController extends AbstractController
         'url' => 'Articles',
       ]);
     }
+
+    #[Route('/refresh', name: 'app_admin_refresh')]
+    public function refresh(Request $req): Response
+    {
+      return $this->json(['status' => Response::HTTP_ACCEPTED]);
+    }
+
 }
