@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { cleanPath, endOfPath } from '../../../Functions/app'
-import { setBaseUrl } from '../../../Functions/app'
+import { cleanPath, endOfPath } from '../../../../Functions/app'
+import { setBaseUrl } from '../../../../Functions/app'
 import axios from 'axios'
 
 export const ajaxSlice = createSlice({
