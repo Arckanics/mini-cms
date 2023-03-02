@@ -1,5 +1,5 @@
 import React from 'react'
-import { capitalize } from '../../Functions/app'
+import { capitalize } from '../../../Functions/app'
 
 const ContentNav = ({ header, data }) => {
 
