@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavLi from './ui/NavLi'
 import Logout from '../../icon/icon-ui/Logout.jsx'
 import { useLocation } from 'react-router-dom'
-import { updateTitle, endOfPath } from '../Functions/app'
+import { updateTitle, endOfPath } from '../../Functions/app'
 import { useDispatch } from 'react-redux'
 import { clearData } from './redux/reducers/ajaxSlice'
 

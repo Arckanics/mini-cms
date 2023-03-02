@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { capitalize } from '../../Functions/app'
+import { capitalize } from '../../../Functions/app'
 import { useDispatch, useSelector } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import Selector from '../ui/Selector'
