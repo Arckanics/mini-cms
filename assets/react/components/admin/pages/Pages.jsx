@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ContentNav from '../ui/ContentNav'
 import axios from 'axios'
+import { pushData } from '../redux/reducers/ajaxSlice'
 
-const Pages = ({ data }) => {
+const Pages = () => {
   const axiosSet = useSelector((state) => state.ajax.axios)
+  const url = useSelector((state) => state.ajax.url)
   const ajax = axios.create({...axiosSet})
-  const [state, setState] = useState(null)
+  const data = useSelector((state) => state.ajax.data.pages)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    ajax.get(data.url)
-      .then(res => {
-        setState(res.data)
-      })
+    !data ? ajax.get(url)
+    .then(res => {
+      dispatch(pushData({ name: 'pages', data: res.data }))
+    }) : ajax.get('/refresh')
   }, [])
 
   const header = [
@@ -23,7 +26,7 @@ const Pages = ({ data }) => {
   return (
     <div className="content-full">
       <div className='title mb-8'>Pages</div>
-      { state && <ContentNav data={state} header={header} action={null} />}
+      { data && <ContentNav data={data} header={header} action={null} />}
     </div>
   )
 }

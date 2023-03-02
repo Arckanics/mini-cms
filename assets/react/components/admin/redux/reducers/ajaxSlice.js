@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { cleanPath } from '../../../Functions/app'
+import { cleanPath, endOfPath } from '../../../Functions/app'
 import { setBaseUrl } from '../../../Functions/app'
 import axios from 'axios'
 
@@ -17,11 +17,15 @@ export const ajaxSlice = createSlice({
   },
   reducers: {
     setUrl: (state, action) => {
-      state.url = cleanPath(`${action.payload}`)
+      state.url = endOfPath(cleanPath(`${action.payload}`))
+    },
+    pushData: (state, action) => {
+      const { name, data } = action.payload
+      state.data = {...state.data, [name]: data}
     }
   }
 })
 
-export const { setUrl } = ajaxSlice.actions
+export const { setUrl, pushData } = ajaxSlice.actions
 
 export default ajaxSlice.reducer
