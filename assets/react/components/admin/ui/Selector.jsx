@@ -6,7 +6,7 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
   const [toggle, setToggle] = useState(false)
   const [lastEvent, setLastEvent] = useState(null)
 
-  const landing = list.find(i => i.id === active);
+  const landing = list.find(i => i.id === active)
   const avaible = list.filter(i => i.id !== active)
 
   const toggleSelect = (e) => {

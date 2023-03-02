@@ -23,14 +23,13 @@ const Layout = () => {
   const nav = useNavigate()
 
   useEffect(() => {
+    url === "" ? swapPage(cleanPath(location.pathname)) : null
     location.pathname.match(/\/$/, '') ? nav(cleanPath(location.pathname)) : undefined
-  })
+  }, [])
 
   const swapPage = (path) => {
     dispatch(setUrl(path))
   }
-
-  url === "" ? swapPage(cleanPath(location.pathname)) : null
 
   return (
     <section id="layout">
@@ -42,7 +41,7 @@ const Layout = () => {
               <>
                 <Navbar Pages={Menu} swapPage={swapPage}/>
                 <Content>
-                  <Page data={{url: path}} />
+                  <Page url={path} />
                   <Footer/>
                 </Content>
               </>

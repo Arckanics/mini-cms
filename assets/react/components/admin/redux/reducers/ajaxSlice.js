@@ -7,6 +7,7 @@ export const ajaxSlice = createSlice({
   name: 'ajax',
   initialState: {
     url: '',
+    baseUrl: setBaseUrl('mini-admin'),
     axios: {
       baseURL: setBaseUrl('mini-admin'),
       headers: {
@@ -22,10 +23,14 @@ export const ajaxSlice = createSlice({
     pushData: (state, action) => {
       const { name, data } = action.payload
       state.data = {...state.data, [name]: data}
+    },
+    clearData: (state) => {
+      state.data = {}
+      state.url = ""
     }
   }
 })
 
-export const { setUrl, pushData } = ajaxSlice.actions
+export const { setUrl, pushData, clearData } = ajaxSlice.actions
 
 export default ajaxSlice.reducer
