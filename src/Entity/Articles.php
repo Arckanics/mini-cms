@@ -39,6 +39,9 @@ class Articles
     #[ORM\Column]
     private ?bool $isDynamic = false;
 
+    #[ORM\Column]
+    private ?int $sort = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +139,18 @@ class Articles
     public function setIsDynamic(bool $isDynamic): self
     {
         $this->isDynamic = $isDynamic;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }
