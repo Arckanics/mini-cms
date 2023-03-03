@@ -31,7 +31,7 @@ class AdminController extends AbstractController
       if ($this->isXmlHttpReq($req)) {
         $res = $em->getRepository(Settings::class)->find(1);
         $Pages = $em->getRepository(Pages::class);
-        $gem = new ExtEntityManager($Pages, Pages::class);
+        $gem = new ExtEntityManager($Pages, Pages::class, $em);
         return $this->json([
           'Author' => $res->getMetaAuthor(),
           'Description' => $res->getMetaDesc(),
@@ -51,7 +51,7 @@ class AdminController extends AbstractController
     {
       if ($this->isXmlHttpReq($req)) {
         $pages = $em->getRepository(Pages::class);
-        $gem = new ExtEntityManager($pages, Pages::class);
+        $gem = new ExtEntityManager($pages, Pages::class, $em);
         return $this->json($gem->exportData(), 200);
       }
       return $this->render('admin/index.html.twig', [
@@ -64,7 +64,7 @@ class AdminController extends AbstractController
     {
       if ($this->isXmlHttpReq($req)) {
         $article = $em->getRepository(Articles::class);
-        $gem = new ExtEntityManager($article, Articles::class);
+        $gem = new ExtEntityManager($article, Articles::class, $em);
         return $this->json($gem->exportData(), 200);
       }
       return $this->render('admin/index.html.twig', [
