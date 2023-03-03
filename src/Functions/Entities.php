@@ -1,13 +1,18 @@
 <?php
 
 namespace App\Functions\Entities;
-
+use App\Entity\Articles;
+use App\Entity\Pages;
+use App\Entity\Settings;
 class ExtEntityManager {
-  private $em;
+  private $repo;
   private $entity;
-  public function __construct($EntityManager, $entity) {
-    $this->em = $EntityManager;
+
+  private $em;
+  public function __construct($repo, $entity, $EntityManager) {
+    $this->repo = $repo;
     $this->entity = $entity;
+    $this->em = $EntityManager;
   }
 
   private function prepareGetMethods() {
@@ -28,14 +33,21 @@ class ExtEntityManager {
   }
 
   public function exportData() {
-    $entities = $this->em->findAll();
+    $entities = $this->repo->findAll();
     $methods = $this->prepareGetMethods();
     $res = [];
     foreach ($entities as $entity) {
       $e = [];
       foreach ($methods as $method) {
-        $name = strtolower(preg_replace('/^get|^is/', '', $method));
-        $e["$name"] = $entity->{"$method"}();
+        $name = preg_replace('/^get|^is/', '', $method);
+        $req = $entity->{"$method"}();
+        if (gettype($req) === "object") {
+          if (preg_match('/Pages|Articles|Settings/', get_class($req))) {
+            $req = $req->getId();
+          }
+        }
+        $name = strtolower($name);
+        $e["$name"] = $req;
       }
       $res[] = $e;
     }
