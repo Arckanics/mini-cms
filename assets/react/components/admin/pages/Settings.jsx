@@ -6,6 +6,7 @@ import Selector from '../ui/Selector'
 import TxtInput from '../ui/TxtInput'
 import axios from 'axios'
 import Button from '../ui/Button'
+import PagesContainer from '../ui/PagesContainer'
 
 const Settings = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
@@ -47,8 +48,7 @@ const Settings = ({ url }) => {
   }
 
   return (
-    <div className="content-full">
-      <div className='title mb-8'>Paramètres</div>
+    <PagesContainer title={'Paramètres'}>
       <div className='flex flex-col gap-3 py-3 justify-between'>
         {
           data ? <>
@@ -71,7 +71,7 @@ const Settings = ({ url }) => {
           change && <Button btnCls={'btn secondary fadeInLeft'} divCls={"p-2 flex justify-end"}>Sauvegarder</Button>
         }
       </div>
-    </div>
+    </PagesContainer>
   )
 }
 

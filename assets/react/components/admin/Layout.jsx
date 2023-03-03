@@ -9,12 +9,13 @@ import Settings from './pages/Settings'
 import Pages from './pages/Pages'
 import Footer from './Footer'
 import { setUrl } from './redux/reducers/ajaxSlice'
+import Articles from './pages/Articles'
 
 
 const Menu = [
   {name: "Parametres", path: "/", Page: Settings},
   {name: "Pages", path: "/pages", Page: Pages},
-  {name: "Articles", path: "/articles", Page: Settings},
+  {name: "Articles", path: "/articles", Page: Articles},
 ]
 
 const Layout = () => {
