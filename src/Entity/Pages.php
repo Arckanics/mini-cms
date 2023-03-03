@@ -24,6 +24,9 @@ class Pages
     #[ORM\OneToOne(mappedBy: 'LandingPage', cascade: ['persist', 'remove'])]
     private ?Settings $settings = null;
 
+    #[ORM\Column]
+    private ?int $sort = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -94,6 +97,18 @@ class Pages
         }
 
         $this->settings = $settings;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }
