@@ -1,5 +1,5 @@
 import React from 'react'
-import { capitalize } from '../../../Functions/app'
+import { capitalize, isArray } from '../../../Functions/app'
 
 const ContentNav = ({ header, data }) => {
 
@@ -25,12 +25,12 @@ const ContentNav = ({ header, data }) => {
       </div>
       <div className='content-inner flex flex-col overflow-auto overflow-x-hidden'>
         {
-          data && data.map((field, k) => <div key={k} className='content-row'>
+          data && isArray(data) ? data.map((field, k) => <div key={k} className='content-row'>
             {
               header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag],draw)}</div>)
             }
             <div className={`row-field colsize-1`}>{capitalize('actions')}</div>
-          </div>)
+          </div>) : null
         }
       </div>
     </section>
