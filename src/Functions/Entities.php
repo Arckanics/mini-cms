@@ -14,7 +14,7 @@ class ExtEntityManager {
     $methods = $this->methodsToJson();
     $res = [];
     function isGetMethod($var) {
-      return preg_match('/^get/', $var, $matches);
+      return preg_match('/^get|^is/', $var, $matches);
     }
 
     foreach($methods as $method) {
@@ -34,7 +34,7 @@ class ExtEntityManager {
     foreach ($entities as $entity) {
       $e = [];
       foreach ($methods as $method) {
-        $name = strtolower(preg_replace('/get/', '', $method));
+        $name = strtolower(preg_replace('/^get|^is/', '', $method));
         $e["$name"] = $entity->{"$method"}();
       }
       $res[] = $e;
