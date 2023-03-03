@@ -8,26 +8,34 @@ import axios from 'axios'
 const Articles = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
   const ajax = axios.create({...axiosSet})
-  const data = useSelector((state) => state.ajax.data.articles)
+  const articles = useSelector((state) => state.ajax.data.articles)
+  const pages = useSelector((state) => state.ajax.data.pages)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    !data ? ajax.get(url)
+    !articles ? ajax.get(url)
     .then(res => {
       dispatch(pushData({ name: 'articles', data: res.data }))
     }) : ajax.get('/refresh')
+
+    !pages ? ajax.get('/pages')
+    .then(res => {
+      dispatch(pushData({ name: 'pages', data: res.data }))
+    }) : null
   }, [])
 
   const header = [
     {tag: 'title', name: 'titre', draw: 'value', colSize: 8},
-    {tag: 'page_id', name: 'page', draw: 'value', colSize: 1},
+    {tag: 'page', name: 'page', draw: 'object.title', colSize: 1},
     {tag: 'published', name: 'Visible', draw: 'bool', colSize: 1},
     {tag: 'is_dynamic', name: 'Dynamique', draw: 'bool', colSize: 1}
   ]
 
+  
+
   return (
     <PagesContainer title={'Articles'}>
-      { data && <ContentNav data={data} header={header} action={null} /> }
+      { articles && <ContentNav data={articles} header={header} action={null} /> }
     </PagesContainer>
   )
 }

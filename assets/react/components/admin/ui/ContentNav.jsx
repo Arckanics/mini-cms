@@ -1,17 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { capitalize, isArray } from '../../../Functions/app'
 
 const ContentNav = ({ header, data }) => {
 
-  const setView = (value, set = 'value') => {
-    switch (set) {
-      case 'bool':
-      case 'boolean':
-        return value ? 'true' : 'false';
-      case 'value':
-      case 'number':
+  const setView = (value, set = 'value', tag) => {
+    
+    switch (true) {
+      case new RegExp(/^object\..+/g).test(set):
+        let name = set.split('.')[set.split('.').length-1]
+        return useSelector((state) => state.ajax.data[`${tag}s`])[Number(value)-1][name]
+      case new RegExp(/^bool/g).test(set):
+        return value ? 'true' : 'false'
       default:
-        return value;
+        return value
     }
   }
 
@@ -27,7 +29,7 @@ const ContentNav = ({ header, data }) => {
         {
           data && isArray(data) ? data.map((field, k) => <div key={k} className='content-row'>
             {
-              header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag],draw)}</div>)
+              header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag],draw,tag)}</div>)
             }
             <div className={`row-field colsize-1`}>{capitalize('actions')}</div>
           </div>) : null
