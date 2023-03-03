@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Settings;
 use App\Entity\Pages;
+use App\Entity\Articles;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,8 +60,13 @@ class AdminController extends AbstractController
     }
 
     #[Route('/articles', name: 'app_admin_articles')]
-    public function articles(Request $req): Response
+    public function articles(Request $req, EntityManagerInterface $em): Response
     {
+      if ($this->isXmlHttpReq($req)) {
+        $article = $em->getRepository(Articles::class);
+        $gem = new ExtEntityManager($article, Articles::class);
+        return $this->json($gem->exportData(), 200);
+      }
       return $this->render('admin/index.html.twig', [
         'url' => 'Articles',
       ]);
