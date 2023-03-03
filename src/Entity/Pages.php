@@ -27,6 +27,9 @@ class Pages
     #[ORM\Column]
     private ?int $sort = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $url = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -109,6 +112,18 @@ class Pages
     public function setSort(int $sort): self
     {
         $this->sort = $sort;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
