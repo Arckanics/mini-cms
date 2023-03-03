@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ContentNav from '../ui/ContentNav'
 import axios from 'axios'
 import { pushData } from '../redux/reducers/ajaxSlice'
+import PagesContainer from '../ui/PagesContainer'
 
 const Pages = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
@@ -23,10 +24,9 @@ const Pages = ({ url }) => {
   ]
 
   return (
-    <div className="content-full">
-      <div className='title mb-8'>Pages</div>
-      { data && <ContentNav data={data} header={header} action={null} />}
-    </div>
+    <PagesContainer title={'Pages'}>
+      { data && <ContentNav data={data} header={header} action={null} /> }
+    </PagesContainer>
   )
 }
 
