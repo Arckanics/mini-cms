@@ -40,7 +40,7 @@ class AdminSecurityController extends AbstractController
     if ($error) {
       return new JsonResponse([
         'url' => '/login',
-        'error' => $error
+        'error' => 'Informations de connections incorrectes !'
       ], Response::HTTP_UNAUTHORIZED);
     }
     return new JsonResponse([

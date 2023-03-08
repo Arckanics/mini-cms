@@ -331,7 +331,7 @@ body {
   padding: 10px;
   gap: 10px;
   box-shadow: 0 0 8px 0 $light;
-  @apply flex flex-nowrap justify-start;
+  @apply flex flex-nowrap justify-start overflow-x-hidden;
 }
 
 #login {
