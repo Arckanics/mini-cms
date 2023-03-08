@@ -1,0 +1,53 @@
+@mixin toastType($color, $background) {
+  $shadow: darken($color: $background, $amount: 35%);
+  color: $color;
+  // outline: $shadow 1px solid;
+  box-shadow:
+    0 0 8px 0 transparentize($color: $shadow, $amount: .7),
+    0 0 8px 0 transparentize($color: $shadow, $amount: .9) inset,
+  ;
+  background-color: $background;
+  .toast-btn svg {
+    fill: $color;
+    filter: drop-shadow(0px 0px 4px transparentize($color: $shadow, $amount: .5));
+  }
+}
+
+.toast {
+  position: absolute;
+  transition: transform 1s ease-in-out;
+  top: 10px;
+  right: 10px;
+  min-width: 200px;
+  @apply rounded-md p-2 select-none;
+
+  &.in {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  &.out {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  &.info {
+    @include toastType(hsl(213, 50%, 40%), hsl(213, 50%, 96%))
+  }
+
+  &.warning {
+    @include toastType(hsl(39, 100%, 10%), hsl(39, 100%, 70%))
+  }
+
+  &.danger {
+    @include toastType(hsl(8, 100%, 10%), hsl(8, 100%, 60%))
+  }
+
+  .toast-btn {
+    @apply flex justify-end;
+  }
+
+  .toast-content {
+    @apply p-4
+  }
+}

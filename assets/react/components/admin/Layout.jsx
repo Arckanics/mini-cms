@@ -10,6 +10,7 @@ import Pages from './pages/Pages'
 import Footer from './Footer'
 import { setUrl } from './redux/reducers/ajaxSlice'
 import Articles from './pages/Articles'
+import Toast from './ui/Toast'
 
 
 const Menu = [
@@ -50,6 +51,7 @@ const Layout = () => {
           })
         }
       </Routes>
+      <Toast/>
     </section>
   )
 }
