@@ -1,6 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { capitalize, isArray } from '../../../Functions/app'
+import Success from '../../../icon/icon-ui/Success'
+import Close from '../../../icon/icon-ui/Close'
+
 
 const ContentNav = ({ header, data }) => {
 
@@ -11,7 +14,7 @@ const ContentNav = ({ header, data }) => {
         let name = set.split('.')[set.split('.').length-1]
         return useSelector((state) => state.ajax.data[`${tag}s`])[Number(value)-1][name]
       case new RegExp(/^bool/g).test(set):
-        return value ? 'true' : 'false'
+        return value ? <Success cls='h-5 w-5 m-auto icon success' /> : <Close cls='h-5 w-5 m-auto icon false' />
       default:
         return value
     }
