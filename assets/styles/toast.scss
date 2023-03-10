@@ -43,9 +43,11 @@
 .toast {
   position: absolute;
   transition: transform 400ms ease-in-out, opacity 500ms ease-in-out;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
   min-width: 200px;
+
+  @apply m-4;
 
   @apply rounded-md select-none overflow-hidden;
 
