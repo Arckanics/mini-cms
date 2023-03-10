@@ -1,14 +1,14 @@
 @mixin toastType($color, $background) {
-  $shadow: darken($color: $background, $amount: 35%);
+  $shadow: darken($color: $background, $amount: 10%);
   color: $color;
   outline: 1px solid transparentize($color: $color, $amount: .85);
   box-shadow:
-    0 0 8px 0 transparentize($color: $shadow, $amount: .7),
-    0 0 8px 0 transparentize($color: $shadow, $amount: .9) inset,
+    0 0 8px 0 transparentize($color: $background, $amount: .7),
+    0 0 8px 0 transparentize($color: $background, $amount: .9) inset,
   ;
-  background-color: $background;
-  border-bottom: 2px solid darken($color: $background, $amount: 30%);
-  border-right: 1px solid darken($color: $background, $amount: 20%);
+  background-color: whitesmoke;
+  border-bottom: 2px solid darken($color: $background, $amount: 15%);
+  border-right: 1px solid darken($color: $background, $amount: 10%);
   .toast-btn {
     transition: 250ms;
     outline: solid 1px $color;
@@ -28,7 +28,7 @@
   }
 
   .toast-title {
-    background-color: transparentize($color: $color, $amount: .9);
+    background-color: $background;
     outline: solid 1px transparentize($color: $color, $amount: .7);
     box-shadow: 0 0 8px 0 transparentize($color: $shadow, $amount: .6); 
     .toast-title-icon {
@@ -60,19 +60,19 @@
   }
 
   &.info {
-    @include toastType(darken($color: $secondary , $amount: 10%) , lighten($color: $light , $amount: 10%))
+    @include toastType($secondary, whitesmoke)
   }
 
   &.success {
-    @include toastType(hsl(90, 100%, 15%), hsl(90, 50%, 80%))
+    @include toastType(darken($color: $success, $amount: 40%), $success)
   }
 
   &.warning {
-    @include toastType(hsl(39, 100%, 10%), hsl(39, 100%, 70%))
+    @include toastType(darken($color: $warning, $amount: 50%), $warning)
   }
 
   &.danger {
-    @include toastType(hsl(8, 100%, 5%), hsl(8, 100%, 62%))
+    @include toastType($light, $negative)
   }
 
   .toast-title {

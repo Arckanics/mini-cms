@@ -17,6 +17,23 @@ $light : #EDE9E8;
 $rad-md: 8px;
 $rad-sm: 5px;
 
+// ui-interact-colors
+
+$success: hsl(147,83%,44%);
+$negative: hsl(360,100%,64%);
+$warning: hsl(44,102%,62%);
+
+// icon coloring
+
+.icon {
+  &.success {
+    fill: $success;
+  }
+  &.false {
+    fill: $negative;
+  }
+}
+
 // root
 
 .admin-root {
