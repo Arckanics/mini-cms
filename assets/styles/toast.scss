@@ -1,16 +1,43 @@
 @mixin toastType($color, $background) {
   $shadow: darken($color: $background, $amount: 35%);
   color: $color;
-  // outline: $shadow 1px solid;
+  outline: 1px solid transparentize($color: $color, $amount: .85);
   box-shadow:
     0 0 8px 0 transparentize($color: $shadow, $amount: .7),
     0 0 8px 0 transparentize($color: $shadow, $amount: .9) inset,
   ;
   background-color: $background;
-  .toast-btn svg {
-    fill: $color;
-    filter: drop-shadow(0px 0px 4px transparentize($color: $shadow, $amount: .5));
+  border-bottom: 2px solid darken($color: $background, $amount: 30%);
+  border-right: 1px solid darken($color: $background, $amount: 20%);
+  .toast-btn {
+    transition: 250ms;
+    outline: solid 1px $color;
+    background-color: $color;
+    @apply rounded-md;
+    svg {
+      transition: inherit;
+      fill: $background;
+    }
+
+    &:hover, &:focus, &:focus-within {
+      background-color: $background;
+      svg {
+        fill: $color;
+      }
+    }
   }
+
+  .toast-title {
+    background-color: transparentize($color: $color, $amount: .9);
+    outline: solid 1px transparentize($color: $color, $amount: .7);
+    box-shadow: 0 0 8px 0 transparentize($color: $shadow, $amount: .6); 
+    .toast-title-icon {
+      svg {
+        fill: $color;
+      }
+    }
+  }
+
 }
 
 .toast {
@@ -19,7 +46,8 @@
   top: 10px;
   right: 10px;
   min-width: 200px;
-  @apply rounded-md p-2 select-none;
+
+  @apply rounded-md select-none overflow-hidden;
 
   &.in {
     opacity: 1;
@@ -28,11 +56,15 @@
 
   &.out {
     opacity: 0;
-    transform: translateX(100%);
+    transform: translateX(120%);
   }
 
   &.info {
-    @include toastType(hsl(213, 50%, 40%), hsl(213, 50%, 96%))
+    @include toastType(darken($color: $secondary , $amount: 10%) , lighten($color: $light , $amount: 10%))
+  }
+
+  &.success {
+    @include toastType(hsl(90, 100%, 15%), hsl(90, 50%, 80%))
   }
 
   &.warning {
@@ -40,14 +72,21 @@
   }
 
   &.danger {
-    @include toastType(hsl(8, 100%, 10%), hsl(8, 100%, 60%))
+    @include toastType(hsl(8, 100%, 5%), hsl(8, 100%, 62%))
   }
 
+  .toast-title {
+    @apply flex justify-between p-1;
+    
+  }
+
+  
+
   .toast-btn {
-    @apply flex justify-end;
+    @apply flex cursor-pointer
   }
 
   .toast-content {
-    @apply p-4
+    @apply p-4 mt-2
   }
 }
