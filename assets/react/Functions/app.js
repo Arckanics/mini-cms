@@ -36,6 +36,22 @@ const strContains = (str, search) => {
   return str.search(re) >= 0 ? true : false
 }
 
+// compare deux objets JS
+
+const areEqual = (entry, filter) => {
+  if (Object.entries(entry).length !== Object.entries(filter).length) {
+    return false
+  }
+
+  for (const [key, value] of Object.entries(entry)) {
+    if (filter[key] !== value) {
+      return false
+    }
+  }
+
+  return true
+}
+
 // verifie si la variable est un JSON valide
 
 const isJSON = (json) => {
@@ -53,4 +69,4 @@ const isArray = (array) => {
   return Array.isArray(array)
 }
 
-export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains, cleanPath, isJSON, isArray };
+export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains, cleanPath, isJSON, isArray, areEqual };
