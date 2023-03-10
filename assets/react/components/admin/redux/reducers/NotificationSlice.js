@@ -5,7 +5,7 @@ export const notificationSlice = createSlice({
   initialState: {
     msg: "",
     status: "out",
-    type: "danger",
+    type: "info",
     timeout: null
   },
   reducers: {
@@ -19,7 +19,7 @@ export const notificationSlice = createSlice({
       }
 
       state.timeout = setTimeout(() => {
-        state = {...state, status: 'out'}
+        state = {...state, status: 'out', timeout: null }
       }, 2500);
     },
 
