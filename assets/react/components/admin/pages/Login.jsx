@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { setUrl } from '../redux/reducers/ajaxSlice'
 import { cleanPath } from '../../../Functions/app'
+import { notify, notifyClose } from '../redux/reducers/NotificationSlice'
 
 const Login = () => {
   const nav = useNavigate()
@@ -19,8 +20,6 @@ const Login = () => {
     password: null,
     _token: getToken(),
   })
-
-  const [isError, setIsError] = useState(false)
 
   const handleChange = (e) => {
     setState(state => ({
@@ -35,8 +34,18 @@ const Login = () => {
       .then(res => {
         let url = res.data.url === "/" ? `${baseUrl}` : `${baseUrl}/${res.data.url}`
         dispatch(setUrl(""))
+        dispatch(notify({
+          type: "info", 
+          msg: `Bienvenue ${state.email}`,
+          timeout: setTimeout(() => dispatch(notifyClose()), 2500)
+        }))
         nav(cleanPath(url))
       }).catch(res => {
+        dispatch(notify({
+          type: "warning", 
+          msg: "connection incorrecte",
+          timeout: setTimeout(() => dispatch(notifyClose()), 2500)
+        }))
         nav(`${baseUrl}/login`)
       })
   }

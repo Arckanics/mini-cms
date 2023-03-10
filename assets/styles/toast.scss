@@ -42,7 +42,7 @@
 
 .toast {
   position: absolute;
-  transition: transform 1s ease-in-out;
+  transition: transform 400ms ease-in-out, opacity 500ms ease-in-out;
   top: 10px;
   right: 10px;
   min-width: 200px;
