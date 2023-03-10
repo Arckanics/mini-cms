@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { capitalize } from '../../../Functions/app'
+import { areEqual, capitalize } from '../../../Functions/app'
 import { useDispatch, useSelector } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import Selector from '../ui/Selector'
@@ -14,12 +14,17 @@ const Settings = ({ url }) => {
   const data = useSelector((state) => state.ajax.data.settings)
   const dispatch = useDispatch()
   const [ change, setChange ] = useState(false)
+  const [ initialState, setInitialState ] = useState({})
   
   useEffect(() => {
     !data ? ajax.get(url)
       .then(res => {
         dispatch(pushData({ name: 'settings', data: res.data }))
-      }) : ajax.get('/refresh')
+        setInitialState({...res.data})
+      }) : () => {
+        ajax.get('/refresh')
+        setInitialState({...data})
+      }
   }, [])
 
   const changeName = (v) => {
@@ -38,13 +43,15 @@ const Settings = ({ url }) => {
   }
 
   const handleChange = (e, prop) => {
-    !change ? setChange(true) : null
-    dispatch(pushData({ name: 'settings', data: {...data, [prop]: e.target.value} }))
+    const nData = {...data, [prop]: e.target.value}
+    dispatch(pushData({ name: 'settings', data: nData }))
+    !areEqual(initialState, nData) ? setChange(true) : setChange(false)
   }
 
   const setLanding = (v) => {
-    !change ? setChange(true) : null
-    dispatch(pushData({ name: 'settings', data: {...data, Landing: v} }))
+    const nData = {...data, Landing: v}
+    dispatch(pushData({ name: 'settings', data: nData }))
+    !areEqual(initialState, nData) ? setChange(true) : setChange(false)
   }
 
   return (
