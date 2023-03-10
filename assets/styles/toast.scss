@@ -60,7 +60,7 @@
   }
 
   &.info {
-    @include toastType($secondary, whitesmoke)
+    @include toastType(darken($color: $info, $amount: 40%), $info)
   }
 
   &.success {
@@ -68,11 +68,11 @@
   }
 
   &.warning {
-    @include toastType(darken($color: $warning, $amount: 50%), $warning)
+    @include toastType(darken($color: $warning, $amount: 40%), $warning)
   }
 
   &.danger {
-    @include toastType($light, $negative)
+    @include toastType(darken($color: $negative, $amount: 40%), $negative)
   }
 
   .toast-title {
