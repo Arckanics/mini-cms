@@ -45,12 +45,14 @@ const Settings = ({ url }) => {
   const handleChange = (e, prop) => {
     const nData = {...data, [prop]: e.target.value}
     dispatch(pushData({ name: 'settings', data: nData }))
+    console.log(areEqual(initialState, nData));
     !areEqual(initialState, nData) ? setChange(true) : setChange(false)
   }
 
   const setLanding = (v) => {
     const nData = {...data, Landing: v}
     dispatch(pushData({ name: 'settings', data: nData }))
+    console.log(areEqual(initialState, nData));
     !areEqual(initialState, nData) ? setChange(true) : setChange(false)
   }
 

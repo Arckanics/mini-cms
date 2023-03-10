@@ -36,21 +36,49 @@ const strContains = (str, search) => {
   return str.search(re) >= 0 ? true : false
 }
 
-// compare deux objets JS
+// compare deux objets JS (tout types)
 
-const areEqual = (entry, filter) => {
-  if (Object.entries(entry).length !== Object.entries(filter).length) {
+const areEqual = (obj1,obj2) => {
+  if (typeof obj1 !== typeof obj2) {
     return false
   }
 
-  for (const [key, value] of Object.entries(entry)) {
-    if (filter[key] !== value) {
+  if (isArray(obj1) && isArray(obj2)) {
+    if (obj1.length !== obj2.length) {
       return false
     }
+
+    for (let i = 0; i < obj1.length; i++) {
+      if (!areEqual(obj1[i],obj2[i])) {
+        return false
+      }
+    }
+
+    return true
   }
 
-  return true
+  if (isObject(obj1) && isObject(obj2)) {
+    const ent1 = Object.entries(obj1)
+    const ent2 = Object.entries(obj2)
+    if (ent1.length !== ent2.length) {
+      return false
+    }
+    for (const [key, value] of Object.entries(obj1)) {
+      if (isDefined(value) && isDefined(obj2[key])) {
+        if (!areEqual(obj1[key],obj2[key])) {
+          return false
+        }
+      }
+    }
+
+    return true
+  }
+  return obj1 === obj2
 }
+
+// verifie si la variable est définie
+
+const isDefined = (obj) => obj !== null && obj !== undefined
 
 // verifie si la variable est un JSON valide
 
@@ -62,6 +90,10 @@ const isJSON = (json) => {
   }
   return true
 }
+
+// verifie si la variable est un objet JS
+
+const isObject = (object) => typeof object === "object" && !isArray(object)
 
 // verifie si la variable est un Tableaux 
 
