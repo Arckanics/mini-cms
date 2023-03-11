@@ -7,14 +7,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { setUrl } from '../redux/reducers/ajaxSlice'
 import { cleanPath } from '../../../Functions/app'
-import { notify, notifyClose } from '../redux/reducers/NotificationSlice'
+import { notify, notifyClose } from '../redux/reducers/notificationSlice'
 
 const Login = () => {
+  // router
   const nav = useNavigate()
-  const baseUrl = '/mini-admin'
-  const axiosSet = useSelector((state) => state.ajax.axios)
+  // redux - ajax
   const dispatch = useDispatch()
-  const ajax = axios.create({...axiosSet})
+  const XMLSet = useSelector((state) => state.ajax)
+  const ajax = axios.create({...XMLSet.axios})
+  // redux - Notification
+  const lifetime = useSelector((state) => state.notification.life)
+  // state
   const [state, setState] = useState({
     email: null,
     password: null,
@@ -32,21 +36,21 @@ const Login = () => {
     e.preventDefault()
     ajax.post('/login', { ...state })
       .then(res => {
-        let url = res.data.url === "/" ? `${baseUrl}` : `${baseUrl}/${res.data.url}`
+        let url = res.data.url === "/" ? `${XMLSet.navURL}` : `${XMLSet.navURL}/${res.data.url}`
         dispatch(setUrl(""))
         dispatch(notify({
           type: "info", 
           msg: `Bienvenue ${state.email}`,
-          timeout: setTimeout(() => dispatch(notifyClose()), 2500)
+          timeout: setTimeout(() => dispatch(notifyClose()), lifetime)
         }))
         nav(cleanPath(url))
       }).catch(res => {
         dispatch(notify({
           type: "warning", 
           msg: "connection incorrecte",
-          timeout: setTimeout(() => dispatch(notifyClose()), 2500)
+          timeout: setTimeout(() => dispatch(notifyClose()), lifetime)
         }))
-        nav(`${baseUrl}/login`)
+        nav(`${XMLSet.navURL}/login`)
       })
   }
 
