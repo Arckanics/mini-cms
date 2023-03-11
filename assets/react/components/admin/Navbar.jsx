@@ -4,9 +4,9 @@ import Logout from '../../icon/icon-ui/Logout.jsx'
 import { useLocation } from 'react-router-dom'
 import { updateTitle, endOfPath } from '../../Functions/app'
 import { useDispatch } from 'react-redux'
-import { clearData } from './redux/reducers/ajaxSlice'
+import { clearData, setUrl } from './redux/reducers/ajaxSlice'
 
-const Navbar = ({Pages, swapPage}) => {
+const Navbar = ({Pages}) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const [enable, setEnable] = useState(false)
@@ -36,7 +36,7 @@ const Navbar = ({Pages, swapPage}) => {
             Pages.map(
               ({name,path},i) => {
               return <NavLi key={i} to={`/mini-admin${path}`.replace(/\/$/g, '')}
-                        onClick={() => {updateTitle(path); swapPage(path)}}
+                        onClick={() => {updateTitle(path); dispatch(setUrl(path))}}
                       >
                     <div className='link-txt'>{name}</div>
                     </NavLi>})
