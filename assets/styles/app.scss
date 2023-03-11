@@ -300,7 +300,7 @@ $inp-style: (
   $scales: 1,2,3,4,5,6,7,8,9,10;
   @each $scale in $scales {
     .colsize-#{$scale} {
-      flex-grow: $scale;
+      width: $scale*10+0%
     }
   }
 }
@@ -309,10 +309,9 @@ $inp-style: (
   @include growScale;
   &-header {
     background-color: transparentize($color: $secondary, $amount: 0.3);
-    @apply flex p-3 select-none;
+    @apply flex p-3 select-none text-center justify-between flex-nowrap;
     .header-field {
-      min-width: 180px;
-      @apply text-center;
+      @apply font-extrabold underline underline-offset-2
     }
   }
 
@@ -320,17 +319,24 @@ $inp-style: (
     box-shadow: 0 0 8px 0 transparentize($color: $secondary, $amount: .8) inset;
     @apply rounded-b-xl;
     .content-row {
-      @apply flex p-3;
+      transition: outline 100ms ease-in;
+      @apply flex p-3 justify-between flex-nowrap;
+      outline: transparent solid 2px;
+      outline-offset: -2px;
       &:nth-child(even) {
         background-color: transparentize($color: $secondary, $amount: .8);
       }
       .row-field {
-        min-width: 180px;
-        @apply text-center;
+        @apply text-center justify-between flex-nowrap;
+
         
-        &:last-child {
-          @apply rounded-b-xl;
-        }
+      }
+      &:last-child {
+        @apply rounded-b-xl;
+      }
+
+      &:hover {
+        outline-color: transparentize($color: $secondary, $amount: .5);
       }
     }
   }
