@@ -7,19 +7,20 @@ export const notificationSlice = createSlice({
     status: "out",
     type: "info",
     timeout: null,
+    life: 4000
   },
   reducers: {
     notify: (state, action) => {
       state.timeout ? clearTimeout(state.timeout) : null
       const {type,msg,timeout} = action.payload
       
-      state = {
+      return {
+        ...state,
         msg: msg,
         type: type,
         status : "in",
         timeout: timeout,
       }
-      return state
     },
 
     notifyKeep: (state, action) => {
@@ -40,12 +41,11 @@ export const notificationSlice = createSlice({
 
     notifyClose: (state) => {
       state.timeout ? clearTimeout(state.timeout) : null
-      state = {
+      return {
         ...state,
         timeout: null,
         status: 'out'
       }
-      return state
     }
   }
 })
