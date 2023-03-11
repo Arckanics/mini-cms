@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ajaxSlice from './reducers/ajaxSlice'
-import notificationSlice from "./reducers/notificationSlice";
+import { notificationSlice, ajaxSlice } from './reducers';
 
 export default configureStore({
   reducer: {

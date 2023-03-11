@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react'
-import Login from './pages/Login'
 import Navbar from './Navbar'
 import Content from './Content'
 import { cleanPath } from '../../Functions/app'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import Settings from './pages/Settings'
-import Pages from './pages/Pages'
+import { useDispatch, useSelector } from 'react-redux'
 import Footer from './Footer'
+import { Toast } from './ui'
 import { setUrl } from './redux/reducers/ajaxSlice'
-import Articles from './pages/Articles'
-import Toast from './ui/Toast'
-
+import { Pages, Settings, Articles, Login } from './pages'
 
 const Menu = [
   {name: "Parametres", path: "/", Page: Settings},
@@ -21,11 +17,11 @@ const Menu = [
 
 const Layout = () => {
   const url = useSelector((state) => state.ajax.url)
-  const dispatch = useDispatch()
   const nav = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    url === "" ? swapPage(cleanPath(location.pathname)) : null
+    url === "" ? dispatch(setUrl("")) : null
     location.pathname.match(/\/$/, '') ? nav(cleanPath(location.pathname)) : undefined
   }, [])
 

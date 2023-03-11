@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
+import { PagesContainer, ContentNav } from '../ui'
 import { useDispatch, useSelector } from 'react-redux'
-import ContentNav from '../ui/ContentNav'
-import axios from 'axios'
 import { pushData } from '../redux/reducers/ajaxSlice'
-import PagesContainer from '../ui/PagesContainer'
+import axios from 'axios'
 
 const Pages = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
-import PagesContainer from '../ui/PagesContainer'
-import ContentNav from '../ui/ContentNav'
+import { PagesContainer, ContentNav } from '../ui'
 import { useSelector, useDispatch } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import axios from 'axios'

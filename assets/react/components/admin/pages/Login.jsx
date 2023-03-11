@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import Button from '../ui/Button'
-import TxtInput from '../ui/TxtInput'
+import { Button, TxtInput } from '../ui'
 import { getToken } from '../Functions/Security'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
 import { setUrl } from '../redux/reducers/ajaxSlice'
 import { cleanPath } from '../../../Functions/app'
 import { notify, notifyClose } from '../redux/reducers/notificationSlice'
+import axios from 'axios'
 
 const Login = () => {
   // router
