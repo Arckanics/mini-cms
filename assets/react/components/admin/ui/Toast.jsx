@@ -6,7 +6,7 @@ import Info from '../../../icon/icon-ui/Info'
 import Success from '../../../icon/icon-ui/Success'
 import Warning from '../../../icon/icon-ui/Warning'
 import Danger from '../../../icon/icon-ui/Danger'
-import { notifyClose, notifyKeep } from '../redux/reducers/NotificationSlice'
+import { notifyClose, notifyKeep } from '../redux/reducers/notificationSlice'
 
 const Toast = () => {
   const data = useSelector((state) => state.notification)

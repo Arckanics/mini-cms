@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { cleanPath, endOfPath } from '../../../../Functions/app'
 import { setBaseUrl } from '../../../../Functions/app'
-import axios from 'axios'
 
 export const ajaxSlice = createSlice({
   name: 'ajax',
   initialState: {
     url: '',
     baseUrl: setBaseUrl('mini-admin'),
+    navURL: "/mini-admin",
     axios: {
       baseURL: setBaseUrl('mini-admin'),
       headers: {
