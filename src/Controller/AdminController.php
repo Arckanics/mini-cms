@@ -21,6 +21,9 @@ class AdminController extends AbstractController
 {
     
 
+    private function refreshSession(Request $req) {
+      $req->getSession()->migrate(true, 3600);
+    }
     private function isXmlHttpReq(Request $req): bool {
       return $req->headers->get('XMLHttpRequest') == 'true';
     }
@@ -32,6 +35,7 @@ class AdminController extends AbstractController
         $res = $em->getRepository(Settings::class)->find(1);
         $Pages = $em->getRepository(Pages::class);
         $gem = new ExtEntityManager($Pages, Pages::class, $em);
+        $this->refreshSession($req);
         return $this->json([
           'Author' => $res->getMetaAuthor(),
           'Description' => $res->getMetaDesc(),
@@ -40,7 +44,7 @@ class AdminController extends AbstractController
           'Pages' => $gem->exportData()
         ], 200);
       }
-
+      $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
         'url' => 'Settings',
       ]);
@@ -52,8 +56,10 @@ class AdminController extends AbstractController
       if ($this->isXmlHttpReq($req)) {
         $pages = $em->getRepository(Pages::class);
         $gem = new ExtEntityManager($pages, Pages::class, $em);
+        $this->refreshSession($req);
         return $this->json($gem->exportData(), 200);
       }
+      $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
         'url' => 'Pages',
       ]);
@@ -65,8 +71,10 @@ class AdminController extends AbstractController
       if ($this->isXmlHttpReq($req)) {
         $article = $em->getRepository(Articles::class);
         $gem = new ExtEntityManager($article, Articles::class, $em);
+        $this->refreshSession($req);
         return $this->json($gem->exportData(), 200);
       }
+      $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
         'url' => 'Articles',
       ]);
@@ -75,6 +83,7 @@ class AdminController extends AbstractController
     #[Route('/refresh', name: 'app_admin_refresh')]
     public function refresh(Request $req): Response
     {
+      $this->refreshSession($req);
       return $this->json(['status' => Response::HTTP_ACCEPTED]);
     }
 

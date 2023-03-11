@@ -39,7 +39,6 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
       $password = $request->request->get('password', '');
       $token = $request->request->get('_token');
     }
-
     $token = new CsrfTokenBadge('authenticate', $token);
 
     $request->getSession()->set(Security::LAST_USERNAME, $email);
@@ -68,14 +67,13 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
 
     function fixURL ($url): string {
       $filterURL = "/\/[^\/]+$|\/$/";
-      $apply = preg_match($filterURL, $url, $matches);
+      preg_match($filterURL, $url, $matches);
       return $matches[0];
     }
 
 
 
     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-      
       $response = new JsonResponse([ 'url' => fixURL($targetPath) ]);
       return $response;
     }
