@@ -24,7 +24,8 @@ const Articles = ({ url }) => {
   }, [])
 
   const header = [
-    {tag: 'title', name: 'titre', draw: 'value', colSize: 5},
+    {tag: 'title', name: 'titre', draw: 'string', colSize: 4},
+    {tag: 'sort', name: 'ordre', draw: 'number', colSize: 1},
     {tag: 'page', name: 'page', draw: 'object.title', colSize: 1},
     {tag: 'published', name: 'Visible', draw: 'bool', colSize: 1},
     {tag: 'is_dynamic', name: 'Dynamique', draw: 'bool', colSize: 1}

@@ -231,6 +231,50 @@ $warning: hsl(44,102%,62%);
 
 }
 
+@mixin inputNumber ($active-color) {
+  @apply block p-3 rounded-md text-lg color-dark;
+  background-color: hsl(12, 12%, 92%);
+  box-shadow: 0 0 4px 0 transparentize($color: $active-color, $amount: 0.5) inset;
+  outline: solid transparent 2px;
+
+  &:focus,
+  &:hover {
+    outline-color: $active-color;
+  }
+
+
+
+  &::placeholder {
+    color: transparent;
+  }
+}
+
+.input-number {
+  @include inputNumber($primary);
+  &.secondary {
+    @include inputNumber($secondary);
+  }
+  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+  }
+
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  .arrow-btn-group {
+    @apply p-0 m-0 flex-col;
+  }
+
+  .arrow-btn {
+    appearance: none;
+    display: block;
+    line-height: 50%;
+    font-size: x-small;
+    @apply p-0 m-0;
+  }
+}
+
 // buttons
 
 @mixin btnSetting($color) {
@@ -315,8 +359,21 @@ $inp-style: (
     }
   }
 
+  &-search {
+    @apply flex p-0 select-none text-center justify-between flex-nowrap;
+    .search-field {
+      .input-txt {
+        @apply p-1 px-2
+      }
+      .input-number {
+        @apply p-1 text-center
+      }
+      @apply p-2
+    }
+  }
+
   .content-inner {
-    box-shadow: 0 0 8px 0 transparentize($color: $secondary, $amount: .8) inset;
+    box-shadow: 0 0 8px 0 transparentize($color: $secondary, $amount: .6) inset;
     @apply rounded-b-xl;
     .content-row {
       transition: outline 100ms ease-in;

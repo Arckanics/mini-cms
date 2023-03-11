@@ -101,4 +101,12 @@ const isArray = (array) => {
   return Array.isArray(array)
 }
 
-export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains, cleanPath, isJSON, isArray, areEqual };
+const sortAsc = (a,b) => {
+  return a.sort < b.sort ? -1 : a.sort > b.sort ? 1 : 0
+}
+
+const sortDes = (a,b) => {
+  return a.sort > b.sort ? -1 : a.sort < b.sort ? 1 : 0
+}
+
+export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains, cleanPath, isJSON, isArray, areEqual, sortAsc, sortDes };
