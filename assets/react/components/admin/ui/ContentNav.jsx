@@ -12,11 +12,11 @@ const ContentNav = ({ header, data }) => {
     switch (true) {
       case new RegExp(/^object\..+/g).test(set):
         let name = set.split('.')[set.split('.').length-1]
-        return useSelector((state) => state.ajax.data[`${tag}s`])[Number(value)-1][name]
+        return capitalize(useSelector((state) => state.ajax.data[`${tag}s`])[Number(value)-1][name])
       case new RegExp(/^bool/g).test(set):
         return value ? <Success cls='h-6 w-6 m-auto icon success' /> : <Close cls='h-6 w-6 m-auto icon false' />
       default:
-        return value
+        return capitalize(value)
     }
   }
 
