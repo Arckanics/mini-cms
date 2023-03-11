@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TxtInput } from '../ui'
+import { Button, TxtLabelInput } from '../ui'
 import { getToken } from '../Functions/Security'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -68,10 +68,10 @@ const Login = () => {
   return <form method="POST" id="login" className={'rounded-lg bg-white color-dark'+(isConnected ? ' connected':null)} onSubmit={handleSubmit}>
     <div className='form-title'>Connexion</div>
     <div className='input-group-clear-outline'>
-      <TxtInput type="text" label="Compte(Email)" id="email" value={email} placeholder="adresse email..."
+      <TxtLabelInput type="text" label="Compte(Email)" id="email" value={email} placeholder="adresse email..."
         inputCls='input-txt' labelCls='label' onChange={handleChange}
       />
-      <TxtInput type="password" label="Mot de passe" id="password" value={password} placeholder="mot de passe..."
+      <TxtLabelInput type="password" label="Mot de passe" id="password" value={password} placeholder="mot de passe..."
         inputCls='input-txt' labelCls='label' onChange={handleChange}
       />
     </div>

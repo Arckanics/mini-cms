@@ -5,6 +5,7 @@ import NavLi from './NavLi'
 import PagesContainer from './PagesContainer'
 import Selector from './Selector'
 import Toast from './Toast'
-import TxtInput from './TxtInput'
+import TxtLabelInput from './TxtLabelInput'
+import NumberInput from './NumberInput'
 
-export { Button, ContentNav, CSRFInput, NavLi, PagesContainer, Selector, Toast, TxtInput }
+export { Button, ContentNav, CSRFInput, NavLi, PagesContainer, Selector, Toast, TxtLabelInput, NumberInput }

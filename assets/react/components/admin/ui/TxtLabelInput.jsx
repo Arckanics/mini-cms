@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function TxtInput({ id, value, label, placeholder, type, inputCls, divCls = 'input-wrap p-2', labelCls = 'block p-2', onChange }) {
+function TxtLabelInput({ id, value, label, placeholder, type, inputCls, divCls = 'input-wrap p-2', labelCls = 'block p-2', onChange }) {
   const [isActive, setActive] = useState(false)
   const handleFocus = () => {
     setActive(!isActive);
@@ -13,4 +13,4 @@ function TxtInput({ id, value, label, placeholder, type, inputCls, divCls = 'inp
   )
 }
 
-export default TxtInput
+export default TxtLabelInput
