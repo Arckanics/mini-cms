@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { Button, PagesContainer, Selector, TxtInput } from '../ui'
 import { areEqual, capitalize } from '../../../Functions/app'
 import { useDispatch, useSelector } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
-import Selector from '../ui/Selector'
-import TxtInput from '../ui/TxtInput'
 import axios from 'axios'
-import Button from '../ui/Button'
-import PagesContainer from '../ui/PagesContainer'
 
 const Settings = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
-  const ajax = axios.create({...axiosSet})
+  const ajax = axios.create({ ...axiosSet })
   const data = useSelector((state) => state.ajax.data.settings)
   const dispatch = useDispatch()
-  const [ change, setChange ] = useState(false)
-  const [ initialState, setInitialState ] = useState({})
-  
+  const [change, setChange] = useState(false)
+  const [initialState, setInitialState] = useState({})
+
   useEffect(() => {
     !data ? ajax.get(url)
       .then(res => {
         dispatch(pushData({ name: 'settings', data: res.data }))
-        setInitialState({...res.data})
+        setInitialState({ ...res.data })
       }) : () => {
         ajax.get('/refresh')
-        setInitialState({...data})
+        setInitialState({ ...data })
       }
   }, [])
 
@@ -31,26 +28,26 @@ const Settings = ({ url }) => {
     switch (v) {
       case 'Author':
         return 'auteur';
-      case 'Description': 
+      case 'Description':
         return 'description';
       case 'SiteName':
         return 'nom du site';
       case 'Landing':
         return 'page d\'accueil';
-      default: 
+      default:
         return '';
     }
   }
 
   const handleChange = (e, prop) => {
-    const nData = {...data, [prop]: e.target.value}
+    const nData = { ...data, [prop]: e.target.value }
     dispatch(pushData({ name: 'settings', data: nData }))
     console.log(areEqual(initialState, nData));
     !areEqual(initialState, nData) ? setChange(true) : setChange(false)
   }
 
   const setLanding = (v) => {
-    const nData = {...data, Landing: v}
+    const nData = { ...data, Landing: v }
     dispatch(pushData({ name: 'settings', data: nData }))
     console.log(areEqual(initialState, nData));
     !areEqual(initialState, nData) ? setChange(true) : setChange(false)
@@ -73,8 +70,8 @@ const Settings = ({ url }) => {
             <Selector cls='secondary' iconCls='icon' active={data.Landing} list={data.Pages} action={setLanding}>
               <h2 className='block py-2'>Page</h2>
             </Selector>
-          </> : 
-          null
+          </> :
+            null
         }
         {
           change && <Button btnCls={'btn secondary fadeInLeft'} divCls={"p-2 flex justify-end"}>Sauvegarder</Button>
