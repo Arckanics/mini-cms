@@ -23,6 +23,8 @@ const Login = () => {
     password: null,
     _token: getToken(),
   })
+  // timeoutVar
+  let blurTimeout = null
 
   const handleChange = (e) => {
     setState(state => ({
@@ -33,6 +35,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    blurTimeout = blurTimeout !== null ? clearTimeout(blurTimeout) : setTimeout(() => e.nativeEvent.submitter.blur(), 500)
     ajax.post('/login', { ...state })
       .then(res => {
         let url = res.data.url === "/" ? `${XMLSet.navURL}` : `${XMLSet.navURL}/${res.data.url}`
@@ -44,6 +47,7 @@ const Login = () => {
         }))
         nav(cleanPath(url))
       }).catch(res => {
+        
         dispatch(notify({
           type: "warning", 
           msg: "connection incorrecte",
@@ -55,7 +59,7 @@ const Login = () => {
 
   const { email, password } = state
 
-  return <form method="POST" id="login" className='rounded-lg bg-white color-dark' onSubmit={handleSubmit}>
+  return <form method="POST" id="login" className={'rounded-lg bg-white color-dark'} onSubmit={handleSubmit}>
     <div className='form-title'>Connexion</div>
     <div className='input-group-clear-outline'>
       <TxtInput type="text" label="Compte(Email)" id="email" value={email} placeholder="adresse email..."
