@@ -19,7 +19,7 @@ const Pages = ({ url }) => {
 
   const header = [
     {tag: 'title', name: 'titre', draw: 'value', colSize: 6},
-    {tag: 'settings', name: 'landing', draw: 'bool', colSize: 1}
+    {tag: 'settings', name: 'landing', draw: 'bool', colSize: 2}
   ]
 
   return (
