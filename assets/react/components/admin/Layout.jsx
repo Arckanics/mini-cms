@@ -29,10 +29,6 @@ const Layout = () => {
     location.pathname.match(/\/$/, '') ? nav(cleanPath(location.pathname)) : undefined
   }, [])
 
-  const swapPage = (path) => {
-    dispatch(setUrl(path))
-  }
-
   return (
     <section id="layout">
       <Routes>
@@ -41,7 +37,7 @@ const Layout = () => {
           Menu.map(({path,Page},i) => {
             return <Route key={i} path={`mini-admin${path}`} element={
               <>
-                <Navbar Pages={Menu} swapPage={swapPage}/>
+                <Navbar Pages={Menu} />
                 <Content>
                   <Page url={path} />
                   <Footer/>
