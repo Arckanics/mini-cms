@@ -20,8 +20,8 @@ const Navbar = ({Pages}) => {
   }, [])
 
   const handleLogout = () => {
-    dispatch(clearData())
     updateTitle(n)
+    dispatch(clearData())
   }
 
   return (
