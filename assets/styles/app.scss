@@ -242,8 +242,6 @@ $warning: hsl(44,102%,62%);
     outline-color: $active-color;
   }
 
-
-
   &::placeholder {
     color: transparent;
   }
@@ -260,18 +258,54 @@ $warning: hsl(44,102%,62%);
 
   &[type=number] {
     -moz-appearance: textfield;
+  }  
+}
+
+@mixin numberWrap($color) {
+
+  .arrow-btn {
+    box-shadow: 0 0 2px 1px transparentize($color: $color, $amount: .5) inset;
+    background-color: white;
+  }
+
+  &:hover {
+
   }
 
   .arrow-btn-group {
-    @apply p-0 m-0 flex-col;
+    color: $color;
+  }
+}
+
+.input-number-wrap {
+
+  @include numberWrap($primary);
+
+  .input-number {
+    @apply rounded-none rounded-l-md;
   }
 
-  .arrow-btn {
-    appearance: none;
-    display: block;
-    line-height: 50%;
-    font-size: x-small;
-    @apply p-0 m-0;
+  .arrow-btn-group {
+    color: $primary;
+    @apply p-0 m-0 flex-col flex-nowrap justify-items-start relative;
+    .arrow-btn {
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 50%;
+      @apply p-0 m-0 absolute;
+      &:first-child {
+        @apply rounded-tr-md
+      }
+      &:last-child {
+        top: 50%;
+        @apply rounded-br-md
+      }
+    }
+  }
+
+  &.secondary {
+    @include numberWrap($secondary);
   }
 }
 

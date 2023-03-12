@@ -49,7 +49,7 @@ const ContentNav = ({ header, data }) => {
               switch (true) {
                 case new RegExp(/^num/gi).test(h.draw):
                   return <NumberInput key={k}
-                    cls={`search-field colsize-${h.colSize}`} 
+                    cls={`search-field colsize-${h.colSize} secondary`} 
                     inpCls="input-number secondary" 
                     change={(e) => searchHandleChange(e, h.tag)} 
                     value={search[h.tag]} 
