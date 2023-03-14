@@ -4,6 +4,7 @@ import { capitalize, isArray } from '../../../Functions/app'
 import Success from '../../../icon/icon-ui/Success'
 import Close from '../../../icon/icon-ui/Close'
 import NumberInput from './NumberInput'
+import Checkbox from './Checkbox'
 
 
 const ContentNav = ({ header, data }) => {
@@ -76,7 +77,7 @@ const ContentNav = ({ header, data }) => {
               }
 
               return <div key={k} className={`search-field colsize-${h.colSize} flex justify-items-stretch flex-nowrap`}>
-              <input type='checkbox' className='input-checkbox' checked={search[h.tag].active} onChange={(e) => toggleFilter(e, h.tag)}/>
+              <Checkbox checked={search[h.tag].active} change={(e) => toggleFilter(e, h.tag)}/>
               { Input }
             </div>
             }) :
