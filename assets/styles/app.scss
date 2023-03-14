@@ -313,7 +313,7 @@ $warning: hsl(44,102%,62%);
     line-height: 100%;
     @apply rounded-md text-lg aspect-square absolute m-1.5 cursor-pointer;
     &:last-child {
-      right: 0
+      right: 0;
     }
   }
 
@@ -391,7 +391,10 @@ $inp-style: (
   $scales: 1,2,3,4,5,6,7,8,9,10;
   @each $scale in $scales {
     .colsize-#{$scale} {
-      width: $scale*10+0%
+      width: $scale*10+0%;
+    }
+    .colsize-#{$scale}#{'-5'} {
+      width: $scale*10+5%;
     }
   }
 }
@@ -409,13 +412,16 @@ $inp-style: (
   &-search {
     @apply flex p-0 select-none text-center justify-between flex-nowrap;
     .search-field {
+      gap: 4px;
+      background-color: white;
+      box-shadow: 0 0 2px 0 transparentize($color: $secondary, $amount: .5);
       .input-txt {
         @apply p-1 px-2
       }
       .input-number {
         @apply p-1 text-center
       }
-      @apply p-2
+      @apply m-1 p-1
     }
   }
 

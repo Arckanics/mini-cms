@@ -11,7 +11,7 @@ const ContentNav = ({ header, data }) => {
 
   useEffect(() => {
     const sFields = {}
-    header.map((h) => sFields[h.tag] = "")
+    header.map((h) => sFields[h.tag] = { value: "", active: false})
     updateSearch({...sFields});
   }, [])
 
@@ -30,16 +30,22 @@ const ContentNav = ({ header, data }) => {
     }
   }
 
-  const searchHandleChange = ( e, value, field ) => {
+  const searchHandleChange = ( e, field, value ) => {
     e.stopPropagation()
     switch (field) {
       case 'sort':
         value = value < 0 || value == '' ? 0 : value > data.length - 1 ? data.length - 1 : value
         break;
       default:
+        value = value.toString()
         break;
     }
-    updateSearch({...search, [field] : Number(value)})
+    updateSearch({...search, [field] : {...search[field] , value: value}})
+  }
+
+  const toggleFilter = (e, checked) => {
+    e.stopPropagation();
+    updateSearch({...search, [checked] : {...search[checked] , active: !search[checked].active}})
   }
 
   return (
@@ -54,18 +60,25 @@ const ContentNav = ({ header, data }) => {
         {
           search ? 
             header.map((h, k) => {
+              let Input;
               switch (true) {
                 case new RegExp(/^num/gi).test(h.draw):
-                  return <div key={k} className={`search-field colsize-${h.colSize} `}><NumberInput 
-                    cls={`secondary`} 
-                    inpCls="input-number secondary" 
-                    change={(e, value) => searchHandleChange(e, value, h.tag)} 
-                    value={Number(search[h.tag])} 
-                    name={h.name}
-                  /></div>
+                  Input = <NumberInput 
+                  cls={`secondary colsize-10`} 
+                  inpCls="input-number secondary" 
+                  change={(e, value) => searchHandleChange(e, h.tag, value)} 
+                  value={Number(search[h.tag].value)} 
+                  name={h.name}
+                />
+                break;
                 default:
-                  return <div key={k} className={`search-field colsize-${h.colSize}`}><input type='text' className='input-txt secondary w-full' onChange={(e) => searchHandleChange(e, h.tag)} placeholder={capitalize(h.name)} value={search[h.tag]} /></div>
+                  Input = <input type='text' className='input-txt secondary colsize-10' onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} placeholder={capitalize(h.name)} value={search[h.tag].value} />
               }
+
+              return <div key={k} className={`search-field colsize-${h.colSize} flex justify-items-stretch flex-nowrap`}>
+              <input type='checkbox' className='input-checkbox' checked={search[h.tag].active} onChange={(e) => toggleFilter(e, h.tag)}/>
+              { Input }
+            </div>
             }) :
             null
         }
