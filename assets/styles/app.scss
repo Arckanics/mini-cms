@@ -328,25 +328,31 @@ $warning: hsl(44,102%,62%);
     fill: white;
   }
 
-  &-true, &-false {
-    @apply w-6 aspect-square rounded-md cursor-pointer;
-    outline-offset: -1px;
-  }
-
-  &-false {
-    background-color: #EDE9E8;
-    outline: 2px solid transparentize($color: $color, $amount: .7);
-    box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5) inset;
-  }
-
-  &-true {
-    background-color: $color;
-    outline: 2px solid transparentize($color: $color, $amount: .5)
+  .input-checkbox {
+    &-true, &-false {
+      @apply w-6 aspect-square rounded-md cursor-pointer;
+      outline-offset: -1px;
+    }
+  
+    &-false {
+      background-color: #EDE9E8;
+      outline: 2px solid transparentize($color: $color, $amount: .7);
+      box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5) inset;
+    }
+  
+    &-true {
+      background-color: $color;
+      outline: 2px solid transparentize($color: $color, $amount: .5)
+    }
   }
 }
 
 .input-checkbox {
   @include checkBox($primary);
+
+  &.secondary {
+    @include checkBox($secondary);
+  }
 
   @apply flex flex-col justify-center;
 }

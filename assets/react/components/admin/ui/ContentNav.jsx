@@ -77,7 +77,7 @@ const ContentNav = ({ header, data }) => {
               }
 
               return <div key={k} className={`search-field colsize-${h.colSize} flex justify-items-stretch flex-nowrap`}>
-              <Checkbox checked={search[h.tag].active} change={(e) => toggleFilter(e, h.tag)}/>
+              <Checkbox cls='secondary' checked={search[h.tag].active} change={(e) => toggleFilter(e, h.tag)}/>
               { Input }
             </div>
             }) :
