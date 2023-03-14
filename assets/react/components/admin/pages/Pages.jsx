@@ -18,8 +18,8 @@ const Pages = ({ url }) => {
   }, [])
 
   const header = [
-    {tag: 'title', name: 'titre', draw: 'string', colSize: 5},
-    {tag: 'sort', name: 'ordre', draw: 'number', colSize: 1},
+    {tag: 'title', name: 'titre', draw: 'string', colSize: 4},
+    {tag: 'sort', name: 'ordre', draw: 'number', colSize: "1-5"},
     {tag: 'settings', name: 'landing', draw: 'bool', colSize: 2}
   ]
 
