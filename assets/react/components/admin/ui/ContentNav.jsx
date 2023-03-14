@@ -30,8 +30,16 @@ const ContentNav = ({ header, data }) => {
     }
   }
 
-  const searchHandleChange = ( e, field ) => {
-    console.log(e,field);
+  const searchHandleChange = ( e, value, field ) => {
+    e.stopPropagation()
+    switch (field) {
+      case 'sort':
+        value = value < 0 || value == '' ? 0 : value > data.length - 1 ? data.length - 1 : value
+        break;
+      default:
+        break;
+    }
+    updateSearch({...search, [field] : Number(value)})
   }
 
   return (
@@ -48,11 +56,11 @@ const ContentNav = ({ header, data }) => {
             header.map((h, k) => {
               switch (true) {
                 case new RegExp(/^num/gi).test(h.draw):
-                  return <div className={`search-field colsize-${h.colSize} `}><NumberInput key={k}
+                  return <div key={k} className={`search-field colsize-${h.colSize} `}><NumberInput 
                     cls={`secondary`} 
                     inpCls="input-number secondary" 
-                    change={(e) => searchHandleChange(e, h.tag)} 
-                    value={search[h.tag]} 
+                    change={(e, value) => searchHandleChange(e, value, h.tag)} 
+                    value={Number(search[h.tag])} 
                     name={h.name}
                   /></div>
                 default:
