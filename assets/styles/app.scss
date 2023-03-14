@@ -322,6 +322,35 @@ $warning: hsl(44,102%,62%);
   }
 }
 
+@mixin checkBox($color) {
+
+  svg {
+    fill: white;
+  }
+
+  &-true, &-false {
+    @apply w-6 aspect-square rounded-md cursor-pointer;
+    outline-offset: -1px;
+  }
+
+  &-false {
+    background-color: #EDE9E8;
+    outline: 2px solid transparentize($color: $color, $amount: .7);
+    box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5) inset;
+  }
+
+  &-true {
+    background-color: $color;
+    outline: 2px solid transparentize($color: $color, $amount: .5)
+  }
+}
+
+.input-checkbox {
+  @include checkBox($primary);
+
+  @apply flex flex-col justify-center;
+}
+
 // buttons
 
 @mixin btnSetting($color) {
@@ -412,7 +441,7 @@ $inp-style: (
   &-search {
     @apply flex p-0 select-none text-center justify-between flex-nowrap;
     .search-field {
-      gap: 4px;
+      gap: 8px;
       background-color: white;
       box-shadow: 0 0 2px 0 transparentize($color: $secondary, $amount: .5);
       .input-txt {
@@ -421,7 +450,7 @@ $inp-style: (
       .input-number {
         @apply p-1 text-center
       }
-      @apply m-1 p-1
+      @apply m-1 p-1 pl-2
     }
   }
 
