@@ -48,13 +48,13 @@ const ContentNav = ({ header, data }) => {
             header.map((h, k) => {
               switch (true) {
                 case new RegExp(/^num/gi).test(h.draw):
-                  return <NumberInput key={k}
-                    cls={`search-field colsize-${h.colSize} secondary`} 
+                  return <div className={`search-field colsize-${h.colSize} `}><NumberInput key={k}
+                    cls={`secondary`} 
                     inpCls="input-number secondary" 
                     change={(e) => searchHandleChange(e, h.tag)} 
                     value={search[h.tag]} 
                     name={h.name}
-                  />
+                  /></div>
                 default:
                   return <div key={k} className={`search-field colsize-${h.colSize}`}><input type='text' className='input-txt secondary w-full' onChange={(e) => searchHandleChange(e, h.tag)} placeholder={capitalize(h.name)} value={search[h.tag]} /></div>
               }
