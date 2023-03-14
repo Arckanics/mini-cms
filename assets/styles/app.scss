@@ -270,7 +270,7 @@ $warning: hsl(44,102%,62%);
   .arrow-btn {
     background-color: white;
     color: $color;
-    border: 1px solid transparentize($color: $color, $amount: 0.5);
+    outline: 2px solid transparentize($color: $color, $amount: 0.7);
 
     &:hover {
       background-color: $color;
@@ -300,7 +300,7 @@ $warning: hsl(44,102%,62%);
 
   @include numberWrap($primary);
 
-  @apply p-0 rounded-md;
+  @apply p-0 rounded-md overflow-hidden;
 
   .input-number {
     @apply text-lg rounded-none cursor-pointer;
@@ -309,8 +309,9 @@ $warning: hsl(44,102%,62%);
     
 
   .arrow-btn {
-    height: calc(100% - .5rem);
-    @apply rounded-md text-lg aspect-square absolute m-1 cursor-pointer;
+    height: calc(100% - .75rem);
+    line-height: 100%;
+    @apply rounded-md text-lg aspect-square absolute m-1.5 cursor-pointer;
     &:last-child {
       right: 0
     }
