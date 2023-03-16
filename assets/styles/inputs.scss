@@ -1,0 +1,215 @@
+@mixin inputTxt ($active-color) {
+  @apply block p-3 rounded-md text-lg color-dark;
+  background-color: hsl(12, 12%, 92%);
+  box-shadow: 0 0 4px 0 transparentize($color: $active-color, $amount: 0.5) inset;
+  outline: solid transparent 2px;
+
+  &:focus,
+  &:hover {
+    outline-color: $active-color;
+  }
+
+
+
+  &::placeholder {
+    color: transparentize($color: $active-color, $amount: .3);
+  }
+}
+
+@mixin inputWrap($color) {
+  transition: 150ms;
+
+  &>* {
+    transition: 150ms;
+  }
+
+  &.active {
+    & .label {
+      @apply pl-2;
+      color: darken($color: $color, $amount: 10);
+      text-decoration-color: transparent;
+    }
+  }
+
+  border-radius: $rad-md;
+
+  &:hover,
+  &.active {
+    background-color: transparentize($color: $color, $amount: .9)
+  }
+}
+
+.input-wrap {
+  @include inputWrap($primary);
+  &.secondary {
+    @include inputWrap($secondary);
+  }
+}
+
+.input-txt[type=text],
+.input-txt[type=password] {
+  @include inputTxt($primary);
+  &.secondary {
+    @include inputTxt($secondary);
+  }
+
+}
+
+@mixin inputNumber ($active-color) {
+  background-color: hsl(12, 12%, 92%);
+  box-shadow: 0 0 4px 0 transparentize($color: $active-color, $amount: 0.5) inset;
+  outline: solid transparent 2px;
+
+  &:focus,
+  &:hover {
+    outline-color: $active-color;
+  }
+
+  &::placeholder {
+    color: transparent;
+  }
+}
+
+.input-number {
+  @include inputNumber($primary);
+  &.secondary {
+    @include inputNumber($secondary);
+  }
+  @apply block p-3 rounded-md color-dark;
+  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+  }
+
+  &[type=number] {
+    -moz-appearance: textfield;
+  }  
+}
+
+@mixin numberWrap($color) {
+
+  background-color: $light;
+  box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.5) inset;
+  outline: solid transparent 2px;
+
+  .arrow-btn {
+    background-color: white;
+    color: $color;
+    outline: 2px solid transparentize($color: $color, $amount: 0.7);
+
+    &:hover {
+      background-color: $color;
+      color: white;
+    }
+  }
+
+  &:focus-within,
+    &:hover {
+      outline-color: $color;
+    }
+
+  .input-number {
+    background-color: transparent !important;
+    box-shadow: none;
+    outline: none;
+
+    
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
+}
+
+.input-number-wrap {
+
+  @include numberWrap($primary);
+
+  @apply p-0 rounded-md overflow-hidden;
+
+  .input-number {
+    @apply text-lg rounded-none cursor-pointer;
+    @apply px-8 #{!important};
+  }
+    
+
+  .arrow-btn {
+    height: calc(100% - .75rem);
+    line-height: 100%;
+    @apply rounded-md text-lg aspect-square absolute m-1.5 cursor-pointer;
+    &:last-child {
+      right: 0;
+    }
+  }
+
+  &.secondary {
+    @include numberWrap($secondary);
+  }
+}
+
+@mixin checkBox($color) {
+
+  svg {
+    fill: white;
+  }
+
+  .input-checkbox {
+    &-true, &-false {
+      @apply w-6 aspect-square rounded-md cursor-pointer;
+      outline-offset: -2px;
+    }
+  
+    &-false {
+      background-color: #EDE9E8;
+      outline: 3px solid transparentize($color: $color, $amount: .7);
+      box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5) inset;
+    }
+  
+    &-true {
+      background-color: $color;
+      outline: 3px solid transparentize($color: $color, $amount: .5)
+    }
+  }
+}
+
+.input-checkbox {
+  @include checkBox($primary);
+
+  &.secondary {
+    @include checkBox($secondary);
+  }
+
+  @apply flex flex-col justify-center;
+}
+
+$inp-style: (
+  "primary": $primary,
+  "dark": $dark,
+  "clear": transparent
+);
+
+.input-group {
+
+
+  @each $key,
+  $val in $inp-style {
+    &-#{$key}-outline {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: .5rem;
+
+      @if $key !="clear" {
+        @apply p-2 m-2;
+      }
+
+      @else {
+        @apply p-0 m-2;
+      }
+
+      border-radius: $rad-md;
+      outline-offset: -2px;
+      outline: solid transparent 2px;
+      outline-color: transparentize($color: $val, $amount: 0.8);
+    }
+  }
+}
