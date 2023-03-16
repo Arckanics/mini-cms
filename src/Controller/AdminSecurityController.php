@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AdminSecurityController extends AbstractController
 {
   #[Route(path: '/mini-admin/login', name: 'app_login')]
-  public function login(AuthenticationUtils $authenticationUtils, Request $request): Response|JsonResponse
+  public function login(AuthenticationUtils $authenticationUtils, Request $request, Security $security): Response|JsonResponse
   {
     $error = $authenticationUtils->getLastAuthenticationError();
   
@@ -38,14 +39,16 @@ class AdminSecurityController extends AbstractController
     }
 
     if ($error) {
-      return new JsonResponse([
+      return $this->json([
         'url' => '/login',
         'error' => 'Informations de connections incorrectes !'
       ], Response::HTTP_UNAUTHORIZED);
     }
-    return new JsonResponse([
+    $user = $this->getUser();
+    $security->login($user);
+    return $this->json([
       'url' => '/'
-    ]);
+    ], Response::HTTP_ACCEPTED);
   }
 
   #[Route(path: '/mini-admin/logout', name: 'app_logout')]
