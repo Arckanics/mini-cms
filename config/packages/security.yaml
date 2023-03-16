@@ -18,8 +18,10 @@ security:
             provider: app_user_provider
             custom_authenticator: App\Security\AdminAuthenticator                
             logout:
-                path: app_logout
-                target: app_login
+              path: app_logout
+              target: app_login
+            json_login:
+              check_path: app_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

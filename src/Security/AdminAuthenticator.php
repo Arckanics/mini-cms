@@ -60,8 +60,7 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
         $response = new RedirectResponse($targetPath);
         return $response;
       }
-      // For example:
-      $response = new RedirectResponse($this->urlGenerator->generate('app_admin'));
+      $response = new RedirectResponse($this->urlGenerator->generate('app_admin_baseapp_admin'));
       return $response;
     }
 
@@ -72,14 +71,13 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
     }
 
 
-
+    $response = [ 'url' => fixURL($this->urlGenerator->generate('app_admin_baseapp_admin')) ];
     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-      $response = new JsonResponse([ 'url' => fixURL($targetPath) ]);
-      return $response;
+      $response = [ 'url' => fixURL($targetPath) ];
     }
     // For example:
-    $response = new JsonResponse([ 'url' => fixURL($this->urlGenerator->generate('app_admin_baseapp_admin')) ]);
-    return $response;
+    $send = new JsonResponse($response);
+    return $send;
 
     
     // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
