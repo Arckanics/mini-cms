@@ -36,6 +36,60 @@ const strContains = (str, search) => {
   return str.search(re) >= 0 ? true : false
 }
 
+// normalize un string pour filtre
+
+const strNormalize = (str) => {
+  const test = (l,reg) => new RegExp(reg).test(l)
+  return str.toLowerCase()
+    .replace(/[^a-z]/g, (w) => {
+      switch (true) {
+        case test(w ,/ã|à|á|â|ä/gi):
+          return "a"
+        case test(w, /è|é|ê|ë/gi):
+          return "e"
+        case test(w, /ì|í|î|ï/gi):
+          return "i"
+        case test(w, /õ|ò|ó|ô|ö/gi):
+          return "o"
+        case test(w, /ù|ú|û|ü/gi):
+          return "u"
+        case test(w, /ý|ÿ/gi):
+          return "y"
+        case test(w, /ñ/gi):
+          return "n"
+        case test(w, /œ/gi):
+          return "oe"
+        case test(w, /æ/gi):
+          return "ae"
+        case test(w, /ç/gi):
+          return "c"
+        case test(w, /ß/gi):
+          return "ss"
+        default:
+          return w
+      }
+    })
+}
+
+// trouver une props booléen (vrai ou faux) dans un objet recursif
+
+const getPropsBoolStatus = (obj, prop, boolState) => {
+
+  if (obj[prop]) {
+    return obj[prop] === boolState;
+  }
+
+  for (const [key,value] of Object.entries(obj)) {
+    if (isObject(value)) {
+      if (getPropsBoolStatus(value, prop, boolState)) {
+        return true
+      }
+    }
+  }
+
+  return false
+}
+
 // compare deux objets JS (tout types)
 
 const areEqual = (obj1,obj2) => {
@@ -109,4 +163,18 @@ const sortDes = (a,b) => {
   return a.sort > b.sort ? -1 : a.sort < b.sort ? 1 : 0
 }
 
-export { setBaseUrl, capitalize, updateTitle, endOfPath, strContains, cleanPath, isJSON, isArray, areEqual, sortAsc, sortDes };
+export { 
+  setBaseUrl, 
+  capitalize, 
+  updateTitle, 
+  endOfPath, 
+  strContains, 
+  cleanPath, 
+  isJSON, 
+  isArray, 
+  areEqual, 
+  sortAsc, 
+  sortDes,
+  getPropsBoolStatus,
+  strNormalize,
+};

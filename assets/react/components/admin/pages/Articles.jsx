@@ -31,11 +31,9 @@ const Articles = ({ url }) => {
     {tag: 'is_dynamic', name: 'Dynamique', draw: 'bool', colSize: 1}
   ]
 
-  
-
   return (
     <PagesContainer title={'Articles'}>
-      { articles && <ContentNav data={articles} header={header} action={null} /> }
+      { (articles && pages) && <ContentNav data={articles} header={header} action={null} /> }
     </PagesContainer>
   )
 }
