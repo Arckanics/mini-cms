@@ -331,18 +331,18 @@ $warning: hsl(44,102%,62%);
   .input-checkbox {
     &-true, &-false {
       @apply w-6 aspect-square rounded-md cursor-pointer;
-      outline-offset: -1px;
+      outline-offset: -2px;
     }
   
     &-false {
       background-color: #EDE9E8;
-      outline: 2px solid transparentize($color: $color, $amount: .7);
+      outline: 3px solid transparentize($color: $color, $amount: .7);
       box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5) inset;
     }
   
     &-true {
       background-color: $color;
-      outline: 2px solid transparentize($color: $color, $amount: .5)
+      outline: 3px solid transparentize($color: $color, $amount: .5)
     }
   }
 }
