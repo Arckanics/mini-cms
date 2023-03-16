@@ -4,8 +4,6 @@ import Hello from '../components/helloWorld';
 
 // Index Root Component
 
-function Main() {
-  return <div><Hello/></div>
-}
+const Main = () => <div><Hello/></div>
 
 export default Main

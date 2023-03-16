@@ -4,12 +4,11 @@ import Layout from "../components/admin/Layout"
 import store from '../components/admin/redux'
 import { Provider } from "react-redux"
 
-function MainAdmin() {
-  return <Provider store={store}>
+const MainAdmin = () =>
+  <Provider store={store}>
     <Router>
       <Layout/>
     </Router>
   </Provider>
-}
 
 export default MainAdmin

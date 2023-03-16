@@ -44,8 +44,6 @@ class AdminSecurityController extends AbstractController
         'error' => 'Informations de connections incorrectes !'
       ], Response::HTTP_UNAUTHORIZED);
     }
-    $user = $this->getUser();
-    $security->login($user);
     return $this->json([
       'url' => '/'
     ], Response::HTTP_ACCEPTED);
