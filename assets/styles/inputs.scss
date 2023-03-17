@@ -152,13 +152,21 @@
     fill: white;
   }
 
+  &:hover .input-checkbox-false {
+    outline: 2px solid transparentize($color: $color, $amount: .2);
+  }
+
   .input-checkbox {
+
+    
+
     &-true, &-false {
       @apply w-6 aspect-square rounded-md cursor-pointer;
       outline-offset: -2px;
     }
   
     &-false {
+      
       background-color: #EDE9E8;
       outline: 3px solid transparentize($color: $color, $amount: .7);
       box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5) inset;
@@ -172,6 +180,7 @@
 }
 
 .input-checkbox {
+  transition: 150ms;
   @include checkBox($primary);
 
   &.secondary {
@@ -223,13 +232,17 @@ $inp-style: (
 }
 
 @mixin inputSwitch($color) {
-  outline: solid 1px transparentize($color: $color, $amount: .5);
+  outline: solid 3px transparentize($color: $color, $amount: .6);
+  &:hover {
+    outline: solid 3px transparentize($color: $color, $amount: .3);
+  }
 }
 
 .input-switch {
   transition: 150ms;
   @apply w-11 m-auto p-1 block relative h-5 cursor-pointer rounded-full;
   @include inputSwitch($primary);
+  outline-offset: -1px;
 
   &.secondary {
     @include inputSwitch($secondary);
