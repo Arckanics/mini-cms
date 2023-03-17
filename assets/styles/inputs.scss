@@ -213,3 +213,45 @@ $inp-style: (
     }
   }
 }
+
+@mixin inputSwitchBool($color) {
+  background-color: $color;
+  box-shadow: 0 0 3px 0 darken($color: $color, $amount: 35%) inset;
+  .input-switch-button {
+    box-shadow: 0 0 2px 0px darken($color: $color, $amount: 35%) inset, 0 0 3px 0 darken($color: $color, $amount: 45%);
+  }
+}
+
+@mixin inputSwitch($color) {
+  outline: solid 1px transparentize($color: $color, $amount: .5);
+}
+
+.input-switch {
+  transition: 150ms;
+  @apply w-11 m-auto p-1 block relative h-5 cursor-pointer rounded-full;
+  @include inputSwitch($primary);
+
+  &.secondary {
+    @include inputSwitch($secondary);
+  }
+
+  .input-switch-button {
+    @apply h-4 w-4 rounded-full absolute;
+    transition: 150ms;
+    top: .125rem;
+    left: .125rem;
+    background-color: white;
+    
+  }
+
+  &.false {
+    @include inputSwitchBool($negative);
+  }
+
+  &.true {
+    .input-switch-button {
+      left: calc(2.75rem - 1.125rem);
+    }
+    @include inputSwitchBool($success);
+  }
+}
