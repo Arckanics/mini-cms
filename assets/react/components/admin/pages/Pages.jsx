@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import axios from 'axios'
 
-const Pages = ({ url }) => {
+
+// CRUD Complet pour les Pages
+
+const Pages = () => {
   const axiosSet = useSelector((state) => state.ajax.axios)
   const ajax = axios.create({...axiosSet, params: {page: 'pages'}})
   const data = useSelector((state) => state.ajax.data.pages)
@@ -14,6 +17,11 @@ const Pages = ({ url }) => {
     ajax.get('/request')
     .then(res => {
       dispatch(pushData({ name: 'pages', data: res.data }))
+    }).catch(res => {
+      const status = res.response.status
+      if (status === 302) {
+        location.replace('/mini-admin/logout')
+      }
     })
   }, [])
 

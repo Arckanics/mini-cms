@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import axios from 'axios'
 
-const Settings = ({ url }) => {
+// RUD complet pour les options de site
+
+const Settings = () => {
   const axiosSet = useSelector((state) => state.ajax.axios)
   const ajax = axios.create({ ...axiosSet })
   const data = useSelector((state) => state.ajax.data.settings)
@@ -18,6 +20,11 @@ const Settings = ({ url }) => {
       .then(res => {
         dispatch(pushData({ name: 'settings', data: res.data }))
         setInitialState({ ...res.data })
+      }).catch(res => {
+        const status = res.response.status
+        if (status === 302) {
+          location.replace('/mini-admin/logout')
+        }
       })
   }, [])
 

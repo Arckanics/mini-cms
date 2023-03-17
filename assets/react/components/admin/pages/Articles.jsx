@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { PagesContainer, ContentNav } from '../ui'
 import { useSelector, useDispatch } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import axios from 'axios'
 
-const Articles = ({ url }) => {
+// CRUD Complet pour les Articles
+
+const Articles = () => {
   const axiosSet = useSelector((state) => state.ajax.axios)
   const ajax = axios.create({...axiosSet, params: {page: 'articles'}})
   const articles = useSelector((state) => state.ajax.data.articles)
@@ -15,11 +17,21 @@ const Articles = ({ url }) => {
     ajax.get('/request')
     .then(res => {
       dispatch(pushData({ name: 'articles', data: res.data }))
+    }).catch(res => {
+      const status = res.response.status
+      if (status === 302) {
+        location.replace('/mini-admin/logout')
+      }
     })
 
     ajax.get('/request', {...axiosSet, params: {page: 'pages'}})
     .then(res => {
       dispatch(pushData({ name: 'pages', data: res.data }))
+    }).catch(res => {
+      const status = res.response.status
+      if (status === 302) {
+        location.replace('/mini-admin/logout')
+      }
     })
   }, [])
 
