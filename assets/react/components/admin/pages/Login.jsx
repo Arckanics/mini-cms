@@ -53,7 +53,6 @@ const Login = () => {
         setConnected(true)
         setTimeout(()=>nav(cleanPath(url)),400)
       }).catch(res => {
-        
         dispatch(notify({
           type: "warning", 
           msg: "connection incorrecte",

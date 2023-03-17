@@ -22,8 +22,7 @@ class AdminSecurityController extends AbstractController
       }
   
     $lastUsername = $authenticationUtils->getLastUsername();
-    $ajax = $request->headers->get('XMLHttpRequest');
-    if (!$ajax) {
+    if (!$request->isXmlHttpRequest()) {
       
       if ($this->getUser()) {
         $response = $this->redirectToRoute('app_admin_baseapp_admin');
