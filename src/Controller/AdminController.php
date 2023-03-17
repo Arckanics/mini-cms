@@ -26,7 +26,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/', name: 'app_admin')]
-    public function index(Request $req, EntityManagerInterface $em): Response | JsonResponse
+    public function index(Request $req): Response | JsonResponse
     {
       $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
@@ -35,7 +35,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/pages', name: 'app_admin_pages')]
-    public function pages(Request $req, EntityManagerInterface $em): Response | JsonResponse
+    public function pages(Request $req): Response | JsonResponse
     {
       $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
@@ -44,7 +44,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/articles', name: 'app_admin_articles')]
-    public function articles(Request $req, EntityManagerInterface $em): Response | JsonResponse
+    public function articles(Request $req): Response | JsonResponse
     {
       $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
