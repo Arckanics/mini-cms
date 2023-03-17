@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Functions\Entities\ExtEntityManager;
@@ -21,16 +22,24 @@ class AdminController extends AbstractController
 {
     
 
-    private function refreshSession(Request $req) {
-      $req->getSession()->migrate(false, 7200);
+    private function refreshSession(Session $session) {
+      $ttl = 10;
+      if (time() - $session->getMetadataBag()->getLastUsed() > $ttl) {
+        $session->invalidate(0);
+        return false;
+      } 
+      $session->migrate(true, $ttl);
+      return true;
     }
 
     // Route pour le landing sur settings
 
     #[Route('/', name: 'app_admin')]
-    public function index(Request $req): Response | JsonResponse
+    public function index(Session $session): Response | JsonResponse
     {
-      $this->refreshSession($req);
+      if (!$this->refreshSession($session)) {
+        return $this->redirectToRoute('app_logout');
+      }
       return $this->render('admin/index.html.twig', [
         'url' => 'Settings',
       ]);
@@ -39,9 +48,11 @@ class AdminController extends AbstractController
     // Route pour le landing sur pages
 
     #[Route('/pages', name: 'app_admin_pages')]
-    public function pages(Request $req): Response | JsonResponse
+    public function pages(Session $session): Response | JsonResponse
     {
-      $this->refreshSession($req);
+      if (!$this->refreshSession($session)) {
+        return $this->redirectToRoute('app_logout');
+      }
       return $this->render('admin/index.html.twig', [
         'url' => 'Pages',
       ]);
@@ -50,9 +61,11 @@ class AdminController extends AbstractController
     // Route pour le landing sur articles
 
     #[Route('/articles', name: 'app_admin_articles')]
-    public function articles(Request $req): Response | JsonResponse
+    public function articles(Session $session): Response | JsonResponse
     {
-      $this->refreshSession($req);
+      if (!$this->refreshSession($session)) {
+        return $this->redirectToRoute('app_logout');
+      }
       return $this->render('admin/index.html.twig', [
         'url' => 'Articles',
       ]);
@@ -61,9 +74,11 @@ class AdminController extends AbstractController
     // Route pour gérer toutes les requêtes de l'ui admin
 
     #[Route('/request', name: 'app_admin_request')]
-    public function request(Request $req, EntityManagerInterface $em): JsonResponse
+    public function request(Request $req, EntityManagerInterface $em, Session $session): Response | JsonResponse
     {
-      $this->refreshSession($req);
+      if (!$this->refreshSession($session)) {
+        return new JsonResponse(['redirect' => '/logout'], 302);
+      }
       if ($req->getMethod() === "GET") {
         $body = $req->query->all();
         $default = ['page' => 'settings'];
