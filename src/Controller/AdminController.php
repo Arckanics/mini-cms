@@ -23,7 +23,7 @@ class AdminController extends AbstractController
     
 
     private function refreshSession(Session $session) {
-      $ttl = 10;
+      $ttl = 7200;
       if (time() - $session->getMetadataBag()->getLastUsed() > $ttl) {
         $session->invalidate(0);
         return false;
