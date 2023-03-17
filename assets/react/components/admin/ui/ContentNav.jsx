@@ -5,6 +5,7 @@ import Success from '../../../icon/icon-ui/Success'
 import Close from '../../../icon/icon-ui/Close'
 import NumberInput from './NumberInput'
 import Checkbox from './Checkbox'
+import SwitchInput from './SwitchInput'
 
 
 const ContentNav = ({ header, data }) => {
@@ -13,7 +14,7 @@ const ContentNav = ({ header, data }) => {
   useEffect(() => {
     
     const sFields = {}
-    header.map((h) => sFields[h.tag] = { value: h.draw === "number" ? 0 : "", active: false })
+    header.map((h) => sFields[h.tag] = { value: h.draw === "number" ? 0 : h.draw.match(/^bool/) ? false : "", active: false })
     updateSearch({ ...sFields });
   }, [])
 
@@ -117,6 +118,9 @@ const ContentNav = ({ header, data }) => {
                     value={Number(search[h.tag].value)}
                     name={h.name}
                   />
+                  break;
+                case new RegExp(/^bool/gi).test(h.draw):
+                  Input = <SwitchInput value={search[h.tag].value} />
                   break;
                 default:
                   Input = <input type='text' className='input-txt secondary colsize-10' onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} placeholder={capitalize(h.name)} value={search[h.tag].value} />
