@@ -11,7 +11,7 @@ export const ajaxSlice = createSlice({
     axios: {
       baseURL: setBaseUrl('mini-admin'),
       headers: {
-        'XMLHttpRequest': true,
+        'X-Requested-With': 'XMLHttpRequest',
       }
     },
     data: {}

@@ -6,21 +6,21 @@ import axios from 'axios'
 
 const Articles = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
-  const ajax = axios.create({...axiosSet})
+  const ajax = axios.create({...axiosSet, params: {page: 'articles'}})
   const articles = useSelector((state) => state.ajax.data.articles)
   const pages = useSelector((state) => state.ajax.data.pages)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    !articles ? ajax.get(url)
+    ajax.get('/request')
     .then(res => {
       dispatch(pushData({ name: 'articles', data: res.data }))
-    }) : ajax.get('/refresh')
+    })
 
-    !pages ? ajax.get('/pages')
+    ajax.get('/request', {...axiosSet, params: {page: 'pages'}})
     .then(res => {
       dispatch(pushData({ name: 'pages', data: res.data }))
-    }) : null
+    })
   }, [])
 
   const header = [
