@@ -11,13 +11,15 @@ import SwitchInput from './SwitchInput'
 const ContentNav = ({ header, data }) => {
   const [search, updateSearch] = useState(null);
   const ajaxData = useSelector((state) => state.ajax.data)
+
   useEffect(() => {
-    
+    // initiation des filtres
     const sFields = {}
     header.map((h) => sFields[h.tag] = { value: h.draw === "number" ? 0 : h.draw.match(/^bool/) ? false : "", active: false })
     updateSearch({ ...sFields });
   }, [])
 
+  // format les donnée pour affichage
   const setView = (value, set = 'value', tag) => {
     switch (true) {
       case new RegExp(/^object\..+/g).test(set):
@@ -32,6 +34,8 @@ const ContentNav = ({ header, data }) => {
     }
   }
 
+
+  // update des filtres de recherches
   const searchHandleChange = (e, field, value) => {
     e.stopPropagation()
     switch (field) {
@@ -39,12 +43,13 @@ const ContentNav = ({ header, data }) => {
         value = value < 0 || value == '' ? 0 : value > data.length - 1 ? data.length - 1 : value
         break;
       default:
-        value = value.toString()
         break;
     }
     updateSearch({ ...search, [field]: { ...search[field], value: value } })
   }
 
+
+  // rendu sans filtres
   const basicRender = (data) => data.map((field, k) => <div key={k} className='content-row'>
     {
       header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag], draw, tag)}</div>)
@@ -53,6 +58,7 @@ const ContentNav = ({ header, data }) => {
   </div>
   )
 
+  // rendu avec filtres
   const filterRender = (data) => {
 
     const searchFilter = {}
@@ -65,7 +71,8 @@ const ContentNav = ({ header, data }) => {
 
     return data.map((field, k) => {
       for (const [k, v] of Object.entries(searchFilter)) {
-        switch (typeof field[k]) {
+        
+        switch (typeof v) {
           case 'string':
             if (!strNormalize(field[k]).match(strNormalize(v)) && v.length > 0) {
               return null
@@ -75,8 +82,15 @@ const ContentNav = ({ header, data }) => {
             if (v !== field[k]) {
               return null
             }
+            break;
+          case "boolean":
+            if (v === true && !field[k]) {
+              return null
+            }
+            if (v === false && field[k]) {
+              return null
+            }
           default:
-            
             break;
         }
       }
@@ -91,6 +105,7 @@ const ContentNav = ({ header, data }) => {
     )
   }
 
+  // active un filtre (selon cible utilisateur)
   const toggleFilter = (e, checked) => {
     e.stopPropagation();
     updateSearch({ ...search, [checked]: { ...search[checked], active: !search[checked].active } })
@@ -120,7 +135,7 @@ const ContentNav = ({ header, data }) => {
                   />
                   break;
                 case new RegExp(/^bool/gi).test(h.draw):
-                  Input = <SwitchInput value={search[h.tag].value} />
+                  Input = <SwitchInput  cls='secondary' value={search[h.tag].value} change={(e) => searchHandleChange(e, h.tag, !search[h.tag].value)} />
                   break;
                 default:
                   Input = <input type='text' className='input-txt secondary colsize-10' onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} placeholder={capitalize(h.name)} value={search[h.tag].value} />
