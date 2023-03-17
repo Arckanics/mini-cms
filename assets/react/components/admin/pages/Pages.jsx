@@ -6,15 +6,15 @@ import axios from 'axios'
 
 const Pages = ({ url }) => {
   const axiosSet = useSelector((state) => state.ajax.axios)
-  const ajax = axios.create({...axiosSet})
+  const ajax = axios.create({...axiosSet, params: {page: 'pages'}})
   const data = useSelector((state) => state.ajax.data.pages)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    !data ? ajax.get(url)
+    ajax.get('/request')
     .then(res => {
       dispatch(pushData({ name: 'pages', data: res.data }))
-    }) : ajax.get('/refresh')
+    })
   }, [])
 
   const header = [

@@ -14,14 +14,11 @@ const Settings = ({ url }) => {
   const [initialState, setInitialState] = useState({})
 
   useEffect(() => {
-    !data ? ajax.get(url)
+    ajax.get('/request')
       .then(res => {
         dispatch(pushData({ name: 'settings', data: res.data }))
         setInitialState({ ...res.data })
-      }) : () => {
-        ajax.get('/refresh')
-        setInitialState({ ...data })
-      }
+      })
   }, [])
 
   const changeName = (v) => {

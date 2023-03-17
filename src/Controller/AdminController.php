@@ -24,26 +24,10 @@ class AdminController extends AbstractController
     private function refreshSession(Request $req) {
       $req->getSession()->migrate(false, 7200);
     }
-    private function isXmlHttpReq(Request $req): bool {
-      return $req->headers->get('XMLHttpRequest') == 'true';
-    }
 
     #[Route('/', name: 'app_admin')]
     public function index(Request $req, EntityManagerInterface $em): Response | JsonResponse
     {
-      if ($this->isXmlHttpReq($req)) {
-        $res = $em->getRepository(Settings::class)->find(1);
-        $Pages = $em->getRepository(Pages::class);
-        $gem = new ExtEntityManager($Pages, Pages::class, $em);
-        $this->refreshSession($req);
-        return new JsonResponse([
-          'Author' => $res->getMetaAuthor(),
-          'Description' => $res->getMetaDesc(),
-          'SiteName' => $res->getMetaSiteName(),
-          'Landing' => $res->getLandingPage()->getId(),
-          'Pages' => $gem->exportData()
-        ], 200);
-      }
       $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
         'url' => 'Settings',
@@ -53,12 +37,6 @@ class AdminController extends AbstractController
     #[Route('/pages', name: 'app_admin_pages')]
     public function pages(Request $req, EntityManagerInterface $em): Response | JsonResponse
     {
-      if ($this->isXmlHttpReq($req)) {
-        $pages = $em->getRepository(Pages::class);
-        $gem = new ExtEntityManager($pages, Pages::class, $em);
-        $this->refreshSession($req);
-        return new JsonResponse($gem->exportData(), 200);
-      }
       $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
         'url' => 'Pages',
@@ -68,23 +46,44 @@ class AdminController extends AbstractController
     #[Route('/articles', name: 'app_admin_articles')]
     public function articles(Request $req, EntityManagerInterface $em): Response | JsonResponse
     {
-      if ($this->isXmlHttpReq($req)) {
-        $article = $em->getRepository(Articles::class);
-        $gem = new ExtEntityManager($article, Articles::class, $em);
-        $this->refreshSession($req);
-        return new JsonResponse($gem->exportData(), 200);
-      }
       $this->refreshSession($req);
       return $this->render('admin/index.html.twig', [
         'url' => 'Articles',
       ]);
     }
 
-    #[Route('/refresh', name: 'app_admin_refresh')]
-    public function refresh(Request $req): Response | JsonResponse
+    #[Route('/request', name: 'app_admin_request')]
+    public function request(Request $req, EntityManagerInterface $em): JsonResponse
     {
       $this->refreshSession($req);
-      return new JsonResponse(['status' => Response::HTTP_ACCEPTED]);
+      if ($req->getMethod() === "GET") {
+        $body = $req->query->all();
+        $default = ['page' => 'settings'];
+        if (!isset($body['page'])) { $body = $default; }
+        switch ($body['page']) {
+          case 'pages':
+            $pages = $em->getRepository(Pages::class);
+            $gem = new ExtEntityManager($pages, Pages::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
+          case 'articles':
+            $article = $em->getRepository(Articles::class);
+            $gem = new ExtEntityManager($article, Articles::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
+          case 'settings':
+          default:
+            $res = $em->getRepository(Settings::class)->find(1);
+            $Pages = $em->getRepository(Pages::class);
+            $gem = new ExtEntityManager($Pages, Pages::class, $em);
+            return new JsonResponse([
+              'Author' => $res->getMetaAuthor(),
+              'Description' => $res->getMetaDesc(),
+              'SiteName' => $res->getMetaSiteName(),
+              'Landing' => $res->getLandingPage()->getId(),
+              'Pages' => $gem->exportData()
+            ], 200);
+        }
+      }
+      return new JsonResponse(['error', 'Not Found'], 404);
     }
 
 }
