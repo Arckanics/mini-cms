@@ -12,10 +12,25 @@ const ContentNav = ({ header, data }) => {
   const [search, updateSearch] = useState(null);
   const ajaxData = useSelector((state) => state.ajax.data)
 
+  const setPagesSelectable = () => {
+    let lastPage = null
+    const pages = []
+    data.map(r => {
+      r.page !== lastPage ? pages.push(r.page) : null
+      lastPage = r.pages
+    })
+    return [...pages]
+  }
+
+
   useEffect(() => {
     // initiation des filtres
     const sFields = {}
-    header.map((h) => sFields[h.tag] = { value: h.draw === "number" ? 0 : h.draw.match(/^bool/) ? false : "", active: false })
+    header.map((h) => 
+      sFields[h.tag] = h.tag !== "page" ?
+      { value: h.draw === "number" ? 0 : h.draw.match(/^bool/) ? false : "", active: false } :
+      setPagesSelectable()
+      )
     updateSearch({ ...sFields });
   }, [])
 
@@ -136,6 +151,9 @@ const ContentNav = ({ header, data }) => {
                   break;
                 case new RegExp(/^bool/gi).test(h.draw):
                   Input = <SwitchInput  cls='secondary' value={search[h.tag].value} change={(e) => searchHandleChange(e, h.tag, !search[h.tag].value)} />
+                  break;
+                case new RegExp(/^obj/gi).test(h.draw):
+                  Input = <div>Work</div>
                   break;
                 default:
                   Input = <input type='text' className='input-txt secondary colsize-10' onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} placeholder={capitalize(h.name)} value={search[h.tag].value} />
