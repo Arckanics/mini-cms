@@ -25,6 +25,8 @@ class AdminController extends AbstractController
       $req->getSession()->migrate(false, 7200);
     }
 
+    // Route pour le landing sur settings
+
     #[Route('/', name: 'app_admin')]
     public function index(Request $req): Response | JsonResponse
     {
@@ -33,6 +35,8 @@ class AdminController extends AbstractController
         'url' => 'Settings',
       ]);
     }
+
+    // Route pour le landing sur pages
 
     #[Route('/pages', name: 'app_admin_pages')]
     public function pages(Request $req): Response | JsonResponse
@@ -43,6 +47,8 @@ class AdminController extends AbstractController
       ]);
     }
 
+    // Route pour le landing sur articles
+
     #[Route('/articles', name: 'app_admin_articles')]
     public function articles(Request $req): Response | JsonResponse
     {
@@ -51,6 +57,8 @@ class AdminController extends AbstractController
         'url' => 'Articles',
       ]);
     }
+
+    // Route pour gérer toutes les requêtes de l'ui admin
 
     #[Route('/request', name: 'app_admin_request')]
     public function request(Request $req, EntityManagerInterface $em): JsonResponse
