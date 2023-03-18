@@ -6,21 +6,12 @@ import Close from '../../../icon/icon-ui/Close'
 import NumberInput from './NumberInput'
 import Checkbox from './Checkbox'
 import SwitchInput from './SwitchInput'
+import { Selector } from './'
 
 
 const ContentNav = ({ header, data }) => {
   const [search, updateSearch] = useState(null);
   const ajaxData = useSelector((state) => state.ajax.data)
-
-  const setPagesSelectable = () => {
-    let lastPage = null
-    const pages = []
-    data.map(r => {
-      r.page !== lastPage ? pages.push(r.page) : null
-      lastPage = r.pages
-    })
-    return [...pages]
-  }
 
 
   useEffect(() => {
@@ -29,7 +20,7 @@ const ContentNav = ({ header, data }) => {
     header.map((h) => 
       sFields[h.tag] = h.tag !== "page" ?
       { value: h.draw === "number" ? 0 : h.draw.match(/^bool/) ? false : "", active: false } :
-      setPagesSelectable()
+      { value: [...ajaxData[h.tag+"s"]].map((el,i) => ({...el, filtered: i == 0 ? true : false})), active: false }
       )
     updateSearch({ ...sFields });
   }, [])
@@ -63,6 +54,20 @@ const ContentNav = ({ header, data }) => {
     updateSearch({ ...search, [field]: { ...search[field], value: value } })
   }
 
+  // update des filtres de recherches ( spécifique à une liste d'élément attribut "filtered")
+  const updateArrayFilter = (value, tag) => {
+    const array = [...search[tag].value];
+    updateSearch(
+      {
+        ...search,
+        [tag]: {
+          ...search[tag],
+          value : array.map(el => ({...el, filtered : el.id === value ? true : false}))
+        }
+      }
+    )
+
+  }
 
   // rendu sans filtres
   const basicRender = (data) => data.map((field, k) => <div key={k} className='content-row'>
@@ -104,6 +109,13 @@ const ContentNav = ({ header, data }) => {
             }
             if (v === false && field[k]) {
               return null
+            }
+          case "object":
+            if (isArray(v)) {
+              const filter = v.find(el => el.filtered).id
+              if (field[k] !== filter) {
+                return null
+              }
             }
           default:
             break;
@@ -153,7 +165,7 @@ const ContentNav = ({ header, data }) => {
                   Input = <SwitchInput  cls='secondary' value={search[h.tag].value} change={(e) => searchHandleChange(e, h.tag, !search[h.tag].value)} />
                   break;
                 case new RegExp(/^obj/gi).test(h.draw):
-                  Input = <div>Work</div>
+                  Input = <Selector list={search[h.tag].value} active={search[h.tag].value.find(el => el.filtered).id} action={(value) => updateArrayFilter(value, h.tag)}/>
                   break;
                 default:
                   Input = <input type='text' className='input-txt secondary colsize-10' onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} placeholder={capitalize(h.name)} value={search[h.tag].value} />
