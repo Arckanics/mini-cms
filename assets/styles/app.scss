@@ -164,12 +164,27 @@ $warning: hsl(44,102%,62%);
       outline-color: $color;
     }
   }
+
+  &.opened {
+    svg {
+      fill: darken($color: $color, $amount: 5%)
+    }
+  }
 }
 
 .selector {
   @include selector($primary);
   &.secondary {
     @include selector($secondary)
+  }
+  svg {
+    transition: 150ms;
+  }
+
+  &.opened {
+    svg {
+      transform: rotate(90deg);
+    }
   }
 }
 
@@ -244,7 +259,17 @@ $warning: hsl(44,102%,62%);
       .input-number {
         @apply p-1 text-center
       }
+      
       @apply p-2 pl-2 rounded-l-2xl rounded-r-md
+    }
+    .selector {
+      @apply w-full p-0;
+      .active {
+        @apply p-1
+      }
+      svg {
+        @apply h-7
+      }
     }
   }
 

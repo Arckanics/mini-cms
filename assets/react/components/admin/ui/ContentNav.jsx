@@ -165,7 +165,7 @@ const ContentNav = ({ header, data }) => {
                   Input = <SwitchInput  cls='secondary' value={search[h.tag].value} change={(e) => searchHandleChange(e, h.tag, !search[h.tag].value)} />
                   break;
                 case new RegExp(/^obj/gi).test(h.draw):
-                  Input = <Selector list={search[h.tag].value} active={search[h.tag].value.find(el => el.filtered).id} action={(value) => updateArrayFilter(value, h.tag)}/>
+                  Input = <Selector cls='secondary' list={search[h.tag].value} active={search[h.tag].value.find(el => el.filtered).id} action={(value) => updateArrayFilter(value, h.tag)}/>
                   break;
                 default:
                   Input = <input type='text' className='input-txt secondary colsize-10' onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} placeholder={capitalize(h.name)} value={search[h.tag].value} />
