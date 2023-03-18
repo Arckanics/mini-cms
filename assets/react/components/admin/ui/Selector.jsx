@@ -6,8 +6,9 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
   const [toggle, setToggle] = useState(false)
   const [lastEvent, setLastEvent] = useState(null)
 
+  // mise en place de l'élément actif par défaut (prop active obligatoire)
   const landing = list.find(i => i.id === active)
-  const avaible = list.filter(i => i.id !== active)
+  const avaible = list.filter(i => i.id !== landing.id)
 
   const toggleSelect = (e) => {
     e.stopPropagation();
@@ -23,6 +24,7 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
   }
 
   const changeValue = (e,v) => {
+    e.preventDefault();
     toggleSelect(e);
     action(v);
   }
@@ -39,6 +41,7 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
         toggle ? <div className='opt-wrapper'>
           {
             avaible.map(({id,title},k) => 
+              // l'id de l'élément choisi est directement envoyé dans "action" (function à passer en prop)
               <div key={k} className='opt' value={id} onClick={(e) => changeValue(e,id)} >
                 <div className='txt'>{capitalize(title)}</div>
               </div>
