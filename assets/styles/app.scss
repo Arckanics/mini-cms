@@ -116,7 +116,7 @@ $warning: hsl(44,102%,62%);
 
   .active {
     transition: 150ms;
-    @apply p-3 pl-4 align-middle rounded-md cursor-pointer;
+    @apply p-3 pl-4 align-middle cursor-pointer;
     background-color: $light;
     box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.5) inset;
     display: flex;
@@ -132,28 +132,10 @@ $warning: hsl(44,102%,62%);
   }
 
   .opt-wrapper {
-    position: absolute;
-    width: calc(100% - 32px);
-    margin: auto;
-    left: 0px;
-    right: 0px;
-    top: calc(100% + .4rem);
     background-color: white;
     box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5);
     border: 1px solid $color;
-    @apply rounded-md;
-
-    .opt {
-      @apply p-2 px-3 text-lg;
-
-      &:first-child {
-        @apply rounded-t-md;
-      }
-      &:last-child {
-        @apply rounded-b-md;
-      }
-    }
-  }
+  }  
 
   &:hover,
   &:focus,
@@ -174,6 +156,11 @@ $warning: hsl(44,102%,62%);
 
 .selector {
   @include selector($primary);
+
+  .active {
+    @apply rounded-md;
+  }
+
   &.secondary {
     @include selector($secondary)
   }
@@ -184,6 +171,28 @@ $warning: hsl(44,102%,62%);
   &.opened {
     svg {
       transform: rotate(90deg);
+    }
+  }
+
+  .opt-wrapper {
+    position: absolute;
+    width: calc(100% - 32px);
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    top: calc(100% + .4rem);
+    
+    @apply rounded-md;
+
+    .opt {
+      @apply p-2 px-3 text-lg;
+
+      &:first-child {
+        @apply rounded-t-md;
+      }
+      &:last-child {
+        @apply rounded-b-md;
+      }
     }
   }
 }
@@ -254,23 +263,42 @@ $warning: hsl(44,102%,62%);
       background-color: lighten($color: $secondary, $amount: 50%);
       box-shadow: 0 0 2px 0 transparentize($color: $secondary, $amount: .3);
       .input-txt {
-        @apply p-1 px-2
+        @apply p-1 px-2;
       }
       .input-number {
-        @apply p-1 text-center
+        @apply p-1 text-center;
       }
-      
-      @apply p-2 pl-2 rounded-l-2xl rounded-r-md
+      .selector {
+        @apply w-full p-0;
+        .active {
+          @apply p-1
+        }
+        svg {
+          @apply h-7
+        }
+  
+        &.opened {
+          @apply rounded-none rounded-t-md;
+          .opt.active {
+            @apply rounded-none rounded-t-md #{!important};
+          }
+
+          .opt-wrapper {
+            top: calc(100% + 1px);
+            left: -2px;
+            width: calc(100% + 4px);
+            @apply shadow-none rounded-none rounded-b-lg;
+            .opt {
+              &:first-child {
+                @apply rounded-none
+              }
+            }
+          }
+        }
+      }
+      @apply p-2 pl-2 rounded-l-2xl rounded-r-md;
     }
-    .selector {
-      @apply w-full p-0;
-      .active {
-        @apply p-1
-      }
-      svg {
-        @apply h-7
-      }
-    }
+    
   }
 
   .content-inner {
