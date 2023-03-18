@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Expand from '../../../icon/icon-ui/Expand'
 import { capitalize } from '../../../Functions/app'
 
@@ -32,7 +32,7 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
 
 
   return (
-    <div className={cls ? 'selector ' + cls : 'selector'} onFocus={toggleSelect} onBlur={toggleSelect} tabIndex={-1}>
+    <div className={(cls ? 'selector ' + cls : 'selector') + (toggle ? ' opened' : '')} onFocus={toggleSelect} onBlur={toggleSelect} tabIndex={-1}>
       { children }
       <div className='opt active' value={landing.id} onClick={toggle ? toggleSelect : null}>
         <div className='txt'>{capitalize(landing.title)}</div><Expand cls={iconCls}/>
