@@ -9,6 +9,7 @@ import TxtLabelInput from './TxtLabelInput'
 import NumberInput from './NumberInput'
 import Checkbox from './Checkbox'
 import SwitchInput from './SwitchInput'
+import ActionsRow from './ActionsRow'
 
 export {
   Button,
@@ -21,5 +22,6 @@ export {
   TxtLabelInput,
   NumberInput,
   Checkbox,
-  SwitchInput
+  SwitchInput,
+  ActionsRow
 }

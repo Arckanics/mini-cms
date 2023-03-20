@@ -35,6 +35,14 @@ const Articles = () => {
     })
   }, [])
 
+  const updateArticle = (id) => {
+    console.log(id);
+  }
+
+  const removeArticle = (id) => {
+    console.log(id);
+  }
+
   const header = [
     {tag: 'title', name: 'titre', draw: 'string', colSize: 2},
     {tag: 'sort', name: 'ordre', draw: 'number', colSize: "1-5"},
@@ -45,7 +53,13 @@ const Articles = () => {
 
   return (
     <PagesContainer title={'Articles'}>
-      { articles && pages ? <ContentNav data={articles} header={header} action={null} /> : null }
+      { articles && pages ? <ContentNav 
+        data={articles} header={header} 
+        update={updateArticle} remove={removeArticle} 
+        /> 
+        : 
+        null
+      }
     </PagesContainer>
   )
 }

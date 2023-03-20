@@ -201,6 +201,11 @@ $warning: hsl(44,102%,62%);
 
 @import './inputs.scss';
 
+
+// actions icon
+
+@import './action-icon.scss';
+
 // buttons
 
 @mixin btnSetting($color) {
@@ -323,7 +328,7 @@ $warning: hsl(44,102%,62%);
     @apply rounded-md;
     .content-row {
       transition: outline 100ms ease-in;
-      @apply flex p-3 justify-between flex-nowrap;
+      @apply flex px-3 justify-between flex-nowrap;
       outline: transparent solid 2px;
       outline-offset: -2px;
       
@@ -331,9 +336,11 @@ $warning: hsl(44,102%,62%);
         background-color: transparentize($color: $secondary, $amount: .7);
       }
       .row-field {
-        @apply text-center justify-between flex-nowrap;
+        @apply text-center p-3 justify-between flex-nowrap;
 
-        
+        &.action-field {
+          @apply p-1;
+        }        
       }
 
       &:last-child {

@@ -6,10 +6,10 @@ import Close from '../../../icon/icon-ui/Close'
 import NumberInput from './NumberInput'
 import Checkbox from './Checkbox'
 import SwitchInput from './SwitchInput'
-import { Selector } from './'
+import { ActionsRow, Selector } from './'
 
 
-const ContentNav = ({ header, data }) => {
+const ContentNav = ({ header, data, update, remove, create }) => {
   const [search, updateSearch] = useState(null);
   const ajaxData = useSelector((state) => state.ajax.data)
 
@@ -74,7 +74,7 @@ const ContentNav = ({ header, data }) => {
     {
       header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag], draw, tag)}</div>)
     }
-    <div className={`row-field colsize-2`}>{capitalize('actions')}</div>
+    <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={update} remove={remove} /></div>
   </div>
   )
 
@@ -126,7 +126,7 @@ const ContentNav = ({ header, data }) => {
           {
             header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag], draw, tag)}</div>)
           }
-          <div className={`row-field colsize-2`}>{capitalize('actions')}</div>
+          <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={updateContent} /></div>
         </div>
       }
     )
