@@ -28,4 +28,35 @@
       }
     }
   }
+
+  .modal-window {
+    @apply flex flex-wrap justify-items-stretch;
+    .modal-field {
+      background-color: white;
+  
+      .input-txt {
+        @apply p-1 px-2;
+      }
+
+      .selector {
+        @apply p-0 w-48;
+        .active {
+          @apply p-1 px-2;
+        }
+
+        .opt-wrapper {
+          top: calc(100% + 2px);
+          left: 0;
+          right: 0;
+          width: auto
+        }
+      }
+  
+      @apply p-2 shadow-inner block;
+      flex: 0 0 auto;
+      &:last-child {
+        flex: 3 0 auto;
+      }
+    }
+  }
 }

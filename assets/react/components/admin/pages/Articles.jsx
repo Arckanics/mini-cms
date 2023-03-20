@@ -12,7 +12,7 @@ const Articles = () => {
   const articles = useSelector((state) => state.ajax.data.articles)
   const pages = useSelector((state) => state.ajax.data.pages)
   const dispatch = useDispatch()
-  const [modal, setModal] = useState({enable: false, data: null})
+  const [modal, setModal] = useState({enable: false, data: null, title: ''})
 
   useEffect(() => {
     ajax.get('/request')
@@ -36,8 +36,12 @@ const Articles = () => {
     })
   }, [])
 
+  const closeModal = () => {
+    setModal({...modal, enable: false})
+  }
+
   const updateArticle = (id) => {
-    console.log(id);
+    setModal({...modal, enable: true, title: 'Modifier'})
   }
 
   const removeArticle = (id) => {
@@ -62,18 +66,18 @@ const Articles = () => {
         null
       }
       {
-        !modal.enable ? 
-        <ModalEditor data={modal.data} title={'Modifier'}
+        modal.enable ? 
+        <ModalEditor data={modal.data} title={modal.title} close={closeModal}
           schema={
             {
-              title: "string",
-              page: {type: 'select', draw: "title"},
-              content: "text",
-              publishbegin: "datepicker",
-              publishend: "datepicker",
-              published: "bool",
-              isdynamic: "bool",
-              sort: "number"
+              title: {type: "string", name: "Titre"},
+              pages: {type: 'select', name: "Page", draw: "title"},
+              publishbegin: {type: 'date', name: "Début", draw: "title"},
+              publishend: {type: 'date', name: "Fin", draw: "title"},
+              published: {type: "bool", name: 'Visible'},
+              isdynamic: {type: "bool", name: 'Dynamique'},
+              sort: {type: "sorting", name: 'Ordre', list: articles},
+              content: {type: "text", name: 'Contenu'},
             }
           } /> : null
       }
