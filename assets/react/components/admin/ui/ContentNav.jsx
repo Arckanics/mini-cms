@@ -181,7 +181,7 @@ const ContentNav = ({ header, data }) => {
         <div className={`header-field colsize-2`}></div>
       </div>
 
-      <div className='content-inner flex flex-col overflow-auto overflow-x-hidden'>
+      <div className='content-inner '>
         {
 
           !search || search && !getPropsBoolStatus(search, "active", true) ?

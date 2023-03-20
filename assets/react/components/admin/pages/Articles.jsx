@@ -45,7 +45,7 @@ const Articles = () => {
 
   return (
     <PagesContainer title={'Articles'}>
-      { (articles && pages) && <ContentNav data={articles} header={header} action={null} /> }
+      { articles && pages ? <ContentNav data={articles} header={header} action={null} /> : null }
     </PagesContainer>
   )
 }
