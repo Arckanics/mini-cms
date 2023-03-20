@@ -246,8 +246,22 @@ $warning: hsl(44,102%,62%);
   }
 }
 
+@mixin growScaleRow () {
+  $scales: 1,2,3,4,5,6,7,8,9,10;
+  @each $scale in $scales {
+    .rowsize-#{$scale} {
+      width: $scale*10+0%;
+    }
+    .rowsize-#{$scale}#{'-5'} {
+      width: $scale*10+5%;
+    }
+  }
+}
+
 .content-nav {
+  @apply h-full;
   @include growScale;
+  @include growScaleRow;
   &-header {
     background-color: transparentize($color: $secondary, $amount: 0.3);
     @apply flex p-3 select-none text-center justify-between flex-nowrap rounded-b-lg;
@@ -306,7 +320,7 @@ $warning: hsl(44,102%,62%);
       0 0 2px 0 transparentize($color: $secondary, $amount: .3),
       0 0 8px 0 transparentize($color: $secondary, $amount: .6) inset;
     background-color: white;
-    @apply rounded-xl;
+    @apply rounded-md;
     .content-row {
       transition: outline 100ms ease-in;
       @apply flex p-3 justify-between flex-nowrap;
@@ -323,11 +337,11 @@ $warning: hsl(44,102%,62%);
       }
 
       &:last-child {
-        @apply rounded-b-xl;
+        @apply rounded-b-md;
       }
 
       &:first-child {
-        @apply rounded-t-xl;
+        @apply rounded-t-md;
       }
 
       &:hover {
@@ -354,7 +368,7 @@ body {
   padding: 10px;
   gap: 10px;
   box-shadow: 0 0 8px 0 $light;
-  @apply flex flex-nowrap justify-start overflow-x-hidden relative;
+  @apply flex flex-nowrap justify-start overflow-hidden relative;
 }
 
 #login {
@@ -488,13 +502,40 @@ body {
 
 #content {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 20px);
+  max-height: calc(100vh - 20px);
   gap: 10px;
   @apply flex flex-col;
 
   .content-full {
-    height: 100%;
-    @apply p-2;
+    height: calc(100% - 11px - 1.5rem - 1.75rem);
+    @apply p-2 flex flex-col;
+
+    .content-nav {
+      height: 100%;
+      @apply flex flex-col flex-nowrap;
+
+      &-header {
+        @apply text-base;
+      }
+
+      .content-inner {
+        max-height: calc(100% - 3rem - 6.5rem - 1.125rem );
+        @apply overflow-auto;
+
+        &::-webkit-scrollbar {
+          background-color: lighten($color: $light, $amount: 10%);
+          width: 12px;
+          @apply rounded-r-lg;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: $secondary;
+          border: 3px solid lighten($color: $light, $amount: 10%);
+          @apply rounded-lg;
+        }
+      }
+    }
   }
 
   .title {
@@ -513,12 +554,17 @@ body {
 
 // footer
 
-#admin-footer,
 .content-full {
   background-color: whitesmoke;
   padding: 10px 14px;
   box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .8);
   border-radius: $rad-md;
+}
+
+#admin-footer {
+  background-color: whitesmoke;
+  box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .8);
+  @apply text-lg p-3 rounded-lg;
 }
 
 // Animation class Classes

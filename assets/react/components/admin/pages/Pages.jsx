@@ -33,7 +33,7 @@ const Pages = () => {
 
   return (
     <PagesContainer title={'Pages'}>
-      { data && <ContentNav data={data} header={header} action={null} /> }
+      {data ? <ContentNav data={data} header={header} action={null} /> : null}
     </PagesContainer>
   )
 }
