@@ -1,0 +1,31 @@
+.action-button {
+  transition: 150ms;
+  background-color: whitesmoke;
+  outline: 2px solid transparent;
+  outline-offset: -1px;
+  @apply p-1 my-1 rounded-lg shadow-md cursor-pointer;
+  &:hover {
+    outline-color: transparentize($color: $primary, $amount: 0.5);
+    transform: scale(1.1);
+    .action-icon {
+      transform: scale(1.2);
+    }
+  }
+  &.secondary {
+    &:hover {
+      outline-color: transparentize($color: $secondary, $amount: 0.5);
+    }
+  }
+}
+
+.action-icon {
+  transition: 150ms;
+  @apply w-6 h-6;
+
+  &.edit {
+    fill: darken($color: $warning, $amount: 10%);
+  }
+  &.delete {
+    fill: darken($color: $negative, $amount: 10%);
+  }
+}

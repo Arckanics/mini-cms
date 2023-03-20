@@ -25,6 +25,14 @@ const Pages = () => {
     })
   }, [])
 
+  const updatePage = (id) => {
+    console.log(id);
+  }
+
+  const removePage = (id) => {
+    console.log(id);
+  }
+
   const header = [
     {tag: 'title', name: 'titre', draw: 'string', colSize: 4},
     {tag: 'sort', name: 'ordre', draw: 'number', colSize: "1-5"},
@@ -33,7 +41,13 @@ const Pages = () => {
 
   return (
     <PagesContainer title={'Pages'}>
-      {data ? <ContentNav data={data} header={header} action={null} /> : null}
+      {data ? <ContentNav 
+        data={data} header={header} 
+        update={updatePage} remove={removePage} 
+        />
+        :
+        null
+      }
     </PagesContainer>
   )
 }
