@@ -1,0 +1,31 @@
+.modal-editor {
+  background-color: $light;
+  top: calc(2.75rem + 10px);
+  @apply absolute bottom-2 left-2 right-2 rounded-b-md overflow-hidden;
+
+  .title-bar {
+    color: $secondary;
+    background-color: white;
+    @apply p-1 pl-4 shadow-md text-xl underline flex justify-between select-none;
+
+    &-txt {
+      @apply p-2
+    }
+
+    &-close {
+      transition: 150ms;
+      outline: 1px solid $negative;
+      @apply p-0 h-fit rounded-lg cursor-pointer;
+      svg {
+        transition: 150ms;
+        fill: $negative;
+      }
+      &:hover {
+        background-color: $negative;
+        svg {
+          fill: white;
+        }
+      }
+    }
+  }
+}

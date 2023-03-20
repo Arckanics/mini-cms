@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { PagesContainer, ContentNav } from '../ui'
+import React, { useEffect, useState } from 'react'
+import { PagesContainer, ContentNav, ModalEditor } from '../ui'
 import { useSelector, useDispatch } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import axios from 'axios'
@@ -12,6 +12,7 @@ const Articles = () => {
   const articles = useSelector((state) => state.ajax.data.articles)
   const pages = useSelector((state) => state.ajax.data.pages)
   const dispatch = useDispatch()
+  const [modal, setModal] = useState({enable: false, data: null})
 
   useEffect(() => {
     ajax.get('/request')
@@ -59,6 +60,22 @@ const Articles = () => {
         /> 
         : 
         null
+      }
+      {
+        !modal.enable ? 
+        <ModalEditor data={modal.data} title={'Modifier'}
+          schema={
+            {
+              title: "string",
+              page: {type: 'select', draw: "title"},
+              content: "text",
+              publishbegin: "datepicker",
+              publishend: "datepicker",
+              published: "bool",
+              isdynamic: "bool",
+              sort: "number"
+            }
+          } /> : null
       }
     </PagesContainer>
   )
