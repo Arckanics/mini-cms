@@ -206,6 +206,10 @@ $warning: hsl(44,102%,62%);
 
 @import './action-icon.scss';
 
+// actions icon
+
+@import './modal-editor.scss';
+
 // buttons
 
 @mixin btnSetting($color) {
@@ -565,7 +569,7 @@ body {
   background-color: whitesmoke;
   padding: 10px 14px;
   box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .8);
-  border-radius: $rad-md;
+  @apply rounded-md relative;
 }
 
 #admin-footer {

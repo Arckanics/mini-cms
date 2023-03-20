@@ -10,6 +10,7 @@ import NumberInput from './NumberInput'
 import Checkbox from './Checkbox'
 import SwitchInput from './SwitchInput'
 import ActionsRow from './ActionsRow'
+import ModalEditor from './ModalEditor'
 
 export {
   Button,
@@ -23,5 +24,6 @@ export {
   NumberInput,
   Checkbox,
   SwitchInput,
-  ActionsRow
+  ActionsRow,
+  ModalEditor
 }
