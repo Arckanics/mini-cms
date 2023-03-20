@@ -66,6 +66,7 @@ const Articles = () => {
         null
       }
       {
+        // fenêtre d'édition et création des articles
         modal.enable ? 
         <ModalEditor data={modal.data} title={modal.title} close={closeModal}
           schema={
