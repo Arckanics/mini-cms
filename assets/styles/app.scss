@@ -271,7 +271,7 @@ $warning: hsl(44,102%,62%);
   }
 
   &-search {
-    @apply flex p-0 py-3 select-none text-center justify-between flex-nowrap;
+    @apply flex p-1 py-3 select-none text-center justify-between flex-nowrap;
     .search-field {
       gap: 8px;
       background-color: lighten($color: $secondary, $amount: 50%);
@@ -319,7 +319,7 @@ $warning: hsl(44,102%,62%);
     box-shadow: 
       0 0 2px 0 transparentize($color: $secondary, $amount: .3),
       0 0 8px 0 transparentize($color: $secondary, $amount: .6) inset;
-    background-color: white;
+    background-color: hsl(0, 0%, 94%);
     @apply rounded-md;
     .content-row {
       transition: outline 100ms ease-in;
@@ -509,29 +509,29 @@ body {
 
   .content-full {
     height: calc(100% - 11px - 1.5rem - 1.75rem);
-    @apply p-2 flex flex-col;
+    @apply p-2 flex flex-col overflow-hidden;
 
     .content-nav {
       height: 100%;
-      @apply flex flex-col flex-nowrap;
+      @apply flex flex-col flex-nowrap overflow-hidden;
 
       &-header {
         @apply text-base;
       }
 
       .content-inner {
-        max-height: calc(100% - 3rem - 6.5rem - 1.125rem );
+        height: 100%;
         @apply overflow-auto;
 
         &::-webkit-scrollbar {
-          background-color: lighten($color: $light, $amount: 10%);
+          background-color: transparent;
           width: 12px;
           @apply rounded-r-lg;
         }
 
         &::-webkit-scrollbar-thumb {
           background-color: $secondary;
-          border: 3px solid lighten($color: $light, $amount: 10%);
+          border: 3px solid hsl(0, 0%, 94%);
           @apply rounded-lg;
         }
       }
