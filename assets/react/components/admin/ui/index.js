@@ -11,6 +11,7 @@ import Checkbox from './Checkbox'
 import SwitchInput from './SwitchInput'
 import ActionsRow from './ActionsRow'
 import ModalEditor from './ModalEditor'
+import DatePicker from './DatePicker'
 
 export {
   Button,
@@ -25,5 +26,6 @@ export {
   Checkbox,
   SwitchInput,
   ActionsRow,
-  ModalEditor
+  ModalEditor,
+  DatePicker
 }

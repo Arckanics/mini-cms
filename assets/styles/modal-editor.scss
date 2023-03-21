@@ -1,11 +1,15 @@
 .modal-editor {
   background-color: $light;
-  top: calc(2.75rem + 10px);
-  @apply absolute bottom-2 left-2 right-2 rounded-b-md overflow-hidden;
+  top: calc(2.75rem + 20px);
+  @apply 
+    absolute shadow-2xl bottom-4 left-4 right-4 
+    rounded-b-md overflow-hidden rounded-xl;
+  outline: 1px solid $secondary;
 
   .title-bar {
     color: $secondary;
     background-color: white;
+    border-bottom: 2px solid $secondary;
     @apply p-1 pl-4 shadow-md text-xl underline flex justify-between select-none;
 
     &-txt {
@@ -30,16 +34,14 @@
   }
 
   .modal-window {
-    @apply flex flex-wrap justify-items-stretch;
+    @apply flex flex-wrap justify-start bg-white;
     .modal-field {
-      background-color: white;
-  
       .input-txt {
-        @apply p-1 px-2;
+        @apply p-1 px-2 my-auto;
       }
 
       .selector {
-        @apply p-0 w-48;
+        @apply p-0 w-48 my-auto;
         .active {
           @apply p-1 px-2;
         }
@@ -51,12 +53,10 @@
           width: auto
         }
       }
+
+      
   
-      @apply p-2 shadow-inner block;
-      flex: 0 0 auto;
-      &:last-child {
-        flex: 3 0 auto;
-      }
+      @apply p-2 block gap-3 min-w-max;
     }
   }
 }
