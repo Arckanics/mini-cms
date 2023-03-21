@@ -268,3 +268,47 @@ $inp-style: (
     @include inputSwitchBool($success);
   }
 }
+
+.input-calendar {
+  @apply block p-0.5 pl-2 pr-1 rounded-md text-lg color-dark flex gap-3 select-none cursor-pointer;
+  background-color: hsl(12, 12%, 92%);
+  box-shadow: 0 0 4px 0 transparentize($color: $secondary, $amount: 0.5) inset;
+  outline: solid transparent 2px;
+
+  &:focus,
+  &:hover,
+  &.opened {
+    outline-color: $secondary;
+    .calendar {
+      .icon {
+        @apply drop-shadow-md;
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  &:focus, &.opened {
+    .calendar {
+      background-color: $secondary;
+      .icon {
+        fill: white;
+      }
+    }
+  }
+
+  .date-txt {
+    @apply m-auto;
+  }
+
+  .calendar {
+    transition: 150ms;
+    @apply m-auto p-1 drop-shadow-md rounded-md relative;
+    .icon {
+      transition: 150ms;
+      @apply w-6 h-6 m-auto drop-shadow;
+      fill: $secondary;
+    }
+
+    
+  }
+}

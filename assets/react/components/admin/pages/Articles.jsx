@@ -72,7 +72,7 @@ const Articles = () => {
           schema={
             {
               title: {type: "string", name: "Titre"},
-              pages: {type: 'select', name: "Page", draw: "title"},
+              pages: {type: 'select', name: "Page", draw: "title", list: pages},
               publishbegin: {type: 'date', name: "Début", draw: "title"},
               publishend: {type: 'date', name: "Fin", draw: "title"},
               published: {type: "bool", name: 'Visible'},
