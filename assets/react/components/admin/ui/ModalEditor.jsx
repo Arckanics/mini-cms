@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Calendar from '../../../icon/icon-ui/Calendar'
 import Close from '../../../icon/icon-ui/Close'
 import DatePicker from './DatePicker'
+import RichText from './RichText'
 import Selector from './Selector'
 import SwitchInput from './SwitchInput'
 
@@ -26,6 +26,7 @@ const ModalEditor = ({ data, schema, title, close }) => {
           break;
         case "date":
           val = new Date();
+          val.setHours(0,0,0,0)
           break;
         default:
           val = ""
@@ -45,7 +46,6 @@ const ModalEditor = ({ data, schema, title, close }) => {
       <div className='modal-window'>
         {
           Object.entries(schema).map(([key,value],i) => {
-            console.log(key, mData[key]);
             let Input;
             switch (value.type) {
               case 'string':
@@ -74,13 +74,18 @@ const ModalEditor = ({ data, schema, title, close }) => {
                 </div>
                 break;
               default:
-                console.log(value.type)
+                break;
             }
 
             return <div key = {i} className='modal-field'>{Input}</div>
           })
         }
       </div>
+      {
+        Object.entries(schema).map(([k,v],i) => {
+          return v.type === "text" ? <RichText /> : null
+        })
+      }
     </section>
   )
 }

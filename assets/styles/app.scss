@@ -182,7 +182,7 @@ $warning: hsl(44,102%,62%);
     right: 0px;
     top: calc(100% + .4rem);
     
-    @apply rounded-md;
+    @apply rounded-md  z-10;
 
     .opt {
       @apply p-2 px-3 text-lg;

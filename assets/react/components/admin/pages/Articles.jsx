@@ -71,13 +71,13 @@ const Articles = () => {
         <ModalEditor data={modal.data} title={modal.title} close={closeModal}
           schema={
             {
-              title: {type: "string", name: "Titre"},
-              pages: {type: 'select', name: "Page", draw: "title", list: pages},
+              isdynamic: {type: "bool", name: 'Dynamique'},
               publishbegin: {type: 'date', name: "Début", draw: "title"},
               publishend: {type: 'date', name: "Fin", draw: "title"},
-              published: {type: "bool", name: 'Visible'},
-              isdynamic: {type: "bool", name: 'Dynamique'},
+              title: {type: "string", name: "Titre"},
+              pages: {type: 'select', name: "Page", draw: "title", list: pages},
               sort: {type: "sorting", name: 'Ordre', list: articles},
+              published: {type: "bool", name: 'Visible'},
               content: {type: "text", name: 'Contenu'},
             }
           } /> : null

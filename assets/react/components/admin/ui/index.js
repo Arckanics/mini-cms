@@ -12,6 +12,7 @@ import SwitchInput from './SwitchInput'
 import ActionsRow from './ActionsRow'
 import ModalEditor from './ModalEditor'
 import DatePicker from './DatePicker'
+import RichText from './RichText'
 
 export {
   Button,
@@ -27,5 +28,6 @@ export {
   SwitchInput,
   ActionsRow,
   ModalEditor,
-  DatePicker
+  DatePicker,
+  RichText
 }
