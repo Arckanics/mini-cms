@@ -3,7 +3,7 @@
   top: calc(2.75rem + 20px);
   @apply 
     absolute shadow-2xl left-4 right-4 
-    rounded-b-md overflow-hidden rounded-xl;
+    rounded-b-md rounded-xl;
   outline: 1px solid $secondary;
 
   .title-bar {
@@ -60,5 +60,13 @@
   
       @apply p-2 block gap-3 min-w-max;
     }
+  }
+
+  & > *:first-child {
+    @apply rounded-t-xl
+  }
+
+  & > *:last-child {
+    @apply rounded-b-lg
   }
 }
