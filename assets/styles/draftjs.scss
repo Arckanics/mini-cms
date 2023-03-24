@@ -1,0 +1,103 @@
+.text-editor {
+  background-color: white;
+  border-top: 2px solid $secondary;
+
+  .editor-title {
+    color: $secondary;
+    background-color: white;
+    border-bottom: 2px solid $secondary;
+    @apply p-2 pl-6 text-lg underline flex select-none;
+
+    
+  }
+
+  .toolbar-class {
+    
+    @apply flex flex-row flex-wrap justify-start gap-1 p-4 shadow-lg select-none;
+    border-bottom: 2px solid transparentize($color: $secondary, $amount: .5);
+    * {
+      transition: 150ms;
+    }
+    & > div[class*="-wrapper"] {
+      @apply flex flex-row justify-start gap-1;
+      &:not(:last-child) {
+        &::after {
+          content: "";
+          width: 2px;
+          height: 80%;
+          margin: auto 5px;
+          opacity: .4;
+          background-color: $primary;
+          @apply rounded-full;
+        }
+      }
+    }
+
+    & div[class*="option-wrapper"] {
+      @apply p-1.5 shadow-md rounded-md cursor-pointer;
+      outline: 1px solid transparentize($color: $primary, $amount: .5);
+      img {
+        @apply block m-auto w-5 aspect-square
+      }
+      &:hover {
+        outline-width: 3px;
+        outline-offset: -1px;
+      }
+      &.rdw-option-active {
+        background-color: $primary;
+        color: white;
+        img {
+          filter: brightness(0) invert(1);
+        }
+      }
+    }
+
+    .rdw-dropdown-wrapper {
+      outline: 1px solid transparentize($color: $primary, $amount: .5);
+      width: 100%;
+      max-width: 80px;
+      @apply p-1.5 shadow-md rounded-md text-sm whitespace-nowrap;
+
+      &:hover {
+        outline-width: 3px;
+        outline-offset: -1px;
+      }
+      &.rdw-option-active {
+        background-color: $primary;
+        color: white;
+      }
+
+      .rdw-dropdown-selectedtext {
+        * {
+          display: block;
+          max-width: 80px;
+          @apply text-ellipsis overflow-hidden;
+        }
+      }
+    }
+  }
+
+  .editor-class {
+    @apply p-4;
+
+    .rdw-center-aligned-block > * {
+      text-align: center;
+    }
+    .rdw-left-aligned-block > * {
+      text-align: left;
+    }
+    .rdw-right-aligned-block > * {
+      text-align: right;
+    }
+    .rdw-justify-aligned-block > * {
+      text-align: justify;
+    }
+
+    ol {
+      @apply list-outside pl-4;
+      li {
+        @apply list-decimal;
+      }
+    }
+  }
+}

@@ -41,9 +41,25 @@ $warning: hsl(44,102%,62%);
   font-family: 'Comfortaa', cursive;
 }
 
-// elements
+// toast
 
 @import './toast.scss';
+
+//input wrapper, input label, input(text - password)
+
+@import './inputs.scss';
+
+// actions icon
+
+@import './action-icon.scss';
+
+// actions icon
+
+@import './modal-editor.scss';
+
+// text editor
+
+@import './draftjs.scss';
 
 // Custom color class
 
@@ -197,17 +213,7 @@ $warning: hsl(44,102%,62%);
   }
 }
 
-//input wrapper, input label, input(text - password)
 
-@import './inputs.scss';
-
-// actions icon
-
-@import './action-icon.scss';
-
-// actions icon
-
-@import './modal-editor.scss';
 
 // buttons
 
