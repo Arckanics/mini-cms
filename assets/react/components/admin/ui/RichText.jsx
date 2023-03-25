@@ -11,7 +11,6 @@ const RichText = ({ data, change }) => {
   })
 
   const editor = useRef(null);
-  const focusEditor = () => editor.current.focus();
 
   const updateContent = (e) => {
     
@@ -21,7 +20,6 @@ const RichText = ({ data, change }) => {
 
   return (
     <div className="text-editor w-full"
-      onClick={focusEditor}
     >
       <h1 className="editor-title">Contenu :</h1>
       <Editor
@@ -48,7 +46,16 @@ const RichText = ({ data, change }) => {
             component: undefined,
             dropdownClassName: undefined,
             options: ['left', 'center', 'right', 'justify'],
+          },
+          list: {
+            inDropdown: true
+          },
+          link: {
+            defaultTargetOption: '_blank'
           }
+        }}
+        localization={{
+          locale: 'fr'
         }}
       />
     </div>
