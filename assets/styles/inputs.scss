@@ -47,7 +47,8 @@
 }
 
 .input-txt[type=text],
-.input-txt[type=password] {
+.input-txt[type=password],
+.input-txt {
   @include inputTxt($primary);
   &.secondary {
     @include inputTxt($secondary);

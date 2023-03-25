@@ -41,25 +41,7 @@ $warning: hsl(44,102%,62%);
   font-family: 'Comfortaa', cursive;
 }
 
-// toast
 
-@import './toast.scss';
-
-//input wrapper, input label, input(text - password)
-
-@import './inputs.scss';
-
-// actions icon
-
-@import './action-icon.scss';
-
-// actions icon
-
-@import './modal-editor.scss';
-
-// text editor
-
-@import './draftjs.scss';
 
 // Custom color class
 
@@ -614,3 +596,23 @@ body {
 .fadeInLeft {
   animation: fadeInLeft 300ms ease-in normal;
 }
+
+// toast
+
+@import './toast.scss';
+
+//input wrapper, input label, input(text - password)
+
+@import './inputs.scss';
+
+// actions icon
+
+@import './action-icon.scss';
+
+// actions icon
+
+@import './modal-editor.scss';
+
+// text editor
+
+@import './draftjs.scss';

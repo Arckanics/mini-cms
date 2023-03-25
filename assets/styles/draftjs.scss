@@ -13,28 +13,19 @@
 
   .toolbar-class {
     
-    @apply flex flex-row flex-wrap justify-start gap-1 p-4 shadow-lg select-none;
+    @apply flex flex-row flex-wrap justify-start gap-2 p-4 shadow-md select-none;
     border-bottom: 2px solid transparentize($color: $secondary, $amount: .5);
     * {
+      position: relative;
       transition: 150ms;
     }
-    & > div[class*="-wrapper"] {
-      @apply flex flex-row justify-start gap-1;
-      &:not(:last-child) {
-        &::after {
-          content: "";
-          width: 2px;
-          height: 80%;
-          margin: auto 5px;
-          opacity: .4;
-          background-color: $primary;
-          @apply rounded-full;
-        }
-      }
+    & > div[class$="-wrapper"] {
+      @apply flex flex-row justify-start gap-2;
+      
     }
 
     & div[class*="option-wrapper"] {
-      @apply p-1.5 shadow-md rounded-md cursor-pointer;
+      @apply p-2 shadow-md rounded-md cursor-pointer;
       outline: 1px solid transparentize($color: $primary, $amount: .5);
       img {
         @apply block m-auto w-5 aspect-square
@@ -44,7 +35,9 @@
         outline-offset: -1px;
       }
       &.rdw-option-active {
-        background-color: $primary;
+        background-color: lighten($color: $primary, $amount: 10%);
+        outline-width: 4px;
+        outline-offset: -2px;
         color: white;
         img {
           filter: brightness(0) invert(1);
@@ -54,31 +47,121 @@
 
     .rdw-dropdown-wrapper {
       outline: 1px solid transparentize($color: $primary, $amount: .5);
-      width: 100%;
       max-width: 80px;
-      @apply p-1.5 shadow-md rounded-md text-sm whitespace-nowrap;
+      @apply p-2 shadow-md rounded-md text-sm whitespace-nowrap;
 
-      &:hover {
+      &:hover, &[aria-expanded="true"] {
         outline-width: 3px;
         outline-offset: -1px;
       }
-      &.rdw-option-active {
-        background-color: $primary;
-        color: white;
+
+      &[aria-expanded="true"] {
+        &::after {
+          background-color: lighten($color: $primary, $amount: 5%);
+          color: white;
+        }
+      }
+
+      &::after {
+        content: "\23F7";
+        border-left: 1px solid transparentize($color: $primary, $amount: .5);
+        @apply absolute right-0 top-0 h-full py-2 px-1 rounded-r-md;
       }
 
       .rdw-dropdown-selectedtext {
+        @apply h-fit flex pr-6;
         * {
-          display: block;
           max-width: 80px;
-          @apply text-ellipsis overflow-hidden;
+          @apply text-ellipsis overflow-hidden block;
+        }
+        img {
+          @apply block m-auto w-5 aspect-square;
+        }
+        
+      }
+
+      *[class$="-optionwrapper"] {
+        outline: 1px solid transparentize($color: $primary, $amount: .5);
+        background-color: white;
+        max-height: 9.188rem;
+        @apply shadow-md rounded-md text-sm 
+          absolute overflow-x-hidden
+          whitespace-nowrap left-0 top-full
+          mt-1 min-w-fit z-50 overflow-auto;
+        &::-webkit-scrollbar {
+          width: 12px;
+        }
+        &::-webkit-scrollbar-track {
+          background-color: transparent;
+          @apply rounded-md;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: $primary;
+          border: 3px solid white;
+          @apply rounded-md;
+        }
+
+        & > li {
+          @apply p-2 cursor-pointer;
+          img {
+            @apply w-5 aspect-square
+          }
+
+          &:hover {
+            background-color: $primary;
+            color: white;
+            img {
+              filter: brightness(0) invert(1);
+            }
+          }
+        }
+
+      }
+
+      &.rdw-fontfamily-dropdown {
+        max-width: none;
+        width: 120px;
+      }
+    }
+
+    *[class$="-modal"] {
+      background-color: white;
+      outline: 1px solid transparentize($color: $primary, $amount: .5);
+
+      @apply absolute min-w-fit top-full mt-1 z-50 p-3 rounded-md;
+      & > * {
+        @apply block;
+      }
+      & > *[class$="-modal-label"] {
+        @apply p-1;
+      }
+
+      & > *[class$="-modal-input"] {
+        @apply input-txt;
+        @apply p-1 #{!important};
+      }
+
+      & > *[class$="-modal-target-option"] {
+        @apply py-2 cursor-pointer;
+        input[type="checkbox"] { 
+          @apply w-5 aspect-square m-1 ml-0
+        }
+      }
+
+      & > *[class$="-modal-buttonsection"] {
+        @apply flex gap-2;
+        button {
+          @apply btn flex-auto;
+          @include btnSetting($primary);
+          @apply p-1;
         }
       }
     }
+    
   }
 
   .editor-class {
-    @apply p-4;
+    @apply p-5;
 
     .rdw-center-aligned-block > * {
       text-align: center;
