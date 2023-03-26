@@ -1,5 +1,5 @@
 @mixin inputTxt ($active-color) {
-  @apply block p-3 rounded-md text-lg color-dark;
+  
   background-color: hsl(12, 12%, 92%);
   box-shadow: 0 0 4px 0 transparentize($color: $active-color, $amount: 0.5) inset;
   outline: solid transparent 2px;
@@ -49,6 +49,7 @@
 .input-txt[type=text],
 .input-txt[type=password],
 .input-txt {
+  @apply block p-3 rounded-md text-lg color-dark;
   @include inputTxt($primary);
   &.secondary {
     @include inputTxt($secondary);
