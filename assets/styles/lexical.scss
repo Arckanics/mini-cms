@@ -1,0 +1,8 @@
+.editor-text {
+  background-color: white;
+  @apply p-4;
+  &:focus, &:focus-within {
+    outline: 4px solid transparentize($color: $secondary, $amount: .8);
+    outline-offset: -4px;
+  }
+}
