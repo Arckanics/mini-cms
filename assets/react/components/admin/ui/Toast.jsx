@@ -22,7 +22,9 @@ const Toast = () => {
   const close = () => dispatch(notifyClose())
 
   return (
-    <div className={`toast ${type} ${status}`} onMouseEnter={() => dispatch(notifyKeep({event: 'stay'}))} onMouseLeave={() => dispatch(notifyKeep({event: 'close', func: setTimeout(() => dispatch(notifyClose()), 1400)}) )}>
+    <div className={`toast ${type} ${status}`} 
+      onMouseEnter={() => dispatch(notifyKeep({event: 'stay'}))} 
+      onMouseLeave={() => dispatch(notifyKeep({event: 'close', func: setTimeout(() => dispatch(notifyClose()), 1400)}) )}>
       <div className='toast-title'>
         <div className='toast-title-icon'>
           {
