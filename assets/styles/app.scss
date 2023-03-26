@@ -254,100 +254,6 @@ $warning: hsl(44,102%,62%);
   }
 }
 
-.content-nav {
-  @apply h-full;
-  @include growScale;
-  @include growScaleRow;
-  &-header {
-    background-color: transparentize($color: $secondary, $amount: 0.3);
-    @apply flex p-3 select-none text-center justify-between flex-nowrap rounded-b-lg;
-    .header-field {
-      @apply font-extrabold underline underline-offset-2
-    }
-  }
-
-  &-search {
-    @apply flex p-1 py-3 select-none text-center justify-between flex-nowrap;
-    .search-field {
-      gap: 8px;
-      background-color: lighten($color: $secondary, $amount: 50%);
-      box-shadow: 0 0 2px 0 transparentize($color: $secondary, $amount: .3);
-      .input-txt {
-        @apply p-1 px-2;
-      }
-      .input-number {
-        @apply p-1 text-center;
-      }
-      .selector {
-        @apply w-full p-0;
-        .active {
-          @apply p-1
-        }
-        svg {
-          @apply h-7
-        }
-  
-        &.opened {
-          @apply rounded-none rounded-t-md;
-          .opt.active {
-            @apply rounded-none rounded-t-md #{!important};
-          }
-
-          .opt-wrapper {
-            top: calc(100% + 1px);
-            left: -2px;
-            width: calc(100% + 4px);
-            @apply shadow-none rounded-none rounded-b-lg;
-            .opt {
-              &:first-child {
-                @apply rounded-none
-              }
-            }
-          }
-        }
-      }
-      @apply p-2 pl-2 rounded-l-2xl rounded-r-md;
-    }
-    
-  }
-
-  .content-inner {
-    box-shadow: 
-      0 0 2px 0 transparentize($color: $secondary, $amount: .3),
-      0 0 8px 0 transparentize($color: $secondary, $amount: .6) inset;
-    background-color: hsl(0, 0%, 94%);
-    @apply rounded-md;
-    .content-row {
-      transition: outline 100ms ease-in;
-      @apply flex px-3 justify-between flex-nowrap;
-      outline: transparent solid 2px;
-      outline-offset: -2px;
-      
-      &:nth-child(odd) {
-        background-color: transparentize($color: $secondary, $amount: .7);
-      }
-      .row-field {
-        @apply text-center p-3 justify-between flex-nowrap;
-
-        &.action-field {
-          @apply p-1;
-        }        
-      }
-
-      &:last-child {
-        @apply rounded-b-md;
-      }
-
-      &:first-child {
-        @apply rounded-t-md;
-      }
-
-      &:hover {
-        outline-color: transparentize($color: $secondary, $amount: .5);
-      }
-    }
-  }
-}
 // elements
 body {
   background-color: darken($color: $light, $amount: 3);
@@ -616,3 +522,7 @@ body {
 // text editor
 
 @import './draftjs.scss';
+
+// search-bar
+
+@import './search.scss';
