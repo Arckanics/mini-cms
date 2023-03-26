@@ -153,24 +153,30 @@ const ContentNav = ({ header, data, update, remove, create }) => {
               let Input;
               switch (true) {
                 case new RegExp(/^num/gi).test(h.draw):
-                  Input = <NumberInput
-                    cls={`secondary colsize-10`}
-                    inpCls="input-number secondary"
+                  Input = <NumberInput cls={`secondary colsize-10`} inpCls="input-number secondary"
                     change={(e, value) => searchHandleChange(e, h.tag, value)}
                     value={Number(search[h.tag].value)}
                     name={h.name}
                   />
                   break;
                 case new RegExp(/^bool/gi).test(h.draw):
-                  Input = <SwitchInput  cls='secondary' value={search[h.tag].value} change={(e) => searchHandleChange(e, h.tag, !search[h.tag].value)} />
+                  Input = <SwitchInput  cls='secondary' value={search[h.tag].value} 
+                  change={(e) => searchHandleChange(e, h.tag, !search[h.tag].value)} 
+                  />
                   break;
                 case new RegExp(/^obj/gi).test(h.draw):
-                  Input = <Selector cls='secondary' list={search[h.tag].value} active={search[h.tag].value.find(el => el.filtered).id} action={(value) => updateArrayFilter(value, h.tag)}/>
+                  Input = <Selector cls='secondary' 
+                    list={search[h.tag].value} active={search[h.tag].value.find(el => el.filtered).id} 
+                    action={(value) => updateArrayFilter(value, h.tag)}
+                  />
                   break;
                 default:
-                  Input = <input type='text' className='input-txt secondary colsize-10' onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} placeholder={capitalize(h.name)} value={search[h.tag].value} />
+                  Input = <input type='text' 
+                    className='input-txt secondary colsize-10' 
+                    onChange={(e) => searchHandleChange(e, h.tag, e.target.value)} 
+                    placeholder={capitalize(h.name)} value={search[h.tag].value} 
+                  />
               }
-
               return <div key={k} className={`search-field colsize-${h.colSize} flex justify-items-stretch flex-nowrap`}>
                 <Checkbox cls='secondary' checked={search[h.tag].active} change={(e) => toggleFilter(e, h.tag)} />
                 {Input}
