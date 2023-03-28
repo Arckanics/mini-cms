@@ -8,6 +8,7 @@ import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import { RichText } from '..';
 
 
 
@@ -33,7 +34,7 @@ function onError(error) {
   console.error(error);
 }
 
-function Editor() {
+function RichTextComponent() {
   const initialConfig = {
     namespace: 'MyEditor', 
     theme,
@@ -42,14 +43,16 @@ function Editor() {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <PlainTextPlugin
-        contentEditable={<ContentEditable className='editor-text' />}
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-      <OnChangePlugin onChange={onChange} />
-      <HistoryPlugin />
+      <div className='content-editor'>
+        <PlainTextPlugin
+          contentEditable={<ContentEditable className='editor-text' />}
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <OnChangePlugin onChange={onChange} />
+        <HistoryPlugin />
+      </div>
     </LexicalComposer>
   );
 }
 
-export default Editor;
+export default RichTextComponent;
