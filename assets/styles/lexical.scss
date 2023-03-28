@@ -1,8 +1,16 @@
 .content-editor {
   background-color: white;
-  @apply p-4;
+  @apply p-0 relative;
   &:focus, &:focus-within {
     outline: 4px solid transparentize($color: $secondary, $amount: .8);
     outline-offset: -4px;
+  }
+
+  .editor-text {
+    @apply p-4 outline-none relative z-30;
+  }
+
+  .editor-placeholder {
+    @apply p-4 top-0 left-0 outline-none absolute z-10;
   }
 }

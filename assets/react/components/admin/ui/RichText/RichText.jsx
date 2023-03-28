@@ -46,6 +46,7 @@ function RichTextComponent() {
       <div className='content-editor'>
         <PlainTextPlugin
           contentEditable={<ContentEditable className='editor-text' />}
+          placeholder={<div className='editor-placeholder'>Contenu.....</div>}
           ErrorBoundary={LexicalErrorBoundary}
         />
         <OnChangePlugin onChange={onChange} />
