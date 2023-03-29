@@ -1,3 +1,17 @@
+.toolbar-editor {
+  background-color: white;
+  @apply flex p-2;
+  .toolbar-item-group {
+    @apply flex gap-2;
+  }
+  .toolbar-item {
+    @apply p-2 rounded-md shadow-md block;
+    .icon {
+      @apply w-6 h-auto;
+    }
+  }
+}
+
 .content-editor {
   background-color: white;
   @apply p-0 relative;
@@ -7,7 +21,15 @@
   }
 
   .editor-text {
-    @apply p-4 outline-none relative z-30;
+    @apply p-4 outline-none relative z-30 font-sans;
+
+    .text-through {
+      @apply line-through;
+    }
+
+    .text-underline {
+      @apply underline;
+    }
   }
 
   .editor-placeholder {
