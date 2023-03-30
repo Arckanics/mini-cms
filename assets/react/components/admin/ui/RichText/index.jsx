@@ -6,6 +6,7 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import FormatTextGroup from './Actions/FormatTextGroup';
+import SizeTextGroup from './Actions/SizeTextGroup';
 
 const theme = {
   text: {
@@ -34,15 +35,17 @@ function Editor() {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <div className='toolbar-editor'>
-        <FormatTextGroup />
-      </div>
-      <div className='content-editor'>
-        <RichTextPlugin
-          contentEditable={<ContentEditable className='editor-text'/>}
-          placeholder={<div className='editor-placeholder'>Contenu...</div>}
-          ErrorBoundary={LexicalErrorBoundary}
-        />
+      <div className='text-editor'>
+        <div className='toolbar-editor'>
+          <FormatTextGroup /> <SizeTextGroup />
+        </div>
+        <div className='content-editor'>
+          <RichTextPlugin
+            contentEditable={<ContentEditable className='editor-text'/>}
+            placeholder={<div className='editor-placeholder'>Contenu...</div>}
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+        </div>
       </div>
       <HistoryPlugin />
     </LexicalComposer>
