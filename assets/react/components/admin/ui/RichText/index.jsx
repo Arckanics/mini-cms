@@ -1,16 +1,19 @@
 import React from 'react';
 
-import {LexicalComposer} from '@lexical/react/LexicalComposer';
-import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
-import {ContentEditable} from '@lexical/react/LexicalContentEditable';
-import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import FormatTextGroup from './Actions/FormatTextGroup';
 
 const theme = {
   text: {
+    bold: 'text-bold',
+    italic: 'text-italic',
     strikethrough: 'text-through',
-    underline: 'text-underline'
+    underline: 'text-underline',
+    underlineStrikethrough: 'text-underline-through'
   }
 }
 
