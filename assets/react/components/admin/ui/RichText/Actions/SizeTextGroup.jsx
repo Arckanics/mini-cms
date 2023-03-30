@@ -1,33 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND } from "lexical";
+import { $getSelection, $isRangeSelection } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $patchStyleText, $getSelectionStyleValueForProperty } from "@lexical/selection";
+import Dropdown from "./items/Dropdown";
+import { FormatSize } from "../../../../../icon/text-editor";
 
 const SizeTextGroup = () => {
-  const format = {
-    12: "xs",
-    14: "sm",
-    16: "base",
-    18: "lg",
-    20: "xl",
-    24: "2xl",
-    30: "3xl",
-    36: "4xl",
-  };
+  const format = [
+    {name: 12, value: "0.75rem"},
+    {name: 14, value: "0.875rem"},
+    {name: 16, value: null},
+    {name: 18, value: "1.125rem"},
+    {name: 20, value: "1.25rem"},
+    {name: 24, value: "1.5rem"},
+    {name: 30, value: "1.875rem"},
+    {name: 36, value: "2.25rem"},
+  ];
   const [editor] = useLexicalComposerContext();
-  const [btnStates, setBtnStates] = useState({...format});
+  const [dropDownState, setDDStates] = useState(16);
+  const [toggle, setToggle] = useState(false);
+  const [active, setActive] = useState(false);
 
   const updateBtnStates = () => {
-    let prevState = { ...btnStates };
     const selection = $getSelection();
-    let node = selection;
-    if ($isRangeSelection(selection)) {
-      node = selection.getNodes()[0];
-    }
-    for (let [key, value] of Object.entries(prevState)) {
-      prevState[key] = node.hasFormat(key);
-    }
-    setBtnStates({ ...prevState });
+    let prop = $getSelectionStyleValueForProperty(selection, 'font-size')
+    let val = format.find(f => f.value === prop) || format[2]
+    setDDStates(val.name);
+    val.name != '16' ? setActive(true) : setActive(false)
   };
+
+  const handleSelect = (value) => {
+    setToggle(false);
+    editor.focus()
+    editor.update(() => {
+      const selection = $getSelection()
+      if ($isRangeSelection(selection)) {
+        $patchStyleText(selection, {
+          'font-size' : value
+        })
+      }
+    })
+  }
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
@@ -37,24 +50,18 @@ const SizeTextGroup = () => {
     });
   }, [editor]);
 
-  const itemsDispatch = () => {
-    let items = [];
-    let i = 0;
-    for (let [key, value] of Object.entries(btnStates)) {
-      items.push(
-        <BtnFormatText
-          key={i}
-          active={value}
-          command={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, key)}
-          name={key}
-        />
-      );
-      i++;
-    }
-    return items;
-  };
   return (
-    <div className="toolbar-item-group">{itemsDispatch().map((i) => i)}</div>
+    <div className={'toolbar-item-select' + (active ? ' active' : '')}
+      title="font-size"
+      onFocus={() => setToggle(!toggle)}
+      onBlur={() => setToggle(false)}
+      tabIndex={-1}
+    >
+      <div className="item-select-title">{dropDownState}</div>
+      <div className="tool-divider"></div>
+      <FormatSize cls='icon'/>
+      { toggle && <Dropdown item={format} select={handleSelect}/> }
+    </div>
   );
 };
 export default SizeTextGroup;

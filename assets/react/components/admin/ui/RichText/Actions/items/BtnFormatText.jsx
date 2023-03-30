@@ -5,6 +5,7 @@ const BtnFormatText = ({command, active, item, name}) => {
   let Item = item
   return (
     <button
+      title={name}
       onClick={command}
       className={'toolbar-item' + (active ? ' active' : '')}
       name={name}
