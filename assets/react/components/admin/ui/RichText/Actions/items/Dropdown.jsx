@@ -6,9 +6,10 @@ const Dropdown = ({item , select}) => {
       {
         item.map(({value,name},i) => 
           <div 
+            key={Date.now()+i}
             className='dropdown-opt' 
             value={value} 
-            onClick={(e) => select(value)}
+            onClick={($event) => select($event, value)}
           >
             {name}
           </div>
