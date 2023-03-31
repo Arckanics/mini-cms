@@ -20,6 +20,7 @@ const SizeTextGroup = () => {
   const [dropDownState, setDDStates] = useState(16);
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState(false);
+  const [eventLog, setEventLog] = useState('blur');
 
   const updateBtnStates = () => {
     const selection = $getSelection();
@@ -29,9 +30,8 @@ const SizeTextGroup = () => {
     val.name != '16' ? setActive(true) : setActive(false)
   };
 
-  const handleSelect = (value) => {
+  const handleSelect = ($event, value) => {
     setToggle(false);
-    editor.focus()
     editor.update(() => {
       const selection = $getSelection()
       if ($isRangeSelection(selection)) {
@@ -40,6 +40,22 @@ const SizeTextGroup = () => {
         })
       }
     })
+  }
+
+  const toggleState = (e) => {
+    e.stopPropagation()
+    switch (e.type) {
+      case 'blur':
+        setToggle(false);
+        break
+      case 'focus':
+        setToggle(true);
+        break
+      case 'click':
+        eventLog == 'click' ? editor.focus() : null
+        break
+    }
+    setEventLog(e.type)
   }
 
   useEffect(() => {
@@ -53,8 +69,9 @@ const SizeTextGroup = () => {
   return (
     <div className={'toolbar-item-select' + (active ? ' active' : '')}
       title="font-size"
-      onFocus={() => setToggle(!toggle)}
-      onBlur={() => setToggle(false)}
+      onFocus={toggleState}
+      onBlur={toggleState}
+      onClick={toggleState}
       tabIndex={-1}
     >
       <div className="item-select-title">{dropDownState}</div>

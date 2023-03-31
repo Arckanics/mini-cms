@@ -10,7 +10,7 @@ const BtnFormatText = ({command, active, item, name}) => {
       className={'toolbar-item' + (active ? ' active' : '')}
       name={name}
       >
-        <Item cls='icon' />
+        { Item && <Item cls='icon' /> }
     </button>)
 }
 export default BtnFormatText

@@ -2,11 +2,14 @@ import React from 'react';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin'
+import { ListNode, ListItemNode } from '@lexical/list'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import FormatTextGroup from './Actions/FormatTextGroup';
 import SizeTextGroup from './Actions/SizeTextGroup';
+import ListType from './Actions/ListType';
 
 const theme = {
   text: {
@@ -15,6 +18,11 @@ const theme = {
     strikethrough: 'text-through',
     underline: 'text-underline',
     underlineStrikethrough: 'text-underline-through'
+  },
+  list: {
+    ol: "list-ordered",
+    ul: "list-unordered",
+    listitem: "list-item"
   }
 }
 
@@ -31,13 +39,17 @@ function Editor() {
     namespace: 'MyEditor', 
     theme,
     onError,
+    nodes: [
+      ListNode,
+      ListItemNode
+    ]
   };
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className='text-editor'>
         <div className='toolbar-editor'>
-          <FormatTextGroup /> <SizeTextGroup />
+          <FormatTextGroup /> <SizeTextGroup /> <ListType />
         </div>
         <div className='content-editor'>
           <RichTextPlugin
@@ -47,6 +59,7 @@ function Editor() {
           />
         </div>
       </div>
+      <ListPlugin />
       <HistoryPlugin />
     </LexicalComposer>
   );
