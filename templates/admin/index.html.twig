@@ -15,6 +15,10 @@
   
 {% endblock %}
 
+{% block stylesheets %}
+  {{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
 {% block body %}  
   <div {{ react_component('main_admin') }} id="root" class="admin-root"></div>
   {% if error is defined %}
