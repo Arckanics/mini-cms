@@ -16,6 +16,8 @@ const ContentNav = ({ header, data, update, remove, create }) => {
 
   useEffect(() => {
     // initiation des filtres
+
+    // se lance trop tôt !!!!!!
     const sFields = {}
     header.map((h) => 
       sFields[h.tag] = h.tag !== "page" ?

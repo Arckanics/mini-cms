@@ -6,7 +6,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Footer from './Footer'
 import { Toast } from './ui'
-import { setUrl } from './redux/reducers/ajaxSlice'
+import { clearData, setUrl } from './redux/reducers/ajaxSlice'
 import { Pages, Settings, Articles, Login } from './pages'
 
 const Menu = [
@@ -23,6 +23,9 @@ const Layout = () => {
   useEffect(() => {
     url === "" ? dispatch(setUrl("")) : null
     location.pathname.match(/\/$/, '') ? nav(cleanPath(location.pathname)) : undefined
+    window.onbeforeunload = (e) => {
+      dispatch(clearData());
+    }
   }, [])
 
   return (
