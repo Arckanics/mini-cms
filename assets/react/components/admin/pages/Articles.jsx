@@ -58,7 +58,7 @@ const Articles = () => {
 
   return (
     <PagesContainer title={'Articles'}>
-      { articles && pages ? <ContentNav 
+      { typeof articles === 'object' && typeof pages === 'object' ? <ContentNav 
         data={articles} header={header} 
         update={updateArticle} remove={removeArticle} 
         /> 
