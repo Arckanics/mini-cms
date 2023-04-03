@@ -25,10 +25,11 @@ class AdminController extends AbstractController
     private function refreshSession(Session $session) {
       $ttl = 7200;
       if (time() - $session->getMetadataBag()->getLastUsed() > $ttl) {
+        echo "expire";
         $session->invalidate(0);
         return false;
       } 
-      $session->migrate(true, $ttl);
+      $session->migrate(false, $ttl);
       return true;
     }
 
