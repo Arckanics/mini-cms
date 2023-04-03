@@ -10,6 +10,7 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import FormatTextGroup from './Actions/FormatTextGroup';
 import SizeTextGroup from './Actions/SizeTextGroup';
 import ListType from './Actions/ListType';
+import AlignText from './Actions/AlignText';
 
 const theme = {
   text: {
@@ -50,6 +51,7 @@ function Editor() {
       <div className='text-editor'>
         <div className='toolbar-editor'>
           <FormatTextGroup /> <SizeTextGroup /> <ListType />
+          <AlignText />
         </div>
         <div className='content-editor'>
           <RichTextPlugin
