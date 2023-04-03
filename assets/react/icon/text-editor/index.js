@@ -5,7 +5,12 @@ import Italic from "./Italic";
 import NumberedList from "./NumberedList";
 import Strike from "./Strike";
 import SuperScript from "./SuperScript";
+import TxtLeft from "./TxtLeft";
+import TxtCenter from "./TxtCenter";
+import TxtRight from "./TxtRight";
+import TxtJustify from "./TxtJustify";
 import Underline from "./Underline";
+
 
 export {
   Bold,
@@ -15,5 +20,9 @@ export {
   Underline,
   FormatSize,
   BulletedList,
-  NumberedList
+  NumberedList,
+  TxtLeft,
+  TxtCenter,
+  TxtRight,
+  TxtJustify,
 }
