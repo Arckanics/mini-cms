@@ -109,7 +109,7 @@
     }
 
     .list-item {
-      text-shadow: 1px 1px 4px $secondary;
+      text-shadow: 1px 1px 4px transparentize($color: $secondary, $amount: .5);
       &::marker {
         color: darken($color: $secondary, $amount: 20%);
         font-weight: bold;

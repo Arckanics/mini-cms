@@ -37,7 +37,6 @@ export class ImageNode extends DecoratorNode {
   }
 
   static clone(node) {
-    console.log(node);
     return new ImageNode(
       { 
         src: node.__src,
@@ -68,7 +67,7 @@ export class ImageNode extends DecoratorNode {
 
   createDOM(config) {
     const span = document.createElement("span");
-    const theme = config.theme;
+    const {theme} = config;
     const className = theme.image;
     if (className !== undefined) {
       span.className = className;
