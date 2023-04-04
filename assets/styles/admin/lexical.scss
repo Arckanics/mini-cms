@@ -75,7 +75,7 @@
   }
 
   .editor-text {
-    @apply p-3 outline-none relative z-30 font-sans text-base ;
+    @apply p-3 outline-none relative z-30 font-sans text-base overflow-auto;
 
 
     .text-through {
@@ -113,6 +113,14 @@
       &::marker {
         color: darken($color: $secondary, $amount: 20%);
         font-weight: bold;
+      }
+    }
+
+    .image {
+      outline: 1px solid transparentize($color: $secondary, $amount: .7);
+      @apply float-left p-0.5 rounded-md mr-3 shadow-md;
+      img {
+        @apply rounded;
       }
     }
 
