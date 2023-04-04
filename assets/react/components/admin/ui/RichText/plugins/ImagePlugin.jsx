@@ -28,7 +28,10 @@ const ImagePlugin = () => {
           const imgNode = $createImageNode(payload);
           $insertNodes([imgNode])
           if ($isRootOrShadowRoot(imgNode.getParentOrThrow())) {
+            
             $wrapNodeInElement(imgNode, $createParagraphNode).selectEnd();
+          } else {
+            console.log($isRootOrShadowRoot(imgNode.getParentOrThrow()));
           }
 
           return true

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { $getSelection, $isRangeSelection, FORMAT_ELEMENT_COMMAND } from "lexical"
+import { $getSelectionStyleValueForProperty } from "@lexical/selection"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import BtnFormatText from "./items/BtnFormatText"
 import { TxtCenter, TxtJustify, TxtLeft, TxtRight } from "../../../../../icon/text-editor"
@@ -25,21 +26,16 @@ const AlignText = () => {
     const selection = $getSelection()
     if ($isRangeSelection(selection)) {
       let node = selection.anchor.getNode().getTopLevelElement()
+      switch (node.getType()) {
+        case "paragraph":
+          break;
+        default:
+          node = selection.anchor.getNode()
+      }
+      node = node.getType() === "text" ? node.getParent() : node
       let value = node.getFormatType() !== "" ? node.getFormatType() : 'left'
       setBtnStates({...defaultState, [value] : true})
     }
-  }
-
-  const handleSelect = ($event, value) => {
-    setToggle(false)
-    editor.update(() => {
-      const selection = $getSelection()
-      if ($isRangeSelection(selection)) {
-        $patchStyleText(selection, {
-          'font-size' : value
-        })
-      }
-    })
   }
 
   useEffect(() => {

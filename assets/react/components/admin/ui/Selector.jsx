@@ -7,6 +7,9 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
   const [lastEvent, setLastEvent] = useState(null)
 
   // mise en place de l'élément actif par défaut (prop active obligatoire)
+  if (!list) {
+    return null
+  }
   const landing = list.find(i => i.id === active)
   const avaible = list.filter(i => i.id !== landing.id)
 
