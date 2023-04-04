@@ -11,6 +11,9 @@ import FormatTextGroup from './Actions/FormatTextGroup';
 import SizeTextGroup from './Actions/SizeTextGroup';
 import ListType from './Actions/ListType';
 import AlignText from './Actions/AlignText';
+import { ImageNode } from './Nodes/ImageNode'
+import InsertImg from './Actions/InsertImg';
+import { ImagePlugin } from './plugins/ImagePlugin';
 
 const theme = {
   text: {
@@ -24,7 +27,8 @@ const theme = {
     ol: "list-ordered",
     ul: "list-unordered",
     listitem: "list-item"
-  }
+  },
+  image: "image"
 }
 
 
@@ -42,7 +46,8 @@ function Editor() {
     onError,
     nodes: [
       ListNode,
-      ListItemNode
+      ListItemNode,
+      ImageNode
     ]
   };
 
@@ -51,7 +56,7 @@ function Editor() {
       <div className='text-editor'>
         <div className='toolbar-editor'>
           <FormatTextGroup /> <SizeTextGroup /> <ListType />
-          <AlignText />
+          <AlignText /> <InsertImg />
         </div>
         <div className='content-editor'>
           <RichTextPlugin
@@ -63,6 +68,7 @@ function Editor() {
       </div>
       <ListPlugin />
       <HistoryPlugin />
+      <ImagePlugin />
     </LexicalComposer>
   );
 }

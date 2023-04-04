@@ -35,8 +35,10 @@ const FormatTextGroup = () => {
     if ($isRangeSelection(selection)) {
       node = selection.getNodes()[0];
     }
-    for (let [key, value] of Object.entries(prevState)) {
-      prevState[key] = node.hasFormat(key);
+    if (node && typeof node.hasFormat !== "undefined") {
+      for (let [key, value] of Object.entries(prevState)) {
+        prevState[key] = node.hasFormat(key);
+      }
     }
     setBtnStates({ ...prevState });
   };
