@@ -118,12 +118,26 @@
 
     .image {
       outline: 1px solid transparentize($color: $secondary, $amount: .7);
-      @apply float-left p-0.5 rounded-md mr-3 shadow-md;
-      img {
-        @apply rounded;
+      max-width: 33%;
+
+      &:hover {
+        outline-width: 4px;
+        outline-color: transparentize($color: $secondary, $amount: .5);
       }
+      @apply float-left p-0.5 rounded-md mr-3 mb-2 shadow-md duration-150 cursor-pointer;
+      &.at-end {
+        @apply float-right mr-0 ml-3;
+      }
+      img {
+        @apply rounded block w-full h-auto;
+      }
+      
     }
 
+
+    .paragraph {
+      clear: both;
+    }
 
   }
 
