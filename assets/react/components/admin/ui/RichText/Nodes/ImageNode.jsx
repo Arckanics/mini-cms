@@ -1,5 +1,6 @@
 import React from "react";
 import { createEditor, DecoratorNode } from "lexical";
+import Image from "./components/Image";
 
 
 const convertImgElement = (domNode) => {
@@ -13,8 +14,7 @@ const convertImgElement = (domNode) => {
 export class ImageNode extends DecoratorNode {
   __src;
   __altText;
-  __width;
-  __height;
+  __atEnd;
 
   exportDOM() {
     const el = document.createElement('img')
@@ -40,43 +40,37 @@ export class ImageNode extends DecoratorNode {
     return new ImageNode(
       { 
         src: node.__src,
-        altText: node.__altText, 
-        width: node.__width, 
-        height: node.__height, 
-        key: node.__key, 
+        altText: node.__altText,
+        key: node.__key,
       }
     );
   }
 
   constructor(props) {
-    const {src,altText,width,height,key} = props
+    const {src,altText,key,atEnd} = props
     super(key)
     this.__altText = altText || null
-    this.__height = height || "inherit"
-    this.__width = width || "inherit"
     this.__src = src
-  }
-
-  setWidthAndHeight(width,height) {
-    const writable = this.getWritable();
-    writable.__width = width;
-    writable.__height = height;
+    this.__atEnd = atEnd || false
   }
 
   // View
 
   createDOM(config) {
-    const span = document.createElement("span");
+    const span = document.createElement("div");
     const {theme} = config;
     const className = theme.image;
     if (className !== undefined) {
       span.className = className;
     }
+    if (this.__atEnd) {
+      span.className += " at-end"
+    }
     return span;
   }
 
   updateDOM() {
-    return false;
+    return true;
   }
 
   getSrc() {
@@ -87,16 +81,21 @@ export class ImageNode extends DecoratorNode {
     return this.__altText;
   }
 
+  getAtEnd() {
+    return this.__atEnd;
+  }
+
+  setAtEnd(set) {
+    const self = this.getWritable()
+    self.__atEnd = set;
+  }
+
   decorate() {
-    const {__width, __height, __src, __altText} = this
+    const {__src, __altText} = this
     return (
-        <img
+        <Image 
           src={__src}
           alt={__altText}
-          style={{
-            width:__width,
-            height:__height
-          }}
         />
     )
   }
@@ -106,16 +105,12 @@ export class ImageNode extends DecoratorNode {
 
 export const $createImageNode = ({
   altText,
-  height,
   src,
-  width,
   key
 }) => {
   return new ImageNode({
-    src,
     altText,
-    width,
-    height,
+    src,
     key
   });
 }

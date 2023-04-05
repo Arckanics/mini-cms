@@ -7,6 +7,7 @@ import { ListNode, ListItemNode } from '@lexical/list'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import { NodeEventPlugin } from '@lexical/react/LexicalNodeEventPlugin'
 import FormatTextGroup from './Actions/FormatTextGroup';
 import SizeTextGroup from './Actions/SizeTextGroup';
 import ListType from './Actions/ListType';
@@ -14,8 +15,10 @@ import AlignText from './Actions/AlignText';
 import { ImageNode } from './Nodes/ImageNode'
 import InsertImg from './Actions/InsertImg';
 import { ImagePlugin } from './plugins/ImagePlugin';
+import { imgMenuHandler } from './Events/imgs';
 
 const theme = {
+  paragraph: 'paragraph',
   text: {
     bold: 'text-bold',
     italic: 'text-italic',
@@ -53,6 +56,15 @@ function Editor() {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
+      
+      <ListPlugin />
+      <HistoryPlugin />
+      <ImagePlugin />
+      <NodeEventPlugin 
+        nodeType={ImageNode}
+        eventType='click'
+        eventListener={($e, e, n) => imgMenuHandler($e, e, n)}
+      />
       <div className='text-editor'>
         <div className='toolbar-editor'>
           <FormatTextGroup /> <SizeTextGroup /> <ListType />
@@ -66,9 +78,7 @@ function Editor() {
           />
         </div>
       </div>
-      <ListPlugin />
-      <HistoryPlugin />
-      <ImagePlugin />
+      
     </LexicalComposer>
   );
 }
