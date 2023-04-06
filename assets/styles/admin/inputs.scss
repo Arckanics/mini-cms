@@ -261,13 +261,19 @@ $inp-style: (
 
   &.false {
     @include inputSwitchBool($negative);
+    &.neutral {
+      @include inputSwitchBool($secondary);
+    }
   }
 
   &.true {
     .input-switch-button {
-      left: calc(2.75rem - 1.125rem);
+      left: calc(100% - 1.125rem);
     }
     @include inputSwitchBool($success);
+    &.neutral {
+      @include inputSwitchBool($secondary);
+    }
   }
 }
 

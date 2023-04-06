@@ -7,7 +7,11 @@ function TxtLabelInput({ id, value, label, placeholder, type, inputCls, divCls =
   }
   return (
     <div className={(divCls + (isActive ? " active" : ""))}>
-      <label htmlFor={id} className={labelCls}>{label}</label>
+      {
+        label 
+        ? <label htmlFor={id} className={labelCls}>{label}</label>
+        : null
+      }
       <input type={type} id={id} className={inputCls} name={id} value={value ? value : ""} onFocus={handleFocus} onBlur={handleFocus} onChange={onChange} placeholder={placeholder} />
     </div>
   )

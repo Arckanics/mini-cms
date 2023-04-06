@@ -63,6 +63,32 @@
     width: 2px;
     @apply rounded-full h-5/6 m-auto;
   }
+
+  .toolbar-modal {
+    background-color: white;
+    outline: 1px solid transparentize($color: $secondary, $amount: .8);
+    @apply rounded-md shadow-md absolute block top-full left-0 z-50 mt-2 w-max;
+    .modal-titlebar {
+      @apply flex flex-nowrap justify-between p-2 rounded-t-md shadow;
+      background-color: transparentize($color: $secondary, $amount: .95);
+      border-bottom: 1px solid $secondary;
+      .title-text {
+        min-width: 6rem;
+        @apply w-full;
+        color: $secondary;
+      }
+      .btn {
+        @apply p-0.5 aspect-square;
+        .icon {
+          @apply w-5;
+        }
+      }
+    }
+
+    .modal-content {
+      @apply p-2 rounded-b-md;
+    }
+  }
 }
 
 .content-editor {
