@@ -60,11 +60,11 @@ function Editor() {
       <ListPlugin />
       <HistoryPlugin />
       <ImagePlugin />
-      <NodeEventPlugin 
+      {/* <NodeEventPlugin 
         nodeType={ImageNode}
         eventType='click'
         eventListener={($e, e, n) => imgMenuHandler($e, e, n)}
-      />
+      /> */}
       <div className='text-editor'>
         <div className='toolbar-editor'>
           <FormatTextGroup /> <SizeTextGroup /> <ListType />

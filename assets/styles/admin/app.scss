@@ -53,6 +53,14 @@ $warning: hsl(44,102%,62%);
   color: $primary;
 }
 
+.bg-secondary {
+  background-color: $primary;
+}
+
+.color-secondary {
+  color: $secondary;
+}
+
 .bg-light {
   background-color: $light;
 }
@@ -201,8 +209,12 @@ $warning: hsl(44,102%,62%);
 
 @mixin btnSetting($color) {
   transition: 150ms;
-  @apply color-light block p-3 rounded-md text-lg;
+  @apply block p-3 rounded-md text-lg;
   background-color: $color;
+  color: white;
+  svg {
+    fill: white;
+  }
   box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.3);
   outline: solid transparent 2px;
   outline-offset: -2px;
@@ -213,6 +225,9 @@ $warning: hsl(44,102%,62%);
     background-color: whitesmoke;
     outline-color: $color;
     color: $color;
+    svg {
+      fill: $color;
+    }
   }
 }
 
@@ -226,6 +241,10 @@ $warning: hsl(44,102%,62%);
 
   &.secondary {
     @include btnSetting($secondary);
+  }
+
+  &.danger {
+    @include btnSetting($negative);
   }
 }
 
@@ -519,10 +538,10 @@ body {
 
 @import './modal-editor.scss';
 
-// text editor
-
-@import './lexical.scss';
-
 // search-bar
 
 @import './search.scss';
+
+// text editor
+
+@import './lexical.scss';

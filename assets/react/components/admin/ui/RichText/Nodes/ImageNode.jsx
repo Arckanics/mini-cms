@@ -14,6 +14,7 @@ const convertImgElement = (domNode) => {
 export class ImageNode extends DecoratorNode {
   __src;
   __altText;
+  __click;
   __atEnd;
 
   exportDOM() {
@@ -40,6 +41,7 @@ export class ImageNode extends DecoratorNode {
     return new ImageNode(
       { 
         src: node.__src,
+        click: node.__click,
         altText: node.__altText,
         key: node.__key,
       }
@@ -47,11 +49,12 @@ export class ImageNode extends DecoratorNode {
   }
 
   constructor(props) {
-    const {src,altText,key,atEnd} = props
+    const {src,altText,click,key,atEnd} = props
     super(key)
     this.__altText = altText || null
     this.__src = src
     this.__atEnd = atEnd || false
+    this.__click = click || null
   }
 
   // View
@@ -91,11 +94,16 @@ export class ImageNode extends DecoratorNode {
   }
 
   decorate() {
-    const {__src, __altText} = this
+    const {__src, __altText, __click} = this
     return (
         <Image 
           src={__src}
           alt={__altText}
+          onClick={
+            __click 
+            ? () => __click(this.getKey())
+            : null
+          }
         />
     )
   }
@@ -105,11 +113,13 @@ export class ImageNode extends DecoratorNode {
 
 export const $createImageNode = ({
   altText,
+  click,
   src,
   key
 }) => {
   return new ImageNode({
     altText,
+    click,
     src,
     key
   });
