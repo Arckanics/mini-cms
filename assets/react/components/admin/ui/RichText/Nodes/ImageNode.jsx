@@ -43,6 +43,7 @@ export class ImageNode extends DecoratorNode {
         src: node.__src,
         click: node.__click,
         altText: node.__altText,
+        atEnd: node.__atEnd,
         key: node.__key,
       }
     );
@@ -114,12 +115,14 @@ export class ImageNode extends DecoratorNode {
 export const $createImageNode = ({
   altText,
   click,
+  atEnd,
   src,
   key
 }) => {
   return new ImageNode({
     altText,
     click,
+    atEnd,
     src,
     key
   });
