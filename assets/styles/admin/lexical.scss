@@ -69,7 +69,7 @@
     outline: 1px solid transparentize($color: $secondary, $amount: .8);
     @apply rounded-md shadow-md absolute block top-full left-0 z-50 mt-2 w-max;
     .modal-titlebar {
-      @apply flex flex-nowrap justify-between p-2 rounded-t-md shadow;
+      @apply flex flex-nowrap justify-between p-2 rounded-t-md shadow mb-2;
       background-color: transparentize($color: $secondary, $amount: .95);
       border-bottom: 1px solid $secondary;
       .title-text {
@@ -87,6 +87,14 @@
 
     .modal-content {
       @apply p-2 rounded-b-md;
+    }
+
+    .btn {
+      @apply p-1;
+    }
+
+    *[class^="input-"] {
+      @apply p-1;
     }
   }
 }
@@ -146,16 +154,21 @@
       outline: 1px solid transparentize($color: $secondary, $amount: .7);
       max-width: 33%;
 
-      &:hover {
-        outline-width: 4px;
-        outline-color: transparentize($color: $secondary, $amount: .5);
-      }
+      
       @apply float-left p-0.5 rounded-md mr-3 mb-2 shadow-md duration-150 cursor-pointer;
       &.at-end {
         @apply float-right mr-0 ml-3;
       }
       img {
         @apply rounded block w-full h-auto;
+      }
+
+      &:hover {
+        outline-width: 4px;
+        outline-color: transparentize($color: $secondary, $amount: .5);
+        img {
+          filter: blur(2px);
+        }
       }
       
     }
