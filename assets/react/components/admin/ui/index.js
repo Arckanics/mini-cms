@@ -13,6 +13,7 @@ import ActionsRow from './ActionsRow'
 import ModalEditor from './ModalEditor'
 import DatePicker from './DatePicker'
 import RichText from './RichText/'
+import ImageFileInput from './ImageFileInput'
 
 export {
   Button,
@@ -22,6 +23,7 @@ export {
   PagesContainer,
   Selector,
   Toast,
+  ImageFileInput,
   TxtLabelInput,
   NumberInput,
   Checkbox,

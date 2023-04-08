@@ -86,6 +86,7 @@
     }
 
     .modal-content {
+      min-width: 15rem;
       @apply p-2 rounded-b-md;
     }
 
@@ -130,6 +131,10 @@
 
     .text-underline-through {
       text-decoration: line-through underline;
+    }
+
+    .text-superscript {
+      font-size: .75rem;
     }
 
     .list {

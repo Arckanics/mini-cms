@@ -24,7 +24,8 @@ const theme = {
     italic: 'text-italic',
     strikethrough: 'text-through',
     underline: 'text-underline',
-    underlineStrikethrough: 'text-underline-through'
+    underlineStrikethrough: 'text-underline-through',
+    superscript: 'text-superscript',
   },
   list: {
     ol: "list-ordered",

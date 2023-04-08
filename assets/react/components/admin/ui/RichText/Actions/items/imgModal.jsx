@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Close from "../../../../../../icon/icon-ui/Close"
-import {SwitchInput, TxtLabelInput} from "../../../"
+import {ImageFileInput, SwitchInput, TxtLabelInput} from "../../../"
 
 
 
@@ -28,21 +28,29 @@ const ImgModal = ({close, update, props, create, command}) => {
             </div>
           </div>
 
-          <div className='flex justify-between p-1'>
-            <TxtLabelInput 
-              placeholder={"https://...."}
-              label="Adresse :"
-              labelCls='label'
-              divCls='input-wrap p-2 secondary'
-              inputCls="input-txt secondary"
-              type="text"
-              id="urlInput"
-              value={props.src.url}
-              onChange={(e) => update({name:'src',value: {
-                ...src,
-                url: e.target.value,
-              }})}
-            />
+          <div className='p-1'>
+            { src.isFile 
+              ? <ImageFileInput 
+                  cls="flex gap-1 p-1"
+                  addCls='btn secondary p-1 w-7 grow-0'
+                  browse="btn p-1 grey grow block"
+                  id="sendFile"
+                />
+              : <TxtLabelInput 
+                  placeholder={"https://...."}
+                  label="Adresse :"
+                  labelCls='label'
+                  divCls='input-wrap p-2 secondary'
+                  inputCls="input-txt secondary"
+                  type="text"
+                  id="urlInput"
+                  value={props.src.url}
+                  onChange={(e) => update({name:'src',value: {
+                    ...src,
+                    url: e.target.value,
+                  }})}
+                /> 
+            }
           </div>
           <div>
             <label className='p-2 underline' >Position :</label>
