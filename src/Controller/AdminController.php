@@ -112,9 +112,9 @@ class AdminController extends AbstractController
 
     #[Route('/fileupload', name: 'app_admin_fileupload')]
     public function fileUpload(Request $req): Response|JsonResponse {
-      $path = '/public/uploads/img';
+      $path = '/uploads/img';
       $uploaded = $req->files->get("image");
-      $destination = $this->getParameter('kernel.project_dir').$path;
+      $destination = $this->getParameter('kernel.project_dir').'\/public\/'.$path;
       $name = "[".uniqid()."]-".$uploaded->getClientOriginalName();
       $uploaded->move($destination, $name);
       return $this->json([
@@ -122,6 +122,26 @@ class AdminController extends AbstractController
         "originalName" => $uploaded->getClientOriginalName(),
         "path" => $path
       ],200);
+    }
+
+    #[Route('/imgbrowser', name: 'app_admin_imgbrowser')]
+    public function imgBrowser(Request $req): Response|JsonResponse {
+      $path = $this->getParameter('kernel.project_dir').'/public/uploads/img';
+      $fileList = [];
+      if ($handle = opendir($path)) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                $fileList[] = $entry;
+            }
+        }
+        closedir($handle);
+      }
+
+      return $this->json([
+        "path" => '/uploads/img',
+        "files" => $fileList
+      ], 200);
+      
     }
 
 }

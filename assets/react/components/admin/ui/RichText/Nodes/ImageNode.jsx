@@ -16,6 +16,7 @@ export class ImageNode extends DecoratorNode {
   __altText;
   __click;
   __atEnd;
+  __isFile;
 
   exportDOM() {
     const el = document.createElement('img')
@@ -50,11 +51,12 @@ export class ImageNode extends DecoratorNode {
   }
 
   constructor(props) {
-    const {src,altText,click,key,atEnd} = props
+    const {src,altText,click,key,atEnd,isFile} = props
     super(key)
     this.__altText = altText || null
     this.__src = src
     this.__atEnd = atEnd || false
+    this.__isFile = isFile || false
     this.__click = click || null
   }
 
@@ -70,6 +72,7 @@ export class ImageNode extends DecoratorNode {
     if (this.__atEnd) {
       span.className += " at-end"
     }
+    span.setAttribute("saved", this.__isFile)
     return span;
   }
 
@@ -116,6 +119,7 @@ export const $createImageNode = ({
   altText,
   click,
   atEnd,
+  isFile,
   src,
   key
 }) => {
@@ -123,6 +127,7 @@ export const $createImageNode = ({
     altText,
     click,
     atEnd,
+    isFile,
     src,
     key
   });

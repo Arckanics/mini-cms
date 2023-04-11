@@ -1,15 +1,17 @@
 import React, {useState} from 'react'
 import Close from "../../../../../../icon/icon-ui/Close"
 import {ImageFileInput, SwitchInput, TxtLabelInput} from "../../../"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import { notify } from '../../../../redux/reducers/notificationSlice'
 
 
 
 const ImgModal = ({close, update, props, create, command}) => {
+  const dispatch = useDispatch()
   const cfg = useSelector((state) => state.ajax.axios)
   const xml = axios.create({...cfg, headers: {...cfg.headers, 'Content-Type' : 'multipart/form-data'}})
-  const { atEnd, src } = props
+  const { atEnd, src, isFile } = props
 
   const fileSys = (e) => {
     const file = e.target.files[0];
@@ -19,11 +21,26 @@ const ImgModal = ({close, update, props, create, command}) => {
       xml.post('/fileupload', form)
         .then(res => {
           console.log(res);
+          dispatch(notify({
+            type: "success",
+            msg: "image importée !"
+          }))
+          const data = res.data
+          update({ name: 'src',
+            value: `${data.path}/${data.name}`})
+          
         })
         .catch(res => {
           console.log(res);
         })
     }
+  }
+
+  const imgBrowse = () => {
+    xml.get('/imgbrowser')
+      .then(res => {
+        console.log(res);
+      })
   }
   return (
     <div className='toolbar-modal'>
@@ -35,26 +52,27 @@ const ImgModal = ({close, update, props, create, command}) => {
           <div>
             <label className='p-2 underline' >Type d'image :</label>
             <div className='flex justify-between py-1 px-2'>
-              <label className={'font-bold' + (!src.isFile ? ' color-secondary' : "")}>En ligne</label>
+              <label className={'font-bold' + (!isFile ? ' color-secondary' : "")}>En ligne</label>
               <SwitchInput 
                 cls='secondary neutral' 
                 change={() => update(
-                  {name:'src', value:{...src, isFile: !src.isFile}}
+                  {name:'isFile', value: !isFile}
                   )
                 } 
-                value={src.isFile} />
-              <label className={'font-bold' + (src.isFile ? ' color-secondary' : "")}>Locale</label>
+                value={isFile} />
+              <label className={'font-bold' + (isFile ? ' color-secondary' : "")}>Locale</label>
             </div>
           </div>
 
           <div className='p-1'>
-            { src.isFile 
+            { isFile 
               ? <ImageFileInput 
                   cls="flex gap-1 p-1"
                   addCls='btn secondary p-1 w-7 grow-0'
                   browse="btn p-1 grey grow block"
                   id="sendFile"
                   change={fileSys}
+                  imgBrowse={imgBrowse}
                 />
               : <TxtLabelInput 
                   placeholder={"https://...."}
@@ -64,11 +82,8 @@ const ImgModal = ({close, update, props, create, command}) => {
                   inputCls="input-txt secondary"
                   type="text"
                   id="urlInput"
-                  value={props.src.url}
-                  onChange={(e) => update({name:'src',value: {
-                    ...src,
-                    url: e.target.value,
-                  }})}
+                  value={src}
+                  onChange={(e) => update({name:'src',value: e.target.value})}
                 /> 
             }
           </div>

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ImageFileInput = ({cls, addCls, browse, id, change}) => {
+const ImageFileInput = ({cls, addCls, browse, id, change, imgBrowse}) => {
   return (
     <div className={cls}>
-      <button className={browse}>Parcourir</button>
+      <button className={browse} onClick={imgBrowse}>Parcourir</button>
       <label htmlFor={id} className={addCls}>+</label>
       <input 
         type='file' 
