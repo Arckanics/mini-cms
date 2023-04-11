@@ -1,11 +1,30 @@
 import React, {useState} from 'react'
 import Close from "../../../../../../icon/icon-ui/Close"
 import {ImageFileInput, SwitchInput, TxtLabelInput} from "../../../"
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 
 
 const ImgModal = ({close, update, props, create, command}) => {
+  const cfg = useSelector((state) => state.ajax.axios)
+  const xml = axios.create({...cfg, headers: {...cfg.headers, 'Content-Type' : 'multipart/form-data'}})
   const { atEnd, src } = props
+
+  const fileSys = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const form = new FormData();
+      form.append("image", file)
+      xml.post('/fileupload', form)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(res => {
+          console.log(res);
+        })
+    }
+  }
   return (
     <div className='toolbar-modal'>
       <div className='modal-titlebar'>
@@ -35,6 +54,7 @@ const ImgModal = ({close, update, props, create, command}) => {
                   addCls='btn secondary p-1 w-7 grow-0'
                   browse="btn p-1 grey grow block"
                   id="sendFile"
+                  change={fileSys}
                 />
               : <TxtLabelInput 
                   placeholder={"https://...."}

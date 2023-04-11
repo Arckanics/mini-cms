@@ -65,6 +65,7 @@
   }
 
   .toolbar-modal {
+    min-width: 260px;
     background-color: white;
     outline: 1px solid transparentize($color: $secondary, $amount: .8);
     @apply rounded-md shadow-md absolute block top-full left-0 z-50 mt-2 w-max;
@@ -110,6 +111,7 @@
   }
 
   .editor-text {
+    min-height: 4.5rem;
     @apply p-3 outline-none relative z-30 font-sans text-base overflow-auto;
 
 

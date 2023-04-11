@@ -6,12 +6,10 @@ use App\Entity\Settings;
 use App\Entity\Pages;
 use App\Entity\Articles;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Expr\Variable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Functions\Entities\ExtEntityManager;
@@ -114,12 +112,15 @@ class AdminController extends AbstractController
 
     #[Route('/fileupload', name: 'app_admin_fileupload')]
     public function fileUpload(Request $req): Response|JsonResponse {
-      $uploaded = $req->files->get('image');
-      $destination = $this->getParameter('kernel.project_dir').'/public/uploads/img';
-      $uploaded->move($destination);
+      $path = '/public/uploads/img';
+      $uploaded = $req->files->get("image");
+      $destination = $this->getParameter('kernel.project_dir').$path;
+      $name = "[".uniqid()."]-".$uploaded->getClientOriginalName();
+      $uploaded->move($destination, $name);
       return $this->json([
-        "status" => "OK",
-        "file" => $uploaded->name
+        "name" => $name,
+        "originalName" => $uploaded->getClientOriginalName(),
+        "path" => $path
       ],200);
     }
 
