@@ -12,44 +12,46 @@ const InsertImg = ({nodeKey, open}) => {
   const [img, setImg] = useState(nodeKey || null)
 
   const openModal = (key) => {
-    console.log(key);
     if (key) {
+      
       editor.getEditorState().read(() => {
         const el = $getNodeByKey(key)
         setImgProp({
-          src: {
-            isFile: false,
-            url: el.__src,
-          },
+          src: el.__src,
+          isFile: el.__isFile,
           atEnd: el.__atEnd,
         })
         setImg(key)
       })
     } else {
       setImgProp({
-        src: {
-          isFile: false,
-          url: "",
-        },
+        src: "",
+        isFile: false,
         atEnd: false,
       })
     }
-    
+    console.log(imgProp);
     setModal(true)
   }
 
   const editImg = ({name,value}) => {
+    
     if (img) {
       editor.update(() => {
         const el = $getNodeByKey(img)
         const keys = el.getWritable()
-        keys[`__${name}`] = name === "src" ? value.url : value
+        keys[`__${name}`] = value
       })
     }
+    
     setImgProp({
       ...imgProp,
       [name] : value
     })
+    console.log({
+      ...imgProp,
+      [name] : value
+    });
   }
 
   const closeModal = () => {
@@ -62,10 +64,11 @@ const InsertImg = ({nodeKey, open}) => {
   }
 
   const createImg = () => {
-    const { src, atEnd } = imgProp
+    const { src, atEnd, isFile } = imgProp
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-      src: src.url,
+      src: src,
       alt: null,
+      isFile: isFile,
       atEnd: atEnd,
       click: openModal
     })

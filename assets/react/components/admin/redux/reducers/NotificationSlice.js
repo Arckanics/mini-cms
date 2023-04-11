@@ -19,7 +19,7 @@ export const notificationSlice = createSlice({
         msg: msg,
         type: type,
         status : "in",
-        timeout: timeout,
+        timeout: timeout || 3000,
       }
     },
 
