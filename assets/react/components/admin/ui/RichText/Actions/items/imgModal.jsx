@@ -4,6 +4,7 @@ import {ImageFileInput, SwitchInput, TxtLabelInput} from "../../../"
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { notify } from '../../../../redux/reducers/notificationSlice'
+import { endOfPath } from '../../../../../../Functions/app'
 
 
 
@@ -12,6 +13,8 @@ const ImgModal = ({close, update, props, create, command}) => {
   const cfg = useSelector((state) => state.ajax.axios)
   const xml = axios.create({...cfg, headers: {...cfg.headers, 'Content-Type' : 'multipart/form-data'}})
   const { atEnd, src, isFile } = props
+  const [browser, setBrowser] = useState(false)
+  const [files, setFiles] = useState(null)
 
   const fileSys = (e) => {
     const file = e.target.files[0];
@@ -26,8 +29,10 @@ const ImgModal = ({close, update, props, create, command}) => {
             msg: "image importée !"
           }))
           const data = res.data
-          update({ name: 'src',
-            value: `${data.path}/${data.name}`})
+          update({ 
+            name: 'src',
+            value: `${data.path}/${data.name}`
+          })
           
         })
         .catch(res => {
@@ -37,10 +42,23 @@ const ImgModal = ({close, update, props, create, command}) => {
   }
 
   const imgBrowse = () => {
+    setBrowser(true);
     xml.get('/imgbrowser')
       .then(res => {
-        console.log(res);
+        const data = res.data
+        setFiles({
+          list: [...data.files],
+          path: data.path
+        })
       })
+  }
+
+  const setImg = (src) => {
+    update({
+      name: 'src', 
+      value: `${files.path}/${src}`
+    })
+    setBrowser(false)
   }
   return (
     <div className='toolbar-modal'>
@@ -49,7 +67,23 @@ const ImgModal = ({close, update, props, create, command}) => {
         <button className="btn danger" onClick={close}><Close cls="icon" /></button>
       </div>
       <div className='modal-content'>
-          <div>
+        {
+          browser && isFile
+          ? <div className='modal-img-browser'>
+            {
+              files 
+                ? files.list.map((file, i) => 
+                  <div key={`${Date.now()}-${i}`} className='img-item' onClick={() => setImg(file)}>
+                    <img src={`${files.path}/${file}`} className='w-full m-auto' />
+                  </div>
+                ) 
+                : null
+              
+            }
+
+            </div>
+          : <>
+            <div>
             <label className='p-2 underline' >Type d'image :</label>
             <div className='flex justify-between py-1 px-2'>
               <label className={'font-bold' + (!isFile ? ' color-secondary' : "")}>En ligne</label>
@@ -64,7 +98,12 @@ const ImgModal = ({close, update, props, create, command}) => {
             </div>
           </div>
 
-          <div className='p-1'>
+          <div className='p-1 relative'>
+            {
+              src && src.length > 0
+              ? <label className='img-name' ><div className='badge'>Image :</div><div className='img-name-txt'>{endOfPath(src).replace(/^\[.+\]-|^\/\[.+\]-/g,'')}</div></label>
+              : null
+            }
             { isFile 
               ? <ImageFileInput 
                   cls="flex gap-1 p-1"
@@ -100,7 +139,10 @@ const ImgModal = ({close, update, props, create, command}) => {
             ? <div className='py-1 px-2'><button className='btn secondary w-full rounded-lg p-1' onClick={command}>Insérer</button></div>
             : null
           }
+          </>
+        }
       </div>
+
     </div>
   )
 }

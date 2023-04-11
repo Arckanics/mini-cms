@@ -66,6 +66,7 @@
 
   .toolbar-modal {
     min-width: 260px;
+    max-width: 260px;
     background-color: white;
     outline: 1px solid transparentize($color: $secondary, $amount: .8);
     @apply rounded-md shadow-md absolute block top-full left-0 z-50 mt-2 w-max;
@@ -88,7 +89,38 @@
 
     .modal-content {
       min-width: 15rem;
-      @apply p-2 rounded-b-md;
+      @apply p-2 pb-3 rounded-b-md overflow-x-hidden;
+    }
+
+    .modal-img-browser {
+      background-color: white;
+      outline: 1px solid transparentize($color: $secondary, $amount: .5);
+      @apply flex flex-wrap justify-between overflow-y-auto m-auto shadow-inner py-2 rounded;
+      .img-item {
+        outline: 1px solid transparentize($color: $secondary, $amount: .5);
+        @apply w-5/12 aspect-square m-auto rounded-md p-0.5 cursor-pointer duration-150;
+        img {
+          @apply rounded-md duration-150;
+        }
+
+        &:hover {
+          outline-color: transparentize($color: $secondary, $amount: .2);
+        }
+      }
+    }
+
+    .badge {
+      color: $secondary;
+      outline-offset: -1px;
+      outline: 2px solid transparentize($color: $secondary, $amount: .5);
+      @apply px-2 py-1 text-center rounded-xl text-xs font-black inline drop-shadow-md shrink-0;
+    }
+
+    .img-name {
+      @apply p-1 flex flex-nowrap gap-3;
+      &-txt {
+        @apply text-ellipsis whitespace-nowrap shrink overflow-hidden;
+      }
     }
 
     .btn {
