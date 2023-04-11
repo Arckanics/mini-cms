@@ -30,7 +30,6 @@ const InsertImg = ({nodeKey, open}) => {
         atEnd: false,
       })
     }
-    console.log(imgProp);
     setModal(true)
   }
 
@@ -48,10 +47,6 @@ const InsertImg = ({nodeKey, open}) => {
       ...imgProp,
       [name] : value
     })
-    console.log({
-      ...imgProp,
-      [name] : value
-    });
   }
 
   const closeModal = () => {
@@ -65,6 +60,7 @@ const InsertImg = ({nodeKey, open}) => {
 
   const createImg = () => {
     const { src, atEnd, isFile } = imgProp
+    console.log(imgProp);
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
       src: src,
       alt: null,
