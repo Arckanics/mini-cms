@@ -8,6 +8,7 @@ import SwitchInput from './SwitchInput'
 const ModalEditor = ({ data, schema, title, close }) => {
   const [mData, setData] = useState(null)
 
+
   useEffect(() => {
     const empty = {}
     Object.entries(schema).map(([name, par],i) => {
@@ -34,7 +35,9 @@ const ModalEditor = ({ data, schema, title, close }) => {
       }
       empty[name] = val
     })
-    !data ? setData({...empty}) : setData({...data})
+    !data 
+      ? setData({...empty}) 
+      : setData({...data})
   }, [])
 
   return !mData ? null : (
@@ -45,7 +48,8 @@ const ModalEditor = ({ data, schema, title, close }) => {
       </div>
       <div className='modal-window'>
         {
-          Object.entries(schema).map(([key,value],i) => {
+          mData
+          ? Object.entries(schema).map(([key,value],i) => {
             let Input;
             switch (value.type) {
               case 'string':
@@ -62,9 +66,16 @@ const ModalEditor = ({ data, schema, title, close }) => {
                 break;
               case 'sorting':
               case 'select':
+                const reKey = key.replace(/s$/g,'')
                   Input = <div className='flex gap-3'>
                     <label className='input-label p-2 font-bold'>{value.name} :</label>
-                    <Selector cls={'secondary p-0'} iconCls={'icon'} list={value.list} active={mData[key]} />
+                    <Selector 
+                      cls={'secondary p-0'}
+                      iconCls={'icon'}
+                      list={value.list}
+                      active={mData[reKey]}
+                      sortProp={reKey}
+                    />
                   </div>
                 break;
               case 'date':
@@ -79,6 +90,7 @@ const ModalEditor = ({ data, schema, title, close }) => {
 
             return <div key = {i} className='modal-field'>{Input}</div>
           })
+          : null
         }
       </div>
       {

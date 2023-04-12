@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Expand from '../../../icon/icon-ui/Expand'
 import { capitalize } from '../../../Functions/app'
 
-const Selector = ({ cls, list, active, iconCls, children, action }) => {
+const Selector = ({ cls, list, active, iconCls, children, action, sortProp = "id" }) => {
   const [toggle, setToggle] = useState(false)
   const [lastEvent, setLastEvent] = useState(null)
 
@@ -10,7 +10,7 @@ const Selector = ({ cls, list, active, iconCls, children, action }) => {
   if (!list) {
     return null
   }
-  const landing = list.find(i => i.id === active)
+  const landing = list.find(i => i[sortProp] === active) || list.find(i => i.id === active)
   const avaible = list.filter(i => i.id !== landing.id)
 
   const toggleSelect = (e) => {
