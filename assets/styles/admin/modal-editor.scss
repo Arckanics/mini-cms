@@ -1,10 +1,12 @@
 .modal-editor {
   background-color: $light;
-  top: calc(2.75rem + 20px);
+  top: calc(2.75rem + 18px);
   @apply 
     absolute shadow-2xl left-4 right-4 
-    rounded-b-md rounded-xl;
+    rounded-b-md rounded-xl overflow-hidden;
   outline: 1px solid $secondary;
+
+  max-height: calc(100% - 2.75rem - 18px - 1rem);
 
   .title-bar {
     color: $secondary;

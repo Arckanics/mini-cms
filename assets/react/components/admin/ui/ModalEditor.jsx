@@ -95,7 +95,7 @@ const ModalEditor = ({ data, schema, title, close }) => {
       </div>
       {
         Object.entries(schema).map(([k,v],i) => {
-          return v.type === "text" ? <RichText key={i} /> : null
+          return v.type === "text" ? <RichText key={i} data={mData[k]} /> : null
         })
       }
     </section>
