@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -7,7 +7,6 @@ import { ListNode, ListItemNode } from '@lexical/list'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import { NodeEventPlugin } from '@lexical/react/LexicalNodeEventPlugin'
 import FormatTextGroup from './Actions/FormatTextGroup';
 import SizeTextGroup from './Actions/SizeTextGroup';
 import ListType from './Actions/ListType';
@@ -15,7 +14,9 @@ import AlignText from './Actions/AlignText';
 import { ImageNode } from './Nodes/ImageNode'
 import InsertImg from './Actions/InsertImg';
 import { ImagePlugin } from './plugins/ImagePlugin';
-import { imgMenuHandler } from './Events/imgs';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $generateNodesFromDOM, $generateHtmlFromNodes } from '@lexical/html';
+import { $getRoot, $insertNodes } from 'lexical';
 
 const theme = {
   paragraph: 'paragraph',
@@ -35,15 +36,38 @@ const theme = {
   image: "image"
 }
 
+const InitialHtmlPlugin = ({data}) => {
+  const [editor] = useLexicalComposerContext()
+  const [html, setHtml] = useState(null)
+  useEffect(() => {
+    !html
+    ? editor.update(() => {
+      const parser = new DOMParser()
+      const dom = parser.parseFromString(data, "text/html")
 
+      const nodes = $generateNodesFromDOM(editor, dom)
+
+      $getRoot().select()
+
+      $insertNodes(nodes)
+
+      
+    })
+    : null
+    editor.getEditorState().read(() => {
+      const htmlString = $generateHtmlFromNodes(editor, null)
+      setHtml(htmlString)
+    })
+  }, [editor])
+}
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
 // try to recover gracefully without losing user data.
-function onError(error) {
+const onError = (error) => {
   console.error(error);
 }
 
-function Editor() {
+const Editor = ({ data }) => {
   const initialConfig = {
     namespace: 'MyEditor', 
     theme,
@@ -57,15 +81,10 @@ function Editor() {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      
+      <InitialHtmlPlugin data={data}/>
       <ListPlugin />
       <HistoryPlugin />
       <ImagePlugin />
-      {/* <NodeEventPlugin 
-        nodeType={ImageNode}
-        eventType='click'
-        eventListener={($e, e, n) => imgMenuHandler($e, e, n)}
-      /> */}
       <div className='text-editor'>
         <div className='toolbar-editor'>
           <FormatTextGroup /> <SizeTextGroup /> <ListType />

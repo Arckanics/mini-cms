@@ -3,7 +3,7 @@
     "admin": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-0bd3fb.js",
+        "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-b97159.js",
         "/build/assets_react_controllers_sync_recursive_j_7Ct_sx_-node_modules_symfony_stimulus-bridge_dist_w-0702b0.js",
         "/build/admin.js"
       ],
@@ -14,7 +14,7 @@
     "app": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-0bd3fb.js",
+        "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-b97159.js",
         "/build/assets_react_controllers_sync_recursive_j_7Ct_sx_-node_modules_symfony_stimulus-bridge_dist_w-0702b0.js",
         "/build/app.js"
       ],

@@ -9,7 +9,7 @@
   * {
     @apply duration-150;
   }
-  @apply flex p-1.5 gap-2 rounded-md shadow-md select-none;
+  @apply flex p-1.5 gap-2 rounded-md shadow-md select-none shrink-0;
   .toolbar-item-group {
     @apply flex gap-2 relative;
   }
@@ -69,7 +69,7 @@
     max-width: 260px;
     background-color: white;
     outline: 1px solid transparentize($color: $secondary, $amount: .8);
-    @apply rounded-md shadow-md absolute block top-full left-0 z-50 mt-2 w-max;
+    @apply rounded-md shadow-md absolute block top-full left-0 z-50 mt-2 w-max shrink-0;
     .modal-titlebar {
       @apply flex flex-nowrap justify-between p-2 rounded-t-md shadow mb-2;
       background-color: transparentize($color: $secondary, $amount: .95);
@@ -134,18 +134,35 @@
 }
 
 .content-editor {
-  @apply p-0 relative m-1.5 mt-4 rounded-md shadow-inner;
+  @apply p-0 relative m-1.5 mt-4 rounded-md shadow-inner overflow-hidden flex flex-col;
   outline: 2px solid transparentize($color: $secondary, $amount: .8);
   outline-offset: -1px;
+  max-height: calc(30rem);
   &:focus, &:focus-within {
     outline-color: transparentize($color: $secondary, $amount: .5);
-    
   }
 
   .editor-text {
-    min-height: 4.5rem;
-    @apply p-3 outline-none relative z-30 font-sans text-base overflow-auto;
+    @apply 
+      p-3 mx-0.5 h-full outline-none relative z-30 
+      font-sans text-base overflow-auto
+      outline-none
+      ;
 
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $secondary;
+      border-radius: 30px;
+    }
+
+    &::-webkit-scrollbar-button {
+      height: 3px;
+
+    }
 
     .text-through {
       @apply line-through;
