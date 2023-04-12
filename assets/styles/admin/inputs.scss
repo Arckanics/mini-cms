@@ -225,20 +225,22 @@ $inp-style: (
   }
 }
 
-@mixin inputSwitchBool($color) {
-  background-color: $color;
-  box-shadow: 0 0 3px 0 darken($color: $color, $amount: 35%) inset;
-  .input-switch-button {
-    box-shadow: 0 0 2px 0px darken($color: $color, $amount: 35%) inset, 0 0 3px 0 darken($color: $color, $amount: 45%);
-  }
-}
-
 @mixin inputSwitch($color) {
   outline: solid 3px transparentize($color: $color, $amount: .6);
   &:hover {
     outline: solid 3px transparentize($color: $color, $amount: .3);
   }
 }
+
+@mixin inputSwitchBool($color) {
+  background-color: $color;
+  box-shadow: 0 0 3px 0 darken($color: $color, $amount: 35%) inset;
+  .input-switch-button {
+    box-shadow: 0 0 2px 0px darken($color: $color, $amount: 35%) inset, 0 0 3px 0 darken($color: $color, $amount: 45%);
+  }
+  @include inputSwitch($color)
+}
+
 
 .input-switch {
   transition: 150ms;

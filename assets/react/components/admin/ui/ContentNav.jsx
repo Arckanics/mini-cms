@@ -74,7 +74,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
     {
       header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag], draw, tag)}</div>)
     }
-    <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={update} remove={remove} /></div>
+    <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={() => update(field.id)} remove={remove} /></div>
   </div>
   )
 
@@ -126,7 +126,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
           {
             header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag], draw, tag)}</div>)
           }
-          <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={updateContent} /></div>
+          <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={() => update(field.id)} /></div>
         </div>
       }
     )
@@ -190,10 +190,9 @@ const ContentNav = ({ header, data, update, remove, create }) => {
       <div className='content-inner '>
         {
 
-          !search || search && !getPropsBoolStatus(search, "active", true) ?
-            data && isArray(data) ? basicRender(data) : null
-            :
-            data && isArray(data) ? filterRender(data) : null
+          !search || search && !getPropsBoolStatus(search, "active", true) 
+            ? data && isArray(data) ? basicRender(data) : null 
+            : data && isArray(data) ? filterRender(data) : null
         }
       </div>
     </section>

@@ -40,8 +40,10 @@ const Articles = () => {
     setModal({...modal, enable: false})
   }
 
+  // ouvre l'édition d'articles
   const updateArticle = (id) => {
-    setModal({...modal, enable: true, title: 'Modifier'})
+    const article = articles.find(a => a.id == id)
+    setModal({...modal, enable: true, title: 'Modifier', data: article})
   }
 
   const removeArticle = (id) => {
