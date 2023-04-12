@@ -144,9 +144,9 @@
 
   .editor-text {
     @apply 
-      p-3 mx-0.5 h-full outline-none relative z-30 
+      p-3 px-2 mx-1 h-full relative z-30 
       font-sans text-base overflow-auto
-      outline-none
+      outline-none cursor-auto;
       ;
 
     &::-webkit-scrollbar {
@@ -155,12 +155,13 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $secondary;
+      
+      background-color: transparentize($color: $secondary, $amount: .4);
       border-radius: 30px;
     }
 
     &::-webkit-scrollbar-button {
-      height: 3px;
+      height: 4px;
 
     }
 
