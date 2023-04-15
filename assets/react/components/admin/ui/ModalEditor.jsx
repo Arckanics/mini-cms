@@ -40,6 +40,8 @@ const ModalEditor = ({ data, schema, title, close }) => {
       : setData({...data})
   }, [])
 
+
+
   return !mData ? null : (
     <section className='modal-editor'>
       <div className='title-bar'>
@@ -55,13 +57,15 @@ const ModalEditor = ({ data, schema, title, close }) => {
               case 'string':
                 Input = <div className='flex gap-3'>
                   <label className='input-label p-2 font-bold'>{value.name} :</label>
-                  <input className='input-txt secondary' type="text" value={mData[key]} placeholder={value.name}/>
+                  <input className='input-txt secondary' type="text" value={mData[key]} placeholder={"..."}
+                    onChange={(e) => setData({...mData, [key]: e.target.value})}
+                  />
                 </div>
                 break;
               case 'bool':
                 Input = <div className='flex gap-3'>
                   <label className='input-label p-2 font-bold'>{value.name} :</label>
-                  <SwitchInput value={mData[key]} />
+                  <SwitchInput value={mData[key]} change={() => setData({...mData, [key]: !mData[key]})}/>
                 </div>
                 break;
               case 'sorting':
@@ -74,6 +78,7 @@ const ModalEditor = ({ data, schema, title, close }) => {
                       iconCls={'icon'}
                       list={value.list}
                       active={mData[reKey]}
+                      action={(v) => setData({...mData, [reKey]: v})}
                       sortProp={reKey}
                     />
                   </div>
@@ -95,7 +100,7 @@ const ModalEditor = ({ data, schema, title, close }) => {
       </div>
       {
         Object.entries(schema).map(([k,v],i) => {
-          return v.type === "text" ? <RichText key={i} data={mData[k]} /> : null
+          return v.type === "text" ? <RichText key={i} data={mData[k]} update={(v) => setData({...mData, [k]: v})} /> : null
         })
       }
     </section>

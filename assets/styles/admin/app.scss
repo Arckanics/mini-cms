@@ -122,13 +122,14 @@ $warning: hsl(44,102%,62%);
 
   .active {
     transition: 150ms;
-    @apply p-3 pl-4 align-middle cursor-pointer;
+    @apply p-3 pl-4 align-middle cursor-pointer overflow-hidden;
     background-color: $light;
     box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.5) inset;
     display: flex;
     outline: solid transparent 2px;
 
     .txt {
+      @apply overflow-hidden text-ellipsis whitespace-nowrap;
       width: 100%;
     }
 

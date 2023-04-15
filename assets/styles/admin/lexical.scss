@@ -137,7 +137,7 @@
   @apply p-0 relative m-1.5 mt-4 rounded-md shadow-inner overflow-hidden flex flex-col;
   outline: 2px solid transparentize($color: $secondary, $amount: .8);
   outline-offset: -1px;
-  max-height: calc(30rem);
+  max-height: 21rem;
   &:focus, &:focus-within {
     outline-color: transparentize($color: $secondary, $amount: .5);
   }
@@ -150,6 +150,7 @@
       ;
 
     &::-webkit-scrollbar {
+      cursor: pointer;
       background-color: transparent;
       width: 8px;
     }

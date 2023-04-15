@@ -16,7 +16,7 @@ import InsertImg from './Actions/InsertImg';
 import { ImagePlugin } from './plugins/ImagePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $generateNodesFromDOM, $generateHtmlFromNodes } from '@lexical/html';
-import { $getRoot, $insertNodes } from 'lexical';
+import { $getRoot, $insertNodes, $setSelection } from 'lexical';
 
 const theme = {
   paragraph: 'paragraph',
@@ -36,9 +36,9 @@ const theme = {
   image: "image"
 }
 
-const InitialHtmlPlugin = ({data}) => {
+const InitialHtmlPlugin = ({data,update}) => {
   const [editor] = useLexicalComposerContext()
-  const [html, setHtml] = useState(null)
+  const [html, setHtml] = useState(false)
   useEffect(() => {
     !html
     ? editor.update(() => {
@@ -50,13 +50,13 @@ const InitialHtmlPlugin = ({data}) => {
       $getRoot().select()
 
       $insertNodes(nodes)
-
-      
+      $setSelection(null)
+      setHtml(true)
     })
     : null
-    editor.getEditorState().read(() => {
-      const htmlString = $generateHtmlFromNodes(editor, null)
-      setHtml(htmlString)
+
+    editor.getEditorState().read(() => {      
+      update($generateHtmlFromNodes(editor, null))
     })
   }, [editor])
 }
@@ -67,7 +67,7 @@ const onError = (error) => {
   console.error(error);
 }
 
-const Editor = ({ data }) => {
+const Editor = ({ data, update }) => {
   const initialConfig = {
     namespace: 'MyEditor', 
     theme,
@@ -81,7 +81,7 @@ const Editor = ({ data }) => {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <InitialHtmlPlugin data={data}/>
+      <InitialHtmlPlugin data={data} update={update}/>
       <ListPlugin />
       <HistoryPlugin />
       <ImagePlugin />
