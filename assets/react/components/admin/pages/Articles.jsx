@@ -39,6 +39,11 @@ const Articles = () => {
   const closeModal = () => {
     setModal({...modal, enable: false})
   }
+  // envoie des données
+  const sendData = ({type, where, data}) => {
+
+  }
+
 
   // ouvre l'édition d'articles
   const updateArticle = (id) => {
@@ -46,6 +51,7 @@ const Articles = () => {
     setModal({...modal, enable: true, title: 'Modifier', data: article})
   }
 
+  // supprime les articles
   const removeArticle = (id) => {
     console.log(id);
   }
@@ -70,7 +76,7 @@ const Articles = () => {
       {
         // fenêtre d'édition et création des articles
         modal.enable ? 
-        <ModalEditor data={modal.data} title={modal.title} close={closeModal}
+        <ModalEditor data={modal.data} title={modal.title} close={closeModal} command={sendData}
           schema={
             {
               isdynamic: {type: "bool", name: 'Dynamique'},
