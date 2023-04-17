@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TxtLabelInput } from '../ui'
+import { Button, TxtLabelInput } from '../ui/Inputs'
 import { getToken } from '../Functions/Security'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'

@@ -1,5 +1,5 @@
 import React from 'react'
-import Calendar from '../../../icon/icon-ui/Calendar'
+import Calendar from '../../../../icon/icon-ui/Calendar'
 
 const DatePicker = ({ change, value }) => {
   const date = value
