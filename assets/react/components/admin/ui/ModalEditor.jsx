@@ -99,12 +99,13 @@ const ModalEditor = ({ data, schema, title, close }) => {
                   );
                   break;
                 case "date":
+                  const date = (mData[key] || new Date())
                   Input = (
                     <div className="flex gap-3">
                       <label className="input-label p-2 font-bold">
                         {value.name} :{" "}
                       </label>
-                      <DatePicker value={mData[key]} />
+                      <DatePicker value={date} />
                     </div>
                   );
                   break;

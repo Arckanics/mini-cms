@@ -280,16 +280,61 @@ $inp-style: (
 }
 
 .input-calendar {
-  @apply block p-0.5 pl-2 pr-1 rounded-md text-lg color-dark flex gap-3 select-none cursor-pointer;
-  background-color: hsl(12, 12%, 92%);
-  box-shadow: 0 0 4px 0 transparentize($color: $secondary, $amount: 0.5) inset;
+  @apply relative p-0.5 pl-2 pr-1 rounded-md text-lg color-dark flex gap-3 select-none cursor-pointer;
+  background-color: $light;
+  box-shadow: 0 0 4px 0 transparentize($color: $primary, $amount: 0.5) inset;
   outline: solid transparent 2px;
+
+  .calendar {
+    @apply absolute z-40 top-[-2px] left-[-2px] rounded-2xl rounded-tl-md shadow-lg cursor-default;
+    min-width: 220px;
+    background-color: white;
+    outline: 1px solid transparentize($color: $primary, $amount: .5);
+    & > * {
+      @apply p-2;
+    }
+
+    .calendar-current {
+      @apply text-sm font-bold drop-shadow-md pb-0;
+      border-bottom: 1px solid $primary;
+    }
+
+    .day-names {
+      @apply flex flex-nowrap text-xs py-0 font-semibold justify-items-center items-stretch gap-2;
+    }
+
+    .day-month-select {
+      @apply flex flex-nowrap capitalize justify-items-stretch items-stretch pt-0;
+      & > div {
+        @apply grow shrink text-center;
+      }
+    }
+
+    .case {
+      @apply p-1 shrink grow text-center duration-150;
+      
+    }
+
+    .calendar-days {
+      @apply grid grid-cols-7 gap-2;
+      .case {
+        @apply pt-1.5 text-sm aspect-square flex justify-center items-center rounded-xl shadow-sm cursor-pointer;
+        outline: 1px solid transparentize($color: $primary, $amount: .8);
+        background-color: lighten($color: $light, $amount: 7%);
+        &:hover , &.active {
+          @apply rounded-full;
+          background-color: $primary;
+          color: white;
+        }
+      }
+    }
+  }
 
   &:focus,
   &:hover,
   &.opened {
     outline-color: $secondary;
-    .calendar {
+    .calendar-icon {
       .icon {
         @apply drop-shadow-md;
         transform: scale(1.2);
@@ -298,7 +343,7 @@ $inp-style: (
   }
 
   &:focus, &.opened {
-    .calendar {
+    .calendar-icon {
       background-color: $secondary;
       .icon {
         fill: white;
@@ -310,7 +355,7 @@ $inp-style: (
     @apply m-auto;
   }
 
-  .calendar {
+  .calendar-icon {
     transition: 150ms;
     @apply m-auto p-1 drop-shadow-md rounded-md relative;
     .icon {
