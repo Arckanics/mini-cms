@@ -105,7 +105,9 @@ const ModalEditor = ({ data, schema, title, close }) => {
                       <label className="input-label p-2 font-bold">
                         {value.name} :{" "}
                       </label>
-                      <DatePicker value={date} />
+                      <DatePicker value={date} change={(v) => {
+                        setData({...mData, [key]: v})
+                      }}/>
                     </div>
                   );
                   break;

@@ -1,17 +1,19 @@
-import Add from "./Add"
-import Calendar from "./Calendar"
-import Checked from "./Checked"
-import Close from "./Close"
-import Danger from "./Danger"
-import Delete from "./Delete"
-import Edit from "./Edit"
-import Expand from "./Expand"
-import Info from "./Info"
-import Logout from "./Logout"
-import Success from "./Success"
-import Warning from "./Warning"
+import Add from "./Add";
+import Calendar from "./Calendar";
+import Checked from "./Checked";
+import Close from "./Close";
+import Danger from "./Danger";
+import Delete from "./Delete";
+import Edit from "./Edit";
+import Expand from "./Expand";
+import Info from "./Info";
+import Logout from "./Logout";
+import NavNext from "./Next";
+import NavPrev from "./Prev";
+import Success from "./Success";
+import Warning from "./Warning";
 
-export default {
+export {
   Add,
   Calendar,
   Checked,
@@ -23,5 +25,7 @@ export default {
   Info,
   Logout,
   Success,
-  Warning
-}
+  Warning,
+  NavPrev,
+  NavNext,
+};
