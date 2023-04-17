@@ -282,21 +282,21 @@ $inp-style: (
 .input-calendar {
   @apply relative p-0.5 pl-2 pr-1 rounded-md text-lg color-dark flex gap-3 select-none cursor-pointer;
   background-color: $light;
-  box-shadow: 0 0 4px 0 transparentize($color: $primary, $amount: 0.5) inset;
+  box-shadow: 0 0 4px 0 transparentize($color: $secondary, $amount: 0.5) inset;
   outline: solid transparent 2px;
 
   .calendar {
     @apply absolute z-40 top-[-2px] left-[-2px] rounded-2xl rounded-tl-md shadow-lg cursor-default;
     min-width: 220px;
     background-color: white;
-    outline: 1px solid transparentize($color: $primary, $amount: .5);
+    outline: 1px solid transparentize($color: $secondary, $amount: .5);
     & > * {
       @apply p-2;
     }
 
     .calendar-current {
       @apply text-sm font-bold drop-shadow-md pb-0;
-      border-bottom: 1px solid $primary;
+      border-bottom: 1px solid $secondary;
     }
 
     .day-names {
@@ -304,27 +304,34 @@ $inp-style: (
     }
 
     .day-month-select {
-      @apply flex flex-nowrap capitalize justify-items-stretch items-stretch pt-0;
+      @apply flex flex-nowrap capitalize justify-items-stretch items-stretch pt-0 gap-4;
       & > div {
-        @apply grow shrink text-center;
+        @apply grow shrink text-center flex justify-between;
+      }
+
+      .icon {
+        @apply w-5;
       }
     }
 
     .case {
       @apply p-1 shrink grow text-center duration-150;
-      
     }
 
     .calendar-days {
       @apply grid grid-cols-7 gap-2;
       .case {
-        @apply pt-1.5 text-sm aspect-square flex justify-center items-center rounded-xl shadow-sm cursor-pointer;
-        outline: 1px solid transparentize($color: $primary, $amount: .8);
+        @apply pt-1.5 text-sm aspect-square flex justify-center items-center rounded-xl shadow cursor-pointer;
+        outline: 1px solid transparentize($color: $secondary, $amount: .8);
         background-color: lighten($color: $light, $amount: 7%);
-        &:hover , &.active {
+        &:not(.empty):hover , &.active {
           @apply rounded-full;
-          background-color: $primary;
+          background-color: $secondary;
           color: white;
+        }
+
+        &.empty {
+          @apply opacity-0 cursor-default;
         }
       }
     }

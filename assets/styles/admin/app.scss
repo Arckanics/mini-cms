@@ -250,6 +250,7 @@ $warning: hsl(44,102%,62%);
   &.grey {
     @include btnSetting(desaturate($color: $secondary, $amount: 50%));
   }
+  
 
   &.danger {
     @include btnSetting($negative);
@@ -258,6 +259,39 @@ $warning: hsl(44,102%,62%);
   
 }
 
+@mixin btnNav($color) {
+  transition: 150ms;
+  @apply block p-1 rounded-md text-base;
+  background-color: inherit;
+  color: $color;
+  svg {
+    transition: 150ms;
+    fill: transparentize($color: $color, $amount: 0.6);
+  }
+  box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.8);
+  outline: solid transparentize($color: $color, $amount: 0.8) 1px;
+  outline-offset: -1px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background-color: white;
+    outline-color: $color;
+    color: $color;
+    svg {
+      fill: $color;
+    }
+  }
+}
+
+.btn-nav {
+  @apply cursor-pointer;
+  &.primary {
+    @include btnNav($primary);
+  }
+}
+
+// columns
 
 @mixin growScale () {
   $scales: 1,2,3,4,5,6,7,8,9,10;
