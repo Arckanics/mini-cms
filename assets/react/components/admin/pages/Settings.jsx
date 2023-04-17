@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Button, PagesContainer, Selector, TxtLabelInput } from '../ui'
+import {PagesContainer} from "../ui"
+import { Button, Selector, TxtLabelInput } from '../ui/Inputs'
 import { areEqual, capitalize } from '../../../Functions/app'
 import { useDispatch, useSelector } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'

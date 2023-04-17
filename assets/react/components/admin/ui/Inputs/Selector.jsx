@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import Expand from '../../../icon/icon-ui/Expand'
-import { capitalize } from '../../../Functions/app'
+import React, { useState } from 'react'
+import Expand from '../../../../icon/icon-ui/Expand'
+import { capitalize } from '../../../../Functions/app'
 
 const Selector = ({ cls, list, active, iconCls, children, action, sortProp = "id" }) => {
   const [toggle, setToggle] = useState(false)

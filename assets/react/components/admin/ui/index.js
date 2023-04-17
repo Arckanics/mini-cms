@@ -1,19 +1,12 @@
-import Button from './Button'
+import Button from './Inputs/Button'
 import ContentNav from './ContentNav'
 import CSRFInput from './CSRFInput'
 import NavLi from './NavLi'
 import PagesContainer from './PagesContainer'
-import Selector from './Selector'
 import Toast from './Toast'
-import TxtLabelInput from './TxtLabelInput'
-import NumberInput from './NumberInput'
-import Checkbox from './Checkbox'
-import SwitchInput from './SwitchInput'
 import ActionsRow from './ActionsRow'
 import ModalEditor from './ModalEditor'
-import DatePicker from './DatePicker'
 import RichText from './RichText/'
-import ImageFileInput from './ImageFileInput'
 
 export {
   Button,
@@ -21,15 +14,8 @@ export {
   CSRFInput,
   NavLi,
   PagesContainer,
-  Selector,
   Toast,
-  ImageFileInput,
-  TxtLabelInput,
-  NumberInput,
-  Checkbox,
-  SwitchInput,
   ActionsRow,
   ModalEditor,
-  DatePicker,
   RichText
 }

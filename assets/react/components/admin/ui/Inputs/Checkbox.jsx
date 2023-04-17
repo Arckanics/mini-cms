@@ -1,5 +1,5 @@
 import React from 'react'
-import Checked from '../../../icon/icon-ui/Checked'
+import Checked from '../../../../icon/icon-ui/Checked'
 
 const Checkbox = ({ cls, change, checked, children }) => {
   return (

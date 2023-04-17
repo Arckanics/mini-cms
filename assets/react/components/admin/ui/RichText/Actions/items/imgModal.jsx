@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
+import { ImageFileInput, TxtLabelInput, SwitchInput } from '../../../Inputs/index'
 import Close from "../../../../../../icon/icon-ui/Close"
-import {ImageFileInput, SwitchInput, TxtLabelInput} from "../../../"
+
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { notify } from '../../../../redux/reducers/notificationSlice'

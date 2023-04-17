@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux'
 import { capitalize, getPropsBoolStatus, isArray, strNormalize } from '../../../Functions/app'
 import Success from '../../../icon/icon-ui/Success'
 import Close from '../../../icon/icon-ui/Close'
-import NumberInput from './NumberInput'
-import Checkbox from './Checkbox'
-import SwitchInput from './SwitchInput'
-import { ActionsRow, Selector } from './'
+import {
+NumberInput,
+Checkbox,
+SwitchInput,
+Selector} from './Inputs'
+import { ActionsRow } from './'
 
 
 const ContentNav = ({ header, data, update, remove, create }) => {
