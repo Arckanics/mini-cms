@@ -41,7 +41,9 @@ $warning: hsl(44,102%,62%);
   font-family: 'Comfortaa', cursive;
 }
 
-
+* {
+  scroll-behavior: smooth;
+}
 
 // Custom color class
 
