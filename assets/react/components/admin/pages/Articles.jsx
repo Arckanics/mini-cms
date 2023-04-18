@@ -47,6 +47,8 @@ const Articles = () => {
     ajax.put('/request', {
       where,
       data
+    }).then(res => {
+      dispatch(pushData({ name: 'articles', data: res.data }))
     })
   }
 

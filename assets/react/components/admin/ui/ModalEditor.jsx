@@ -101,7 +101,6 @@ const ModalEditor = ({ data, schema, title, close, command }) => {
                   break;
                 case "date":
                   const date = mData[key] || new Date();
-                  console.log(mData[key]);
                   Input = (
                     <div className="flex gap-3">
                       <label className="input-label p-2 font-bold">
