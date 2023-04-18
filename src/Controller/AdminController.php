@@ -147,7 +147,6 @@ class AdminController extends AbstractController
               'Pages' => $gem->exportData()
             ], 200);
         }
-        return new JsonResponse(['put', $body], 200);
       }
       return new JsonResponse(['error', 'Not Found'], 404);
     }
