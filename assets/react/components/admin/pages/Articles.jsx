@@ -58,8 +58,13 @@ const Articles = () => {
     const article = {...articles.find(a => a.id == id)}
     const convert = {}
     for (let [k,v] of Object.entries(article)) {
-      if (v.date) {
-        convert[k] = new Date(Date.parse(v.date.replace(/\.[0-9]+$/g, '')))
+      
+      if (typeof v === "object") {
+        if (v) {
+          convert[k] = new Date(Date.parse(v.date.replace(/\.[0-9]+$/g, '')))
+        } else {
+          convert[k] = new Date()
+        }
       } else {
         convert[k] = v
       }
