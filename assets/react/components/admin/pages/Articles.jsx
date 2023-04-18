@@ -12,7 +12,7 @@ const Articles = () => {
   const articles = useSelector((state) => state.ajax.data.articles)
   const pages = useSelector((state) => state.ajax.data.pages)
   const dispatch = useDispatch()
-  const [modal, setModal] = useState({enable: false, data: null, title: ''})
+  const [modal, setModal] = useState({enable: false, data: null, title: '', type: null, where: 'articles'})
 
   useEffect(() => {
     ajax.get('/request')
@@ -40,15 +40,19 @@ const Articles = () => {
     setModal({...modal, enable: false})
   }
   // envoie des données
-  const sendData = ({type, where, data}) => {
-
+  const sendData = (data) => {
+    const {type, where} = modal
+    ajax.put('/request', {
+      where,
+      data
+    })
   }
 
 
   // ouvre l'édition d'articles
   const updateArticle = (id) => {
     const article = articles.find(a => a.id == id)
-    setModal({...modal, enable: true, title: 'Modifier', data: article})
+    setModal({...modal, enable: true, title: 'Modifier', data: article, type: 'put'})
   }
 
   // supprime les articles

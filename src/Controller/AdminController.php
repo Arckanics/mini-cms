@@ -107,6 +107,10 @@ class AdminController extends AbstractController
             ], 200);
         }
       }
+      if ($req->getMethod() === "PUT") {
+        $body = json_decode($req->getContent());
+        return new JsonResponse(['put', $body], 200);
+      }
       return new JsonResponse(['error', 'Not Found'], 404);
     }
 
