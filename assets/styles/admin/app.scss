@@ -212,7 +212,7 @@ $warning: hsl(44,102%,62%);
 
 @mixin btnSetting($color) {
   transition: 150ms;
-  @apply block p-3 rounded-md text-lg;
+  @apply block p-3 text-lg;
   background-color: $color;
   color: white;
   svg {
@@ -236,8 +236,7 @@ $warning: hsl(44,102%,62%);
 
 .btn {
   padding: 10px;
-  border-radius: $rad-md;
-  @apply cursor-pointer text-center;
+  @apply cursor-pointer text-center rounded-md;
   
   &.primary {
     @include btnSetting($primary);
