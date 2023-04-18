@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Close from "../../../icon/icon-ui/Close";
 import { DatePicker, Selector, SwitchInput } from "./Inputs";
-import {RichText} from "./"
+import { RichText } from "./";
 
-const ModalEditor = ({ data, schema, title, close }) => {
+const ModalEditor = ({ data, schema, title, close, command }) => {
   const [mData, setData] = useState(null);
 
   useEffect(() => {
@@ -32,6 +32,7 @@ const ModalEditor = ({ data, schema, title, close }) => {
       }
       empty[name] = val;
     });
+
     !data ? setData({ ...empty }) : setData({ ...data });
   }, []);
 
@@ -99,15 +100,18 @@ const ModalEditor = ({ data, schema, title, close }) => {
                   );
                   break;
                 case "date":
-                  const date = (mData[key] || new Date())
+                  const date = mData[key] || new Date();
                   Input = (
                     <div className="flex gap-3">
                       <label className="input-label p-2 font-bold">
                         {value.name} :{" "}
                       </label>
-                      <DatePicker value={date} change={(v) => {
-                        setData({...mData, [key]: v})
-                      }}/>
+                      <DatePicker
+                        value={date}
+                        change={v => {
+                          setData({ ...mData, [key]: v });
+                        }}
+                      />
                     </div>
                   );
                   break;

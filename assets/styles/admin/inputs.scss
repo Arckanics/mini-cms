@@ -295,16 +295,18 @@ $inp-style: (
     }
 
     .calendar-current {
-      @apply text-sm font-bold drop-shadow-md pb-0;
+      @apply text-sm font-bold drop-shadow-md p-1 pb-0 flex justify-between items-end pl-2;
       border-bottom: 1px solid $secondary;
+      .btn {
+        @apply p-0.5 rounded-xl mb-1;
+      }
+      .icon {
+        @apply w-5;
+      }
     }
 
-    .day-names {
-      @apply flex flex-nowrap text-xs py-0 font-semibold justify-items-center items-stretch gap-2;
-    }
-
-    .day-month-select {
-      @apply flex flex-nowrap capitalize justify-items-stretch items-stretch pt-0 gap-4;
+    .month-year {
+      @apply flex flex-nowrap capitalize justify-items-stretch items-stretch gap-4;
       & > div {
         @apply grow shrink text-center flex justify-between;
       }
@@ -313,6 +315,12 @@ $inp-style: (
         @apply w-5;
       }
     }
+
+    .day-names {
+      @apply flex flex-nowrap text-xs py-0 font-semibold justify-items-center items-stretch gap-2 underline;
+    }
+
+    
 
     .case {
       @apply p-1 shrink grow text-center duration-150;
