@@ -101,6 +101,7 @@ const ModalEditor = ({ data, schema, title, close, command }) => {
                   break;
                 case "date":
                   const date = mData[key] || new Date();
+                  console.log(mData[key]);
                   Input = (
                     <div className="flex gap-3">
                       <label className="input-label p-2 font-bold">
@@ -137,7 +138,7 @@ const ModalEditor = ({ data, schema, title, close, command }) => {
         ) : null;
       })}
       <div className="modal-end">
-        <div className="btn secondary" onClick={() => {command({...mData});close()}}>Sauver</div>
+        <div className="btn secondary" onClick={() => {command({...mData}); close()}}>Sauver</div>
       </div>
     </section>
   );

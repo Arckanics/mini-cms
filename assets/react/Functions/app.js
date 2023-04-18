@@ -1,3 +1,18 @@
+// prepareForSend prepare une date pour PHP
+const prepareForSend = (data) => {
+  const result = {}
+  for (let [k,v] of Object.entries(data)) {
+    if (v instanceof Date) {
+      console.log(v);
+      v.setDate(v.getDate()+1)
+      result[k] = v.toISOString().replace(/T|\.[0-9]+Z$/g, (ex) => ex === "T" ? " " : "")
+    } else {
+      result[k] = v
+    }
+  }
+  return result;
+}
+
 
 // url de base pour faciliter la navigation
 
@@ -177,4 +192,5 @@ export {
   sortDes,
   getPropsBoolStatus,
   strNormalize,
+  prepareForSend
 };

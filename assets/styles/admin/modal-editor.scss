@@ -1,10 +1,11 @@
 .modal-editor {
-  background-color: $light;
+  background-color: white;
   top: calc(2.75rem + 18px);
   @apply 
     absolute shadow-2xl left-4 right-4 
-    rounded-b-md rounded-xl overflow-hidden
-    flex flex-col flex-nowrap;
+    rounded-b-md rounded-xl justify-between
+    overflow-hidden
+    flex flex-col flex-nowrap h-full;
   outline: 1px solid $secondary;
 
   max-height: calc(100% - 2.75rem - 18px - 1rem);
