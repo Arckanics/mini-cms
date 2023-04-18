@@ -39,7 +39,17 @@ const theme = {
 const InitialHtmlPlugin = ({data,update}) => {
   const [editor] = useLexicalComposerContext()
   const [html, setHtml] = useState(false)
+
+
+  const updateMData = () => {
+    const html = $generateHtmlFromNodes(editor, null)
+    update(html)
+  }
+
+  editor.registerUpdateListener(({editorState}) => editorState.read(updateMData))
+
   useEffect(() => {
+    
     !html
     ? editor.update(() => {
       const parser = new DOMParser()
@@ -52,12 +62,10 @@ const InitialHtmlPlugin = ({data,update}) => {
       $insertNodes(nodes)
       $setSelection(null)
       setHtml(true)
+      
     })
     : null
 
-    editor.getEditorState().read(() => {      
-      update($generateHtmlFromNodes(editor, null))
-    })
   }, [editor])
 }
 // Catch any errors that occur during Lexical updates and log them

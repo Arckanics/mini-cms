@@ -65,6 +65,14 @@
     }
   }
 
+  .modal-end {
+    background-color: white;
+    @apply flex justify-end px-4 gap-2 pb-2;
+    .btn {
+      @apply text-base p-1.5;
+    }
+  }
+
   & > *:first-child {
     @apply rounded-t-xl
   }

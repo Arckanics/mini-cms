@@ -136,6 +136,9 @@ const ModalEditor = ({ data, schema, title, close, command }) => {
           />
         ) : null;
       })}
+      <div className="modal-end">
+        <div className="btn secondary" onClick={() => {command({...mData});close()}}>Sauver</div>
+      </div>
     </section>
   );
 };
