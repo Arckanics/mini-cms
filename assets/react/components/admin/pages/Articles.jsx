@@ -3,6 +3,7 @@ import { PagesContainer, ContentNav, ModalEditor } from '../ui'
 import { useSelector, useDispatch } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import axios from 'axios'
+import { prepareForSend } from '../../../Functions/app'
 
 // CRUD Complet pour les Articles
 
@@ -42,6 +43,7 @@ const Articles = () => {
   // envoie des données
   const sendData = (data) => {
     const {type, where} = modal
+    data = prepareForSend(data)
     ajax.put('/request', {
       where,
       data
@@ -51,8 +53,16 @@ const Articles = () => {
 
   // ouvre l'édition d'articles
   const updateArticle = (id) => {
-    const article = articles.find(a => a.id == id)
-    setModal({...modal, enable: true, title: 'Modifier', data: article, type: 'put'})
+    const article = {...articles.find(a => a.id == id)}
+    const convert = {}
+    for (let [k,v] of Object.entries(article)) {
+      if (v.date) {
+        convert[k] = new Date(Date.parse(v.date.replace(/\.[0-9]+$/g, '')))
+      } else {
+        convert[k] = v
+      }
+    }
+    setModal({...modal, enable: true, title: 'Modifier', data: convert, type: 'put'})
   }
 
   // supprime les articles
