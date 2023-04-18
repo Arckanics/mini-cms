@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { pushData } from '../redux/reducers/ajaxSlice'
 import axios from 'axios'
 import { prepareForSend } from '../../../Functions/app'
+import { notify, notifyClose } from '../redux/reducers/notificationSlice'
 
 // CRUD Complet pour les Articles
 
@@ -49,6 +50,10 @@ const Articles = () => {
       data
     }).then(res => {
       dispatch(pushData({ name: 'articles', data: res.data }))
+      dispatch(notify({type: "success",msg: "article mis à jour!",timeout: setTimeout(() => {
+        dispatch(notifyClose())
+      }, 2500)}))
+      
     })
   }
 
