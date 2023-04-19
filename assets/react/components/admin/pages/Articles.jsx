@@ -54,7 +54,7 @@ const Articles = () => {
   // envoie des données
   const sendData = data => {
     const { type, where } = modal;
-    data = prepareForSend(data);
+    data = type !== "delete" ? data = prepareForSend(data) : data
     const sendField = { where, data };
     switch (type) {
       case "put":
@@ -76,13 +76,26 @@ const Articles = () => {
           dispatch(
             notify({
               type: "success",
-              msg: "article mis à jour!",
+              msg: "article enregistré!",
               timeout: setTimeout(() => {
                 dispatch(notifyClose());
               }, 2500),
             })
           );
         });
+        case "delete":
+          return ajax.delete("/request", sendField).then(res => {
+            dispatch(pushData({ name: "articles", data: res.data }));
+            dispatch(
+              notify({
+                type: "warning",
+                msg: "article supprimé!",
+                timeout: setTimeout(() => {
+                  dispatch(notifyClose());
+                }, 2500),
+              })
+            );
+          });
     }
   };
   // nouvel article
@@ -122,7 +135,8 @@ const Articles = () => {
 
   // supprime les articles
   const removeArticle = id => {
-    console.log(id);
+    modal.type = "delete"
+    sendData(id)
   };
 
   const header = [
@@ -153,18 +167,18 @@ const Articles = () => {
             close={closeModal}
             command={sendData}
             schema={{
-              isdynamic: { type: "bool", name: "Dynamique" },
-              publishbegin: { type: "date", name: "Début", draw: "title" },
-              publishend: { type: "date", name: "Fin", draw: "title" },
               title: { type: "string", name: "Titre" },
-              pages: {
+              page: {
                 type: "select",
                 name: "Page",
                 draw: "title",
                 list: pages,
               },
-              sort: { type: "sorting", name: "Ordre", list: articles },
               published: { type: "bool", name: "Visible" },
+              isdynamic: { type: "bool", name: "Dynamique" },
+              publishbegin: { type: "date", name: "Début", draw: "title" },
+              publishend: { type: "date", name: "Fin", draw: "title" },
+              // sort: { type: "sorting", name: "Ordre", list: articles },
               content: { type: "text", name: "Contenu" },
             }}
           />
