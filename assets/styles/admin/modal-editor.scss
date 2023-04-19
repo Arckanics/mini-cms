@@ -1,14 +1,13 @@
 .modal-editor {
   background-color: white;
-  top: calc(2.75rem + 18px);
   @apply 
-    absolute shadow-2xl left-4 right-4 
+    absolute shadow-2xl left-1 right-1
+    bottom-1 top-12
     rounded-b-md rounded-xl justify-between
     overflow-hidden
-    flex flex-col flex-nowrap h-full;
+    flex flex-col flex-nowrap;
   outline: 1px solid $secondary;
 
-  max-height: calc(100% - 2.75rem - 18px - 1rem);
 
   .title-bar {
     color: $secondary;
@@ -68,7 +67,7 @@
 
   .modal-end {
     background-color: white;
-    @apply flex justify-end px-4 gap-2 pb-2;
+    @apply flex justify-end px-2 gap-2 pb-2;
     .btn {
       @apply text-base p-1.5;
     }
