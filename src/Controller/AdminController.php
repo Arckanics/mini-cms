@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Functions\Entities\ExtEntityManager;
 use DateTime;
+use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[IsGranted('ROLE_ADMIN')]
@@ -135,6 +136,73 @@ class AdminController extends AbstractController
             $gem = new ExtEntityManager($articles, Articles::class, $em);
             return new JsonResponse($gem->exportData(), 200);
           case 'settings':
+          default:
+            $res = $em->getRepository(Settings::class)->find(1);
+            $Pages = $em->getRepository(Pages::class);
+            $gem = new ExtEntityManager($Pages, Pages::class, $em);
+            return new JsonResponse([
+              'Author' => $res->getMetaAuthor(),
+              'Description' => $res->getMetaDesc(),
+              'SiteName' => $res->getMetaSiteName(),
+              'Landing' => $res->getLandingPage()->getId(),
+              'Pages' => $gem->exportData()
+            ], 200);
+        }
+      }
+      if ($req->getMethod() === "POST") {
+        $body = json_decode($req->getContent(), true);
+        $data = $body["data"];
+        $pages = $em->getRepository(Pages::class);
+        $articles = $em->getRepository(Articles::class);
+        switch ($body['where']) {
+          case 'pages':
+            $gem = new ExtEntityManager($pages, Pages::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
+          case 'articles':
+            $createdAt = new DateTimeImmutable("now");
+            $article = new Articles();
+            $article->setCreatedAt($createdAt);
+            $article->setContent($data["content"]);
+            $article->setIsDynamic($data["isdynamic"]);
+            $article->setPage($pages->find($data["page"]));
+            $article->setPublishBegin($this->formatDate($data["publishbegin"]));
+            $article->setPublishEnd($this->formatDate($data["publishend"]));
+            $article->setPublished($data["published"]);
+            $article->setSort($data["sort"]);
+            $article->setTitle($data["title"]);
+            $em->persist($article);
+            $em->flush();
+            $gem = new ExtEntityManager($articles, Articles::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
+          case 'settings':
+          default:
+            $res = $em->getRepository(Settings::class)->find(1);
+            $Pages = $em->getRepository(Pages::class);
+            $gem = new ExtEntityManager($Pages, Pages::class, $em);
+            return new JsonResponse([
+              'Author' => $res->getMetaAuthor(),
+              'Description' => $res->getMetaDesc(),
+              'SiteName' => $res->getMetaSiteName(),
+              'Landing' => $res->getLandingPage()->getId(),
+              'Pages' => $gem->exportData()
+            ], 200);
+        }
+      }
+      if ($req->getMethod() === "DELETE") {
+        $body = $req->query->all();
+        $data = $req->getContent();
+        $pages = $em->getRepository(Pages::class);
+        $articles = $em->getRepository(Articles::class);
+        switch ($body['page']) {
+          case 'pages':
+            $gem = new ExtEntityManager($pages, Pages::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
+          case 'articles':
+            $article = $articles->find($data);
+            $em->remove($article);
+            $em->flush();
+            $gem = new ExtEntityManager($articles, Articles::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
           default:
             $res = $em->getRepository(Settings::class)->find(1);
             $Pages = $em->getRepository(Pages::class);

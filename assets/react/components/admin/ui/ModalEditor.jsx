@@ -16,8 +16,11 @@ const ModalEditor = ({ data, schema, title, close, command }) => {
           val = "";
           break;
         case "select":
+          val = par.list[0].id;
+          break;
         case "sorting":
-          val = par.list.length - 1;
+          const last = par.list.length - 1
+          val = par.list[last].id ;
           break;
         case "bool":
           val = false;
