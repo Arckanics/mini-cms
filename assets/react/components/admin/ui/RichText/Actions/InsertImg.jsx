@@ -4,6 +4,7 @@ import BtnFormatText from './items/BtnFormatText'
 import { INSERT_IMAGE_COMMAND } from '../plugins/ImagePlugin'
 import ImgModal from './items/imgModal'
 import { $getNodeByKey } from 'lexical'
+import { openModalHandler } from './Event/img'
 
 const InsertImg = ({nodeKey, open}) => {
   const [modal, setModal] = useState(open || false)
@@ -60,13 +61,12 @@ const InsertImg = ({nodeKey, open}) => {
 
   const createImg = () => {
     const { src, atEnd, isFile } = imgProp
-    console.log(imgProp);
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
       src: src,
       alt: null,
       isFile: isFile,
       atEnd: atEnd,
-      click: openModal
+      click: openModalHandler
     })
     setModal(false)
   }
