@@ -189,13 +189,15 @@ const ContentNav = ({ header, data, update, remove, create }) => {
         <div className={`header-field colsize-2`}></div>
       </div>
 
-      <div className='content-inner '>
+      <div className='content-inner'>
         {
-
           !search || search && !getPropsBoolStatus(search, "active", true) 
             ? data && isArray(data) ? basicRender(data) : null 
             : data && isArray(data) ? filterRender(data) : null
         }
+      </div>
+      <div className='content-nav-action'>
+        <div className='btn success' onClick={create}>Créer</div>
       </div>
     </section>
   )
