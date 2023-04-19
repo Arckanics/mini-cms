@@ -8,7 +8,7 @@ const ModalEditor = ({ data, schema, title, close, command }) => {
 
   useEffect(() => {
     const empty = {};
-    Object.entries(schema).map(([name, par], i) => {
+    Object.entries(schema).map(([name, par]) => {
       let val;
       switch (par.type) {
         case "string":
