@@ -12,6 +12,18 @@ const prepareForSend = (data) => {
   return result;
 }
 
+// string boolean to boolean
+
+const getBooleanFromString = (str) => {
+  switch (str) {
+    case "true":
+    case "TRUE":
+    case "1" || 1:
+      return true;
+    default:
+      return false
+  }
+}
 
 // url de base pour faciliter la navigation
 
@@ -191,5 +203,6 @@ export {
   sortDes,
   getPropsBoolStatus,
   strNormalize,
-  prepareForSend
+  prepareForSend,
+  getBooleanFromString
 };

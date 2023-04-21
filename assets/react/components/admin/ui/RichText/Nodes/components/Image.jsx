@@ -1,11 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { setImgKey } from '../../../../redux/reducers/lexicalSlice'
 
-const Image = ({src,altText,onClick}) => {
+const Image = ({src,altText,decorateKey}) => {
+  const dispatch = useDispatch()
   return (
     <img
       src={src}
       alt={altText}
-      onClick={onClick}
+      onClick={() => dispatch(setImgKey(decorateKey))}
     />
   )
 }
