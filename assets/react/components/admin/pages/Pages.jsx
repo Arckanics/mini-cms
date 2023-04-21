@@ -5,6 +5,7 @@ import { pushData } from "../redux/reducers/ajaxSlice";
 import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 import { ModalEditor } from "../ui"
 import axios from "axios";
+import { strNormalize } from "../../../Functions/app";
 
 // CRUD Complet pour les Pages
 
@@ -36,8 +37,10 @@ const Pages = () => {
       });
   }, []);
   const sendData = data => {
-    console.log(data);
     const {where,type} = modal
+    if (where !== "delete") {
+      data.url = strNormalize(data.title).replace(/ /gi, '_');
+    }
     const sendField = { where, data };
     switch (type) {
       case "put":

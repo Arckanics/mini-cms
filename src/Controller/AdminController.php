@@ -121,6 +121,10 @@ class AdminController extends AbstractController
         switch ($body['where']) {
           case 'pages':
             $gem = new ExtEntityManager($pages, Pages::class, $em);
+            $page = $pages->find($data['id']);
+            $page->setUrl($data['url']);
+            $page->setTitle($data['title']);
+            $em->flush();
             return new JsonResponse($gem->exportData(), 200);
           case 'articles':
             $article = $articles->find($data["id"]);
