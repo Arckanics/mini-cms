@@ -38,10 +38,10 @@ const Pages = () => {
   }, []);
   const sendData = data => {
     const {where,type} = modal
-    if (where !== "delete") {
+    if (type !== "delete") {
       data.url = strNormalize(data.title).replace(/ /gi, '_');
     }
-    const sendField = { where, data };
+    const sendField = { where, data: data };
     switch (type) {
       case "put":
         return ajax.put("/request", sendField).then(res => {
@@ -70,18 +70,30 @@ const Pages = () => {
           );
         });
         case "delete":
-          return ajax.delete("/request", sendField).then(res => {
-            dispatch(pushData({ name: where, data: res.data }));
-            dispatch(
-              notify({
-                type: "warning",
-                msg: "Page supprimée!",
+          return ajax.delete("/request", {data: {...sendField}})
+            .then(res => {
+              dispatch(pushData({ name: where, data: res.data }));
+              dispatch(
+                notify({
+                  type: "warning",
+                  msg: "Page supprimée!",
+                  timeout: setTimeout(() => {
+                    dispatch(notifyClose());
+                  }, 2500),
+                })
+              );
+            })
+            .catch(res => {
+              const response = res.response;
+              const msg = response.data;
+              dispatch(notify({
+                type: "danger",
+                msg: msg.error,
                 timeout: setTimeout(() => {
                   dispatch(notifyClose());
                 }, 2500),
-              })
-            );
-          });
+              }))
+            })
     }
   }
 

@@ -76,7 +76,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
     {
       header.map(({ tag, draw, colSize }, k) => <div key={k} className={`row-field colsize-${colSize}`}>{setView(field[tag], draw, tag)}</div>)
     }
-    <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={() => update(field.id)} remove={remove} /></div>
+    <div className={`row-field action-field colsize-2`}><ActionsRow id={k} update={() => update(field.id)} remove={() => remove(field.id)} /></div>
   </div>
   )
 
