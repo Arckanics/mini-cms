@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PagesContainer, ContentNav } from "../ui";
 import { useDispatch, useSelector } from "react-redux";
 import { pushData } from "../redux/reducers/ajaxSlice";
+import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 import { ModalEditor } from "../ui"
 import axios from "axios";
 
@@ -34,6 +35,62 @@ const Pages = () => {
         }
       });
   }, []);
+  const sendData = data => {
+    console.log(data);
+    const {where,type} = modal
+    const sendField = { where, data };
+    switch (type) {
+      case "put":
+        return ajax.put("/request", sendField).then(res => {
+          dispatch(pushData({ name: where, data: res.data }));
+          dispatch(
+            notify({
+              type: "success",
+              msg: "Page mise à jour!",
+              timeout: setTimeout(() => {
+                dispatch(notifyClose());
+              }, 2500),
+            })
+          );
+        });
+      case "post":
+        return ajax.post("/request", sendField).then(res => {
+          dispatch(pushData({ name: where, data: res.data }));
+          dispatch(
+            notify({
+              type: "success",
+              msg: "Page créée!",
+              timeout: setTimeout(() => {
+                dispatch(notifyClose());
+              }, 2500),
+            })
+          );
+        });
+        case "delete":
+          return ajax.delete("/request", sendField).then(res => {
+            dispatch(pushData({ name: where, data: res.data }));
+            dispatch(
+              notify({
+                type: "warning",
+                msg: "Page supprimée!",
+                timeout: setTimeout(() => {
+                  dispatch(notifyClose());
+                }, 2500),
+              })
+            );
+          });
+    }
+  }
+
+  const createPage = () => {
+    setModal({
+      ...modal,
+      enable: true,
+      data: null,
+      type: "post",
+      title: "Créer",
+    })
+  };
 
   const updatePage = id => {
     const nData = { ...data };
@@ -42,12 +99,14 @@ const Pages = () => {
       ...modal,
       enable: true,
       data: {...page},
+      type: "put",
       title: "Modifier",
     })
   };
 
   const removePage = id => {
-    console.log(id);
+    modal.type = "delete"
+    sendData(id)
   };
 
   const header = [
@@ -64,14 +123,15 @@ const Pages = () => {
           header={header}
           update={updatePage}
           remove={removePage}
+          create={createPage}
         />
       ) : null}
       {modal.enable ? (
         <ModalEditor
           data={modal.data}
           title={modal.title}
-          close={null}
-          command={null}
+          close={() => setModal({...modal, enable: false})}
+          command={sendData}
           small={modal.small}
           schema={{
             title: { type: "string", name: "Titre" },

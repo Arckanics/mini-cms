@@ -59,7 +59,7 @@ const Articles = () => {
     switch (type) {
       case "put":
         return ajax.put("/request", sendField).then(res => {
-          dispatch(pushData({ name: "articles", data: res.data }));
+          dispatch(pushData({ name: where, data: res.data }));
           dispatch(
             notify({
               type: "success",
@@ -72,7 +72,7 @@ const Articles = () => {
         });
       case "post":
         return ajax.post("/request", sendField).then(res => {
-          dispatch(pushData({ name: "articles", data: res.data }));
+          dispatch(pushData({ name: where, data: res.data }));
           dispatch(
             notify({
               type: "success",
@@ -85,7 +85,7 @@ const Articles = () => {
         });
         case "delete":
           return ajax.delete("/request", sendField).then(res => {
-            dispatch(pushData({ name: "articles", data: res.data }));
+            dispatch(pushData({ name: where, data: res.data }));
             dispatch(
               notify({
                 type: "warning",
