@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import BtnFormatText from './items/BtnFormatText'
 import { INSERT_IMAGE_COMMAND } from '../plugins/ImagePlugin'
 import ImgModal from './items/imgModal'
 import { $getNodeByKey } from 'lexical'
-import { openModalHandler } from './Event/img'
+import { useDispatch, useSelector } from 'react-redux'
+import { setImgKey } from '../../../redux/reducers/lexicalSlice'
 
-const InsertImg = ({nodeKey, open}) => {
-  const [modal, setModal] = useState(open || false)
+const InsertImg = () => {
+  const [modal, setModal] = useState(false)
   const [editor] = useLexicalComposerContext()
   const [imgProp, setImgProp] = useState({})
-  const [img, setImg] = useState(nodeKey || null)
+  const dispatch = useDispatch()
+  const img = useSelector((state) => state.lexical.imgKey)
+
+  useEffect(() => {
+    img !== null ? openModal(img) : null
+  }, [img])
 
   const openModal = (key) => {
     if (key) {
@@ -22,7 +28,6 @@ const InsertImg = ({nodeKey, open}) => {
           isFile: el.__isFile,
           atEnd: el.__atEnd,
         })
-        setImg(key)
       })
     } else {
       setImgProp({
@@ -52,7 +57,7 @@ const InsertImg = ({nodeKey, open}) => {
 
   const closeModal = () => {
     setModal(false)
-    setImg(null)
+    dispatch(setImgKey(null))
   }
 
   const openInsertImg = () => {
@@ -65,8 +70,7 @@ const InsertImg = ({nodeKey, open}) => {
       src: src,
       alt: null,
       isFile: isFile,
-      atEnd: atEnd,
-      click: openModalHandler
+      atEnd: atEnd
     })
     setModal(false)
   }

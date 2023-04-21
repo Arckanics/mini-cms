@@ -3,19 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const lexicalSlice = createSlice({
   name: "lexical",
   initialState: {
-    currentImg: null
+    imgKey: null
   },
   reducers: {
-    openImg: (state, action) => {
-
+    setImgKey: (state, action) => {
       return {
         ...state,
-        currentImg: action.payload
+        imgKey: action.payload
       }
     }
   }
 })
 
-export const { openImg, } = lexicalSlice.actions
+export const { setImgKey, } = lexicalSlice.actions
 
 export default lexicalSlice.reducer
