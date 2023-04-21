@@ -160,6 +160,15 @@ class AdminController extends AbstractController
         $articles = $em->getRepository(Articles::class);
         switch ($body['where']) {
           case 'pages':
+            if (strlen($data["title"]) == 0 || !isset($data["title"])) {
+              return new JsonResponse(["error" => "Titre manquant!"], 428);
+            }
+            $page = new Pages();
+            $page->setTitle($data["title"]);
+            $page->setUrl($data["title"]);
+            $page->setSort(count($pages->findAll()));
+            $em->persist($page);
+            $em->flush();
             $gem = new ExtEntityManager($pages, Pages::class, $em);
             return new JsonResponse($gem->exportData(), 200);
           case 'articles':

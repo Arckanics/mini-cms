@@ -68,7 +68,17 @@ const Pages = () => {
               }, 2500),
             })
           );
-        });
+        }).catch(res => {
+          dispatch(
+            notify({
+              type: "danger",
+              msg: res.response.data.error,
+              timeout: setTimeout(() => {
+                dispatch(notifyClose());
+              }, 2500),
+            })
+          )
+        })
         case "delete":
           return ajax.delete("/request", {data: {...sendField}})
             .then(res => {
