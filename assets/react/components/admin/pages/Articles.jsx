@@ -55,7 +55,7 @@ const Articles = () => {
   const sendData = data => {
     const { type, where } = modal;
     data = type !== "delete" ? data = prepareForSend(data) : data
-    const sendField = { where, data };
+    const sendField = { where, data: data };
     switch (type) {
       case "put":
         return ajax.put("/request", sendField).then(res => {
@@ -84,7 +84,7 @@ const Articles = () => {
           );
         });
         case "delete":
-          return ajax.delete("/request", sendField).then(res => {
+          return ajax.delete("/request", {data: {...sendField}}).then(res => {
             dispatch(pushData({ name: where, data: res.data }));
             dispatch(
               notify({

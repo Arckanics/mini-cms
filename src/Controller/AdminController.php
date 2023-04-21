@@ -194,15 +194,28 @@ class AdminController extends AbstractController
       }
       if ($req->getMethod() === "DELETE") {
         $body = $req->query->all();
-        $data = $req->getContent();
+        $data = json_decode($req->getContent());
         $pages = $em->getRepository(Pages::class);
         $articles = $em->getRepository(Articles::class);
-        switch ($body['page']) {
+        
+        switch ($data->where) {
           case 'pages':
+            $page = $pages->find($data->data);
+            $name = $page->getTitle();
+            $settings = $page->getSettings();
+            $childrens = $page->getArticles()->count();
+            if ($childrens > 0) {
+              $count = $childrens > 1 ? "articles attachés " : "article attaché ";
+              return new JsonResponse(['error' => $count.'à cette page "'.$name.'"!'], 428);
+            }
+            if (isset($settings)) {
+              return new JsonResponse(['error' => 'Impossible de supprimer la page d\'accueil!'], 428);
+            }
             $gem = new ExtEntityManager($pages, Pages::class, $em);
             return new JsonResponse($gem->exportData(), 200);
           case 'articles':
-            $article = $articles->find($data);
+            $article = $articles->find($data->data);
+            dd($data->data);
             $em->remove($article);
             $em->flush();
             $gem = new ExtEntityManager($articles, Articles::class, $em);
