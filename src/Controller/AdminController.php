@@ -220,11 +220,12 @@ class AdminController extends AbstractController
             if (isset($settings)) {
               return new JsonResponse(['error' => 'Impossible de supprimer la page d\'accueil!'], 428);
             }
+            $em->remove($page);
+            $em->flush();
             $gem = new ExtEntityManager($pages, Pages::class, $em);
             return new JsonResponse($gem->exportData(), 200);
           case 'articles':
             $article = $articles->find($data->data);
-            dd($data->data);
             $em->remove($article);
             $em->flush();
             $gem = new ExtEntityManager($articles, Articles::class, $em);
