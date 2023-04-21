@@ -171,7 +171,7 @@ const isJSON = (json) => {
   return true
 }
 
-// verifie si la variable est un objet JS
+// verifie si la variable est un objet de type Array JS
 
 const isObject = (object) => typeof object === "object" && !isArray(object)
 

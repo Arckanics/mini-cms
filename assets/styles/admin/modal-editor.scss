@@ -8,12 +8,35 @@
     flex flex-col flex-nowrap;
   outline: 1px solid $secondary;
 
+  &.small {
+    @apply 
+    absolute shadow-2xl left-4 right-4
+    bottom-auto top-1/2 -translate-y-1/2
+    rounded-b-md rounded-xl justify-between
+    overflow-hidden
+    flex flex-col flex-nowrap;
+    .title-bar {
+      border-bottom: 1.5px solid $secondary;
+      @apply p-0 pl-4 shadow-md text-lg underline 
+        flex justify-between select-none
+        items-end;
+      &-txt {
+        @apply p-0;
+      }
+      &-close {
+        @apply m-1;
+      }
+    }
+    .modal-end {
+      @apply p-1;
+    }
+  }
 
   .title-bar {
     color: $secondary;
     background-color: white;
     border-bottom: 2px solid $secondary;
-    @apply p-1 pl-4 shadow-md text-xl underline flex justify-between select-none;
+    @apply p-1 pl-4 shadow-md text-xl underline flex justify-between select-none z-20;
 
     &-txt {
       @apply p-2

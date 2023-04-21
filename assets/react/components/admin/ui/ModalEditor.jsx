@@ -3,7 +3,7 @@ import Close from "../../../icon/icon-ui/Close";
 import { DatePicker, Selector, SwitchInput } from "./Inputs";
 import { RichText } from "./";
 
-const ModalEditor = ({ data, schema, title, close, command }) => {
+const ModalEditor = ({ data, schema, title, close, command, small }) => {
   const [mData, setData] = useState(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ModalEditor = ({ data, schema, title, close, command }) => {
   }, []);
 
   return !mData ? null : (
-    <section className="modal-editor">
+    <section className={"modal-editor" + (small ? " small": "")}>
       <div className="title-bar">
         <div className="title-bar-txt">{title}</div>
         <div className="title-bar-close" onClick={close}>
