@@ -1,6 +1,6 @@
 
 .content-nav {
-  @apply h-full;
+  @apply h-full gap-1;
   @include growScale;
   @include growScaleRow;
   &-header {
@@ -12,17 +12,17 @@
   }
 
   &-search {
-    @apply flex p-1 py-3 select-none text-center justify-between flex-nowrap;
+    @apply flex p-0.5 select-none text-center justify-between flex-nowrap shadow rounded-md;
+    background-color: white;
     .search-field {
-      gap: 8px;
-      background-color: lighten($color: $secondary, $amount: 50%);
-      box-shadow: 0 0 2px 0 transparentize($color: $secondary, $amount: .3);
+      @apply flex justify-start items-center gap-1.5 p-0.5 px-1 pr-6;
       .input-txt {
         @apply p-1 px-2;
       }
       .input-number {
         @apply p-1 text-center;
       }
+
       .selector {
         @apply w-full p-0;
         .active {
@@ -51,7 +51,6 @@
           }
         }
       }
-      @apply p-2 pl-2 rounded-l-2xl rounded-r-md;
     }
     
   }
