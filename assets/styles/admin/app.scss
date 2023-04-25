@@ -79,6 +79,26 @@ $warning: hsl(44,102%,62%);
   color: $dark;
 }
 
+// link
+
+.link-group {
+  @apply inline-block;
+  .link-prev {
+    @apply inline;
+  }
+  
+  .link {
+    @apply font-bold duration-150;
+    color: $secondary;
+    &:hover {
+      color: $primary;
+    }
+    &:visited {
+      color: darken($color: $secondary, $amount: 5%);
+    }
+  }
+}
+
 // forms fields
 //labels (.label)
 
@@ -610,7 +630,7 @@ body {
 #admin-footer {
   background-color: whitesmoke;
   box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .8);
-  @apply text-lg p-3 rounded-lg;
+  @apply text-lg p-3 rounded-lg flex justify-between;
 }
 
 // Animation class Classes
