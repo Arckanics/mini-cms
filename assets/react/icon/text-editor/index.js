@@ -10,7 +10,7 @@ import TxtCenter from "./TxtCenter";
 import TxtRight from "./TxtRight";
 import TxtJustify from "./TxtJustify";
 import Underline from "./Underline";
-
+import Img from "./Img";
 
 export {
   Bold,
@@ -25,4 +25,5 @@ export {
   TxtCenter,
   TxtRight,
   TxtJustify,
+  Img,
 }
