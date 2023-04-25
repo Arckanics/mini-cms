@@ -141,14 +141,18 @@ class AdminController extends AbstractController
             return new JsonResponse($gem->exportData(), 200);
           case 'settings':
           default:
-            $res = $em->getRepository(Settings::class)->find(1);
-            $Pages = $em->getRepository(Pages::class);
-            $gem = new ExtEntityManager($Pages, Pages::class, $em);
+            $settings = $em->getRepository(Settings::class)->find(1);
+            $settings->setLandingPage($pages->find($data["Landing"]));
+            $settings->setMetaAuthor($data["Author"]);
+            $settings->setMetaDesc($data["Description"]);
+            $settings->setMetaSiteName($data["SiteName"]);
+            $em->flush();
+            $gem = new ExtEntityManager($pages, Pages::class, $em);
             return new JsonResponse([
-              'Author' => $res->getMetaAuthor(),
-              'Description' => $res->getMetaDesc(),
-              'SiteName' => $res->getMetaSiteName(),
-              'Landing' => $res->getLandingPage()->getId(),
+              'Author' => $settings->getMetaAuthor(),
+              'Description' => $settings->getMetaDesc(),
+              'SiteName' => $settings->getMetaSiteName(),
+              'Landing' => $settings->getLandingPage()->getId(),
               'Pages' => $gem->exportData()
             ], 200);
         }
