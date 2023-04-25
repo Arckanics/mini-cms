@@ -185,7 +185,7 @@ class AdminController extends AbstractController
             $article->setPublishBegin($this->formatDate($data["publishbegin"]));
             $article->setPublishEnd($this->formatDate($data["publishend"]));
             $article->setPublished($data["published"]);
-            $article->setSort($data["sort"]);
+            $article->setSort(count($articles->findAll()));
             $article->setTitle($data["title"]);
             $em->persist($article);
             $em->flush();
