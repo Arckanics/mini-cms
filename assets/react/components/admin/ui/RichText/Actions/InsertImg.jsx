@@ -6,6 +6,7 @@ import ImgModal from './items/imgModal'
 import { $getNodeByKey } from 'lexical'
 import { useDispatch, useSelector } from 'react-redux'
 import { setImgKey } from '../../../redux/reducers/lexicalSlice'
+import { Img } from '../../../../../icon/text-editor'
 
 const InsertImg = () => {
   const [modal, setModal] = useState(false)
@@ -76,7 +77,7 @@ const InsertImg = () => {
   }
   return (
     <div className="toolbar-item-group">
-      <BtnFormatText command={openInsertImg}/>
+      <BtnFormatText command={openInsertImg} item={Img} />
       {
         modal ? <ImgModal close={closeModal} update={editImg} create={img ? false : true} command={createImg} props={imgProp}/> : null
       }
