@@ -1,89 +1,145 @@
-import React, { useEffect, useState } from 'react'
-import {PagesContainer} from "../ui"
-import { Button, Selector, TxtLabelInput } from '../ui/Inputs'
-import { areEqual, capitalize } from '../../../Functions/app'
-import { useDispatch, useSelector } from 'react-redux'
-import { pushData } from '../redux/reducers/ajaxSlice'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import { PagesContainer } from "../ui";
+import { Button, Selector, TxtLabelInput } from "../ui/Inputs";
+import { areEqual, capitalize } from "../../../Functions/app";
+import { useDispatch, useSelector } from "react-redux";
+import { pushData } from "../redux/reducers/ajaxSlice";
+import axios from "axios";
+import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 
-// RUD complet pour les options de site
+// Gestion des Settings
 
 const Settings = () => {
-  const axiosSet = useSelector((state) => state.ajax.axios)
-  const ajax = axios.create({ ...axiosSet })
-  const data = useSelector((state) => state.ajax.data.settings)
-  const dispatch = useDispatch()
-  const [change, setChange] = useState(false)
-  const [initialState, setInitialState] = useState({})
+  const axiosSet = useSelector(state => state.ajax.axios);
+  const ajax = axios.create({ ...axiosSet });
+  const data = useSelector(state => state.ajax.data.settings);
+  const dispatch = useDispatch();
+  const [change, setChange] = useState(false);
+  const [initialState, setInitialState] = useState({});
 
   useEffect(() => {
-    ajax.get('/request')
+    ajax
+      .get("/request")
       .then(res => {
-        dispatch(pushData({ name: 'settings', data: res.data }))
-        setInitialState({ ...res.data })
-      }).catch(res => {
-        const status = res.response.status
-        if (status === 302) {
-          location.replace('/mini-admin/logout')
-        }
+        dispatch(pushData({ name: "settings", data: res.data }));
+        setInitialState({ ...res.data });
       })
-  }, [])
+      .catch(res => {
+        const status = res.response.status;
+        if (status === 302) {
+          location.replace("/mini-admin/logout");
+        }
+      });
+  }, []);
 
-  const changeName = (v) => {
+  const changeName = v => {
     switch (v) {
-      case 'Author':
-        return 'auteur';
-      case 'Description':
-        return 'description';
-      case 'SiteName':
-        return 'nom du site';
-      case 'Landing':
-        return 'page d\'accueil';
+      case "Author":
+        return "auteur";
+      case "Description":
+        return "description";
+      case "SiteName":
+        return "nom du site";
+      case "Landing":
+        return "page d'accueil";
       default:
-        return '';
+        return "";
     }
-  }
+  };
 
   const handleChange = (e, prop) => {
-    const nData = { ...data, [prop]: e.target.value }
-    dispatch(pushData({ name: 'settings', data: nData }))
-    console.log(areEqual(initialState, nData));
-    !areEqual(initialState, nData) ? setChange(true) : setChange(false)
-  }
+    const nData = { ...data, [prop]: e.target.value };
+    dispatch(pushData({ name: "settings", data: nData }));
+    !areEqual(initialState, nData) ? setChange(true) : setChange(false);
+  };
 
-  const setLanding = (v) => {
-    const nData = { ...data, Landing: v }
-    dispatch(pushData({ name: 'settings', data: nData }))
+  const setLanding = v => {
+    const nData = { ...data, Landing: v };
+    dispatch(pushData({ name: "settings", data: nData }));
     console.log(areEqual(initialState, nData));
-    !areEqual(initialState, nData) ? setChange(true) : setChange(false)
-  }
+    !areEqual(initialState, nData) ? setChange(true) : setChange(false);
+  };
+
+  const updateSettings = () => {
+    ajax.put("/request", { where: "settings", data }).then(res => {
+      dispatch(notify({ 
+        msg: "options mise à jour", 
+        type: "info",
+        timeout: setTimeout(() => dispatch(notifyClose()), 2000)
+      }));
+      dispatch(pushData({ name: "settings", data: res.data }));
+      setInitialState({ ...res.data });
+      setChange(false)
+    }).catch(res => {
+      dispatch(notify({ 
+        msg: "erreur de sauvegarde", 
+        type: "danger",
+        timeout: setTimeout(() => dispatch(notifyClose()), 2000)
+      }))
+    })
+  };
 
   return (
-    <PagesContainer title={'Paramètres'}>
-      <div className='flex flex-col gap-3 py-3 justify-between'>
-        {
-          data ? <>
-            <TxtLabelInput type="text" onChange={(e) => handleChange(e, 'Author')} label={capitalize(changeName("Author"))} id="Author" value={data.Author} placeholder={changeName("Author")}
-              inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
+    <PagesContainer title={"Paramètres"}>
+      <div className="flex flex-col gap-3 py-3 justify-between">
+        {data ? (
+          <>
+            <TxtLabelInput
+              type="text"
+              onChange={e => handleChange(e, "Author")}
+              label={capitalize(changeName("Author"))}
+              id="Author"
+              value={data.Author}
+              placeholder={changeName("Author")}
+              inputCls="input-txt w-full secondary"
+              divCls="input-wrap p-2 secondary"
+              labelCls="label"
             />
-            <TxtLabelInput type="text" onChange={(e) => handleChange(e, 'Description')} label={capitalize(changeName("Description"))} id="Description" value={data.Description} placeholder={changeName("Description")}
-              inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
+            <TxtLabelInput
+              type="text"
+              onChange={e => handleChange(e, "Description")}
+              label={capitalize(changeName("Description"))}
+              id="Description"
+              value={data.Description}
+              placeholder={changeName("Description")}
+              inputCls="input-txt w-full secondary"
+              divCls="input-wrap p-2 secondary"
+              labelCls="label"
             />
-            <TxtLabelInput type="text" onChange={(e) => handleChange(e, 'SiteName')} label={capitalize(changeName("SiteName"))} id="SiteName" value={data.SiteName} placeholder={changeName("SiteName")}
-              inputCls='input-txt w-full secondary' divCls='input-wrap p-2 secondary' labelCls='label'
+            <TxtLabelInput
+              type="text"
+              onChange={e => handleChange(e, "SiteName")}
+              label={capitalize(changeName("SiteName"))}
+              id="SiteName"
+              value={data.SiteName}
+              placeholder={changeName("SiteName")}
+              inputCls="input-txt w-full secondary"
+              divCls="input-wrap p-2 secondary"
+              labelCls="label"
             />
-            <Selector cls='secondary' iconCls='icon' active={data.Landing} list={data.Pages} action={setLanding}>
-              <h2 className='block py-2'>Page</h2>
+            <Selector
+              cls="secondary"
+              iconCls="icon"
+              active={data.Landing}
+              list={data.Pages}
+              action={setLanding}
+            >
+              <h2 className="block py-2">Page</h2>
             </Selector>
-          </> :
-            null
-        }
-        {
-          change && <Button btnCls={'btn secondary fadeInLeft'} divCls={"p-2 flex justify-end"}>Sauvegarder</Button>
-        }
+          </>
+        ) : null}
+        {change && (
+          <Button
+            btnCls={"btn secondary fadeInLeft"}
+            divCls={"p-2 flex justify-end"}
+            click={updateSettings}
+          >
+            Sauvegarder
+          </Button>
+        )}
       </div>
     </PagesContainer>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;
