@@ -9,7 +9,7 @@
   * {
     @apply duration-150;
   }
-  @apply flex gap-2 rounded-md select-none shrink-0;
+  @apply flex gap-2 rounded-md select-none shrink-0 flex-wrap;
   .toolbar-item-group {
     @apply flex gap-2 relative;
   }
@@ -69,7 +69,7 @@
     max-width: 260px;
     background-color: white;
     outline: 1px solid transparentize($color: $secondary, $amount: .8);
-    @apply rounded-md shadow-md absolute block top-full left-0 z-50 mt-2 w-max shrink-0;
+    @apply rounded-md shadow-md absolute block top-full left-auto z-50 mt-2 w-max shrink-0;
     .modal-titlebar {
       @apply flex flex-nowrap justify-between p-2 rounded-t-md shadow mb-2;
       background-color: transparentize($color: $secondary, $amount: .95);

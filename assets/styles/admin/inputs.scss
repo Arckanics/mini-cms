@@ -244,7 +244,7 @@ $inp-style: (
 
 .input-switch {
   transition: 150ms;
-  @apply w-11 m-auto p-1 block relative h-5 cursor-pointer rounded-full;
+  @apply w-11 m-auto p-1 block relative h-5 cursor-pointer rounded-full min-w-[2.4rem];
   @include inputSwitch($primary);
   outline-offset: -1px;
 

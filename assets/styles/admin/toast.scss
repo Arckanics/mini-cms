@@ -92,3 +92,11 @@
     @apply p-4 mt-2
   }
 }
+
+@media screen and (max-width: 1084px) {
+  .toast {
+    top: auto;
+    bottom: 3.5rem;
+    @apply mx-2;
+  }
+}
