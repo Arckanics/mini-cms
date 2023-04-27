@@ -49,7 +49,7 @@
 .input-txt[type=text],
 .input-txt[type=password],
 .input-txt {
-  @apply block p-3 rounded-md text-lg color-dark;
+  @apply block p-3 rounded-md text-lg color-dark w-full;
   @include inputTxt($primary);
   &.secondary {
     @include inputTxt($secondary);
