@@ -471,7 +471,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
 
-  &>* {
+  & > * {
     padding: 10px;
   }
 
@@ -485,7 +485,7 @@ body {
     display: block;
   }
 
-  & .nav-link {
+  & .nav-item-menu .nav-link {
     transition: 100ms;
     font-size: 1.5em;
     border-radius: $rad-sm;
@@ -528,34 +528,35 @@ body {
   }
 }
 
-#nav-opts {
+.icon-nav {
+  display: flex;
+  justify-content: flex-end;
+  @apply gap-1;
 
-  .icon-nav {
-    display: flex;
-    justify-content: flex-end;
-
+  li {
     .nav-link {
-      transition: 150ms;
       background-color: $light;
       box-shadow: 0 0 4px 0 darken($color: $primary, $amount: 20);
-
+      @apply aspect-square duration-150 p-2 block rounded-md cursor-pointer;
+  
+      .svg-icon {
+        @apply duration-150 w-7;
+        fill: $primary;
+      }
+  
       &:hover {
         background-color: $primary;
-
+  
         .svg-icon {
           fill: $light;
         }
       }
-    }
-
-    & .svg-icon {
-      transition: 150ms;
-      width: 28px;
-      height: 28px;
-      fill: $primary;
+  
+  
     }
   }
 
+  
 }
 
 // content
@@ -618,15 +619,16 @@ body {
   }
 }
 
-
-// footer
-
 .content-full {
   background-color: whitesmoke;
   padding: 10px 14px;
   box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .8);
   @apply rounded-md relative;
 }
+
+// footer
+
+
 
 #admin-footer {
   background-color: whitesmoke;
