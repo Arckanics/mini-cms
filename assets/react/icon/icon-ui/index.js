@@ -8,6 +8,7 @@ import Edit from "./Edit";
 import Expand from "./Expand";
 import Info from "./Info";
 import Logout from "./Logout";
+import Menu from "./Menu";
 import NavNext from "./Next";
 import NavPrev from "./Prev";
 import Success from "./Success";
@@ -28,4 +29,5 @@ export {
   Warning,
   NavPrev,
   NavNext,
+  Menu
 };

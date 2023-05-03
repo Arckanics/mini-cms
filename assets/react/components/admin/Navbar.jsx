@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavLi from './ui/NavLi'
-import Logout from '../../icon/icon-ui/Logout.jsx'
+import { Menu, Logout} from '../../icon/icon-ui/'
 import { useLocation } from 'react-router-dom'
 import { updateTitle, endOfPath } from '../../Functions/app'
 import { useDispatch } from 'react-redux'
@@ -31,7 +31,12 @@ const Navbar = ({Pages}) => {
           <h1>Mini-CMS</h1>
         </div>
         <nav id="navigation">
-          <ul className='flex flex-col gap-2'>
+          <ul className='icon-nav mobile'>
+            <li>
+              <div className='nav-link'><Menu cls="svg-icon" /></div>
+            </li>
+          </ul>
+          <ul className='nav-item-menu flex flex-col gap-2'>
           {
             Pages.map(
               ({name,path},i) => {
