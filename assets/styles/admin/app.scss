@@ -457,6 +457,7 @@ body {
 }
 
 #navbar {
+  position: relative;
   transition: 200ms;
   background-color: $primary;
   color: white;
@@ -465,7 +466,6 @@ body {
   min-width: 190px;
   width: 190px;
   max-width: 200px;
-  overflow: hidden;
   box-shadow: 0 0 8px 0 hsla(11, 69%, 30%, .6);
   display: flex;
   flex-direction: column;
@@ -476,7 +476,7 @@ body {
   }
 
   & #nav-title {
-    @apply bg-black/[.3];
+    @apply bg-black/[.3] rounded-t-md;
     font-size: 1.7em;
     text-align: center;
   }
@@ -544,7 +544,7 @@ body {
         fill: $primary;
       }
   
-      &:hover {
+      &:hover, &.active {
         background-color: $primary;
   
         .svg-icon {

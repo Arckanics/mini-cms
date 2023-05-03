@@ -10,6 +10,7 @@ const Navbar = ({Pages}) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const [enable, setEnable] = useState(false)
+  const [toggle, setToggle] = useState(false)
 
   useEffect(() => {
     updateTitle(endOfPath(location.pathname))
@@ -33,15 +34,15 @@ const Navbar = ({Pages}) => {
         <nav id="navigation">
           <ul className='icon-nav mobile'>
             <li>
-              <div className='nav-link'><Menu cls="svg-icon" /></div>
+              <div onClick={() => setToggle(!toggle)}  className={'nav-link' + (toggle ? " active" : "")}><Menu cls="svg-icon" /></div>
             </li>
           </ul>
-          <ul className='nav-item-menu flex flex-col gap-2'>
+          <ul className={'nav-item-menu flex flex-col gap-2' + (toggle ? " toggle" : "")}>
           {
             Pages.map(
               ({name,path},i) => {
               return <NavLi key={i} to={`/mini-admin${path}`.replace(/\/$/g, '')}
-                        onClick={() => {updateTitle(path); dispatch(setUrl(path))}}
+                        onClick={() => {setToggle(false); updateTitle(path); dispatch(setUrl(path))}}
                       >
                     <div className='link-txt'>{name}</div>
                     </NavLi>})
