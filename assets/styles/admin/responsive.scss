@@ -46,6 +46,10 @@
   #navbar {
     @apply flex-row w-full max-w-none min-w-0 shrink-0;
 
+    #nav-title {
+      @apply rounded-md
+    }
+
     & > * {
       @apply p-1;
     }
@@ -80,8 +84,30 @@
   .mobile {
     display: initial;
   }
-  .nav-item-menu {
-    display: none;
+  #navbar {
+    .nav-item-menu {
+      @apply absolute top-full -z-10
+            mt-2 p-1 left-4 right-4 
+            rounded-full gap-3 duration-150 justify-between;
+      transform: translateY(-100%);
+      opacity: 0;
+      &.toggle {
+        z-index: 60;
+        transform: translateY(0%);
+        opacity: 1;
+      }
+      background-color: $primary;
+  
+      .nav-link {
+        @apply rounded-full bg-white/10 shadow-inner;
+        .link-txt {
+          @apply m-2;
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
   }
 
   .icon-nav {
