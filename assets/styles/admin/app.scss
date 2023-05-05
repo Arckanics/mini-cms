@@ -226,8 +226,6 @@ $warning: hsl(44,102%,62%);
   }
 }
 
-
-
 // buttons
 
 @mixin btnSetting($color) {
@@ -243,7 +241,8 @@ $warning: hsl(44,102%,62%);
 
   &:hover,
   &:focus,
-  &:focus-visible {
+  &:focus-visible,
+  &.toggle {
     background-color: whitesmoke;
     outline-color: $color;
     color: $color;
@@ -319,11 +318,136 @@ $warning: hsl(44,102%,62%);
   }
 }
 
+@mixin btnSettingOutline($color) {
+  
+  background-color: white;
+  color: $color;
+  svg {
+    fill: $color;
+  }
+  @apply shadow;
+  outline: solid $color 1px;
+  outline-offset: -1px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible,
+  &.toggle {
+    background-color: $color;
+    outline-color: $color;
+    color: whitesmoke;
+    svg {
+      fill: whitesmoke;
+    }
+  }
+}
+
+@mixin btnWhiteDarkOutline($color) {
+  background-color: invert($color: $color);
+  color: $color;
+  svg {
+    fill: $color;
+  }
+  outline: solid transparent 2px;
+  outline-offset: -2px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background-color: $color ;
+    outline-color: $color;
+    color: invert($color: $color);
+    svg {
+      fill: invert($color: $color);
+    }
+  }
+
+  &.primary {
+    color: $primary;
+    background-color: mix($color, $primary, 92%);
+    outline-color: transparentize($color: $primary, $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $primary;
+      svg {
+        fill: $primary;
+      }
+    }
+  }
+
+  &.secondary {
+    color: $secondary;
+    background-color: mix($color, $secondary, 92%);
+    outline-color: transparentize($color: $secondary , $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $secondary;
+      svg {
+        fill: $secondary;
+      }
+    }
+  }
+
+  &.success {
+    color: $success;
+    background-color: mix($color, $success, 92%);
+    outline-color: transparentize($color: $success , $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $success;
+      svg {
+        fill: $success;
+      }
+    }
+  }
+}
+
 .btn {
   padding: 10px;
   transition: 150ms;
   @apply block p-3 text-lg cursor-pointer text-center rounded-md;
   
+  &.icon-btn {
+    @apply p-1 px-4 shadow-md max-w-fit rounded-xl flex;
+    background-color: white;
+
+    .icon {
+      @apply w-8;
+    }
+  }
+
+  &.btn-outline {
+    &.primary {
+      @include btnSettingOutline($primary);
+    }
+  
+    &.secondary {
+      @include btnSettingOutline($secondary);
+    }
+  
+    &.grey {
+      @include btnSettingOutline(desaturate($color: $secondary, $amount: 50%));
+    }
+  
+    &.success {
+      @include btnSettingOutline($success);
+    }
+  
+    &.danger {
+      @include btnSettingOutline($negative);
+    }
+  
+    &.white {
+      @include btnWhiteDarkOutline(whitesmoke);
+    }
+  }
+
   &.primary {
     @include btnSetting($primary);
   }
@@ -581,6 +705,10 @@ body {
         @apply text-base;
       }
 
+      &-search {
+        @apply px-3;
+      }
+
       .content-inner {
         height: 100%;
         @apply overflow-auto;
@@ -604,6 +732,8 @@ body {
           @apply p-1 px-2;
         }
       }
+
+      
     }
   }
 
