@@ -8,10 +8,59 @@
 // responsive rules
 
 
-@media screen and (max-width: 1280px) {
-  .content-nav-search {
-    .search-field {
-      @apply px-1;
+
+
+
+
+@media screen and (max-width: 760px) {
+  #nav-title {
+    display: none !important;
+  }
+  
+  .mobile {
+    display: initial;
+  }
+  #navbar {
+    .nav-item-menu {
+      @apply -z-10 flex-col absolute
+            top-full left-0 rounded-md
+            justify-between
+            p-1.5 mt-1 overflow-auto
+            gap-1 duration-150;
+      transform: translateX(-110%);
+      opacity: 0;
+      &.toggle {
+        z-index: 60;
+        transform: translateX(0%);
+        opacity: 1;
+      }
+      background-color: $primary;
+  
+      li {
+        @apply block w-full;
+      }
+
+      .nav-link {
+        @apply bg-white/20 shadow-inner w-full;
+        .link-txt {
+          @apply m-2 text-3xl;
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .icon-nav {
+    li {
+      .nav-link {
+        @apply p-1.5;
+
+        .svg-icon {
+          @apply w-10;
+        }
+      }
     }
   }
 }
@@ -56,70 +105,27 @@
 
     #navbar-top {
       @apply flex;
-      #nav-title {
-        @apply text-sm font-bold flex items-center py-1 px-2;
-      }
-      #navigation {
-        @apply p-1 flex items-center;
-        & > ul {
-          @apply flex-row items-center;
-        }
-      }
-      .nav-item-menu {
-        .nav-link {
-          @apply p-1 px-3 m-0 ;
-        }
-      }
     }
 
-    
-  }
-}
-
-@media screen and (max-width: 760px) {
-  #nav-title {
-    display: none !important;
-  }
-  
-  .mobile {
-    display: initial;
-  }
-  #navbar {
-    .nav-item-menu {
-      @apply absolute top-full -z-10
-            mt-2 p-1 left-4 right-4 
-            rounded-full gap-3 duration-150 justify-between;
-      transform: translateY(-100%);
-      opacity: 0;
-      &.toggle {
-        z-index: 60;
-        transform: translateY(0%);
-        opacity: 1;
-      }
-      background-color: $primary;
-  
-      .nav-link {
-        @apply rounded-full bg-white/10 shadow-inner;
-        .link-txt {
-          @apply m-2;
-          &::after {
-            display: none;
-          }
-        }
-      }
+    #nav-title {
+      @apply text-sm font-bold flex items-center py-1 px-2;
+    }
+    #navigation {
+      @apply p-1 flex items-center;
     }
   }
-
-  .icon-nav {
-    li {
-      .nav-link {
-        @apply p-1.5;
-
-        .svg-icon {
-          @apply w-8;
-        }
-      }
+  .nav-item-menu {
+    @apply flex-row items-center;
+    .nav-link {
+      @apply p-1 px-3 m-0 ;
     }
   }
 }
 
+@media screen and (max-width: 1280px) {
+  .content-nav-search {
+    .search-field {
+      @apply px-1;
+    }
+  }
+}
