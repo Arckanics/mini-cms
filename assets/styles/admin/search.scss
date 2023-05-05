@@ -71,7 +71,11 @@
         background-color: transparentize($color: $secondary, $amount: .7);
       }
       .row-field {
-        @apply text-center p-3 justify-between flex-nowrap;
+        @apply text-center p-3 block
+          justify-center overflow-hidden
+          whitespace-nowrap
+          text-ellipsis
+          ;
 
         &.action-field {
           @apply p-1;

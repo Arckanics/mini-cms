@@ -6,6 +6,7 @@ import Danger from "./Danger";
 import Delete from "./Delete";
 import Edit from "./Edit";
 import Expand from "./Expand";
+import Filter from "./Filter";
 import Info from "./Info";
 import Logout from "./Logout";
 import Menu from "./Menu";
@@ -29,5 +30,6 @@ export {
   Warning,
   NavPrev,
   NavNext,
-  Menu
+  Menu,
+  Filter
 };
