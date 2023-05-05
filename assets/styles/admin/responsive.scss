@@ -7,11 +7,6 @@
 
 // responsive rules
 
-
-
-
-
-
 @media screen and (max-width: 760px) {
   #nav-title {
     display: none !important;
@@ -98,7 +93,7 @@
     }
 
     #navbar-top {
-      @apply flex;
+      @apply flex gap-1;
     }
 
     #nav-title {
@@ -111,7 +106,7 @@
   .nav-item-menu {
     @apply flex-row items-center;
     .nav-link {
-      @apply p-1 px-3 m-0 ;
+      @apply p-2 px-3 m-0 ;
     }
   }
 
@@ -132,6 +127,39 @@
   .content-nav-search {
     .search-field {
       @apply px-1;
+    }
+  }
+}
+
+// input
+
+@media screen and (max-width: 1084px) {
+  .input-wrap {
+    @apply flex items-center gap-0 p-0 mb-1 shadow-sm;
+    outline: 2px solid transparentize($color: $secondary, $amount: .8);
+    outline-offset: -1px;
+
+    .label {
+      @apply py-3 pr-2 w-1/3 text-right text-sm rounded-l-md h-full align-middle;
+      @apply pl-0 #{!important};
+      border-right: 1px solid transparentize($color: $secondary, $amount: .5);
+      background-color: lighten($color: $secondary, $amount: 40%);
+    }
+
+    .input-txt {
+      @apply p-2 rounded-l-none;
+      @apply outline-none #{!important};
+    }
+
+    &:hover, &.active {
+      outline-color: $secondary;
+    }
+
+    &.active {
+      .label {
+        background-color: $secondary;
+        color: white!important;
+      }
     }
   }
 }
