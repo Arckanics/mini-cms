@@ -41,12 +41,16 @@
       }
 
       .nav-link {
-        @apply bg-white/20 shadow-inner w-full;
+        @apply bg-white/20 shadow-inner w-full p-3;
         .link-txt {
           @apply m-2 text-3xl;
           &::after {
             display: none;
           }
+        }
+
+        &:hover, &.active {
+          @apply bg-white;
         }
       }
     }
