@@ -485,44 +485,45 @@ body {
     display: block;
   }
 
-  & .nav-item-menu .nav-link {
+}
+
+.nav-item-menu .nav-link {
+  transition: 100ms;
+  font-size: 1.5em;
+  border-radius: $rad-sm;
+  padding: 10px;
+  margin: 2px auto;
+  width: 100%;
+  display: block;
+  text-align: center;
+
+  & .link-txt {
     transition: 100ms;
-    font-size: 1.5em;
-    border-radius: $rad-sm;
-    padding: 10px;
-    margin: 2px auto;
-    width: 100%;
-    display: block;
-    text-align: center;
+    display: inline;
+    position: relative;
+
+    &::after {
+      transition: 100ms;
+      content: "";
+      position: absolute;
+      margin: auto;
+      border-radius: $rad-md;
+      width: calc(100% + 10px);
+      height: 1px;
+      left: -5px;
+      right: 0;
+      bottom: -1px;
+    }
+  }
+
+  &:hover,
+  &.active {
+    background-color: $light;
+    color: $primary;
 
     & .link-txt {
-      transition: 100ms;
-      display: inline;
-      position: relative;
-
       &::after {
-        transition: 100ms;
-        content: "";
-        position: absolute;
-        margin: auto;
-        border-radius: $rad-md;
-        width: calc(100% + 10px);
-        height: 1px;
-        left: -5px;
-        right: 0;
-        bottom: -1px;
-      }
-    }
-
-    &:hover,
-    &.active {
-      background-color: $light;
-      color: $primary;
-
-      & .link-txt {
-        &::after {
-          background-color: $primary;
-        }
+        background-color: $primary;
       }
     }
   }
