@@ -52,17 +52,7 @@
     }
   }
 
-  .icon-nav {
-    li {
-      .nav-link {
-        @apply p-1.5;
-
-        .svg-icon {
-          @apply w-10;
-        }
-      }
-    }
-  }
+  
 }
 
 @media screen and (max-width: 1084px) {
@@ -118,6 +108,18 @@
     @apply flex-row items-center;
     .nav-link {
       @apply p-1 px-3 m-0 ;
+    }
+  }
+
+  .icon-nav {
+    li {
+      .nav-link {
+        @apply p-1.5;
+
+        .svg-icon {
+          @apply w-10;
+        }
+      }
     }
   }
 }
