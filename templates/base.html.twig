@@ -23,9 +23,7 @@
     </head>
     <body>
         {% block body %}
-          <div id="root">
-            <div {{ react_component('main') }}></div>
-          </div>
+          <div {{ react_component('main') }} id="root" class="root"></div>
         {% endblock %}
         {% block javascripts %}
           {{ encore_entry_script_tags('app') }}

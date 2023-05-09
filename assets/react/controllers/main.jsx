@@ -5,8 +5,10 @@ import Guest from '../components/guest/index';
 
 // Index Root Component
 
-const Main = () => <Router>
-  <Guest />
-</Router>
+const Main = () => <React.StrictMode>
+  <Router>
+    <Guest />
+  </Router>
+</React.StrictMode>
 
 export default Main
