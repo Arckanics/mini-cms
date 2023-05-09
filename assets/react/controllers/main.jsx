@@ -1,9 +1,12 @@
+import '../../styles/guest/app.scss';
 import React from "react"
-
-import Hello from '../components/helloWorld';
+import { BrowserRouter as Router } from "react-router-dom"
+import Guest from '../components/guest/index';
 
 // Index Root Component
 
-const Main = () => <div><Hello/></div>
+const Main = () => <Router>
+  <Guest />
+</Router>
 
 export default Main
