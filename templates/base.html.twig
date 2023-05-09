@@ -4,12 +4,16 @@
         <meta charset="utf-8"/>
         <title>
           {% block title %}
-            {{ url }}
+            {{ title }}
           {% endblock %}
         </title>
+        <meta name="user-scalable" content="no" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <meta name="copyright" content="Arckanics Reiko"/>
         {% block head %}
-          <meta path="{{ url }}" />
+          <meta path="{{ path }}" />
+          <meta name="author" content="{{ author }}"/>
+          <meta name="description" content="{{ desc }}"/>
         {% endblock %}
         
         {% block stylesheets %}
