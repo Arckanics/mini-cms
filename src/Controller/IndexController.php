@@ -26,9 +26,6 @@ class IndexController extends AbstractController
           
         ]);
       }
-      return $this->render('/base.html.twig', [
-        "url" => $route,
-        "ajax" => !$ajax ? 'false': 'true'
-      ]);
+      return $this->json(["0" => "Accueil"]);
     }
 }
