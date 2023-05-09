@@ -1,21 +1,12 @@
 {
-  "build/admin.js": "/build/admin.js",
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
   "build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-b97159.js": "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-b97159.js",
-  "build/assets_react_controllers_sync_recursive_j_7Ct_sx_-node_modules_symfony_stimulus-bridge_dist_w-0702b0.css": "/build/assets_react_controllers_sync_recursive_j_7Ct_sx_-node_modules_symfony_stimulus-bridge_dist_w-0702b0.css",
-  "build/assets_react_controllers_sync_recursive_j_7Ct_sx_-node_modules_symfony_stimulus-bridge_dist_w-0702b0.js": "/build/assets_react_controllers_sync_recursive_j_7Ct_sx_-node_modules_symfony_stimulus-bridge_dist_w-0702b0.js",
+  "build/assets_styles_admin_app_scss.css": "/build/assets_styles_admin_app_scss.css",
+  "build/assets_styles_guest_app_scss.css": "/build/assets_styles_guest_app_scss.css",
   "build/fonts/Comfortaa-SemiBold.ttf": "/build/fonts/Comfortaa-SemiBold.47b7aa55.ttf",
   "build/fonts/Comfortaa-Medium.ttf": "/build/fonts/Comfortaa-Medium.db5c74bd.ttf",
   "build/fonts/Comfortaa-Regular.ttf": "/build/fonts/Comfortaa-Regular.051d6908.ttf",
   "build/fonts/Comfortaa-Light.ttf": "/build/fonts/Comfortaa-Light.2d79c8b6.ttf",
-  "build/fonts/Comfortaa-Bold.ttf": "/build/fonts/Comfortaa-Bold.059cc3e0.ttf",
-  "build/app.css": "/build/app.css",
-  "build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-64aef5.css": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-64aef5.css",
-  "build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-64aef5.js": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-64aef5.js",
-  "build/admin.css": "/build/admin.css",
-  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_react-dom_index_js-no-46e816.js": "/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_react-dom_index_js-no-46e816.js",
-  "build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-c45653.js": "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-c45653.js",
-  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_react-dom_index_js-no-7f6b1a.js": "/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_react-dom_index_js-no-7f6b1a.js",
-  "build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-59a74d.js": "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-59a74d.js"
+  "build/fonts/Comfortaa-Bold.ttf": "/build/fonts/Comfortaa-Bold.059cc3e0.ttf"
 }
