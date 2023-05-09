@@ -4,5 +4,5 @@
 
 // global
 html {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  @apply font-sans bg-stone-900 text-orange-100;
 }
