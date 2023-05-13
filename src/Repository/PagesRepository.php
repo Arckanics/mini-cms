@@ -38,6 +38,12 @@ class PagesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function getAllBySortAsc(): array {
+      return $this->createQueryBuilder('p')
+        ->orderBy('p.sort', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
 
 //    /**
 //     * @return Pages[] Returns an array of Pages objects

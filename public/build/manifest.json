@@ -8,5 +8,7 @@
   "build/fonts/Comfortaa-Medium.ttf": "/build/fonts/Comfortaa-Medium.db5c74bd.ttf",
   "build/fonts/Comfortaa-Regular.ttf": "/build/fonts/Comfortaa-Regular.051d6908.ttf",
   "build/fonts/Comfortaa-Light.ttf": "/build/fonts/Comfortaa-Light.2d79c8b6.ttf",
-  "build/fonts/Comfortaa-Bold.ttf": "/build/fonts/Comfortaa-Bold.059cc3e0.ttf"
+  "build/fonts/Comfortaa-Bold.ttf": "/build/fonts/Comfortaa-Bold.059cc3e0.ttf",
+  "build/main.css": "/build/main.css",
+  "build/admin.css": "/build/admin.css"
 }
