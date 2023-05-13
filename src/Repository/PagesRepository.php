@@ -42,7 +42,7 @@ class PagesRepository extends ServiceEntityRepository
       return $this->createQueryBuilder('p')
         ->orderBy('p.sort', 'ASC')
         ->getQuery()
-        ->getResult();
+        ->getArrayResult();
     }
 
 //    /**
