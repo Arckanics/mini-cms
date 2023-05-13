@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 const index = () => {
-  const [linkLoad, setLinkLoad] = useState(null)
+  const [linkLoad, setLinkLoad] = useState(undefined)
   const ajax = axios.create({
     headers: {
       "XmlHttpRequest": true
     }
   })
   useEffect(() => {
-    !linkLoad ? ajax.get('/page-list').then(res => {
-      setLinkLoad([...res.data])
+    !linkLoad ? ajax.get('/request/page-list').then(res => {
+      setLinkLoad([...res.data.data])
     }) : null
   }, [linkLoad])
 
