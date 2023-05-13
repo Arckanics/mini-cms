@@ -16,28 +16,27 @@ class IndexController extends AbstractController
     #[Route('/request/{target}', name: 'app_request')]
     function requests(Request $req, EntityManagerInterface $em, String $target): Response 
     {
-      $dql = "";
-      $res = null;
+      $res = [];
+      $repo = null;
       switch ($target) {
         case "page-list":
           $repo = $em->getRepository(Pages::class);
-          $res = $repo->getAllBySortAsc();
           break;
         default:
           break;
       }
+      $res = $repo->getAllBySortAsc();
       return new JsonResponse(
         [
-          "data" => ["0" => "Accueil"],
-          "target" => $res
+          "data" => $res,
+          "target" => $target
         ]);
     }
 
     #[Route('/{route}', name: 'app_index')]
     public function index(Request $req, EntityManagerInterface $em, String $route = ""): Response
     {
-      $ajax = $req->headers->get('XmlHttpRequest');
-      if (!$ajax || $ajax === false) {
+      
         $settings = $em->getRepository(Settings::class)->find(1);
         
         return $this->render('/base.html.twig', [
@@ -47,6 +46,6 @@ class IndexController extends AbstractController
           "title" => $settings->getMetaSiteName(),
           
         ]);
-      }
     }
+    
 }
