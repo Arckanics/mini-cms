@@ -14,4 +14,4 @@ import './bootstrap';
 // react
 
 import { registerReactControllerComponents } from '@symfony/ux-react';
-registerReactControllerComponents(require.context('./react/controllers', true, /\.(j|t)sx?$/));
+registerReactControllerComponents(require.context('./react/controllers', true, /_admin\.(j|t)sx?$/));
