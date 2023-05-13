@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Navbar } from './components'
 const index = () => {
   const [linkLoad, setLinkLoad] = useState(undefined)
   const ajax = axios.create({
@@ -15,6 +16,7 @@ const index = () => {
 
   return (
     <>
+      <Navbar links={linkLoad}/>
     </>
   )
 }
