@@ -25,6 +25,8 @@
       @apply block text-lg font-bold px-4 py-2 relative duration-150;
       background-color: lighten($color: $yellow, $amount: 10%);
       color: darken($color: $yellow, $amount: 45%);
+      outline: 1px solid transparentize($color: darken($color: $yellow, $amount: 45%), $amount: .95);
+      outline-offset: -1px;
       &::first-letter {
         @apply uppercase;
       }
