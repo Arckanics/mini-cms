@@ -5,12 +5,36 @@
   .wrapper {
     @apply items-stretch hidden space-x-3 lg:flex gap-4 select-none;
 
+    .nav-container {
+      @apply relative;
+      &::after {
+        content: "";
+        @apply block absolute left-0 top-0 w-full h-full blur-[2px] duration-150;
+        z-index: -1;
+        background-color: rgba($color: #000000, $alpha: .3);
+        opacity: 0
+      }
+      &:has(.active), &:hover {
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
     .navLink {
-      @apply block text-lg font-bold px-4 py-2;
+      @apply block text-lg font-bold px-4 py-2 relative duration-150;
       background-color: lighten($color: $yellow, $amount: 10%);
       color: darken($color: $yellow, $amount: 45%);
       &::first-letter {
         @apply uppercase;
+      }
+
+      
+
+      &:hover, &.active {
+        @apply transform-gpu -translate-x-1 -translate-y-1 z-10;
+        color: lighten($color: $yellow, $amount: 10%);
+        background-color: darken($color: $yellow, $amount: 45%);
       }
     }
   }

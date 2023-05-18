@@ -14,8 +14,8 @@ const Navbar = ({ links, landing }) => {
   const renderLink = l => 
     !l 
     ? null
-    : l.map((l,i) => <li key={l.id} className="p-0 text-center" onClick={cleanUrl}>
-      <NavLink to={!(landing == l.id) ? l.url : "/"} className='navLink'>{l.Title}</NavLink>
+    : l.map((l,i) => <li key={l.id} className="p-0 text-center nav-container" >
+      <NavLink to={!(landing == l.id) ? l.url : ""} className='navLink'>{l.Title}</NavLink>
     </li>)
 
   return (
