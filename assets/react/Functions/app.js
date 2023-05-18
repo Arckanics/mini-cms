@@ -33,7 +33,7 @@ const setBaseUrl = (ext = "") => {
 
 // nettoie l'url fourni
 
-const cleanPath = path => path.replace(/^\/$|\/$/, '').replace(/\/\//g, '/')
+const cleanPath = path => path.replace(/\/\//g, '/').replace(/^\/$|\/$/, '')
 
 // première lettre en majuscule
 

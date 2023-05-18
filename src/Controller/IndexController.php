@@ -16,21 +16,26 @@ class IndexController extends AbstractController
     #[Route('/request/{target}', name: 'app_request')]
     function requests(Request $req, EntityManagerInterface $em, String $target): Response 
     {
-      $res = [];
-      $repo = null;
       switch ($target) {
         case "page-list":
           $repo = $em->getRepository(Pages::class);
-          break;
+          $res = $repo->getAllBySortAsc();
+          $landing = $em->getRepository(Settings::class)->find(1);
+          return new JsonResponse(
+            [
+              "data" => $res,
+              "landing" => $landing->getLandingPage()->getId(),
+              "target" => $target
+            ]);
         default:
           break;
       }
-      $res = $repo->getAllBySortAsc();
-      return new JsonResponse(
-        [
-          "data" => $res,
-          "target" => $target
-        ]);
+
+      return new JsonResponse([
+        "msg" => "Not Found"
+      ], 404);
+      
+      
     }
 
     #[Route('/{route}', name: 'app_index')]
