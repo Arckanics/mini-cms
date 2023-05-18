@@ -1,0 +1,17 @@
+#header {
+  @apply p-3;
+  border-bottom: 3px solid $yellow;
+
+  .wrapper {
+    @apply items-stretch hidden space-x-3 lg:flex gap-4 select-none;
+
+    .navLink {
+      @apply block text-lg font-bold px-4 py-2;
+      background-color: lighten($color: $yellow, $amount: 10%);
+      color: darken($color: $yellow, $amount: 45%);
+      &::first-letter {
+        @apply uppercase;
+      }
+    }
+  }
+}
