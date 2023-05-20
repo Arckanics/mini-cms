@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Header, Navbar } from './components'
+import { Provider } from 'react-redux'
+import store from "./redux/store"
+
 const index = () => {
   const [linkLoad, setLinkLoad] = useState(undefined)
   const [landing, setLanding] = useState(1)
@@ -17,11 +20,11 @@ const index = () => {
   }, [linkLoad])
 
   return (
-    <>
+    <Provider store={store}>
       <Header>
         <Navbar links={linkLoad} landing={landing}/>
       </Header>
-    </>
+    </Provider>
   )
 }
 

@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { cleanPath } from "../../../Functions/app";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Navbar = ({ links, landing }) => {
-  const nav = useNavigate()
-
-  const cleanUrl = () => {
-    location.pathname.match(/\/$/)
-    ? nav (cleanPath(location.pathname))
-    : undefined
-  }
 
   const renderLink = l => 
     !l 
