@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Close from "../../../icon/icon-ui/Close";
-import { DatePicker, Selector, SwitchInput } from "./Inputs";
+import { Button, DatePicker, Selector, SwitchInput } from "./Inputs";
 import { RichText } from "./";
 
 const ModalEditor = ({ data, schema, title, close, command, small }) => {
   const [mData, setData] = useState(null);
-
   useEffect(() => {
     const empty = {};
     Object.entries(schema).map(([name, par]) => {
@@ -109,12 +108,14 @@ const ModalEditor = ({ data, schema, title, close, command, small }) => {
                       <label className="input-label p-2 font-bold">
                         {value.name} :{" "}
                       </label>
+                      <React.StrictMode>
                       <DatePicker
                         value={date}
                         change={v => {
                           setData({ ...mData, [key]: v });
                         }}
                       />
+                      </React.StrictMode>
                     </div>
                   );
                   break;
