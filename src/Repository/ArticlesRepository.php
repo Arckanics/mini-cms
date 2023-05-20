@@ -50,11 +50,13 @@ class ArticlesRepository extends ServiceEntityRepository
         ->getQuery()
         ->getArrayResult();
       
-      $currentDate = date('Y-m-d');
-
+      $currentDate = date_create();
       foreach ($published as $key => $article) {
         if ($article['isDynamic']) {
-          if (!($article['PublishBegin']["date"] <= $currentDate) && !($article['PublishEnd']["date"] >= $currentDate)) {
+          //dd($currentDate < $article['PublishBegin'], $currentDate , $article['PublishBegin']);
+          if ($article['PublishBegin'] <= $currentDate && $article['PublishEnd'] >= $currentDate) {
+            
+          } else {
             unset($published[$key]);
           }
         }

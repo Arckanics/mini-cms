@@ -4,10 +4,13 @@ const prepareForSend = (data) => {
   for (let [k,v] of Object.entries(data)) {
     if (v instanceof Date) {
       v.setDate(v.getDate()+1)
-      result[k] = v.toISOString().replace(/T|\.[0-9]+Z$/g, (ex) => ex === "T" ? " " : "")
+      v.setHours(0,0,0,0)
+      result[k] = v.toISOString().replace(/T.+$/gi, ' 00:00:00')
+      console.log(result[k]);
     } else {
       result[k] = v
     }
+    
   }
   return result;
 }
