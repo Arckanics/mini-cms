@@ -41,8 +41,8 @@ const Navbar = ({Pages}) => {
           {
             Pages.map(
               ({name,path},i) => {
-              return <NavLi key={i} to={`/mini-admin${path}`.replace(/\/$/g, '')}
-                        onClick={() => {setToggle(false); updateTitle(path); dispatch(setUrl(path)); dispatch(clearData()) }}
+              return <NavLi key={"navli"+i} to={`/mini-admin${path}`.replace(/\/$/g, '')}
+                        onClick={() => {setToggle(false); updateTitle(path); dispatch(setUrl(path)) }}
                       >
                     <div className='link-txt'>{name}</div>
                     </NavLi>})

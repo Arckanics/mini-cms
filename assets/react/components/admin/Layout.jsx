@@ -4,7 +4,6 @@ import Content from "./Content";
 import { cleanPath } from "../../Functions/app";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "./Footer";
 import { Toast } from "./ui";
 import { clearData, setUrl } from "./redux/reducers/ajaxSlice";
 import { Pages, Settings, Articles, Login } from "./pages";
@@ -49,7 +48,6 @@ const Layout = () => {
           );
         })}
       </Routes>
-
       <Toast />
     </section>
   );

@@ -1,11 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { capitalize } from '../../../Functions/app'
-import Close from '../../../icon/icon-ui/Close'
-import Info from '../../../icon/icon-ui/Info'
-import Success from '../../../icon/icon-ui/Success'
-import Warning from '../../../icon/icon-ui/Warning'
-import Danger from '../../../icon/icon-ui/Danger'
+import { Close, Info, Success, Warning, Danger } from '../../../icon/icon-ui'
 import { notifyClose, notifyKeep } from '../redux/reducers/notificationSlice'
 
 const Toast = () => {
