@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Articles;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,29 @@ class ArticlesRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getAllBySortAsc(int $id): array {
+      $published = $this->createQueryBuilder('a')
+        ->where('a.Page = :id')
+        ->setParameter('id', $id)
+        ->andWhere('a.Published = :pub')
+        ->setParameter('pub', true)
+        ->orderBy('a.sort', 'ASC')
+        ->getQuery()
+        ->getArrayResult();
+      
+      $currentDate = date('Y-m-d');
+
+      foreach ($published as $key => $article) {
+        if ($article['isDynamic']) {
+          if (!($article['PublishBegin']["date"] <= $currentDate) && !($article['PublishEnd']["date"] >= $currentDate)) {
+            unset($published[$key]);
+          }
+        }
+      }
+
+      return $published;
     }
 
 //    /**
