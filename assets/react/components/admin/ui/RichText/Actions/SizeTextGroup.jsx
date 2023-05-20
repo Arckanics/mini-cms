@@ -61,7 +61,9 @@ const SizeTextGroup = () => {
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
-        updateBtnStates();
+        const selection = $getSelection()
+        
+        selection ? updateBtnStates() : null
       });
     });
   }, [editor]);

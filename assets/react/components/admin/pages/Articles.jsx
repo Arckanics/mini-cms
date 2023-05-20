@@ -54,7 +54,7 @@ const Articles = () => {
   // envoie des données
   const sendData = data => {
     const { type, where } = modal;
-    data = type !== "delete" ? data = prepareForSend(data) : data
+    data = type !== "delete" ? (data = prepareForSend(data)) : data;
     const sendField = { where, data: data };
     switch (type) {
       case "put":
@@ -83,19 +83,19 @@ const Articles = () => {
             })
           );
         });
-        case "delete":
-          return ajax.delete("/request", {data: {...sendField}}).then(res => {
-            dispatch(pushData({ name: where, data: res.data }));
-            dispatch(
-              notify({
-                type: "warning",
-                msg: "article supprimé!",
-                timeout: setTimeout(() => {
-                  dispatch(notifyClose());
-                }, 2500),
-              })
-            );
-          });
+      case "delete":
+        return ajax.delete("/request", { data: { ...sendField } }).then(res => {
+          dispatch(pushData({ name: where, data: res.data }));
+          dispatch(
+            notify({
+              type: "warning",
+              msg: "article supprimé!",
+              timeout: setTimeout(() => {
+                dispatch(notifyClose());
+              }, 2500),
+            })
+          );
+        });
     }
   };
   // nouvel article
@@ -135,8 +135,8 @@ const Articles = () => {
 
   // supprime les articles
   const removeArticle = id => {
-    modal.type = "delete"
-    sendData(id)
+    modal.type = "delete";
+    sendData(id);
   };
 
   const header = [
@@ -150,18 +150,18 @@ const Articles = () => {
   return (
     <PagesContainer title={"Articles"}>
       {typeof articles === "object" && typeof pages === "object" ? (
-        !modal.enable
-        ? <ContentNav
-        data={articles}
-        header={header}
-        create={createArticle}
-        update={updateArticle}
-        remove={removeArticle}
-        />
-        :null
+        !modal.enable ? (
+          <ContentNav
+            data={articles}
+            header={header}
+            create={createArticle}
+            update={updateArticle}
+            remove={removeArticle}
+          />
+        ) : null
       ) : null}
       {
-        // fenêtre d'édition et création des articles
+        // fenêtre d'édition et création des articles et pages
         modal.enable ? (
           <ModalEditor
             data={modal.data}

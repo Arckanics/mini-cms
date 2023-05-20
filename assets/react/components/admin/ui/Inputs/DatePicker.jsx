@@ -19,15 +19,14 @@ const DatePicker = ({ change, value }) => {
   };
   const [ref, setRef] = useState(null);
   const [dateState, setDateState] = useState(new Date(value.getTime()));
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    !open && ref ? setTimeout(() => {
+    ref === null ? setTimeout(() => {
       ref.blur()
       setRef(null)
       setDateState(new Date(value.getTime()))
     }, 150) : null;
-    if (open) {
+    if (ref !== null) {
       const par = document.querySelector('.modal-editor')
       const windowRect = par.getBoundingClientRect()
       const cal = ref.querySelector('.calendar')
@@ -39,13 +38,13 @@ const DatePicker = ({ change, value }) => {
         cal.style.transform = `translateX(${result}px)`
       }
     }
-  }, [open]);
+  }, [ref]);
 
   const changeDate = v => {
     const nDate = dateState;
     nDate.setDate(v);
-    setOpen(false);
     change(nDate);
+    setRef(null);
   };
 
   const setDays = () => {
@@ -54,7 +53,7 @@ const DatePicker = ({ change, value }) => {
     const displayDate = new Date(dateState.getTime());
     displayDate.setDate(1);
     for (let i = 1; i !== displayDate.getDay(); i++) {
-      outPut.push(<div key={"dPick-" + count} className="case empty"></div>);
+      outPut.push(<div key={"dPickEmpty-" + count} className="case empty"></div>);
       count++;
     }
     displayDate.setMonth(displayDate.getMonth() + 1);
@@ -107,21 +106,24 @@ const DatePicker = ({ change, value }) => {
   return (
     <div
       className="input-calendar"
-      onClick={() => (!open ? setOpen(true) : null)}
       onFocus={e => setRef(e.target)}
-      onBlur={e => setOpen(false)}
+      onBlur={() => setRef(null)}
       tabIndex={-1}
     >
       <div className="date-txt">{value.toLocaleDateString("fr-FR")}.</div>
       <div className="calendar-icon">
-        <Calendar cls={"icon"} />
+        <Calendar cls="icon" />
       </div>
-      <div className={"calendar" + (!open ? ' close' : '')}>
+      {ref !== null ?
+      <div className="calendar">
           <div className="calendar-current">
             <div className="text">
               {value.toLocaleDateString("fr-FR", drawDate)}
             </div>
-            <div className="btn danger" onClick={() => setOpen(false)}>
+            <div className="btn danger" onClick={() => {
+                setTimeout(() => ref.blur(), 150)
+                setRef(null)
+              }}>
               <Close cls="icon" />
             </div>
           </div>
@@ -151,13 +153,15 @@ const DatePicker = ({ change, value }) => {
           </div>
           <div className="day-names">
             {days.map((d, i) => (
-              <div key={i + Math.random() * 100} className="case">
+              <div key={i} className="case">
                 {d}.
               </div>
             ))}
           </div>
           <div className="calendar-days">{setDays()}</div>
-        </div>
+      </div>
+      : null
+      }
     </div>
   );
 };
