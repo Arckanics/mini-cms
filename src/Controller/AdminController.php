@@ -138,7 +138,6 @@ class AdminController extends AbstractController
             $article->setTitle($data["title"]);
             $em->flush();
             $gem = new ExtEntityManager($articles, Articles::class, $em);
-            dd($this->formatDate($data["publishbegin"]));
             return new JsonResponse($gem->exportData(), 200);
           case 'settings':
           default:
