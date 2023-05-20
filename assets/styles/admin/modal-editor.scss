@@ -62,6 +62,10 @@
   .modal-window {
     @apply flex flex-wrap justify-start bg-white;
     .modal-field {
+      .input-label {
+        @apply shrink-0;
+      }
+      
       .input-txt {
         @apply p-1 px-2 my-auto;
       }
