@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Articles;
 use App\Entity\Pages;
 use App\Entity\Settings;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,6 +28,14 @@ class IndexController extends AbstractController
               "landing" => $landing->getLandingPage()->getId(),
               "target" => $target
             ]);
+        case "page":
+          $body = $req->query->all();
+          $repo = $em->getRepository(Articles::class);
+          $res = $repo->getAllBySortAsc($body["id"]);
+          return new JsonResponse(
+            [
+              "data" => $res
+            ]);
         default:
           break;
       }
@@ -34,7 +43,6 @@ class IndexController extends AbstractController
       return new JsonResponse([
         "msg" => "Not Found"
       ], 404);
-      
       
     }
 
