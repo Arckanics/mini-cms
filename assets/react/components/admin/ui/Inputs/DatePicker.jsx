@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Calendar, NavPrev, NavNext, Close } from "../../../../icon/icon-ui/";
 
 const DatePicker = ({ change, value }) => {
+  value = new Date(value.getTime())
   value.setHours(0, 0, 0, 0);
   const currVal = {
     day: value.getDay(),
@@ -21,7 +22,23 @@ const DatePicker = ({ change, value }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    !open && ref ? setTimeout(() => ref.blur(), 150) : null;
+    !open && ref ? setTimeout(() => {
+      ref.blur()
+      setRef(null)
+      setDateState(new Date(value.getTime()))
+    }, 150) : null;
+    if (open) {
+      const par = document.querySelector('.modal-editor')
+      const windowRect = par.getBoundingClientRect()
+      const cal = ref.querySelector('.calendar')
+      const calendarRect = cal.getBoundingClientRect()
+
+      const result = (windowRect.x + windowRect.width - 6) - calendarRect.x - calendarRect.width
+      if (result < 0) {
+        console.log(result);
+        cal.style.transform = `translateX(${result}px)`
+      }
+    }
   }, [open]);
 
   const changeDate = v => {
@@ -92,6 +109,7 @@ const DatePicker = ({ change, value }) => {
       className="input-calendar"
       onClick={() => (!open ? setOpen(true) : null)}
       onFocus={e => setRef(e.target)}
+      onBlur={e => setOpen(false)}
       tabIndex={-1}
     >
       <div className="date-txt">{value.toLocaleDateString("fr-FR")}.</div>
