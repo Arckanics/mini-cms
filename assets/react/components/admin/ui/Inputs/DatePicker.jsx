@@ -22,8 +22,6 @@ const DatePicker = ({ change, value }) => {
 
   useEffect(() => {
     ref === null ? setTimeout(() => {
-      ref.blur()
-      setRef(null)
       setDateState(new Date(value.getTime()))
     }, 150) : null;
     if (ref !== null) {
