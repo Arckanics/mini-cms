@@ -1,4 +1,3 @@
-// import '../../styles/admin/app.scss';
 import React from "react"
 import { BrowserRouter as Router } from "react-router-dom"
 import Layout from "../components/admin/Layout"
@@ -8,7 +7,7 @@ import { Provider } from "react-redux"
 const MainAdmin = () =>
   <Provider store={store}>
     <Router>
-      <Layout/>
+      <Layout />
     </Router>
   </Provider>
 

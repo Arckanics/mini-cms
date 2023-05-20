@@ -116,8 +116,7 @@ const DatePicker = ({ change, value }) => {
       <div className="calendar-icon">
         <Calendar cls={"icon"} />
       </div>
-      {!open ? null : (
-        <div className="calendar">
+      <div className={"calendar" + (!open ? ' close' : '')}>
           <div className="calendar-current">
             <div className="text">
               {value.toLocaleDateString("fr-FR", drawDate)}
@@ -159,7 +158,6 @@ const DatePicker = ({ change, value }) => {
           </div>
           <div className="calendar-days">{setDays()}</div>
         </div>
-      )}
     </div>
   );
 };

@@ -150,13 +150,15 @@ const Articles = () => {
   return (
     <PagesContainer title={"Articles"}>
       {typeof articles === "object" && typeof pages === "object" ? (
-        <ContentNav
-          data={articles}
-          header={header}
-          create={createArticle}
-          update={updateArticle}
-          remove={removeArticle}
+        !modal.enable
+        ? <ContentNav
+        data={articles}
+        header={header}
+        create={createArticle}
+        update={updateArticle}
+        remove={removeArticle}
         />
+        :null
       ) : null}
       {
         // fenêtre d'édition et création des articles
