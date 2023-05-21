@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Close from "../../../icon/icon-ui/Close";
 import { Button, DatePicker, Selector, SwitchInput } from "./Inputs";
 import { RichText } from "./";
+import { capitalize } from "../../../Functions/app";
 
 const ModalEditor = ({ data, schema, title, close, command, small }) => {
   const [mData, setData] = useState(null);
+  const [openLexical, setOpenLexical] = useState(false)
   useEffect(() => {
     const empty = {};
     Object.entries(schema).map(([name, par]) => {
@@ -36,7 +38,7 @@ const ModalEditor = ({ data, schema, title, close, command, small }) => {
     });
 
     !data ? setData({ ...empty }) : setData({ ...data });
-  }, []);
+  }, [data]);
 
   return !mData ? null : (
     <section className={"modal-editor" + (small ? " small": "")}>
@@ -133,11 +135,11 @@ const ModalEditor = ({ data, schema, title, close, command, small }) => {
       </div>
       {Object.entries(schema).map(([k, v], i) => {
         return v.type === "text" ? (
-          <RichText
-            key={i}
-            data={mData[k]}
-            update={v => setData({ ...mData, [k]: v })}
-          />
+           <RichText
+              key={"editor-"+i}
+              data={mData[k]}
+              update={v => setData({ ...mData, [k]: v })}
+            />
         ) : null;
       })}
       <div className="modal-end">

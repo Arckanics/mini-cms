@@ -1,24 +1,46 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
-const Content = ({ children }) => {
+const Content = ({ menu, children }) => {
+  const [routes, setRoutes] = useState(() => (menu ? menu : undefined));
+
   return (
     <section id="content">
-      { children }
-      <footer id='admin-footer'>
-        <div className='link-group'>
-          <div className='link-prev'>Créateur : </div>
-          <a target='_blank' className='link' href='https://github.com/Arckanics'>
+      {children}
+      {routes ? (
+        <Routes>
+          {routes.map(({ path, Page }, i) => (
+            <Route
+              key={i}
+              path={`mini-admin${path}`}
+              element={<Page url={path} />}
+            />
+          ))}
+        </Routes>
+      ) : null}
+      <footer id="admin-footer">
+        <div className="link-group">
+          <div className="link-prev">Créateur : </div>
+          <a
+            target="_blank"
+            className="link"
+            href="https://github.com/Arckanics"
+          >
             GitHub.
           </a>
         </div>
-        <div className='link-group'>
-          <a target='_blank' className='link' href='https://github.com/Arckanics/mini-cms'>
+        <div className="link-group">
+          <a
+            target="_blank"
+            className="link"
+            href="https://github.com/Arckanics/mini-cms"
+          >
             à propos
           </a>
         </div>
       </footer>
     </section>
-  )
-}
+  );
+};
 
-export default Content
+export default Content;
