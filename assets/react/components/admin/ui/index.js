@@ -1,7 +1,6 @@
 import Button from './Inputs/Button'
 import ContentNav from './ContentNav'
 import CSRFInput from './CSRFInput'
-import NavLi from './NavLi'
 import PagesContainer from './PagesContainer'
 import Toast from './Toast'
 import ActionsRow from './ActionsRow'
@@ -12,7 +11,6 @@ export {
   Button,
   ContentNav,
   CSRFInput,
-  NavLi,
   PagesContainer,
   Toast,
   ActionsRow,

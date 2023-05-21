@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import NavLi from './ui/NavLi'
 import { Menu, Logout} from '../../icon/icon-ui/'
-import { useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { updateTitle, endOfPath } from '../../Functions/app'
 import { useDispatch } from 'react-redux'
 import { clearData, setUrl } from './redux/reducers/ajaxSlice'
-
 const Navbar = ({Pages}) => {
   const dispatch = useDispatch()
   const location = useLocation()
@@ -41,18 +39,20 @@ const Navbar = ({Pages}) => {
           {
             Pages.map(
               ({name,path},i) => {
-              return <NavLi key={"navli"+i} to={`/mini-admin${path}`.replace(/\/$/g, '')}
-                        onClick={() => {setToggle(false); updateTitle(path); dispatch(setUrl(path)) }}
-                      >
-                    <div className='link-txt'>{name}</div>
-                    </NavLi>})
+              return <li key={"navli"+i}>
+                      <NavLink className='nav-link' to={`/mini-admin${path}`.replace(/\/$/g, '')} onClick={() => {setToggle(false); updateTitle(path); dispatch(setUrl(path)) }} end>
+                      <div className='link-txt'>{name}</div>
+                      </NavLink>
+                    </li>})
           }
           </ul>
         </nav>
       </section>
       <nav id="nav-opts">
         <ul className='icon-nav'>
-          <NavLi to="/mini-admin/logout" onClick={handleLogout}><Logout Cls="svg-icon" /></NavLi>
+          <li>
+            <NavLink className='nav-link' to="/mini-admin/logout" onClick={handleLogout} end><Logout Cls="svg-icon" /></NavLink>
+          </li>
         </ul>
       </nav>
     </section>
