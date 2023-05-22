@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, NavPrev, NavNext, Close } from "../../../../icon/icon-ui/";
+import { Calendar } from "../../../../icon/icon-ui/";
 
 const DatePicker = ({ change, value }) => {
-  const currVal = {
-    day: value.getDay(),
-    date: value.getDate(),
-    month: value.getMonth(),
-    year: value.getFullYear(),
-  };
+  value.setHours(0,0,0,0)
   const drawDate = {
     weekday: "long",
     year: "numeric",
@@ -24,52 +19,37 @@ const DatePicker = ({ change, value }) => {
   const changeDate = v => {
     const nDate = dateState;
     nDate.setDate(v);
-    change(nDate);
     setRef(null);
+    change(nDate);
   };
 
   const setDays = () => {
-    let count = 0;
     const outPut = [];
     const displayDate = new Date(dateState.getTime());
+
     displayDate.setDate(1);
-    for (let i = 1; i !== displayDate.getDay(); i++) {
+
+    for (let i = 0; i < displayDate.getDay(); i++) {
       outPut.push(
-        <div key={"dPickEmpty-" + count} className="case empty"></div>
+        <div key={"dPickEmpty-" + i} className="case empty"></div>
       );
-      count++;
     }
+
     displayDate.setMonth(displayDate.getMonth() + 1);
     displayDate.setDate(0);
-    const fYear = displayDate.getFullYear()
-    const fMonth = displayDate.getMonth()
-    for (let i = 1; i <= displayDate.getDate(); i++) {
-      if (
-        i == currVal.date &&
-        currVal.month == fMonth &&
-        currVal.year == fYear
-      ) {
-        outPut.push(
-          <div
-            key={"dPick-" + count}
-            onClick={() => changeDate(i)}
-            className="case active"
-          >
-            {i}
-          </div>
-        );
-      } else {
-        outPut.push(
-          <div
-            key={"dPick-" + count}
-            onClick={() => changeDate(i)}
-            className="case"
-          >
-            {i}
-          </div>
-        );
-      }
-      count++;
+
+    const eod = displayDate.getDate()
+
+    for (let i = 1; i <= eod; i++) {
+      displayDate.setDate(i)
+      const activeDate = (displayDate.getTime() === value.getTime())
+      outPut.push(<div
+        key={"dPick-" + i}
+        onClick={() => changeDate(i)}
+        className={"case" + (activeDate ? ' active' : '')}
+      >
+        {i}
+      </div>)
     }
     return outPut;
   };
@@ -155,7 +135,9 @@ const DatePicker = ({ change, value }) => {
             <div className="case">Sam</div>
             <div className="case">Dim</div>
           </div>
-          <div className="calendar-days">{setDays()}</div>
+          <div className="calendar-days">{
+            ref ? setDays() : null
+          }</div>
         </div>
       ) : null}
     </div>
