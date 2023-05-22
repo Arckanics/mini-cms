@@ -23,7 +23,7 @@
     transition: 150ms;
   }
 
-  &.active {
+  &.active, &:focus-within {
     & .label {
       @apply pl-2;
       color: darken($color: $color, $amount: 10);

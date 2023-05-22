@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Close from "../../../icon/icon-ui/Close";
-import { Button, DatePicker, Selector, SwitchInput } from "./Inputs";
+import { DatePicker, Selector, SwitchInput } from "./Inputs";
 import { RichText } from "./";
-import { capitalize } from "../../../Functions/app";
 
 const ModalEditor = ({ data, schema, title, close, command, small }) => {
   const [mData, setData] = useState(null);
-  const [openLexical, setOpenLexical] = useState(false)
   useEffect(() => {
     const empty = {};
     Object.entries(schema).map(([name, par]) => {
