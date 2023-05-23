@@ -34,8 +34,9 @@
   border-radius: $rad-md;
 
   &:hover,
+  &:focus-within,
   &.active {
-    background-color: transparentize($color: $color, $amount: .9)
+    background-color: transparentize($color: $color, $amount: .82)
   }
 }
 
