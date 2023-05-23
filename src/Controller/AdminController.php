@@ -285,4 +285,29 @@ class AdminController extends AbstractController
       
     }
 
+    #[Route('/logobrowser', name: 'app_admin_logobrowser')]
+    public function logoBrowser(Request $req): Response|JsonResponse {
+      $path = $this->getParameter('kernel.project_dir').'/public/uploads/logo';
+      $fileList = [];
+
+      if (!is_dir($path)) {
+        mkdir($path, 0755, true);
+      }
+
+      if ($handle = opendir($path)) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                $fileList[] = $entry;
+            }
+        }
+        closedir($handle);
+      }
+
+      return $this->json([
+        "path" => '/uploads/logo',
+        "files" => $fileList
+      ], 200);
+      
+    }
+
 }
