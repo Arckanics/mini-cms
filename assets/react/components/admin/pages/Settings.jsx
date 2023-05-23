@@ -131,7 +131,7 @@ const Settings = () => {
               list={data.Pages}
               action={setLanding}
             >
-              <h2 className="block py-2">Page</h2>
+              <h2 className="block py-2">{capitalize(changeName("Landing"))}</h2>
             </Selector>
           </>
         ) : null}

@@ -1,0 +1,39 @@
+.img-explorer-container {
+  .img-explorer {
+    @apply absolute min-h-full w-full z-50 top-10 bg-white rounded-b-lg duration-150 overflow-hidden;
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: $secondary;
+    max-height: 38vh;
+  }
+
+  .window-title {
+    @apply justify-between flex p-3 text-white text-lg w-full rounded-t-lg;
+    background-color: $secondary;
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: $secondary;
+
+    .close-explorer {
+      @apply transform-gpu translate-x-2 -translate-y-2 rounded-lg duration-150 cursor-pointer shadow;
+      background-color: $negative;
+      outline: 1px solid $negative;
+      outline-offset: -1px;
+      .icon {
+        @apply h-full duration-150;
+        fill: white;
+      }
+      &:hover {
+        background-color: darken($color: $negative, $amount: 17%);
+      }
+    }
+  }
+
+  .btn {
+    &.toggle {
+      @apply rounded-b-none;
+    }
+
+    
+  }
+}
