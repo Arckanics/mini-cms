@@ -109,7 +109,8 @@ class AdminController extends AbstractController
               'Description' => $res->getMetaDesc(),
               'SiteName' => $res->getMetaSiteName(),
               'Landing' => $res->getLandingPage()->getId(),
-              'Pages' => $gem->exportData()
+              'Pages' => $gem->exportData(),
+              'logo' => $res->getLogo()
             ], 200);
         }
       }

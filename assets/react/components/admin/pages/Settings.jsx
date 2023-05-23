@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PagesContainer } from "../ui";
-import { Button, Selector, TxtLabelInput } from "../ui/Inputs";
+import { Button, Selector, TxtLabelInput, ImgExplorer } from "../ui/Inputs";
 import { areEqual, capitalize } from "../../../Functions/app";
 import { useDispatch, useSelector } from "react-redux";
 import { pushData } from "../redux/reducers/ajaxSlice";
@@ -63,14 +63,14 @@ const Settings = () => {
   const updateSettings = () => {
     ajax.put("/request", { where: "settings", data }).then(res => {
       dispatch(notify({ 
-        msg: "options mise à jour", 
+        msg: "options mises à jour", 
         type: "info",
         timeout: setTimeout(() => dispatch(notifyClose()), 2000)
       }));
       dispatch(pushData({ name: "settings", data: res.data }));
       setInitialState({ ...res.data });
       setChange(false)
-    }).catch(res => {
+    }).catch(r => {
       dispatch(notify({ 
         msg: "erreur de sauvegarde", 
         type: "danger",
@@ -116,6 +116,13 @@ const Settings = () => {
               inputCls="input-txt w-full secondary"
               divCls="input-wrap p-2 secondary"
               labelCls="label"
+            />
+            <ImgExplorer 
+              id={"getLogo"}
+              divCls={"input-wrap p-2 secondary select-none"}
+              label={"Logo"}
+              labelCls={"label"}
+              value={data.logo}
             />
             <Selector
               cls="secondary"

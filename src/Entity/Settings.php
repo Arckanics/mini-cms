@@ -25,6 +25,9 @@ class Settings
     #[ORM\OneToOne(inversedBy: 'settings', cascade: ['persist', 'remove'])]
     private ?Pages $LandingPage = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $logo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Settings
     public function setLandingPage(?Pages $LandingPage): self
     {
         $this->LandingPage = $LandingPage;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }
