@@ -693,6 +693,17 @@ body {
   }
 }
 
+@mixin dragEvent($negative, $success) {
+  &.success {
+    outline-color: transparentize($color: $success, $amount: .2);
+    background-color: transparentize($color: $success, $amount: .7);
+  }
+  &.danger {
+    outline-color: transparentize($color: $negative, $amount: .2);
+    background-color: transparentize($color: $negative, $amount: .7);
+  }
+}
+
 // content
 
 #content {
@@ -758,14 +769,22 @@ body {
   }
 
   .drop-zone {
-    @apply text-center p-3 py-7 m-1 cursor-pointer rounded-md duration-150 relative ;
+    @apply text-center block p-3 py-9 m-1 cursor-pointer rounded-md duration-150 relative z-10;
     @include dropZone($primary);
+    @include dragEvent($negative, $success);
     &.secondary {
       @include dropZone($secondary);
+      @include dragEvent($negative, $success);
     }
 
     .drop-zone-label {
-      @apply absolute top-0 left-0 h-full w-full flex items-center align-middle justify-center cursor-pointer;
+      @apply absolute top-0 left-0 h-full w-full block cursor-pointer text-center py-6;
+      &:has(.icon) {
+        @apply py-4;
+      }
+      .icon {
+        @apply relative block w-10 h-10 -z-10 m-auto;
+      }
     }
   }
 }

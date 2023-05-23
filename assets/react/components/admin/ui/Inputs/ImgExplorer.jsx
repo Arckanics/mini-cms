@@ -1,14 +1,47 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Close } from '../../../../icon/icon-ui'
+import { Close, Success, Danger } from '../../../../icon/icon-ui'
 const ImgExplorer = ({ label , labelCls, divCls, id, value }) => {
 
   const [target, setTarget] = useState(null)
   const [list, setList] = useState(null)
   const [path, setPath] = useState(null)
+  const types = ["image/jpeg", "image/png", "image/svg+xml", "image/tiff", "image/webp"]
+  const [isOver, setIsOver] = useState(false)
+  const [accepted, setAccepted] = useState(false)
   const axiosSet = useSelector(state => state.ajax.axios);
   const ajax = axios.create({ ...axiosSet });
+
+  const prevent = e => {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  const dropEffect = e => e.dataTransfer.dropEffect = "copy"
+  const dragOver = e => {
+    prevent(e)
+    dropEffect(e)
+    if (e.type == "dragenter") {
+      setIsOver(true)
+      if (e.dataTransfer.types.includes('Files')) {
+        const file = e.dataTransfer.items[0]
+        if (types.includes(file.type)) {
+          setAccepted(true)
+        }
+      }
+    }
+
+    if (e.type == "dragleave") {
+      setIsOver(false)
+      setAccepted(false)
+    }
+  }
+
+  const handleDrop = e => {
+    prevent(e)
+    console.log(e.dataTransfer.files);
+  }
 
   useEffect(() => {
     if (target) {
@@ -29,7 +62,6 @@ const ImgExplorer = ({ label , labelCls, divCls, id, value }) => {
       <div tabIndex={-1} id={(id ? id : null)} 
         className='relative flex items-stretch gap-3' 
         onFocus={(e) => setTarget(e.target)}
-        // onBlur={(e) => setTarget(null)}
       >
         
         {
@@ -52,10 +84,30 @@ const ImgExplorer = ({ label , labelCls, divCls, id, value }) => {
         {
           target 
           ? <div className='img-explorer'>
-            <div className='drop-zone secondary'>
-              <label className="drop-zone-label" htmlFor='dropIn'>Glissez une image ou cliquez ici ...</label>
+            <div 
+              className={'drop-zone secondary' + 
+                (
+                  isOver 
+                  ? accepted 
+                    ? ' success' 
+                    : ' danger'
+                  : ''
+                )
+              } >
+              <label className="drop-zone-label" htmlFor='dropIn'
+                
+                onDragEnter={dragOver} onDragOver={dragOver} 
+                onDragLeave={dragOver} 
+                onDrop={handleDrop}
+              >{
+                !isOver
+                ? "Glissez une image ou cliquez ici ..."
+                : accepted 
+                  ? <Success cls='icon success' />
+                  : <Danger cls='icon false' />
+              }</label>
               <input type="file" id="dropIn" className='hidden' name="dropIn"
-                accept="image/jpeg, image/png, image/svg+xml, image/tiff, image/webp"/>
+                accept={types.join(", ")}/>
             </div>
           </div>
           : null
