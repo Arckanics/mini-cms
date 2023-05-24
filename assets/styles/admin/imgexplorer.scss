@@ -76,7 +76,14 @@
     @apply duration-150
       min-h-[4rem] m-1 mt-0 
       rounded-md overflow-y-auto 
+      justify-around items-stretch
+      p-2
       h-full shadow-inner;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.75rem, calc(100% / 6 - 0.5rem)));
+
+    gap: 8px;
     background-color: $light;
     outline: 1px solid transparentize($color: $secondary, $amount: .6);
     outline-offset: -1px;
@@ -101,6 +108,37 @@
         @apply w-7 opacity-50 -m-1;
         fill: darken($color: $info, $amount: 28%);
       }
+    }
+
+    .img-file-view {
+      @apply 
+        bg-white 
+        rounded-md shadow-md
+        ;
+      .img-view-container {
+        @apply 
+          p-1 m-1.5 shadow-md overflow-hidden 
+          rounded-md bg-stone-300 aspect-square
+          flex flex-col relative;
+
+          .img-view {
+            @apply rounded m-auto;
+          }
+          .img-label {
+            @apply duration-150 absolute w-full bottom-0 left-0
+              p-2 break-words shadow-lg border-t
+              border-white bg-gradient-to-b
+              from-stone-800/80 to-stone-900/95 text-white;
+            @apply transform-gpu translate-y-full ease-in;
+          }
+
+          &:hover {
+            .img-label {
+              @apply transform-gpu translate-y-0 ease-in;
+            }
+          }
+      }
+
     }
   }
 }

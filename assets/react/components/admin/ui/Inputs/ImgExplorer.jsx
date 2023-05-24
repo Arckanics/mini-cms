@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Close, Success, Danger, Warning } from "../../../../icon/icon-ui";
 import { isArray } from "../../../../Functions/app";
 import { notify, notifyClose } from "../../redux/reducers/notificationSlice";
-const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
+const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
   // settings
   const types = [
     "image/jpeg",
@@ -222,7 +222,14 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
             </div>
             <div className="img-content-explore">
               {isArray(content.files) ? (
-                content.files.map((file, k) => <div key={k}></div>)
+                content.files.map((file, k) => <div key={k} className="img-file-view">
+                  <figure className="img-view-container">
+                    <img src={`${content.path}/${file}`} className="img-view" />
+                    <figcaption className="img-label">
+                      {file}
+                    </figcaption>
+                  </figure>
+                </div>)
               ) : (
                 <div className="no-files-content">
                   <Warning cls="icon" />
