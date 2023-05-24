@@ -60,6 +60,10 @@ const Settings = () => {
     !areEqual(initialState, nData) ? setChange(true) : setChange(false);
   };
 
+  const setLogo = (logo) => {
+    
+  }
+
   const updateSettings = () => {
     ajax.put("/request", { where: "settings", data }).then(res => {
       dispatch(notify({ 
@@ -123,6 +127,7 @@ const Settings = () => {
               label={"Logo"}
               labelCls={"label"}
               value={data.logo}
+              action={setLogo}
             />
             <Selector
               cls="secondary"
