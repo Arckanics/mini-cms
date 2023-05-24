@@ -52,14 +52,15 @@
     }
     .no-files-content {
       @apply 
-        p-1 px-3 text-center flex justify-center 
+        p-1 px-2 text-center flex justify-center 
         gap-6 items-center
         w-fit m-auto rounded-lg shadow;
-      background-color: lighten($color: $warning, $amount: 15%);
-      outline: 1px solid darken($color: $warning, $amount: 15%);
+      background-color: lighten($color: $info, $amount: 20%);
+      outline: 1px solid lighten($color: $info, $amount: 9%);
+      color: darken($color: $info, $amount: 30%);
       .icon {
-        @apply w-5;
-        fill: darken($color: $warning, $amount: 30%);
+        @apply w-7 opacity-50 -m-1;
+        fill: darken($color: $info, $amount: 28%);
       }
     }
   }
