@@ -11,7 +11,10 @@
     max-height: 38vh;
   }
   .img-uploading {
-    @apply flex gap-1 p-1 m-0.5;
+    @apply hidden gap-1 p-1 m-0.5;
+    &:has(.upload) {
+      @apply flex;
+    }
     .upload {
       @apply w-[6.5rem] aspect-square p-1 rounded-md flex flex-col gap-2
         justify-between
