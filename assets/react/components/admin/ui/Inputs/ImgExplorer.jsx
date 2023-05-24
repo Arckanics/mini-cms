@@ -9,7 +9,6 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
   const types = [
     "image/jpeg",
     "image/png",
-    "image/svg+xml",
     "image/tiff",
     "image/webp",
   ];
