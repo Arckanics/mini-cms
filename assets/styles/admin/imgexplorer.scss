@@ -10,6 +10,42 @@
     outline-color: $secondary;
     max-height: 38vh;
   }
+  .img-uploading {
+    @apply flex gap-1 p-1 m-0.5;
+    .upload {
+      @apply w-[6.5rem] aspect-square p-1 rounded-md flex flex-col gap-2
+        justify-between
+      ;
+      outline: 1px solid transparentize($color: $secondary, $amount: .5);
+      .upload-preview {
+        @apply max-h-[80%] aspect-auto rounded-md overflow-hidden m-auto;
+      }
+
+      .upload-status {
+        @apply flex flex-col gap-0.5;
+      }
+
+      .hr {
+        @apply bg-stone-500 h-[1px] border-none opacity-60;
+      }
+      .upload-name {
+        @apply text-xs text-ellipsis whitespace-nowrap font-bold max-w-full overflow-hidden;
+      }
+      .upload-progress {
+        @apply p-0;
+        .progress-bar {
+          @apply 
+            relative rounded-full h-[.5rem] overflow-hidden
+            bg-stone-600
+            ;
+          .progress-bar-thumb {
+            @apply absolute left-0 top-0 h-full shadow-md;
+            background-color: $secondary;
+          }
+        }
+      }
+    }
+  }
 
   .window-title {
     @apply justify-between flex p-3 text-white text-lg w-full rounded-t-lg;
