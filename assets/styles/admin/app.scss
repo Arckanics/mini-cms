@@ -33,6 +33,9 @@ $warning: hsl(44,102%,62%);
   &.false {
     fill: $negative;
   }
+  &.warning {
+    fill: $warning;
+  }
 }
 
 // root
@@ -769,7 +772,7 @@ body {
   }
 
   .drop-zone {
-    @apply text-center block p-3 py-9 m-1 cursor-pointer rounded-md duration-150 relative z-10;
+    @apply text-center block p-3 py-9 cursor-pointer rounded-md duration-150 relative z-10;
     @include dropZone($primary);
     @include dragEvent($negative, $success);
     &.secondary {
@@ -778,7 +781,7 @@ body {
     }
 
     .drop-zone-label {
-      @apply absolute top-0 left-0 h-full w-full block cursor-pointer text-center py-6;
+      @apply absolute top-0 left-0 h-full w-full block cursor-pointer text-center py-6 rounded-md;
       &:has(.icon) {
         @apply py-4;
       }
