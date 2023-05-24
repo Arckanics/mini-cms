@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Close, Success, Danger, Warning } from "../../../../icon/icon-ui";
 import { isArray } from "../../../../Functions/app";
+import { notify, notifyClose } from "../../redux/reducers/notificationSlice";
 const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
-  const [target, setTarget] = useState(null);
-  const [content, setContent] = useState(null);
+  // settings
   const types = [
     "image/jpeg",
     "image/png",
@@ -13,10 +13,18 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
     "image/tiff",
     "image/webp",
   ];
+  const [target, setTarget] = useState(null);
+  // D'nD
   const [isOver, setIsOver] = useState(false);
   const [accepted, setAccepted] = useState(false);
+
+  // xhr
+  const [content, setContent] = useState({});
+  const [uploading, setUploading] = useState([]);
   const axiosSet = useSelector(state => state.ajax.axios);
   const ajax = axios.create({ ...axiosSet });
+  // ui
+  const dispatch = useDispatch();
 
   const prevent = e => {
     e.stopPropagation();
@@ -43,18 +51,79 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
     }
   };
 
+  const notifyError = file =>
+    dispatch(
+      notify({
+        msg: `type de fichier ${
+          file.type !== "" ? `(${file.type})` : ""
+        } n'est pas accepté !`,
+        type: "warning",
+        timeout: setTimeout(() => dispatch(notifyClose()), 3000),
+      })
+    );
+
   const handleDrop = e => {
     prevent(e);
-    console.log(e.dataTransfer.files);
+    dropEffect(e);
+    const file = e.dataTransfer.files[0];
+    if (isOver && accepted) {
+      setIsOver(false);
+      setAccepted(false);
+      setUploading([...uploading, file]);
+    } else {
+      notifyError(file);
+      setIsOver(false);
+      setAccepted(false);
+    }
+  };
+
+  const inputFile = e => {
+    const file = e.target.files[0];
+    if (types.includes(file.type)) {
+      setUploading([...uploading, e.target.files[0]]);
+    } else {
+      notifyError(file);
+    }
   };
 
   useEffect(() => {
     if (target) {
       ajax.get("/logobrowser").then(({ data }) => {
-        setContent({items: [...data.files], path: data.path});
+        setContent({ files: [...data.files], path: data.path });
       });
     }
-  }, [target]);
+    if (uploading.length > 0) {
+      const newFiles = uploading.filter(file => !file.isUploading);
+      newFiles.map((file, i) => {
+        const data = new FormData();
+        data.append("image", file);
+        file.isUploading = true;
+        file.upStatus = 0;
+        file.ajax = ajax.post("/logobrowser", data, {
+          onUploadProgress: e => {
+            const state = Math.round(10000 * (e.loaded / e.total)) / 100;
+            file.upStatus = state;
+            const copy = [...uploading];
+            copy[uploading.indexOf(file)] = file;
+            setUploading(copy);
+          },
+        }).then(r => {
+          const {data} = r
+          dispatch(
+            notify({
+              msg: `fichier ${file.name} importé !`,
+              type: "success",
+              timeout: setTimeout(() => dispatch(notifyClose()), 2600),
+            })
+          );
+          const copy = [...uploading];
+          copy.splice(uploading.indexOf(file), 1)
+          setUploading(copy)
+          setContent({...data})
+        })
+      });
+    }
+  }, [target, uploading]);
 
   return (
     <div className={divCls + " img-explorer-container"}>
@@ -92,8 +161,6 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
         {/* drop files zone */}
         {target ? (
           <div className="img-explorer">
-
-            
             <div
               className={
                 "drop-zone secondary" +
@@ -121,25 +188,52 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value }) => {
                 id="dropIn"
                 className="hidden"
                 name="dropIn"
+                onChange={inputFile}
                 accept={types.join(", ")}
               />
             </div>
+            <div className="img-uploading">
+              {isArray(uploading)
+                ? uploading.map((file, k) => (
+                    <div key={k} className="upload">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        className="upload-preview"
+                      />
+                      <div className="upload-status">
+                        <hr className="hr" />
+                        <div className="upload-name">{file.name}</div>
+                        <div className="upload-progress">
+                          <div
+                            className="progress-bar"
+                            data-state={file.upStatus}
+                          >
+                            <div
+                              className="progress-bar-thumb"
+                              style={{
+                                width: file.upStatus + "%",
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                : null}
+            </div>
             <div className="img-content-explore">
-              {
-                isArray(content)
-                ? content.map(() => <></>)
-                : <div
-                  className="no-files-content"
-                >
+              {isArray(content.files) ? (
+                content.files.map((file, k) => <div key={k}></div>)
+              ) : (
+                <div className="no-files-content">
                   <Warning cls="icon" />
                   Aucuns fichers..., pensez à en importer !
                   <Warning cls="icon" />
                 </div>
-              }
+              )}
             </div>
           </div>
         ) : null}
-        
       </div>
     </div>
   );
