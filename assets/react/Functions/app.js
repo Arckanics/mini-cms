@@ -122,6 +122,7 @@ const getPropsBoolStatus = (obj, prop, boolState) => {
 // compare deux objets JS (tout types)
 
 const areEqual = (obj1,obj2) => {
+
   if (typeof obj1 !== typeof obj2) {
     return false
   }
@@ -147,11 +148,11 @@ const areEqual = (obj1,obj2) => {
       return false
     }
     for (const [key, value] of Object.entries(obj1)) {
-      if (isDefined(value) && isDefined(obj2[key])) {
+      if (isDefined(value) || isDefined(obj2[key])) {
         if (!areEqual(obj1[key],obj2[key])) {
           return false
         }
-      }
+      } 
     }
 
     return true

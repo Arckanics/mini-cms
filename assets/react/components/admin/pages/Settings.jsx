@@ -47,22 +47,16 @@ const Settings = () => {
     }
   };
 
-  const handleChange = (e, prop) => {
-    const nData = { ...data, [prop]: e.target.value };
-    dispatch(pushData({ name: "settings", data: nData }));
-    !areEqual(initialState, nData) ? setChange(true) : setChange(false);
-  };
-
-  const setLanding = v => {
-    const nData = { ...data, Landing: v };
-    dispatch(pushData({ name: "settings", data: nData }));
-    console.log(areEqual(initialState, nData));
-    !areEqual(initialState, nData) ? setChange(true) : setChange(false);
-  };
-
-  const setLogo = (logo) => {
-    
+  const makeDispatch = d => {
+    dispatch(pushData({ name: "settings", data: d }));
+    !areEqual(initialState, d) ? setChange(true) : setChange(false);
   }
+
+  const handleChange = (e, prop) => makeDispatch({ ...data, [prop]: e.target.value })
+
+  const setLanding = v => makeDispatch({ ...data, Landing: v })
+
+  const setLogo = e => makeDispatch({ ...data, logo: e })
 
   const updateSettings = () => {
     ajax.put("/request", { where: "settings", data }).then(res => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Close, Success, Danger, Warning } from "../../../../icon/icon-ui";
+import { Close, Success, Danger, Warning, Delete } from "../../../../icon/icon-ui";
 import { isArray } from "../../../../Functions/app";
 import { notify, notifyClose } from "../../redux/reducers/notificationSlice";
 const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
@@ -156,7 +156,7 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
           </div>
         )}
 
-        {value && !target ? <img src={value} /> : null}
+        {value && !target ? <div className="img-current"><img src={"/uploads/logo/"+value} /></div> : null}
         {/* drop files zone */}
         {target ? (
           <div className="img-explorer">
@@ -222,13 +222,22 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
             </div>
             <div className="img-content-explore">
               {isArray(content.files) ? (
-                content.files.map((file, k) => <div key={k} className="img-file-view">
+                content.files.map((file, k) => <div key={k} className={"img-file-view" + (file === value ? " active" : "")}>
                   <figure className="img-view-container">
                     <img src={`${content.path}/${file}`} className="img-view" />
                     <figcaption className="img-label">
-                      {file}
+                      {file.replace(/^\[.+\]-/gi,'')}
                     </figcaption>
                   </figure>
+                  { file === value 
+                    ? <div className="btn-group p-2 gap-2">
+                      <div className="btn info"> Actif </div>
+                    </div>
+                    : <div className="btn-group p-2 gap-2">
+                      <button className="btn success" onClick={ () => action(file) }> <Success cls='icon h-6' /> </button>
+                      <button className="btn danger"> <Delete cls='icon h-6'/> </button>
+                    </div>
+                  }
                 </div>)
               ) : (
                 <div className="no-files-content">

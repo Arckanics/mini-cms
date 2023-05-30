@@ -425,6 +425,10 @@ $warning: hsl(44,102%,62%);
     }
   }
 
+  .icon {
+    @apply m-auto;
+  }
+
   &.btn-outline {
     &.primary {
       @include btnSettingOutline($primary);
@@ -476,6 +480,14 @@ $warning: hsl(44,102%,62%);
   }
 
   
+}
+
+.btn-group {
+  @apply flex justify-items-stretch;
+
+  .btn {
+    @apply grow;
+  }
 }
 
 @mixin btnNav($color) {
