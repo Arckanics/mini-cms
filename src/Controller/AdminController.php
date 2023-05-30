@@ -147,6 +147,7 @@ class AdminController extends AbstractController
             $settings->setMetaAuthor($data["Author"]);
             $settings->setMetaDesc($data["Description"]);
             $settings->setMetaSiteName($data["SiteName"]);
+            $settings->setLogo($data["logo"]);
             $em->flush();
             $gem = new ExtEntityManager($pages, Pages::class, $em);
             return new JsonResponse([
@@ -154,7 +155,8 @@ class AdminController extends AbstractController
               'Description' => $settings->getMetaDesc(),
               'SiteName' => $settings->getMetaSiteName(),
               'Landing' => $settings->getLandingPage()->getId(),
-              'Pages' => $gem->exportData()
+              'Pages' => $gem->exportData(),
+              'logo' => $settings->getLogo()
             ], 200);
         }
       }
