@@ -10,6 +10,14 @@
     outline-color: $secondary;
     max-height: 38vh;
   }
+
+  .img-current {
+    @apply p-1.5 bg-white rounded-md shadow-md;
+    img {
+      @apply max-h-11 rounded-md;
+    }
+  }
+
   .img-uploading {
     @apply hidden gap-1 p-1 m-0.5;
     &:has(.upload) {
@@ -126,17 +134,22 @@
           }
           .img-label {
             @apply duration-150 absolute w-full bottom-0 left-0
+              opacity-0
               p-2 break-words shadow-lg border-t
               border-white bg-gradient-to-b
               from-stone-800/80 to-stone-900/95 text-white;
-            @apply transform-gpu translate-y-full ease-in;
+            @apply  translate-y-full ease-out;
           }
 
-          &:hover {
-            .img-label {
-              @apply transform-gpu translate-y-0 ease-in;
+          
+      }
+
+      &:hover {
+        .img-view-container {
+          .img-label {
+              @apply  translate-y-0 ease-in opacity-100;
             }
-          }
+        }
       }
 
     }
