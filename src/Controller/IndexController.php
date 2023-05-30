@@ -57,7 +57,7 @@ class IndexController extends AbstractController
           "author" => $settings->getMetaAuthor(),
           "desc" => $settings->getMetaDesc(),
           "title" => $settings->getMetaSiteName(),
-          
+          "logo" => $settings->getLogo()
         ]);
     }
     
