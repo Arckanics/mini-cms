@@ -3,7 +3,7 @@
   border-bottom: 3px solid $yellow;
 
   .header-container {
-    @apply container flex justify-between  mx-auto p-2;
+    @apply container flex justify-between mx-auto p-2;
   }
 
   #navigation {
@@ -11,7 +11,7 @@
   }
 
   #logo {
-    @apply max-h-16;
+    @apply max-h-[6rem];
     .logo-img {
       @apply h-full;
     }
