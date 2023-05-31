@@ -6,7 +6,7 @@ const Header = ({ children }) => {
 
   return (
     <header id="header">
-      <div className="container flex justify-between mx-auto p-2">
+      <div className="header-container">
         
         { icon && <div id="logo">
           <img className="logo-img" src={icon.getAttribute('href')} />

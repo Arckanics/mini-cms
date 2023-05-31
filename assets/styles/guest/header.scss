@@ -1,13 +1,24 @@
 #header {
-  @apply p-3 shadow-md;
+  @apply p-1 shadow-md;
   border-bottom: 3px solid $yellow;
 
+  .header-container {
+    @apply container flex justify-between  mx-auto p-2;
+  }
+
+  #navigation {
+    @apply flex items-end max-h-max;
+  }
+
   #logo {
-    
+    @apply max-h-16;
+    .logo-img {
+      @apply h-full;
+    }
   }
 
   .wrapper {
-    @apply items-stretch hidden space-x-3 lg:flex gap-4 select-none;
+    @apply hidden space-x-3 lg:flex gap-4 select-none justify-items-end;
 
     .nav-container {
       @apply relative;
