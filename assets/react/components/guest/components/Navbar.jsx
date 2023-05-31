@@ -48,12 +48,9 @@ const Navbar = ({ links, landing }) => {
         ));
 
   return (
-    <>
-      <div id="logo"></div>
-      <nav>
-        <ul className="wrapper">{renderLink(links)}</ul>
-      </nav>
-    </>
+    <nav id="navigation">
+      <ul className="wrapper">{renderLink(links)}</ul>
+    </nav>
   );
 };
 
