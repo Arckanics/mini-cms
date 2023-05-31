@@ -2,11 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const fetcher = createSlice({
   name: 'fetcher',
-  initialState: {
-    data: {}
-  },
+  initialState: {},
   reducers: {
     setData: (state, action) => {
+      const { articles, page } = action.payload
+      return {
+        ...state,
+        articles,
+        page
+      }
     }
   }
 })

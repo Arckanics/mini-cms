@@ -2,6 +2,10 @@
   @apply p-3 shadow-md;
   border-bottom: 3px solid $yellow;
 
+  #logo {
+    
+  }
+
   .wrapper {
     @apply items-stretch hidden space-x-3 lg:flex gap-4 select-none;
 
