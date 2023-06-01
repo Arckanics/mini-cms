@@ -12,7 +12,7 @@ const Content = () => {
     <section id='content'>
       {
         articles
-        && articles.map((a,k) => <article key={k}>
+        && articles.map((a,k) => <article key={k} className='content-article'>
           <h3 className='article-title'>{a.Title}</h3>
           { parse(a.Content) }
         </article>)
