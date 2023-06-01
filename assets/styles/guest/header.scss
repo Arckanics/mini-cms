@@ -7,11 +7,11 @@
   }
 
   #navigation {
-    @apply flex items-end max-h-max;
+    @apply flex items-end max-h-max shrink-0;
   }
 
   #logo {
-    @apply max-h-[6rem];
+    @apply max-h-[6rem] flex w-auto shrink;
     .logo-img {
       @apply h-full;
     }
@@ -37,11 +37,17 @@
     }
 
     .navLink {
-      @apply block text-lg font-bold px-4 py-2 relative duration-150;
+      @apply block text-lg font-bold relative duration-150;
       background-color: lighten($color: $yellow, $amount: 10%);
       color: darken($color: $yellow, $amount: 45%);
       outline: 1px solid transparentize($color: darken($color: $yellow, $amount: 45%), $amount: .95);
       outline-offset: -1px;
+
+      @apply 
+        lg:text-2xl xl:text-lg
+        lg:py-3 lg:px-5
+        xl:px-4 xl:py-2
+      ;
       &::first-letter {
         @apply uppercase;
       }
