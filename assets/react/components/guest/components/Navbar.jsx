@@ -18,10 +18,12 @@ const Navbar = ({ links, landing }) => {
       if (path === "/") {
         return links.find(l => l.id == landing);
       }
-      return links.find(l => l.url.match(path.replace(/^\//)));
+      return links.find(l => l.url === path.replace(/^\//, ''));
     };
 
     const page = where();
+
+    console.log(page);
 
     if (page !== undefined) {
       xml
