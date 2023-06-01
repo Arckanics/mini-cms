@@ -20,7 +20,7 @@
     }
 
     .navLink {
-      @apply block text-lg font-bold relative duration-150;
+      @apply block text-lg font-bold relative duration-150 rounded-sm;
       background-color: lighten($color: $yellow, $amount: 10%);
       color: darken($color: $yellow, $amount: 45%);
       outline: 1px solid transparentize($color: darken($color: $yellow, $amount: 45%), $amount: .95);
