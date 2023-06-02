@@ -23,8 +23,6 @@ const Navbar = ({ links, landing }) => {
 
     const page = where();
 
-    console.log(page);
-
     if (page !== undefined) {
       xml
         .get(`page`, {

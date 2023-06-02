@@ -15,6 +15,11 @@ html {
   }
 }
 
+#root {
+  @apply max-w-[100vw] h-[100vh];
+  @apply flex flex-col flex-nowrap overflow-hidden;
+}
+
 @import './header.scss';
 
 @import './navigation.scss';

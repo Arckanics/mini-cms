@@ -1,15 +1,15 @@
 #header {
-  @apply p-1 shadow-md;
+  @apply shadow-md;
   border-bottom: 3px solid $yellow;
 
   .header-container {
-    @apply container flex justify-between mx-auto p-2;
+    @apply container flex justify-between mx-auto py-3;
   }
 
   
 
   #logo {
-    @apply max-h-[6rem] flex w-auto shrink;
+    @apply max-h-[5rem] flex w-auto shrink;
     .logo-img {
       @apply h-full;
     }
