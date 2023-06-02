@@ -14,41 +14,44 @@
     }
   }
 
-  .content-article {
-    @apply p-2 px-6 pb-6 rounded container m-auto shadow-xl;
+  .article {
+    @apply p-2  rounded container m-auto shadow-xl;
     $outline: darken(
       $color: $yellow,
       $amount: 40%,
     );
     outline: 1px solid transparentize($color: $outline, $amount: 0.85);
     background-color: rgba($color: #fff, $alpha: 0.05);
-    .article-title {
-      @apply text-2xl py-4 underline;
+    &-title {
+      @apply text-2xl pt-4 px-2 ;
     }
 
-    & > p {
-      @apply drop-shadow;
+    .separator {
+      @apply m-2 opacity-60;
+      border-color: $yellow;
     }
 
-    img {
-      @apply float-left mr-4 duration-150;
-      &[at_end="true"] {
-        @apply float-right ml-4 mr-0;
+    &-content {
+      @apply p-2 px-3;
+
+      & > p {
+        @apply drop-shadow;
+      }
+  
+      img {
+        @apply float-left mr-4 duration-150;
+        &[at_end="true"] {
+          @apply float-right ml-4 mr-0;
+        }
+  
+        outline: 1px solid transparentize($color: $outline, $amount: 0.8);
+  
+        @apply xl:max-w-xs lg:max-w-sm sm:max-w-[50%] rounded-md shadow-md;
+        &:hover {
+          @apply saturate-150;
+        }
       }
 
-      outline: 1px solid transparentize($color: $outline, $amount: 0.8);
-
-      @apply xl:max-w-xs lg:max-w-sm sm:max-w-[50%] rounded-md shadow-md;
-      &:hover {
-        @apply saturate-150;
-      }
-    }
-
-    .paragraph {
-      &:has(span),
-      &:has(img) {
-        @apply py-1;
-      }
     }
   }
 
@@ -73,7 +76,7 @@
 
 @media (prefers-color-scheme: dark) {
   #content {
-    .content-article {
+    .article {
       $outline: lighten(
         $color: $yellow,
         $amount: 30%,
@@ -114,8 +117,12 @@
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
   #content {
-    .content-article {
+    .article {
       @apply overflow-auto;
+      &-content {
+        @apply overflow-auto;
+      }
     }
+
   }
 }
