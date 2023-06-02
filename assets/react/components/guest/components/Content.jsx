@@ -21,9 +21,12 @@ const Content = () => {
       <section className="wrapper">
       {
         articles
-        && articles.map((a,k) => <article key={k} className='content-article'>
+        && articles.map((a,k) => <article key={k} className='article'>
           <h3 className='article-title'>{a.Title}</h3>
-          { parse(a.Content) }
+          <hr className='separator'/>
+          <div className='article-content'>
+            { parse(a.Content) }
+          </div>
         </article>)
       }
       </section>
