@@ -13,8 +13,9 @@ const Navbar = ({ links, landing }) => {
 
   useEffect(() => {
     // obtenir la page par rapport à l'url
+    const path = location.pathname;
     const where = () => {
-      const path = location.pathname;
+      
       if (path === "/") {
         return links.find(l => l.id == landing);
       }
@@ -33,6 +34,8 @@ const Navbar = ({ links, landing }) => {
         .then(res => {
           dispatch(setData({ articles: res.data.data, page }));
         });
+    } else {
+      dispatch(setData({ articles: null }))
     }
   }, [location]);
 
