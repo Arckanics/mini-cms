@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import htmlReactParser from "html-react-parser"
 
@@ -6,18 +6,20 @@ import htmlReactParser from "html-react-parser"
 const Content = () => {
   const articles = useSelector(state => state.fetcher.articles)
   const parse = htmlReactParser
+  const [ref, setRef] = useState(null)
   const [overflow, setOverflow] = useState(false)
 
-  const overflower = ref => {
-    const { scrollHeight } = ref
-    const { height } = ref.getBoundingClientRect()
-    setOverflow((scrollHeight > height))
-  }
+  useEffect(() => {
+    if (ref) {
+      const { scrollHeight } = ref
+      setOverflow(scrollHeight > ref.clientHeight ? true : false)
+    }
+  }, [ref])
 
   return (
     <section id='content' 
-      className={overflow && 'scrollable'}
-      ref={node => (node ? overflower(node) : null)} >
+      className={overflow ? 'scrollable' : null}
+      ref={node => (node ? setRef(node) : null)} >
       <section className="wrapper">
       {
         articles
