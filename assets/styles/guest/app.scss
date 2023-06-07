@@ -6,7 +6,7 @@ $yellow: hsl(44,81%,57%);
 
 // global
 html {
-  @apply font-sans bg-orange-100 text-stone-900;
+  @apply font-sans bg-stone-100 text-stone-900;
 }
 
 @media (prefers-color-scheme: dark) {
