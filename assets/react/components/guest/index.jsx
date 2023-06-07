@@ -27,6 +27,7 @@ const index = () => {
         { linkLoad && <Navbar links={linkLoad} landing={landing}/> }
       </Header>
         { linkLoad && <Content /> }
+      
     </Provider>
   )
 }
