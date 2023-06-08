@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 const Content = ({ menu, children }) => {
-  const [routes, setRoutes] = useState(() => (menu ? menu : undefined));
+  const routes = menu ? menu : undefined
 
   return (
     <section id="content">

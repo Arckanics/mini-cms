@@ -615,8 +615,10 @@ body {
   }
 
   & #nav-title {
-    @apply bg-black/[.3] rounded-t-md;
-    font-size: 1.7em;
+    @apply 
+      bg-black/[.15] rounded-t-md
+      ;
+    font-size: 1.5em;
     text-align: center;
   }
 
