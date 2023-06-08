@@ -143,10 +143,14 @@
   }
 
   #navbar {
-    @apply flex-row w-full max-w-none min-w-0 shrink-0;
+    @apply flex-row w-full max-w-none min-w-0 shrink-0 gap-1;
 
     #nav-title {
-      @apply rounded-md
+      @apply rounded-md block;
+
+      & > h1 {
+        @apply m-auto text-xl;
+      }
     }
 
     & > * {

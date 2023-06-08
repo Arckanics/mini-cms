@@ -596,19 +596,13 @@ body {
 }
 
 #navbar {
-  position: relative;
-  transition: 200ms;
+  @apply relative duration-200 text-white 
+    my-0 mx-auto rounded-md flex
+    flex-col justify-between
+    max-w-[200px] min-w-[190px]
+    ;
   background-color: $primary;
-  color: white;
-  margin: 0 auto;
-  border-radius: $rad-md;
-  min-width: 190px;
-  width: 190px;
-  max-width: 200px;
   box-shadow: 0 0 8px 0 hsla(11, 69%, 30%, .6);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
   & > * {
     padding: 10px;
@@ -616,9 +610,12 @@ body {
 
   & #nav-title {
     @apply 
-      bg-black/[.15] rounded-t-md
+      bg-black/[.18] rounded-t-md
+      flex flex-col text-3xl leading-7
       ;
-    font-size: 1.5em;
+    h1 {
+      @apply pt-1;
+    }
     text-align: center;
   }
 
