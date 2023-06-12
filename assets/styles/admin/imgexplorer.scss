@@ -1,14 +1,22 @@
 .img-explorer-container {
+  @apply rounded-md;
+
+  &.opened {
+    @apply flex flex-col flex-nowrap overflow-hidden;
+    .inner-window {
+      @apply rounded-lg;
+      outline: 1px solid $secondary;
+    }
+  }
+
   .img-explorer {
     @apply 
-      absolute min-h-full w-full 
-      p-1 z-50 top-10 bg-white rounded-b-lg 
-      duration-150 flex flex-col gap-2 overflow-hidden;
+      p-1 z-50 bg-white overflow-hidden
+      duration-150 flex flex-col gap-2;
     
     outline-width: 2px;
     outline-style: solid;
     outline-color: $secondary;
-    max-height: 38vh;
   }
 
   .img-current {
@@ -58,20 +66,19 @@
     }
   }
 
+
   .window-title {
-    @apply justify-between flex p-3 text-white text-lg w-full rounded-t-lg;
+    @apply flex text-white font-extrabold p-2 pl-5 rounded-t-md
+     justify-between items-end;
     background-color: $secondary;
-    outline-width: 2px;
-    outline-style: solid;
-    outline-color: $secondary;
 
     .close-explorer {
-      @apply transform-gpu translate-x-2 -translate-y-2 rounded-lg duration-150 cursor-pointer shadow;
+      @apply rounded-lg duration-150 shrink-0 cursor-pointer shadow w-8 aspect-square;
       background-color: $negative;
       outline: 1px solid $negative;
       outline-offset: -1px;
       .icon {
-        @apply h-full duration-150;
+        @apply duration-150;
         fill: white;
       }
       &:hover {
@@ -83,9 +90,9 @@
   .img-content-explore {
     @apply duration-150
       min-h-[4rem] m-1 mt-0 
-      rounded-md overflow-y-auto 
+      rounded-md
       justify-around items-stretch
-      p-2
+      p-2 overflow-auto
       h-full shadow-inner;
 
     display: grid;
@@ -93,8 +100,6 @@
 
     gap: 8px;
     background-color: $light;
-    outline: 1px solid transparentize($color: $secondary, $amount: .6);
-    outline-offset: -1px;
 
     &:hover {
       background-color: darken($color: $light, $amount: 5%);
