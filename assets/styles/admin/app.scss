@@ -570,15 +570,11 @@ body {
 }
 
 #login {
-  transition: 200ms;
-  position: fixed;
-  overflow: auto;
   perspective: 1000px;
-  top: 50%;
-  left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  padding: 10px;
-  min-width: 240px;
+  @apply duration-200 fixed overflow-auto top-1/2 left-1/2 p-1 pt-2;
+
+  min-width: 364px;
   box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .7);
   &.connected {
     opacity: 0;
@@ -676,21 +672,36 @@ body {
     .nav-link {
       background-color: $light;
       box-shadow: 0 0 4px 0 darken($color: $primary, $amount: 20);
-      @apply aspect-square duration-150 p-2 block rounded-md cursor-pointer;
+      @apply aspect-square duration-150 p-2 
+        flex flex-col justify-center rounded-md cursor-pointer;
   
       .svg-icon {
-        @apply duration-150 w-7;
-        fill: $primary;
+        @apply duration-150 h-9;
+        color: $primary;
       }
   
-      &:hover, &.active {
+      &.active {
         background-color: $primary;
   
         .svg-icon {
-          fill: $light;
+          color: $light;
         }
       }
-  
+      
+      &.reverse {
+        background-color: $primary;
+        .svg-icon {
+          color: $light;
+        }
+
+        &.active {
+          background-color: $light;
+    
+          .svg-icon {
+            color: $primary;
+          }
+        }
+      }
   
     }
   }
