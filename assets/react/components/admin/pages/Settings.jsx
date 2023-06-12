@@ -79,7 +79,7 @@ const Settings = () => {
 
   return (
     <PagesContainer title={"Paramètres"}>
-      <div className="flex flex-col gap-3 py-3 justify-between">
+      <div className="flex flex-col gap-3 py-3 overflow-hidden justify-between">
         {data ? (
           <>
             <TxtLabelInput

@@ -125,7 +125,7 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
   }, [target, uploading]);
 
   return (
-    <div className={divCls + " img-explorer-container"}>
+    <div className={divCls + " img-explorer-container" + ( target ? ' opened' : '')}>
       {label ? (
         <label htmlFor={id ? id : null} className={labelCls}>
           {label}
@@ -134,12 +134,12 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
       <div
         tabIndex={-1}
         id={id ? id : null}
-        className="relative flex items-stretch gap-3"
+        className={"relative flex"+ (target ? ' flex-col inner-window' : ' gap-3') +" items-stretch overflow-hidden"}
         onFocus={e => setTarget(e.target)}
       >
         {target ? (
           <div className="window-title">
-            <div>Images</div>
+            <div className="shrink">Images</div>
             <div
               className="close-explorer"
               onClick={() => {
@@ -151,7 +151,7 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
             </div>
           </div>
         ) : (
-          <div className={"btn secondary relative grow-1 w-full"}>
+          <div className={"btn secondary relative grow w-full"}>
             Choisir une image
           </div>
         )}
