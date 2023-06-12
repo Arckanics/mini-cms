@@ -21,6 +21,11 @@
   },
   "homepage": "https://github.com/Arckanics/mini-cms#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@lexical/react": "^0.9.1",
     "@reduxjs/toolkit": "^1.9.2",
     "@symfony/stimulus-bridge": "github:symfony/stimulus-bridge",

@@ -19,9 +19,9 @@ $rad-sm: 5px;
 
 // ui-interact-colors
 
-$info: hsl(199, 91%, 64%);
-$success: hsl(147,83%,44%);
-$negative: hsl(360,100%,64%);
+$info: hsl(199, 86%, 64%);
+$success: hsl(147,80%,44%);
+$negative: hsl(360,95%,64%);
 $warning: hsl(44,102%,62%);
 
 // icon coloring
@@ -579,7 +579,7 @@ body {
   transform: translateX(-50%) translateY(-50%);
   padding: 10px;
   min-width: 240px;
-  box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .6);
+  box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .7);
   &.connected {
     opacity: 0;
     transform: translateX(-50%) translateY(-50%) scale(0.3);
