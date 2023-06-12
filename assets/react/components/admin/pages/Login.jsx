@@ -64,7 +64,7 @@ const Login = () => {
 
   const { email, password } = state
 
-  return <form method="POST" id="login" className={'rounded-lg bg-white color-dark'+(isConnected ? ' connected':null)} onSubmit={handleSubmit}>
+  return <form method="POST" id="login" className={'rounded-lg bg-white color-dark'+(isConnected ? ' connected':'')} onSubmit={handleSubmit}>
     <div className='form-title'>Connexion</div>
     <div className='input-group-clear-outline'>
       <TxtLabelInput type="text" label="Compte(Email)" id="email" value={email} placeholder="adresse email..."

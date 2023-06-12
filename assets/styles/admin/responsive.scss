@@ -230,3 +230,32 @@
     }
   }
 }
+
+// nav icon hover
+
+@media screen and (min-width: 1084px) {
+  .icon-nav {
+    li {
+      .nav-link {
+        &:hover {
+          background-color: $primary;
+    
+          .svg-icon {
+            color: $light;
+          }
+        }
+        
+        &.reverse {  
+          &:hover {
+            background-color: $light;
+      
+            .svg-icon {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
