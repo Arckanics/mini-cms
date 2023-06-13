@@ -6,9 +6,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "./ui";
 import { clearData, setUrl } from "./redux/reducers/ajaxSlice";
-import { Pages, Settings, Articles, Login } from "./pages";
-
-
+import { Pages, Settings, Articles, Login, Footer } from "./pages";
 
 const Layout = () => {
   const url = useSelector(state => state.ajax.url);
@@ -16,6 +14,7 @@ const Layout = () => {
   const dispatch = useDispatch();
   const Menu = [
     { name: "Parametres", path: "/", Page: Settings },
+    { name: "Footer", path: "/footer", Page: Footer },
     { name: "Pages", path: "/pages", Page: Pages },
     { name: "Articles", path: "/articles", Page: Articles },
   ];

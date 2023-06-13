@@ -78,6 +78,19 @@ class AdminController extends AbstractController
       ]);
     }
 
+    // Route pour les liens sociaux
+
+    #[Route('/footer', name: 'app_admin_footer')]
+    public function footer(Session $session): Response | JsonResponse
+    {
+      if (!$this->refreshSession($session)) {
+        return $this->redirectToRoute('app_logout');
+      }
+      return $this->render('admin/index.html.twig', [
+        'url' => 'Footer',
+      ]);
+    }
+
     // Route pour gérer toutes les requêtes de l'ui admin
 
     #[Route('/request', name: 'app_admin_request')]
