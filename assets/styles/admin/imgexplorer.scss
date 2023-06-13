@@ -12,9 +12,10 @@
   .img-explorer {
     @apply 
       p-1 z-50 bg-white overflow-hidden
-      h-full shrink
+      h-full shrink rounded-b-lg
       duration-150 flex flex-col gap-2;
-    
+      outline: 1px solid $secondary;
+      outline-offset: -1px;
   }
 
   .img-current {
