@@ -4,19 +4,17 @@
   &.opened {
     @apply flex flex-col flex-nowrap overflow-hidden;
     .inner-window {
-      @apply rounded-lg;
-      outline: 1px solid $secondary;
+      @apply rounded-b-lg absolute top-[3.35rem] left-2 right-2 bottom-2 flex-col overflow-hidden;
+      
     }
   }
 
   .img-explorer {
     @apply 
       p-1 z-50 bg-white overflow-hidden
+      h-full shrink
       duration-150 flex flex-col gap-2;
     
-    outline-width: 2px;
-    outline-style: solid;
-    outline-color: $secondary;
   }
 
   .img-current {
@@ -27,7 +25,7 @@
   }
 
   .img-uploading {
-    @apply hidden gap-1 p-1 m-0.5;
+    @apply hidden gap-1 p-1 m-0.5 shrink-0 ;
     &:has(.upload) {
       @apply flex;
     }
@@ -68,7 +66,8 @@
 
 
   .window-title {
-    @apply flex text-white font-extrabold p-2 pl-5 rounded-t-md
+    @apply flex text-white font-extrabold p-2 pl-4
+    underline underline-offset-2
      justify-between items-end;
     background-color: $secondary;
 
@@ -90,15 +89,14 @@
   .img-content-explore {
     @apply duration-150
       min-h-[4rem] m-1 mt-0 
-      rounded-md
+      rounded-md gap-2
       justify-around items-stretch
       p-2 overflow-auto
       h-full shadow-inner;
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(9.75rem, calc(100% / 6 - 0.5rem)));
-
-    gap: 8px;
+    grid-template-rows: repeat(auto-fill, 15.8rem);
     background-color: $light;
 
     &:hover {

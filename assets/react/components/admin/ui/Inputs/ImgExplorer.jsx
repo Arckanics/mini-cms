@@ -134,7 +134,7 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
       <div
         tabIndex={-1}
         id={id ? id : null}
-        className={"relative flex"+ (target ? ' flex-col inner-window' : ' gap-3') +" items-stretch overflow-hidden"}
+        className={"flex"+ (target ? ' inner-window' : ' gap-3') +" items-stretch"}
         onFocus={e => setTarget(e.target)}
       >
         {target ? (

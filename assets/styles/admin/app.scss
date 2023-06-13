@@ -739,7 +739,7 @@ body {
 
   .content-full {
     height: 100%;
-    @apply p-2 flex flex-col overflow-hidden;
+    @apply p-2 flex flex-col overflow-hidden relative;
 
     .content-nav {
       height: 100%;
