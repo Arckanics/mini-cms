@@ -64,7 +64,7 @@ const Settings = () => {
   };
 
   return (
-    <PagesContainer title={"Paramètres"}>
+    <PagesContainer title={"Paramètres"} inDesign={false}>
       <div className="flex flex-col gap-2 py-2 overflow-auto h-full justify-start">
         {data ? (
           <>

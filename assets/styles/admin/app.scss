@@ -790,9 +790,13 @@ body {
   .title {
     border-bottom: solid $secondary 2px;
     margin-bottom: -2px;
-    @apply p-3 pb-0 text-2xl font-bold select-none;
-    background-color: transparentize($color: $secondary, $amount: .9);
+    @apply p-3 pb-2 text-2xl font-bold select-none;
+    background-color: transparentize($color: $secondary, $amount: .8);
     border-radius: 7px 7px 0 0;
+    &.out-design {
+      @apply rounded-lg;
+      
+    }
   }
 
   .sub-title {
