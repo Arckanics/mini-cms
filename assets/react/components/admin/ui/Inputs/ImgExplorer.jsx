@@ -231,7 +231,7 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
                   </figure>
                   { file === value 
                     ? <div className="btn-group p-2 gap-2">
-                      <div className="btn info"> Actif </div>
+                      <div className="btn info static"> Actif </div>
                     </div>
                     : <div className="btn-group p-2 gap-2">
                       <button className="btn success" onClick={ () => action(file) }> <Success cls='icon h-6' /> </button>
