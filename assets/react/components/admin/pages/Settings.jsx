@@ -32,20 +32,6 @@ const Settings = () => {
       });
   }, []);
 
-  const changeName = v => {
-    switch (v) {
-      case "Author":
-        return "auteur";
-      case "Description":
-        return "description";
-      case "SiteName":
-        return "nom du site";
-      case "Landing":
-        return "page d'accueil";
-      default:
-        return "";
-    }
-  };
 
   const makeDispatch = d => {
     dispatch(pushData({ name: "settings", data: d }));
@@ -85,10 +71,10 @@ const Settings = () => {
             <TxtLabelInput
               type="text"
               onChange={e => handleChange(e, "Author")}
-              label={capitalize(changeName("Author"))}
+              label="Auteur"
               id="Author"
               value={data.Author}
-              placeholder={changeName("Author")}
+              placeholder="Auteur"
               inputCls="input-txt w-full secondary"
               divCls="input-wrap p-2 secondary"
               labelCls="label"
@@ -96,10 +82,10 @@ const Settings = () => {
             <TxtLabelInput
               type="text"
               onChange={e => handleChange(e, "Description")}
-              label={capitalize(changeName("Description"))}
+              label="Description"
               id="Description"
               value={data.Description}
-              placeholder={changeName("Description")}
+              placeholder="Description"
               inputCls="input-txt w-full secondary"
               divCls="input-wrap p-2 secondary"
               labelCls="label"
@@ -107,10 +93,10 @@ const Settings = () => {
             <TxtLabelInput
               type="text"
               onChange={e => handleChange(e, "SiteName")}
-              label={capitalize(changeName("SiteName"))}
+              label="Titre du site"
               id="SiteName"
               value={data.SiteName}
-              placeholder={changeName("SiteName")}
+              placeholder="Titre du site"
               inputCls="input-txt w-full secondary"
               divCls="input-wrap p-2 secondary"
               labelCls="label"
@@ -130,7 +116,7 @@ const Settings = () => {
               list={data.Pages}
               action={setLanding}
             >
-              <h2 className="block py-2">{capitalize(changeName("Landing"))}</h2>
+              <h2 className="block py-2">Page d'accueil</h2>
             </Selector>
           </>
         ) : null}
