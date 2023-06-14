@@ -98,11 +98,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(9.75rem, calc(100% / 6 - 0.5rem)));
     grid-template-rows: repeat(auto-fill, 15.8rem);
-    background-color: $light;
-
-    &:hover {
-      background-color: darken($color: $light, $amount: 5%);
-    }
+    background-color: lighten($color: $light, $amount: 3%);
 
 
     &:has(.no-files-content) {
@@ -127,6 +123,8 @@
         bg-white 
         rounded-md shadow-md
         ;
+        outline: 1px solid transparentize($color: $secondary, $amount: .7);
+        outline-offset: -1px;
       .img-view-container {
         @apply 
           p-1 m-1.5 shadow-md overflow-hidden 
