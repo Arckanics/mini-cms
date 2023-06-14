@@ -246,11 +246,13 @@ $warning: hsl(44,102%,62%);
   &:focus,
   &:focus-visible,
   &.toggle {
-    background-color: whitesmoke;
-    outline-color: $color;
-    color: $color;
-    svg {
-      fill: $color;
+    &:not(.static) {
+      background-color: whitesmoke;
+      outline-color: $color;
+      color: $color;
+      svg {
+        fill: $color;
+      }
     }
   }
 }
@@ -461,6 +463,10 @@ $warning: hsl(44,102%,62%);
 
   &.secondary {
     @include btnSetting($secondary);
+  }
+
+  &.info {
+    @include btnSetting($info);
   }
 
   &.grey {
