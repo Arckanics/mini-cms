@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PagesContainer } from "../ui";
 import { Button, Selector, TxtLabelInput, ImgExplorer } from "../ui/Inputs";
-import { areEqual, capitalize } from "../../../Functions/app";
+import { areEqual } from "../../../Functions/app";
 import { useDispatch, useSelector } from "react-redux";
 import { pushData } from "../redux/reducers/ajaxSlice";
 import axios from "axios";
