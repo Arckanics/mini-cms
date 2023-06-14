@@ -1,0 +1,32 @@
+.card-nav {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, 12rem);
+  grid-template-rows: repeat(auto-fill, 18rem);
+
+  @apply gap-2 h-full py-2;
+
+  .card {
+    @apply flex flex-col rounded-lg shadow-md p-2 text-center;
+    outline: 1px solid transparentize($color: $secondary, $amount: .8);
+    outline-offset: -1px;
+    .card-icon {
+      @apply aspect-square flex flex-col justify-center;
+
+      .card-icon-svg {
+        @apply h-32 drop-shadow-lg;
+      }
+    }
+
+    .card-name {
+      @apply text-2xl
+    }
+
+    &.new {
+      @apply shadow-inner;
+    }
+  }
+
+  
+}
