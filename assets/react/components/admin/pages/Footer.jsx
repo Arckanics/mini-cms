@@ -25,7 +25,7 @@ const Footer = () => {
           data.map(({name,icon,url},k) => <SocialCard key={k} icon={icon} name={name} url={url} />)
         }
         <div className='card new'>
-          <Faw icon="add" />
+          <Faw icon="add" className='add-icon' />
         </div>
       </div>
 

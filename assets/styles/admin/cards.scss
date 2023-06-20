@@ -8,7 +8,7 @@
   @apply gap-2 h-full py-2;
 
   .card {
-    @apply flex flex-col rounded-lg shadow-md p-2 text-center;
+    @apply flex flex-col rounded-lg shadow-md p-2 text-center duration-150;
     outline: 1px solid transparentize($color: $secondary, $amount: .8);
     outline-offset: -1px;
     .card-icon {
@@ -24,7 +24,18 @@
     }
 
     &.new {
-      @apply shadow-inner;
+      @apply shadow-md cursor-pointer;
+      .add-icon {
+        @apply w-1/2 h-auto m-auto drop-shadow-lg;
+      }
+
+      &:hover {
+        outline-width: 3px;
+        outline-color: transparentize($color: $secondary, $amount: .7);
+        .add-icon {
+          color: transparentize($color: $secondary, $amount: .2);
+        }
+      }
     }
   }
 
