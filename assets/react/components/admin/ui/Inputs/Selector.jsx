@@ -38,7 +38,7 @@ const Selector = ({ cls, list, active, iconCls, children, action, sortProp = "id
     <div className={(cls ? 'selector ' + cls : 'selector') + (toggle ? ' opened' : '')} onFocus={toggleSelect} onBlur={toggleSelect} tabIndex={-1}>
       { children }
       <div className='opt active' value={landing.id} onClick={toggle ? toggleSelect : null}>
-        <div className='txt'>{capitalize(landing.title)}</div><Expand cls={iconCls}/>
+        <div className='txt'>{capitalize(landing.title)}</div><Expand cls={iconCls+" indicate"}/>
       </div>
       {
         toggle ? <div className='opt-wrapper'>
