@@ -141,13 +141,16 @@ $warning: hsl(44,102%,62%);
         color: $light;
       }
     }
+    .icon-value {
+      height: 28px;
+    }
   }
 
   @apply p-2 text-lg rounded-md;
 
   .active {
     transition: 150ms;
-    @apply p-3 pl-4 align-middle cursor-pointer overflow-hidden;
+    @apply p-3 pl-4 align-middle cursor-pointer overflow-hidden gap-2;
     background-color: $light;
     box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.5) inset;
     display: flex;
@@ -158,7 +161,7 @@ $warning: hsl(44,102%,62%);
       width: 100%;
     }
 
-    .icon {
+    .icon, .icon-value {
       height: 28px;
     }
   }
@@ -167,7 +170,15 @@ $warning: hsl(44,102%,62%);
     background-color: white;
     box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5);
     border: 1px solid $color;
-  }  
+  }
+
+  &.icon {
+    .opt-wrapper {
+      .opt {
+        outline: 1px solid transparentize($color: $color, $amount: .7);
+      }
+    }
+  }
 
   &:hover,
   &:focus,
@@ -201,7 +212,7 @@ $warning: hsl(44,102%,62%);
   }
 
   &.opened {
-    svg {
+    .indicate {
       transform: rotate(90deg);
     }
   }
@@ -214,7 +225,7 @@ $warning: hsl(44,102%,62%);
     right: 0px;
     top: calc(100% + .4rem);
     
-    @apply rounded-md  z-10;
+    @apply rounded-md overflow-auto z-10 max-h-[30vh];
 
     .opt {
       @apply p-2 px-3 text-lg;
@@ -224,6 +235,19 @@ $warning: hsl(44,102%,62%);
       }
       &:last-child {
         @apply rounded-b-md;
+      }
+    }
+  }
+
+  &.icon {
+    .opt-wrapper {
+      @apply grid max-w-none p-2 gap-2 overflow-x-auto w-fit ml-2;
+      grid-template-columns: 1fr 1fr 1fr;
+      .opt {
+        @apply rounded flex justify-center w-11 h-11;
+        .icon-value {
+          @apply m-auto;
+        }
       }
     }
   }

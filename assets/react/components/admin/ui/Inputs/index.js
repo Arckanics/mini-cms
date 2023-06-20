@@ -8,6 +8,7 @@ import Selector from "./Selector";
 import SocialCard from "./SocialCard";
 import SwitchInput from "./SwitchInput";
 import TxtLabelInput from "./TxtLabelInput";
+import IconSelector from "./iconSelector";
 
 export {
   Button,
@@ -19,5 +20,6 @@ export {
   SwitchInput,
   TxtLabelInput,
   ImgExplorer,
-  SocialCard
+  SocialCard,
+  IconSelector,
 };
