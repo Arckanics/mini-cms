@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Settings;
 use App\Entity\Pages;
 use App\Entity\Articles;
+use App\Entity\Social;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,6 +112,10 @@ class AdminController extends AbstractController
           case 'articles':
             $article = $em->getRepository(Articles::class);
             $gem = new ExtEntityManager($article, Articles::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
+          case 'footer':
+            $social = $em->getRepository(Social::class);
+            $gem = new ExtEntityManager($social, Social::class, $em);
             return new JsonResponse($gem->exportData(), 200);
           case 'settings':
           default:
