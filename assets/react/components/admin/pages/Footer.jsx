@@ -29,11 +29,6 @@ const Footer = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.ajax.data.footer);
   const [cardMake, setCardMake] = useState(false);
-  const [makerState, setMakerState] = useState({
-    icon: "facebook",
-    name: "",
-    url: "",
-  });
 
   const iconNames = {
     facebook: "fa-square-facebook",
@@ -113,9 +108,9 @@ const Footer = () => {
             <Faw icon="add" className="add-icon" />
           ) : (
             <SocialCardEditor
-              icon={makerState.icon}
-              name={makerState.name}
-              url={makerState.url}
+              icon={'facebook'}
+              name={''}
+              url={''}
               iconList={iconNames}
               title={'créer'}
               faw={Faw}
