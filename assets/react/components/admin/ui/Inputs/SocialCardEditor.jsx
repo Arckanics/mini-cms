@@ -1,8 +1,14 @@
 import React from "react";
 import { Checked, Close, Delete } from "../../../../icon/icon-ui";
 import {IconSelector, TxtLabelInput} from "./";
-const SocialCardEditor = ({ name, icon, url, id, title, updating = false, iconList, faw }) => {
+const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false, iconList, faw }) => {
   const Faw = faw
+
+  const preventDef = (e,req) => {
+    e.stopPropagation();
+    action(req)
+  }
+
   return (
     <div className="card-maker">
       <div className="card-edit-title">
@@ -11,7 +17,7 @@ const SocialCardEditor = ({ name, icon, url, id, title, updating = false, iconLi
       <div className="card-body">
         <IconSelector
           list={{ ...iconList }}
-          active={"facebook"}
+          active={icon}
           item={Faw}
           cls={"secondary"}
         ></IconSelector>
@@ -21,6 +27,7 @@ const SocialCardEditor = ({ name, icon, url, id, title, updating = false, iconLi
           labelCls="label text-left"
           id="name"
           inputCls="input-txt secondary"
+          value={name}
         />
         <TxtLabelInput
           placeholder="https://..."
@@ -28,6 +35,7 @@ const SocialCardEditor = ({ name, icon, url, id, title, updating = false, iconLi
           labelCls="label text-left"
           id="url"
           inputCls="input-txt secondary"
+          value={url}
         />
       </div>
       <div className="card-footer">
@@ -36,28 +44,28 @@ const SocialCardEditor = ({ name, icon, url, id, title, updating = false, iconLi
             <>
               <button
                 className="btn danger"
-                onClick={() => action({ type: "delete", id })}
+                onClick={(e) => preventDef(e, { type: "delete", id:id })}
               >
                 <Delete cls="icon w-6" />
               </button>
-              <button className="btn grey" onClick={() => action({ type: "close" })}>
+              <button className="btn grey" onClick={(e) => preventDef(e, { type: "close" })}>
                 <Close cls="icon w-6" />
               </button>
               <button
                 className="btn success"
-                onClick={() => action({ type: "put", data: {icon,name,id,url} })}
+                onClick={(e) => preventDef(e, { type: "put", data: {icon:icon,name:name,id:id,url:url} })}
               >
                 <Checked cls="icon w-6" />
               </button>
             </>
           ) : (
             <>
-              <button className="btn danger" onClick={() => action({ type: "close" })}>
+              <button className="btn danger" onClick={(e) => preventDef(e, { type: "close" })}>
                 <Close cls="icon w-6" />
               </button>
               <button
                 className="btn success"
-                onClick={() => action({ type: "post", data: {icon,name,id,url} })}
+                onClick={(e) => preventDef(e, { type: "post", data: {icon,name,id,url} })}
               >
                 <Checked cls="icon w-6" />
               </button>
