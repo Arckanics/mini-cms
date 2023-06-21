@@ -6,10 +6,10 @@ import ImgExplorer from "./ImgExplorer";
 import NumberInput from "./NumberInput";
 import Selector from "./Selector";
 import SocialCard from "./SocialCard";
+import SocialCardEditor from "./SocialCardEditor";
 import SwitchInput from "./SwitchInput";
 import TxtLabelInput from "./TxtLabelInput";
 import IconSelector from "./iconSelector";
-
 export {
   Button,
   Checkbox,

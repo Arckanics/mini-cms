@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pushData } from "../redux/reducers/ajaxSlice";
 import axios from "axios";
 import { PagesContainer } from "../ui";
-import { IconSelector, SocialCard } from "../ui/Inputs";
+import { Button, IconSelector, SocialCard, TxtLabelInput } from "../ui/Inputs";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -20,8 +20,8 @@ import {
   faSteamSquare,
   faDiscord,
 } from "@fortawesome/free-brands-svg-icons";
-import { Expand } from "../../../icon/icon-ui";
 import { FontAwesomeIcon as Faw } from "@fortawesome/react-fontawesome";
+import SocialCardEditor from "../ui/Inputs/SocialCardEditor";
 
 const Footer = () => {
   const axiosSet = useSelector(state => state.ajax.axios);
@@ -29,7 +29,11 @@ const Footer = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.ajax.data.footer);
   const [cardMake, setCardMake] = useState(false);
-  const [title, setTitle] = useState("créer")
+  const [makerState, setMakerState] = useState({
+    icon: "",
+    name: "",
+    url: "",
+  });
 
   const iconNames = {
     facebook: "fa-square-facebook",
@@ -62,6 +66,7 @@ const Footer = () => {
     faAdd
   );
 
+
   useEffect(() => {
     ajax
       .get("/request")
@@ -77,37 +82,53 @@ const Footer = () => {
   }, []);
 
   const createCard = e => {
+    e.stopPropagation();
     setCardMake(true);
   };
-
+  const closeCard = e => {
+    e.stopPropagation();
+    setCardMake(false);
+  };
   return (
     <PagesContainer title="Pied de page" inDesign={false}>
-      <div className={"card-nav" + (cardMake ? " card-making" : "")}>
+      <div className="card-nav">
         {data
-          ? data.map(({ name, icon, url }, k) => (
+          ? data.map(({ name, icon, url, id }, k) => (
               <SocialCard
                 key={k}
+                uid={id}
                 icon={icon}
                 name={name}
                 url={url}
                 iconList={iconNames}
-              />
+              >
+                <SocialCardEditor 
+                  icon={icon}
+                  id={id}
+                  name={name}
+                  url={url}
+                  updating={true}
+                  iconList={iconNames}
+                  title={'éditer'}
+                  faw={Faw}
+                />
+              </SocialCard>
             ))
           : null}
-        {!cardMake ? (
-          <div className="card new" onClick={createCard}>
+        <div className="card new" onClick={createCard}>
+          {!cardMake ? (
             <Faw icon="add" className="add-icon" />
-          </div>
-        ) : (
-          <div className="card-maker">
-            <div className="card-edit-title">
-              <h2 className="txt">{title}</h2>
-            </div>
-            <IconSelector list={{...iconNames}} active={"facebook"} item={Faw} cls={'secondary inline-block gap-2'} >
-              <h2 className="py-2">Icône</h2>
-            </IconSelector>
-          </div>
-        )}
+          ) : (
+            <SocialCardEditor
+              icon={makerState.icon}
+              name={makerState.name}
+              url={makerState.url}
+              iconList={iconNames}
+              title={'créer'}
+              faw={Faw}
+            />
+          )}
+        </div>
       </div>
     </PagesContainer>
   );
