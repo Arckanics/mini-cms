@@ -57,6 +57,7 @@ const IconSelector = ({ cls, list, active, iconCls, item, children, action }) =>
             <div
               key={k}
               className="opt"
+              onClick={e => changeValue(e,key)}
             >
               <Faw icon={"fa-brands "+icon} className="icon-value"/>
             </div>
