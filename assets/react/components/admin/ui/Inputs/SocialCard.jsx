@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 
 
-
 import { FontAwesomeIcon as Faw } from "@fortawesome/react-fontawesome";
 import { Edit } from "../../../../icon/icon-ui";
+import SocialCardEditor from "./SocialCardEditor";
 
 
-const SocialCard = ({ icon, name, url, update, remove, iconList, opened = false, children }) => {
-  const [editable, setEditable] = useState(opened);
+const SocialCard = ({ icon, name, url, id, action, iconList, children }) => {
+  const [editable, setEditable] = useState(false);
+
+  const getAction = (e) => {
+    e.type === 'close'
+    ? setEditable(false)
+    : action(e)
+  }
+
   return <div className={"card" + (editable ? ' edit-mode' : '')}>
     {
     !editable
@@ -22,7 +29,17 @@ const SocialCard = ({ icon, name, url, update, remove, iconList, opened = false,
         <button className="btn info" onClick={(e) => setEditable(true)}><Edit cls="icon w-7" /></button>
       </div>
     </>
-    : children
+    : <SocialCardEditor 
+    icon={icon}
+    id={id}
+    name={name}
+    url={url}
+    updating={true}
+    iconList={iconList}
+    title={'éditer'}
+    faw={Faw}
+    action={(e) => getAction(e)}
+  />
     }
   </div>;
 };

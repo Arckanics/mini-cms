@@ -30,7 +30,7 @@ const Footer = () => {
   const data = useSelector(state => state.ajax.data.footer);
   const [cardMake, setCardMake] = useState(false);
   const [makerState, setMakerState] = useState({
-    icon: "",
+    icon: "facebook",
     name: "",
     url: "",
   });
@@ -85,10 +85,13 @@ const Footer = () => {
     e.stopPropagation();
     setCardMake(true);
   };
-  const closeCard = e => {
-    e.stopPropagation();
-    setCardMake(false);
-  };
+  const cardActions = (action) => {
+    
+    if (action.type == 'close')
+    {
+      return setCardMake(false);
+    }
+  }
   return (
     <PagesContainer title="Pied de page" inDesign={false}>
       <div className="card-nav">
@@ -96,23 +99,13 @@ const Footer = () => {
           ? data.map(({ name, icon, url, id }, k) => (
               <SocialCard
                 key={k}
-                uid={id}
+                id={id}
                 icon={icon}
                 name={name}
                 url={url}
                 iconList={iconNames}
-              >
-                <SocialCardEditor 
-                  icon={icon}
-                  id={id}
-                  name={name}
-                  url={url}
-                  updating={true}
-                  iconList={iconNames}
-                  title={'éditer'}
-                  faw={Faw}
-                />
-              </SocialCard>
+                action={cardActions}
+              />
             ))
           : null}
         <div className="card new" onClick={createCard}>
@@ -126,6 +119,7 @@ const Footer = () => {
               iconList={iconNames}
               title={'créer'}
               faw={Faw}
+              action={cardActions}
             />
           )}
         </div>
