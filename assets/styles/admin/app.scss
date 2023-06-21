@@ -240,6 +240,9 @@ $warning: hsl(44,102%,62%);
   }
 
   &.icon {
+    .active {
+      @apply justify-between items-center;
+    }
     .opt-wrapper {
       @apply grid max-w-none p-2 gap-2 overflow-x-auto w-fit ml-2;
       grid-template-columns: 1fr 1fr 1fr;
@@ -513,11 +516,18 @@ $warning: hsl(44,102%,62%);
 }
 
 .btn-group {
-  @apply flex justify-items-stretch;
+  @apply flex justify-items-stretch gap-2 w-full;
 
   .btn {
-    @apply grow;
+    @apply grow w-full rounded-sm;
+    &:first-child {
+      @apply rounded-l-lg;
+    }
+    &:last-child {
+      @apply rounded-r-lg;
+    }
   }
+
 }
 
 @mixin btnNav($color) {

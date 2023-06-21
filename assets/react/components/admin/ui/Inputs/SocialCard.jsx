@@ -3,11 +3,12 @@ import React, { useState } from "react";
 
 
 import { FontAwesomeIcon as Faw } from "@fortawesome/react-fontawesome";
+import { Edit } from "../../../../icon/icon-ui";
 
 
-const SocialCard = ({ icon, name, url, update, remove, iconList }) => {
-  const [editable, setEditable] = useState(false);
-  return <div className="card">
+const SocialCard = ({ icon, name, url, update, remove, iconList, opened = false, children }) => {
+  const [editable, setEditable] = useState(opened);
+  return <div className={"card" + (editable ? ' edit-mode' : '')}>
     {
     !editable
     ? <>
@@ -17,11 +18,11 @@ const SocialCard = ({ icon, name, url, update, remove, iconList }) => {
       <div className="card-name" >
         {name}
       </div>
-      <div className="opt" >
-
+      <div className="btn-group" >
+        <button className="btn info" onClick={(e) => setEditable(true)}><Edit cls="icon w-7" /></button>
       </div>
     </>
-    : <></>
+    : children
     }
   </div>;
 };
