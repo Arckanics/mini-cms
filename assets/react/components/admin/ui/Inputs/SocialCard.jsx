@@ -26,7 +26,7 @@ const SocialCard = ({ icon, name, url, id, action, iconList, children }) => {
         {name}
       </div>
       <div className="btn-group" >
-        <button className="btn info" onClick={(e) => setEditable(true)}><Edit cls="icon w-7" /></button>
+        <button className="btn info" onClick={(e) => setEditable(true)}><Edit cls="icon w-5" /></button>
       </div>
     </>
     : <SocialCardEditor 
