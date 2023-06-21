@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Checked, Close, Delete } from "../../../../icon/icon-ui";
 import {IconSelector, TxtLabelInput} from "./";
 const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false, iconList, faw }) => {
   const Faw = faw
+
+  const [inputs, setInputs] = useState({name, icon, url})
 
   const preventDef = (e,req) => {
     e.stopPropagation();
@@ -17,9 +19,10 @@ const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false
       <div className="card-body">
         <IconSelector
           list={{ ...iconList }}
-          active={icon}
+          active={inputs.icon}
           item={Faw}
           cls={"secondary"}
+          action={(e) => setInputs({...inputs, icon: e})}
         ></IconSelector>
         <TxtLabelInput
           placeholder="Nom"
@@ -27,7 +30,8 @@ const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false
           labelCls="label text-left"
           id="name"
           inputCls="input-txt secondary"
-          value={name}
+          value={inputs.name}
+          onChange={e => setInputs({...inputs, name:e.target.value})}
         />
         <TxtLabelInput
           placeholder="https://..."
@@ -35,7 +39,8 @@ const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false
           labelCls="label text-left"
           id="url"
           inputCls="input-txt secondary"
-          value={url}
+          value={inputs.url}
+          onChange={e => setInputs({...inputs, url:e.target.value})}
         />
       </div>
       <div className="card-footer">
@@ -53,7 +58,7 @@ const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false
               </button>
               <button
                 className="btn success"
-                onClick={(e) => preventDef(e, { type: "put", data: {icon:icon,name:name,id:id,url:url} })}
+                onClick={(e) => preventDef(e, { type: "put", data: {icon:inputs.icon,name:inputs.name,id:id,url:inputs.url} })}
               >
                 <Checked cls="icon w-6" />
               </button>
@@ -65,7 +70,7 @@ const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false
               </button>
               <button
                 className="btn success"
-                onClick={(e) => preventDef(e, { type: "post", data: {icon,name,id,url} })}
+                onClick={(e) => preventDef(e, { type: "post", data: {icon:inputs.icon,name:inputs.name,url:inputs.url} })}
               >
                 <Checked cls="icon w-6" />
               </button>
