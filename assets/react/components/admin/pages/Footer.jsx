@@ -22,6 +22,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon as Faw } from "@fortawesome/react-fontawesome";
 import SocialCardEditor from "../ui/Inputs/SocialCardEditor";
+import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 
 const Footer = () => {
   const axiosSet = useSelector(state => state.ajax.axios);
@@ -61,48 +62,74 @@ const Footer = () => {
     faAdd
   );
 
-  const appendData = (data) => {
-    data.map(card => card.edit = false)
+  const appendData = data => {
+    data.map(card => (card.edit = false));
+    setCardMake(false);
     dispatch(pushData({ name: "footer", data: data }));
-  }
+  };
 
   useEffect(() => {
-    !data 
-    ? ajax
-        .get("/request")
-        .then(res => {
-          const data = [...res.data]
-          appendData(data)
-        })
-        .catch(res => {
-          const status = res.response.status;
-          if (status === 302) {
-            location.replace("/mini-admin/logout");
-          }
-        })
-    : null
+    !data
+      ? ajax
+          .get("/request")
+          .then(res => {
+            const data = [...res.data];
+            appendData(data);
+          })
+          .catch(res => axiosError(res))
+      : null;
   }, [data]);
+
+  const axiosSuccess = (res,msg) => {
+    const data = [...res.data];
+    dispatch(notify({msg:msg,type:"success",timeout:setTimeout(() => dispatch(notifyClose()), 3000)}))
+    appendData(data);
+  }
+
+  const axiosError = (res) => {
+    const status = res.response.status;
+    if (status === 302) {
+      location.replace("/mini-admin/logout");
+    }
+  }
 
   const createCard = e => {
     e.stopPropagation();
-    const remap = [...data].map(c => ({...c, edit: false}))
-    appendData(remap)
-    setCardMake(true)
+    const remap = [...data].map(c => ({ ...c, edit: false }));
+    appendData(remap);
+    setCardMake(true);
   };
-  const cardActions = (action) => {
-    if (action.type == 'close' || 'edit')
-    {
-      return setCardMake(false);
+
+
+  const cardActions = action => {
+    switch (action.type) {
+      case "close":
+      case "edit":
+        return setCardMake(false);
+      case "post":
+        return ajax
+          .post("/request", {
+            where: "footer",
+            data: action.data,
+          })
+          .then(res => axiosSuccess(res,'Lien social créé'))
+          .catch(res => axiosError(res));
+      case "put":
+        return ajax
+          .put("/request", {
+            where: "footer",
+            data: action.data,
+          })
+          .then(res => axiosSuccess(res,'Lien social mis à jour'))
+          .catch(res => axiosError(res));
+      case "delete":
+        console.log(action);
+        return ajax
+          .delete("/request", { data: {where: 'footer', data: action.id}})
+          .then(res => axiosSuccess(res,'Lien social supprimé'))
+          .catch(res => axiosError(res));
     }
-    if (action.type == 'put')
-    {
-      return ajax.put("/request", {
-        where: 'footer',
-        data: action.data
-      })
-    }
-    console.log(action);
-  }
+  };
   return (
     <PagesContainer title="Pied de page" inDesign={false}>
       <div className="card-nav">
@@ -125,11 +152,11 @@ const Footer = () => {
             <Faw icon="add" className="add-icon" />
           ) : (
             <SocialCardEditor
-              icon={'facebook'}
-              name={''}
-              url={''}
+              icon={"facebook"}
+              name={""}
+              url={""}
               iconList={iconNames}
-              title={'créer'}
+              title={"créer"}
               faw={Faw}
               action={cardActions}
             />
