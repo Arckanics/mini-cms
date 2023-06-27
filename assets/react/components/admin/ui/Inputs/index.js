@@ -22,4 +22,5 @@ export {
   ImgExplorer,
   SocialCard,
   IconSelector,
+  SocialCardEditor
 };

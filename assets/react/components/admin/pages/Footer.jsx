@@ -61,37 +61,53 @@ const Footer = () => {
     faAdd
   );
 
+  const appendData = (data) => {
+    data.map(card => card.edit = false)
+    dispatch(pushData({ name: "footer", data: data }));
+  }
 
   useEffect(() => {
-    ajax
-      .get("/request")
-      .then(res => {
-        dispatch(pushData({ name: "footer", data: [...res.data] }));
-      })
-      .catch(res => {
-        const status = res.response.status;
-        if (status === 302) {
-          location.replace("/mini-admin/logout");
-        }
-      });
-  }, []);
+    !data 
+    ? ajax
+        .get("/request")
+        .then(res => {
+          const data = [...res.data]
+          appendData(data)
+        })
+        .catch(res => {
+          const status = res.response.status;
+          if (status === 302) {
+            location.replace("/mini-admin/logout");
+          }
+        })
+    : null
+  }, [data]);
 
   const createCard = e => {
     e.stopPropagation();
-    setCardMake(true);
+    const remap = [...data].map(c => ({...c, edit: false}))
+    appendData(remap)
+    setCardMake(true)
   };
   const cardActions = (action) => {
-    
-    if (action.type == 'close')
+    if (action.type == 'close' || 'edit')
     {
       return setCardMake(false);
     }
+    if (action.type == 'put')
+    {
+      return ajax.put("/request", {
+        where: 'footer',
+        data: action.data
+      })
+    }
+    console.log(action);
   }
   return (
     <PagesContainer title="Pied de page" inDesign={false}>
       <div className="card-nav">
         {data
-          ? data.map(({ name, icon, url, id }, k) => (
+          ? data.map(({ name, icon, url, id, edit }, k) => (
               <SocialCard
                 key={k}
                 id={id}
@@ -100,6 +116,7 @@ const Footer = () => {
                 url={url}
                 iconList={iconNames}
                 action={cardActions}
+                edit={edit}
               />
             ))
           : null}

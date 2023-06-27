@@ -4,20 +4,36 @@ import React, { useState } from "react";
 import { FontAwesomeIcon as Faw } from "@fortawesome/react-fontawesome";
 import { Edit } from "../../../../icon/icon-ui";
 import SocialCardEditor from "./SocialCardEditor";
+import { useDispatch, useSelector } from "react-redux";
+import { pushData } from "../../redux/reducers/ajaxSlice";
 
 
-const SocialCard = ({ icon, name, url, id, action, iconList, children }) => {
-  const [editable, setEditable] = useState(false);
+const SocialCard = ({ icon, name, url, id, edit, action, iconList }) => {
+  const cards = useSelector(state => state.ajax.data.footer)
+  const dispatch = useDispatch()
+
+
+  const openEditable = () => {
+    const remap = [...cards].map(c => ({...c}))
+    remap.map(c => {
+      c.id == id
+      ? c.edit = !edit
+      : c.edit = false
+      return c
+    })
+    action({type: 'edit'})
+    dispatch(pushData({ name: "footer", data: remap }))
+  }
 
   const getAction = (e) => {
     e.type === 'close'
-    ? setEditable(false)
+    ? openEditable()
     : action(e)
   }
 
-  return <div className={"card" + (editable ? ' edit-mode' : '')}>
+  return <div className={"card" + (edit ? ' edit-mode' : '')}>
     {
-    !editable
+    !edit
     ? <>
       <div className="card-icon" >
         <Faw icon={"fa-brands "+iconList[icon]} className="card-icon-svg"/>
@@ -26,7 +42,7 @@ const SocialCard = ({ icon, name, url, id, action, iconList, children }) => {
         {name}
       </div>
       <div className="btn-group" >
-        <button className="btn info" onClick={(e) => setEditable(true)}><Edit cls="icon w-6" /></button>
+        <button className="btn info" onClick={openEditable}><Edit cls="icon w-6" /></button>
       </div>
     </>
     : <SocialCardEditor 
