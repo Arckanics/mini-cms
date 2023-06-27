@@ -132,52 +132,7 @@ class AdminController extends AbstractController
             ], 200);
         }
       }
-      if ($req->getMethod() === "PUT") {
-        $body = json_decode($req->getContent(), true);
-        $data = $body["data"];
-        $pages = $em->getRepository(Pages::class);
-        $articles = $em->getRepository(Articles::class);
-        switch ($body['where']) {
-          case 'pages':
-            $gem = new ExtEntityManager($pages, Pages::class, $em);
-            $page = $pages->find($data['id']);
-            $page->setUrl($data['url']);
-            $page->setTitle($data['title']);
-            $em->flush();
-            return new JsonResponse($gem->exportData(), 200);
-          case 'articles':
-            $article = $articles->find($data["id"]);
-            $article->setContent($data["content"]);
-            $article->setIsDynamic($data["isdynamic"]);
-            $article->setPage($pages->find($data["page"]));
-            $article->setPublishBegin($this->formatDate($data["publishbegin"]));
-            $article->setPublishEnd($this->formatDate($data["publishend"]));
-            $article->setPublished($data["published"]);
-            $article->setSort($data["sort"]);
-            $article->setTitle($data["title"]);
-            $em->flush();
-            $gem = new ExtEntityManager($articles, Articles::class, $em);
-            return new JsonResponse($gem->exportData(), 200);
-          case 'settings':
-          default:
-            $settings = $em->getRepository(Settings::class)->find(1);
-            $settings->setLandingPage($pages->find($data["Landing"]));
-            $settings->setMetaAuthor($data["Author"]);
-            $settings->setMetaDesc($data["Description"]);
-            $settings->setMetaSiteName($data["SiteName"]);
-            $settings->setLogo($data["logo"]);
-            $em->flush();
-            $gem = new ExtEntityManager($pages, Pages::class, $em);
-            return new JsonResponse([
-              'Author' => $settings->getMetaAuthor(),
-              'Description' => $settings->getMetaDesc(),
-              'SiteName' => $settings->getMetaSiteName(),
-              'Landing' => $settings->getLandingPage()->getId(),
-              'Pages' => $gem->exportData(),
-              'logo' => $settings->getLogo()
-            ], 200);
-        }
-      }
+      
       if ($req->getMethod() === "POST") {
         $body = json_decode($req->getContent(), true);
         $data = $body["data"];
@@ -223,6 +178,52 @@ class AdminController extends AbstractController
               'SiteName' => $res->getMetaSiteName(),
               'Landing' => $res->getLandingPage()->getId(),
               'Pages' => $gem->exportData()
+            ], 200);
+        }
+      }
+      if ($req->getMethod() === "PUT") {
+        $body = json_decode($req->getContent(), true);
+        $data = $body["data"];
+        $pages = $em->getRepository(Pages::class);
+        $articles = $em->getRepository(Articles::class);
+        switch ($body['where']) {
+          case 'pages':
+            $gem = new ExtEntityManager($pages, Pages::class, $em);
+            $page = $pages->find($data['id']);
+            $page->setUrl($data['url']);
+            $page->setTitle($data['title']);
+            $em->flush();
+            return new JsonResponse($gem->exportData(), 200);
+          case 'articles':
+            $article = $articles->find($data["id"]);
+            $article->setContent($data["content"]);
+            $article->setIsDynamic($data["isdynamic"]);
+            $article->setPage($pages->find($data["page"]));
+            $article->setPublishBegin($this->formatDate($data["publishbegin"]));
+            $article->setPublishEnd($this->formatDate($data["publishend"]));
+            $article->setPublished($data["published"]);
+            $article->setSort($data["sort"]);
+            $article->setTitle($data["title"]);
+            $em->flush();
+            $gem = new ExtEntityManager($articles, Articles::class, $em);
+            return new JsonResponse($gem->exportData(), 200);
+          case 'settings':
+          default:
+            $settings = $em->getRepository(Settings::class)->find(1);
+            $settings->setLandingPage($pages->find($data["Landing"]));
+            $settings->setMetaAuthor($data["Author"]);
+            $settings->setMetaDesc($data["Description"]);
+            $settings->setMetaSiteName($data["SiteName"]);
+            $settings->setLogo($data["logo"]);
+            $em->flush();
+            $gem = new ExtEntityManager($pages, Pages::class, $em);
+            return new JsonResponse([
+              'Author' => $settings->getMetaAuthor(),
+              'Description' => $settings->getMetaDesc(),
+              'SiteName' => $settings->getMetaSiteName(),
+              'Landing' => $settings->getLandingPage()->getId(),
+              'Pages' => $gem->exportData(),
+              'logo' => $settings->getLogo()
             ], 200);
         }
       }
