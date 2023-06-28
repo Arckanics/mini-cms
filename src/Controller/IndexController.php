@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Articles;
 use App\Entity\Pages;
 use App\Entity\Settings;
+use App\Entity\Social;
+use App\Functions\Entities\ExtEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,17 +33,22 @@ class IndexController extends AbstractController
         case "page":
           $body = $req->query->all();
           $repo = $em->getRepository(Articles::class);
-          $res = $repo->getAllBySortAsc($body["id"]);
+          $res = $repo->getAllBySortAsc();
           return new JsonResponse(
             [
               "data" => $res
             ]);
+        case "socials":
+          $repo = $em->getRepository(Social::class);
+          $gem = new ExtEntityManager($repo, Social::class, $em);
+          return $this->json($gem->exportData(),200);
         default:
           break;
       }
 
       return new JsonResponse([
-        "msg" => "Not Found"
+        "msg" => "Not Found",
+        "target" => $target
       ], 404);
       
     }
