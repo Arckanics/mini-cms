@@ -33,7 +33,7 @@ class IndexController extends AbstractController
         case "page":
           $body = $req->query->all();
           $repo = $em->getRepository(Articles::class);
-          $res = $repo->getAllBySortAsc();
+          $res = $repo->getAllBySortAsc($body["id"]);
           return new JsonResponse(
             [
               "data" => $res
