@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 $yellow: hsl(44,81%,57%);
+$darkyellow: darken($color: $yellow, $amount: 45%);
+$secondary: hsl(164, 81%, 44%);
 
 // global
 html {
@@ -25,3 +27,5 @@ html {
 @import './navigation.scss';
 
 @import './content.scss';
+
+@import './footer.scss';
