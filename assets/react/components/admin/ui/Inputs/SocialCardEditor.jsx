@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Checked, Close, Delete } from "../../../../icon/icon-ui";
 import {IconSelector, TxtLabelInput} from "./";
-const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false, iconList, faw }) => {
-  const Faw = faw
+import { Faw } from "../../../main/ui/Faw";
+import { useSelector } from "react-redux";
+const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false }) => {
 
   const [inputs, setInputs] = useState({name, icon, url})
+  const icons = useSelector(state => state.fawsome.icons)
 
   const preventDef = (e,req) => {
     e.stopPropagation();
@@ -18,7 +20,7 @@ const SocialCardEditor = ({ name, icon, url, id, title, action, updating = false
       </div>
       <div className="card-body">
         <IconSelector
-          list={{ ...iconList }}
+          list={[...icons]}
           active={inputs.icon}
           item={Faw}
           cls={"secondary"}

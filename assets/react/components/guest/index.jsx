@@ -3,7 +3,7 @@ import axios from "axios";
 import { Header, Navbar, Content, Footer } from "./components";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { Faw } from "./ui/Faw";
+import { Faw } from "../main/ui/Faw";
 
 const index = () => {
   const [linkLoad, setLinkLoad] = useState(undefined);

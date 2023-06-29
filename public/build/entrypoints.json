@@ -5,7 +5,7 @@
         "/build/runtime.js",
         "/build/vendors-node_modules_fortawesome_react-fontawesome_index_es_js-node_modules_reduxjs_toolkit_d-0ca055.js",
         "/build/vendors-node_modules_html-react-parser_index_mjs.js",
-        "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-fdee38.js",
+        "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-2d9401.js",
         "/build/app.js"
       ]
     },
@@ -14,7 +14,7 @@
         "/build/runtime.js",
         "/build/vendors-node_modules_fortawesome_react-fontawesome_index_es_js-node_modules_reduxjs_toolkit_d-0ca055.js",
         "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-a211ab.js",
-        "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-fdee38.js",
+        "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-2d9401.js",
         "/build/app_admin.js"
       ]
     },
