@@ -35,18 +35,26 @@ const index = () => {
       </Header>
       {linkLoad && <Content />}
       <Footer>
-        {socials
-          ? socials.map((item, k) => {
+        {socials ? (
+          <ul className="socials">
+            {socials.map((item, k) => {
               const { icon, url, name } = item;
               return (
                 <li className="social-link" key={k}>
                   <a target="_blank" href={url}>
-                    <Faw icon={icon} cls="icon"/>
+                    <Faw icon={icon} cls="icon" />
                   </a>
                 </li>
               );
-            })
-          : null}
+            })}
+          </ul>
+        ) : null}
+        <span className="page-name">mini-cms</span>
+        <div className="source-link">
+          <a target="_blank" href="https://github.com/Arckanics/mini-cms#readme">
+            <Faw icon="github" cls="icon" />
+          </a>
+        </div>
       </Footer>
     </Provider>
   );

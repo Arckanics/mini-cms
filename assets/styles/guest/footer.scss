@@ -1,0 +1,59 @@
+#footer {
+  @apply w-full py-2 shadow-2xl;
+  border-top: 2px solid darken($color: $yellow, $amount: 5);
+
+  .footer-container {
+    @apply container mx-auto flex justify-between items-center px-3;
+    color: $darkyellow;
+  }
+
+  .socials {
+    @apply flex gap-3 items-center;
+    color: $secondary;
+  }
+
+  .social-link,
+  .source-link {
+    @apply p-2 drop-shadow-lg;
+    a {
+      @apply flex flex-col justify-center h-11 w-11 duration-150;
+    }
+    .icon {
+      @apply h-10 m-auto;
+    }
+    &:hover {
+      a {
+        @apply scale-[1.2];
+      }
+    }
+  }
+
+  .source-link {
+    @apply px-3 py-0;
+    a {
+      @apply flex flex-row w-fit gap-2 items-end;
+    }
+    .icon {
+      @apply h-8 m-0 p-1;
+    }
+
+    &:hover {
+      a {
+        @apply scale-100;
+      }
+    }
+  }
+
+  .page-name {
+    @apply capitalize font-normal pb-0.5;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #footer {
+    border-top: 1px solid $yellow;
+    .footer-container {
+      color: $yellow;
+    }
+  }
+}
