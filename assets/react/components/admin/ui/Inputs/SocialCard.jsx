@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
-
-import { FontAwesomeIcon as Faw } from "@fortawesome/react-fontawesome";
 import { Edit } from "../../../../icon/icon-ui";
 import SocialCardEditor from "./SocialCardEditor";
 import { useDispatch, useSelector } from "react-redux";
 import { pushData } from "../../redux/reducers/ajaxSlice";
+import { Faw } from "../../../main/ui/Faw";
 
 
 const SocialCard = ({ icon, name, url, id, edit, action, iconList }) => {
@@ -36,7 +35,7 @@ const SocialCard = ({ icon, name, url, id, edit, action, iconList }) => {
     !edit
     ? <>
       <div className="card-icon" >
-        <Faw icon={"fa-brands "+iconList[icon]} className="card-icon-svg"/>
+        <Faw icon={icon} cls={"card-icon-svg"}/>
       </div>
       <div className="card-name" >
         {name}

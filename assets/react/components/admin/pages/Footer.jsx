@@ -6,21 +6,7 @@ import { PagesContainer } from "../ui";
 import { Button, IconSelector, SocialCard, TxtLabelInput } from "../ui/Inputs";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faFacebookSquare,
-  faYoutubeSquare,
-  faTwitterSquare,
-  faInstagramSquare,
-  faTelegram,
-  faGithubSquare,
-  faMicrosoft,
-  faApple,
-  faLinux,
-  faTwitch,
-  faSteamSquare,
-  faDiscord,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon as Faw } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon as Add } from "@fortawesome/react-fontawesome";
 import SocialCardEditor from "../ui/Inputs/SocialCardEditor";
 import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 
@@ -47,18 +33,6 @@ const Footer = () => {
   };
 
   library.add(
-    faFacebookSquare,
-    faYoutubeSquare,
-    faTwitterSquare,
-    faInstagramSquare,
-    faTelegram,
-    faGithubSquare,
-    faMicrosoft,
-    faApple,
-    faLinux,
-    faTwitch,
-    faSteamSquare,
-    faDiscord,
     faAdd
   );
 
@@ -149,7 +123,7 @@ const Footer = () => {
           : null}
         <div className="card new" onClick={createCard}>
           {!cardMake ? (
-            <Faw icon="add" className="add-icon" />
+            <Add icon="add" className="add-icon" />
           ) : (
             <SocialCardEditor
               icon={"facebook"}
@@ -157,7 +131,6 @@ const Footer = () => {
               url={""}
               iconList={iconNames}
               title={"créer"}
-              faw={Faw}
               action={cardActions}
             />
           )}
