@@ -6,15 +6,15 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "./ui";
 import { clearData, setUrl } from "./redux/reducers/ajaxSlice";
-import { Pages, Settings, Articles, Login, Footer } from "./pages";
+import { Pages, Settings, Articles, Login, Social } from "./pages";
 
 const Layout = () => {
   const url = useSelector(state => state.ajax.url);
   const nav = useNavigate();
   const dispatch = useDispatch();
   const Menu = [
-    { name: "Parametres", path: "/", Page: Settings },
-    { name: "Footer", path: "/footer", Page: Footer },
+    { name: "Paramètres", path: "/", Page: Settings },
+    { name: "Social", path: "/social", Page: Social },
     { name: "Pages", path: "/pages", Page: Pages },
     { name: "Articles", path: "/articles", Page: Articles },
   ];

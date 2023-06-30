@@ -10,7 +10,7 @@ import { FontAwesomeIcon as Add } from "@fortawesome/react-fontawesome";
 import SocialCardEditor from "../ui/Inputs/SocialCardEditor";
 import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 
-const Footer = () => {
+const Social = () => {
   const axiosSet = useSelector(state => state.ajax.axios);
   const ajax = axios.create({ ...axiosSet, params: { page: "footer" } });
   const dispatch = useDispatch();
@@ -105,7 +105,7 @@ const Footer = () => {
     }
   };
   return (
-    <PagesContainer title="Pied de page" inDesign={false}>
+    <PagesContainer title="Socials" inDesign={false}>
       <div className="card-nav">
         {data
           ? data.map(({ name, icon, url, id, edit }, k) => (
@@ -140,4 +140,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Social;
