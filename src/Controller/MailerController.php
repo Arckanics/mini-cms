@@ -24,7 +24,7 @@ class MailerController extends AbstractController
       ->to("alexis.fritsch68@gmail.com")
       ->subject("Symfony Mailer")
       ->text("Cool")
-      ->html("<p>Symfony mailer</p>")
+      ->html($this->renderView('/email.html.twig'))
     ;
 
     $mailer->send($mail);
