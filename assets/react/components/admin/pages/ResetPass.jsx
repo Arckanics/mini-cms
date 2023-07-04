@@ -22,7 +22,7 @@ const ResetPass = () => {
   const notification = res => {
     
     const data =  res.data ? res.data : res.response.data ;
-    console.log(data);
+    
       dispatch(
         notify({
           type: data.type,
