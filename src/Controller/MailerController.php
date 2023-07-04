@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\ResetToken;
 use App\Functions\Entities\ExtEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 #[Route('/mini-admin', name: 'app_admin_base')]
 class MailerController extends AbstractController
@@ -26,7 +28,7 @@ class MailerController extends AbstractController
   }
 
   #[Route('/check-mail', name: 'app_admin_check_mail')]
-  public function checkMail(MailerInterface $mailer, Request $req, EntityManagerInterface $em): Response | JsonResponse
+  public function checkMail(MailerInterface $mailer, Request $req, EntityManagerInterface $em, TokenGeneratorInterface $token): Response | JsonResponse
   {
 
 
@@ -37,25 +39,35 @@ class MailerController extends AbstractController
     $data = json_decode($req->getContent());
 
 
-    // $mail = new Email(null,null);
-    // $mail
-    //   ->from("no-reply@mini-cms.fr")
-    //   ->to("alexis.fritsch68@gmail.com")
-    //   ->subject("Symfony Mailer")
-    //   ->text("Cool")
-    //   ->html($this->renderView('/email.html.twig'))
-    // ;
-
-    // $mailer->send($mail);
 
     $repo = $em->getRepository(Admin::class);
-
     $user = $repo->findOneBy(["email" => $data->email]);
 
     if ($user) {
+
+
+      $key = urlencode($token->generateToken());
+
+      // $mail = new Email(null,null);
+      // $mail
+      //   ->from("no-reply@mini-cms.fr")
+      //   ->to("alexis.fritsch68@gmail.com")
+      //   ->subject("Symfony Mailer")
+      //   ->text("Cool")
+      //   ->html($this->renderView('/email.html.twig'))
+      // ;
+
+      // $mailer->send($mail);
+
+      $reset_token = new ResetToken();
+      $reset_token->setUser($user);
+      $reset_token->setToken($key);
+      $em->persist($reset_token);
+      $em->flush();
+
       return $this->json([
         "msg" => "email envoyé !",
-        "type" => "success"
+        "type" => "success",
       ], 202);
     }
 
