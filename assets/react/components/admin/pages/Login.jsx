@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button, TxtLabelInput } from '../ui/Inputs'
 import { getToken } from '../Functions/Security'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUrl } from '../redux/reducers/ajaxSlice'
+import { setUrl, updateAccount } from '../redux/reducers/ajaxSlice'
 import { cleanPath } from '../../../Functions/app'
 import { notify, notifyClose } from '../redux/reducers/notificationSlice'
 import axios from 'axios'
@@ -13,13 +13,14 @@ const Login = () => {
   const nav = useNavigate()
   // redux - ajax
   const dispatch = useDispatch()
-  const XMLSet = useSelector((state) => state.ajax)
+  const XMLSet = useSelector(state => state.ajax)
+  const account = useSelector(state => state.ajax.account)
   const ajax = axios.create({...XMLSet.axios})
   // redux - Notification
   const lifetime = useSelector((state) => state.notification.life)
   // state
   const [state, setState] = useState({
-    email: null,
+    email: account && account.email,
     password: null,
     _token: getToken(),
   })
@@ -33,6 +34,7 @@ const Login = () => {
       ...state,
       [e.target.name]: e.target.value
     }))
+    e.target.name === "email" && dispatch(updateAccount({email: e.target.value}))
   }
 
   const handleSubmit = (e) => {
@@ -73,7 +75,11 @@ const Login = () => {
       <TxtLabelInput type="password" label="Mot de passe" id="password" value={password} placeholder="mot de passe..."
         inputCls='input-txt' labelCls='label' onChange={handleChange}
       />
+      <div className='sen-link px-2'>
+        <NavLink className='sen-link-txt end' to={`${XMLSet.navURL}/reset-pass`} >Mot de passe oublié ?</NavLink>
+      </div>
     </div>
+    
     <Button
       divCls='pt-1 p-4'
       btnCls='btn primary w-full'

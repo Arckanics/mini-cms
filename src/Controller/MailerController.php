@@ -13,7 +13,9 @@ class MailerController extends AbstractController
 {
   #[Route('/reset-pass', name: 'app_admin_reset_pass')]
   public function resetPass() : Response | JsonResponse {
-    return $this->json([]);
+    return $this->render("/admin/index.html.twig", [
+      "url" => "Reset Pass"
+    ]);
   }
 
   #[Route('/check-mail', name: 'app_admin_check_mail')]

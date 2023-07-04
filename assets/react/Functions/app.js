@@ -54,7 +54,7 @@ const endOfPath = (path) => {
 
 const updateTitle = (n) => {
   n = n.replace(/\//g, "")
-  document.title = `Mini-CMS -> ${(n.length > 0 ? capitalize(n) : "Settings")}`
+  document.title = `Mini-CMS -> ${(n.length > 0 || n !== "" ? capitalize(n) : "Settings")}`
   return;
 }
 

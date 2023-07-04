@@ -6,7 +6,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "./ui";
 import { clearData, setUrl } from "./redux/reducers/ajaxSlice";
-import { Pages, Settings, Articles, Login, Social } from "./pages";
+import { Pages, Settings, Articles, Login, Social, ResetPass } from "./pages";
 
 const Layout = () => {
   const url = useSelector(state => state.ajax.url);
@@ -25,14 +25,14 @@ const Layout = () => {
     location.pathname.match(/\/$/, "")
       ? nav(cleanPath(location.pathname))
       : undefined;
-    window.onbeforeunload = e => {
+    return window.onbeforeunload = e => {
       dispatch(clearData());
     };
   }, []);
 
   return (
     <section id="layout">
-      {!location.pathname.match(/login$/) ? (
+      {!location.pathname.match(/login$|reset-p/gi) ? (
         <>
           <Navbar Pages={Menu} />
           <Content menu={Menu} />
@@ -40,6 +40,7 @@ const Layout = () => {
       ) : (
         <Routes>
           <Route path="mini-admin/login" element={<Login />} />
+          <Route path="mini-admin/reset-pass" element={<ResetPass />} />
         </Routes>
       )}
       <Toast />

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Menu, Logout } from '../../icon/icon-ui/'
 import { FontAwesomeIcon as Faw } from '@fortawesome/react-fontawesome'
 import { NavLink, useLocation } from 'react-router-dom'
 import { updateTitle, endOfPath } from '../../Functions/app'
@@ -20,10 +19,10 @@ const Navbar = ({Pages}) => {
 
   useEffect(() => {
     updateTitle(endOfPath(location.pathname))
-    setTimeout(() => {
+    const animateNavBar = setTimeout(() => {
       setEnable(true)
     }, 50)
-
+    return () => clearTimeout(animateNavBar)
   }, [])
 
   const handleLogout = () => {
