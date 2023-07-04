@@ -5,10 +5,12 @@ import { TxtLabelInput } from '../ui/Inputs'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { updateAccount } from '../redux/reducers/ajaxSlice'
+import axios from 'axios'
 const ResetPass = () => {
 
   const XMLSet = useSelector(state => state.ajax)
   const email = useSelector(state => state.ajax.account.email)
+  const ajax = axios.create({...XMLSet.axios});
   const dispatch = useDispatch()
   useEffect(() => updateTitle('reset-pass'))
 
@@ -16,8 +18,13 @@ const ResetPass = () => {
     dispatch(updateAccount({email: e.target.value}))
   }
 
+  const requestReset = e => {
+    e.preventDefault()
+    ajax.get(`/check-mail`).then(res => {})
+  }
+
   return (
-    <form method="POST" id="reset-pass" className={'rounded-lg bg-white color-dark'} onSubmit={e => e.preventDefault()}>
+    <form method="POST" id="reset-pass" className={'rounded-lg bg-white color-dark'} onSubmit={requestReset}>
     <div className='form-title'>Réinitialisation</div>
     <div className='input-group-clear-outline'>
       <TxtLabelInput type="text" label="Compte(Email)" id="email" value={email} placeholder="adresse email..."
