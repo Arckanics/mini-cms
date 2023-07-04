@@ -8,6 +8,9 @@ export const ajaxSlice = createSlice({
     url: '',
     baseUrl: setBaseUrl('mini-admin'),
     navURL: "/mini-admin",
+    account: {
+      email: ""
+    },
     axios: {
       baseURL: setBaseUrl('mini-admin'),
       headers: {
@@ -20,6 +23,13 @@ export const ajaxSlice = createSlice({
     setUrl: (state, action) => {
       state.url = endOfPath(cleanPath(`${action.payload}`))
     },
+    updateAccount: (state, action) => {
+      const {email} = action.payload
+      return {
+        ...state,
+        account: {...state.account, email}
+      }
+    },
     pushData: (state, action) => {
       const { name, data } = action.payload
       state.data = {...state.data, [name]: data}
@@ -31,6 +41,6 @@ export const ajaxSlice = createSlice({
   }
 })
 
-export const { setUrl, pushData, clearData } = ajaxSlice.actions
+export const { setUrl, pushData, clearData, updateAccount } = ajaxSlice.actions
 
 export default ajaxSlice.reducer
