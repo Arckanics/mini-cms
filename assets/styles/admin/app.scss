@@ -611,7 +611,7 @@ body {
   @apply flex flex-nowrap justify-start overflow-hidden relative;
 }
 
-#login, #reset-pass {
+#login, #reset-pass, #new-pass {
   perspective: 1000px;
   transform: translateX(-50%) translateY(-50%);
   @apply duration-200 fixed overflow-auto top-1/2 left-1/2 p-1 pt-2;
@@ -754,8 +754,9 @@ body {
 }
 
 .sen-link {
+  @apply select-none;
   &-txt {
-    @apply block;
+    @apply block cursor-pointer;
     color:$primary;
     &.end {
       @apply text-right
