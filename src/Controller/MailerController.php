@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
@@ -87,9 +88,60 @@ class MailerController extends AbstractController
   }
 
   #[Route('/new-password', name: 'app_admin_new_password')]
-  public function newPassword(): Response | JsonResponse {
-    return $this->render("/admin/index.html.twig", [
-      "url" => "New Password"
-    ]);
+  public function newPassword(Request $req, EntityManagerInterface $em, UserPasswordHasherInterface $pHasher): Response | JsonResponse {
+    
+    
+    
+    if ($req->getMethod() == "GET") {
+      // token de l'email
+      $token = $req->query->get("token");
+      $reset_token = $em->getRepository(ResetToken::class)->findBy(['Token' => $token]);
+      if ($reset_token) {
+        return $this->render("/admin/index.html.twig", [
+          "url" => "New Password"
+        ]);
+      } else {
+        return $this->redirectToRoute("app_admin_baseapp_admin");
+      }
+    }
+    if ($req->getMethod() == "POST") {
+      // token de l'email
+      $token = $req->request->all()["token"];
+      
+      $repo = $em->getRepository(ResetToken::class);
+      $reset_token = $repo->findOneBy(['Token' => $token]);
+
+      if ($reset_token) {
+        // récupération de l'utilisateur
+        $user = $reset_token->getUser();
+        // nouveau mot de passe
+        $password = $req->request->all()["password"];
+
+        // hashing du mot de passe
+        $Hasher = $pHasher->hashPassword($user, $password);
+
+        // changement du mot passe
+        $user->setPassword($Hasher);
+        
+        // récupération des tokens lié à l'utilisateur
+        $user_tokens = $repo->findBy(["User" => $user]);
+
+        // suppression des tokens récuperé
+        foreach ($user_tokens as $u_token) {
+          $em->remove($u_token);
+        }
+
+        // sauvegarde dans la BDD
+        $em->flush();
+
+        return $this->json([
+          "token" => $Hasher,
+          "current" => $user->getPassword()
+        ]);
+      } 
+        return $this->redirectToRoute("app_admin_baseapp_admin");
+      
+    }
+    return $this->redirectToRoute("app_admin_baseapp_admin");
   }
 }
