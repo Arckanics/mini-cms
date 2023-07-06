@@ -85,4 +85,11 @@ class MailerController extends AbstractController
       "type" => "danger"
     ], 404);
   }
+
+  #[Route('/new-password', name: 'app_admin_new_password')]
+  public function newPassword(): Response | JsonResponse {
+    return $this->render("/admin/index.html.twig", [
+      "url" => "New Password"
+    ]);
+  }
 }
