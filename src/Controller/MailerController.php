@@ -48,25 +48,34 @@ class MailerController extends AbstractController
 
       $key = urlencode($token->generateToken());
 
-      // $mail = new Email(null,null);
-      // $mail
-      //   ->from("no-reply@mini-cms.fr")
-      //   ->to("alexis.fritsch68@gmail.com")
-      //   ->subject("Symfony Mailer")
-      //   ->text("Cool")
-      //   ->html($this->renderView('/email.html.twig'))
-      // ;
-
-      // $mailer->send($mail);
-
       $reset_token = new ResetToken();
       $reset_token->setUser($user);
       $reset_token->setToken($key);
       $em->persist($reset_token);
       $em->flush();
 
+      $email = $user->getEmail();
+      $host = $req->getHttpHost();
+      $token = $reset_token->getToken();
+      $httpState = $req->isSecure() ? "https" : "http";
+      
+
+      $url = "$httpState://$host/mini-admin/new-password?token=$token";
+
+      $mail = new Email(null,null);
+      $mail
+        ->from("no-reply@mini-cms.fr")
+        ->to($email)
+        ->subject("Symfony Mailer")
+        ->text($this->renderView('/emails/txt/reset.txt'))
+        ->html($this->renderView('/emails/html/reset.html.twig', ["reset" => $url]))
+      ;
+
+      $mailer->send($mail);
+
+
       return $this->json([
-        "msg" => "email envoyé !",
+        "msg" => "email envoyé ! \nvérifiez votre boîte mail ()",
         "type" => "success",
       ], 202);
     }
