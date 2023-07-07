@@ -23,7 +23,6 @@ class AdminSecurityController extends AbstractController
   
     $lastUsername = $authenticationUtils->getLastUsername();
     if (!$request->isXmlHttpRequest()) {
-      
       if ($this->getUser()) {
         $response = $this->redirectToRoute('app_admin_baseapp_admin');
         return $response;
