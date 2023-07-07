@@ -1,25 +1,65 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Button, TxtLabelInput } from '../ui/Inputs'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const NewPassword = () => {
 
+  // form
+  const [token, setToken] = useState(null)
   const [passwords, setPasswods] = useState({first:"",second:""})
-  const [viewPass, setViewPass] = useState(false)
-  const progressColor = ['#FA4C4C', '#E27645', '#CBA03E', '#B3C937', '#9BF330']
-  const [secLevel, setSecLevel] = useState(0)
-  const [toggleSend, setToggleSend] = useState(false)
-  const requestNPassword = e => {e.preventDefault()}
   const {first,second} = passwords
 
+  // view password
+  const [viewPass, setViewPass] = useState(false)
+
+  // view security level
+  const progressColor = ['#FA4C4C', '#E27645', '#CBA03E', '#B3C937', '#9BF330']
+  const [secLevel, setSecLevel] = useState(0)
+
+  // btn disabled state
+  const [toggleSend, setToggleSend] = useState(false)
+
+  // location
+  const nav = useNavigate()
+
+  // axios setup
+  let controller;
+  const requestNPassword = e => {
+    e.preventDefault()
+
+    // annule la requête en cours
+    if (controller) controller.abort()
+
+    controller = new AbortController()
+    const signal = controller.signal
+    
+    axios.post('/mini-admin/new-password', {
+      password : first,
+      token : token
+    },{
+      signal: signal
+    })
+    .then(r => {
+      nav('/mini-admin/login', {
+        replace: true
+      })
+      window.location.reload()
+    })
+  }
+
+  // set progress width
   const progressWidth = () => {
     const actual = 100 / (progressColor.length - 1) * secLevel
     return actual < 1 ? 1 : actual
   }
 
-  useEffect(() => {
+
+  // security level state
+  const securityStates = () => {
     const {first, second} = passwords
     let securityCheck = 0
 
@@ -39,16 +79,35 @@ const NewPassword = () => {
     // set states
     setSecLevel(securityCheck)
     setToggleSend(() => (securityCheck > 0 && first === second))
+  }
+
+  
+
+
+  // get token on load
+  useEffect(() => {
+    !token
+    ? (()=>{
+      let url = window.location
+      let url_token = new URLSearchParams(url.search).get('token')
+      setToken(url_token)
+    })()
+    : null
+  }, [token])
+
+  // security level state on input changes
+  useEffect(() => {
+    securityStates()
   }, [first, second])
   
+
+
 
   const handleChange = e => {
     setPasswods({
       ...passwords,
       [e.target.name] : e.target.value
     })
-
-    console.log((first == second && first.length >= 6));
   }
 
   

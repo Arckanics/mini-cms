@@ -105,8 +105,9 @@ class MailerController extends AbstractController
       }
     }
     if ($req->getMethod() == "POST") {
+      $content = json_decode($req->getContent());
       // token de l'email
-      $token = $req->request->all()["token"];
+      $token = $content->token;
       
       $repo = $em->getRepository(ResetToken::class);
       $reset_token = $repo->findOneBy(['Token' => $token]);
@@ -115,7 +116,7 @@ class MailerController extends AbstractController
         // récupération de l'utilisateur
         $user = $reset_token->getUser();
         // nouveau mot de passe
-        $password = $req->request->all()["password"];
+        $password = $content->password;
 
         // hashing du mot de passe
         $Hasher = $pHasher->hashPassword($user, $password);
@@ -134,10 +135,6 @@ class MailerController extends AbstractController
         // sauvegarde dans la BDD
         $em->flush();
 
-        return $this->json([
-          "token" => $Hasher,
-          "current" => $user->getPassword()
-        ]);
       } 
         return $this->redirectToRoute("app_admin_baseapp_admin");
       
