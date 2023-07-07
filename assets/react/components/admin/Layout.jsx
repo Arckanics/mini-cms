@@ -20,7 +20,6 @@ const Layout = () => {
   ];
 
   useEffect(() => {
-    console.log();
     url === "" ? dispatch(setUrl("")) : null;
     location.pathname.match(/\/$/, "")
       ? nav(cleanPath(location.pathname))

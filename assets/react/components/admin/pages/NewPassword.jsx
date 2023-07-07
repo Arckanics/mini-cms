@@ -56,7 +56,7 @@ const NewPassword = () => {
         </div>
       </div>
 
-      <Button divCls="pt-1 p-4" btnCls="btn primary w-full" >
+      <Button divCls="pt-1 p-4" btnCls="btn primary w-full" disabled={!(first == second && first.length > 6)}>
         Envoyer
       </Button>
     </form>
