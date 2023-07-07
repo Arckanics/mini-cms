@@ -1,0 +1,8 @@
+
+
+.progress-bar {
+  @apply h-1 rounded-full bg-stone-200 shadow-sm relative overflow-hidden;
+  & > .track {
+    @apply absolute h-full left-0 top-0 duration-300;
+  }
+}

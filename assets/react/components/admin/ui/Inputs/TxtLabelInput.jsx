@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function TxtLabelInput({ id, value, label, placeholder, type, inputCls, divCls = 'input-wrap p-2', labelCls = 'block p-2', onChange }) {
+function TxtLabelInput({ id, value, label, placeholder, type, inputCls, divCls = 'input-wrap p-2', labelCls = 'block p-2', onChange, autoComplete = null }) {
 
   return (
     <div className={divCls}>
@@ -11,7 +11,7 @@ function TxtLabelInput({ id, value, label, placeholder, type, inputCls, divCls =
       }
       <input type={type} id={id} className={inputCls} 
       name={id} value={value ? value : ""} 
-      onChange={onChange} placeholder={placeholder} />
+      onChange={onChange} placeholder={placeholder} autoComplete={autoComplete} />
     </div>
   )
 }
