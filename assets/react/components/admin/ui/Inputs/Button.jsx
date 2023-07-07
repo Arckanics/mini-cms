@@ -1,17 +1,14 @@
 import React, { createRef, useEffect } from 'react'
 
-const Button = ({ children, btnCls, divCls, click, disabled = false }) => {
+const Button = ({ children, btnCls, divCls, click, disabled }) => {
 
-  const btnRef = createRef()
-
-  useEffect(() => {
-    btnRef.current.disabled = disabled
-    return () => btnRef = null
-  },[])
 
   return (
     <div className={divCls}>
-      <button className={btnCls} onClick={click} ref={btnRef}>{ children }</button>
+      { disabled 
+        ? <button className={btnCls} onClick={click} disabled>{ children }</button>
+        : <button className={btnCls} onClick={click} >{ children }</button>
+      }
     </div>
   )
 }
