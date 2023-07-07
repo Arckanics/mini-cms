@@ -6,7 +6,6 @@ const Button = ({ children, btnCls, divCls, click, disabled = false }) => {
 
   useEffect(() => {
     btnRef.current.disabled = disabled
-    console.log(btnRef.current);
     return () => btnRef = null
   },[])
 
