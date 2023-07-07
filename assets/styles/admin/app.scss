@@ -265,7 +265,7 @@ $warning: hsl(44,102%,62%);
   svg {
     fill: white;
   }
-  box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.3);
+  box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.7);
   outline: solid transparent 2px;
   outline-offset: -2px;
 
@@ -441,9 +441,7 @@ $warning: hsl(44,102%,62%);
 }
 
 .btn {
-  padding: 10px;
-  transition: 150ms;
-  @apply block p-3 text-lg cursor-pointer text-center rounded-md;
+  @apply block p-3 text-lg cursor-pointer text-center rounded-md duration-150;
   
   &.icon-btn {
     @apply p-1 px-4 shadow-md max-w-fit rounded-xl flex;
@@ -512,6 +510,12 @@ $warning: hsl(44,102%,62%);
     @include btnWhiteDark(whitesmoke);
   }
 
+  &[disabled] {
+    @apply bg-stone-400 shadow-transparent cursor-wait;
+    &:hover {
+      @apply bg-stone-400 outline-none text-white #{!important};
+    }
+  }
   
 }
 

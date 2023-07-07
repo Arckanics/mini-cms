@@ -10,7 +10,9 @@ const NewPassword = () => {
   const [viewPass, setViewPass] = useState(false)
   const progressColor = ['#FA4C4C', '#E27645', '#CBA03E', '#B3C937', '#9BF330']
   const [secLevel, setSecLevel] = useState(0)
+  const [toggleSend, setToggleSend] = useState(false)
   const requestNPassword = e => {e.preventDefault()}
+  const {first,second} = passwords
 
   const progressWidth = () => {
     const actual = 100 / (progressColor.length - 1) * secLevel
@@ -18,7 +20,7 @@ const NewPassword = () => {
   }
 
   useEffect(() => {
-    const {first} = passwords
+    const {first, second} = passwords
     let securityCheck = 0
 
     // longueur
@@ -34,9 +36,10 @@ const NewPassword = () => {
 
     first.match(/\W/g) && securityCheck++
 
-
+    // set states
     setSecLevel(securityCheck)
-  }, [passwords.first])
+    setToggleSend(() => (securityCheck > 0 && first === second))
+  }, [first, second])
   
 
   const handleChange = e => {
@@ -44,9 +47,11 @@ const NewPassword = () => {
       ...passwords,
       [e.target.name] : e.target.value
     })
+
+    console.log((first == second && first.length >= 6));
   }
 
-  const {first,second} = passwords
+  
   return (
     <form
       method="POST"
@@ -97,7 +102,7 @@ const NewPassword = () => {
         </div>
       </div>
 
-      <Button divCls="pt-1 p-4" btnCls="btn primary w-full" disabled={!(first == second && first.length >= 6)}>
+      <Button divCls="pt-1 p-4" btnCls="btn primary w-full" disabled={!toggleSend}>
         Envoyer
       </Button>
     </form>
