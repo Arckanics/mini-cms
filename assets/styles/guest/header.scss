@@ -9,9 +9,9 @@
   
 
   #logo {
-    @apply max-h-[5rem] flex w-auto shrink;
+    @apply max-h-[5rem] flex w-auto shrink-0;
     .logo-img {
-      @apply h-full;
+      @apply h-full aspect-auto;
     }
   }
 
