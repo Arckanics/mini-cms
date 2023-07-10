@@ -9,7 +9,7 @@ import SocialCard from "./SocialCard";
 import SocialCardEditor from "./SocialCardEditor";
 import SwitchInput from "./SwitchInput";
 import TxtLabelInput from "./TxtLabelInput";
-import IconSelector from "./iconSelector";
+import IconSelector from "./IconSelector";
 export {
   Button,
   Checkbox,
