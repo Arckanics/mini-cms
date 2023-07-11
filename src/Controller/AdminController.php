@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use App\Functions\Entities\ExtEntityManager;
+use App\Functions\Entities;
 use DateTime;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -112,21 +112,21 @@ class AdminController extends AbstractController
       switch ($body['page']) {
         case 'pages':
           $pages = $em->getRepository(Pages::class);
-          $gem = new ExtEntityManager($pages, Pages::class, $em);
+          $gem = new Entities($pages, Pages::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'articles':
           $article = $em->getRepository(Articles::class);
-          $gem = new ExtEntityManager($article, Articles::class, $em);
+          $gem = new Entities($article, Articles::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'footer':
           $social = $em->getRepository(Social::class);
-          $gem = new ExtEntityManager($social, Social::class, $em);
+          $gem = new Entities($social, Social::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'settings':
         default:
           $res = $em->getRepository(Settings::class)->find(1);
           $Pages = $em->getRepository(Pages::class);
-          $gem = new ExtEntityManager($Pages, Pages::class, $em);
+          $gem = new Entities($Pages, Pages::class, $em);
           return new JsonResponse([
             'Author' => $res->getMetaAuthor(),
             'Description' => $res->getMetaDesc(),
@@ -155,7 +155,7 @@ class AdminController extends AbstractController
           $page->setSort(count($pages->findAll()));
           $em->persist($page);
           $em->flush();
-          $gem = new ExtEntityManager($pages, Pages::class, $em);
+          $gem = new Entities($pages, Pages::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'articles':
           $createdAt = new DateTimeImmutable("now");
@@ -171,7 +171,7 @@ class AdminController extends AbstractController
           $article->setTitle($data["title"]);
           $em->persist($article);
           $em->flush();
-          $gem = new ExtEntityManager($articles, Articles::class, $em);
+          $gem = new Entities($articles, Articles::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'footer':
           $social = new Social();
@@ -180,13 +180,13 @@ class AdminController extends AbstractController
           $social->setUrl($data["url"]);
           $em->persist($social);
           $em->flush();
-          $gem = new ExtEntityManager($socials, Social::class, $em);
+          $gem = new Entities($socials, Social::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'settings':
         default:
           $res = $em->getRepository(Settings::class)->find(1);
           $Pages = $em->getRepository(Pages::class);
-          $gem = new ExtEntityManager($Pages, Pages::class, $em);
+          $gem = new Entities($Pages, Pages::class, $em);
           return new JsonResponse([
             'Author' => $res->getMetaAuthor(),
             'Description' => $res->getMetaDesc(),
@@ -204,7 +204,7 @@ class AdminController extends AbstractController
       $socials = $em->getRepository(Social::class);
       switch ($body['where']) {
         case 'pages':
-          $gem = new ExtEntityManager($pages, Pages::class, $em);
+          $gem = new Entities($pages, Pages::class, $em);
           $page = $pages->find($data['id']);
           $page->setUrl($data['url']);
           $page->setTitle($data['title']);
@@ -221,7 +221,7 @@ class AdminController extends AbstractController
           $article->setSort($data["sort"]);
           $article->setTitle($data["title"]);
           $em->flush();
-          $gem = new ExtEntityManager($articles, Articles::class, $em);
+          $gem = new Entities($articles, Articles::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'footer':
           $social = $socials->find($data["id"]);
@@ -229,7 +229,7 @@ class AdminController extends AbstractController
           $social->setIcon($data["icon"]);
           $social->setUrl($data["url"]);
           $em->flush();
-          $gem = new ExtEntityManager($socials, Social::class, $em);
+          $gem = new Entities($socials, Social::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'settings':
         default:
@@ -240,7 +240,7 @@ class AdminController extends AbstractController
           $settings->setMetaSiteName($data["SiteName"]);
           $settings->setLogo($data["logo"]);
           $em->flush();
-          $gem = new ExtEntityManager($pages, Pages::class, $em);
+          $gem = new Entities($pages, Pages::class, $em);
           return new JsonResponse([
             'Author' => $settings->getMetaAuthor(),
             'Description' => $settings->getMetaDesc(),
@@ -273,24 +273,24 @@ class AdminController extends AbstractController
           }
           $em->remove($page);
           $em->flush();
-          $gem = new ExtEntityManager($pages, Pages::class, $em);
+          $gem = new Entities($pages, Pages::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'articles':
           $article = $articles->find($data->data);
           $em->remove($article);
           $em->flush();
-          $gem = new ExtEntityManager($articles, Articles::class, $em);
+          $gem = new Entities($articles, Articles::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'footer':
           $social = $socials->find($data->data);
           $em->remove($social);
           $em->flush();
-          $gem = new ExtEntityManager($socials, Social::class, $em);
+          $gem = new Entities($socials, Social::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         default:
           $res = $em->getRepository(Settings::class)->find(1);
           $Pages = $em->getRepository(Pages::class);
-          $gem = new ExtEntityManager($Pages, Pages::class, $em);
+          $gem = new Entities($Pages, Pages::class, $em);
           return new JsonResponse([
             'Author' => $res->getMetaAuthor(),
             'Description' => $res->getMetaDesc(),
