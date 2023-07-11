@@ -1,5 +1,5 @@
 #navigation {
-  @apply flex items-end max-h-max shrink-0;
+  @apply flex items-end max-h-max shrink-0 p-2;
   .wrapper {
     @apply space-x-3 flex gap-4 select-none justify-items-end;
 
