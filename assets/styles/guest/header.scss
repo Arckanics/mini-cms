@@ -3,13 +3,13 @@
   box-shadow: 0px 30px 15px -30px $darkshadow;
   
   .header-container {
-    @apply container flex justify-between mx-auto p-6;
+    @apply container flex justify-between mx-auto p-2;
   }
 
   
 
   #logo {
-    @apply max-h-[5rem] min-h-[3rem] flex flex-col justify-center w-auto shrink-0;
+    @apply max-h-[5rem] min-h-[3rem] flex flex-col justify-center w-auto shrink-0 aspect-square;
     .logo-img {
       @apply block min-h-[2.5rem];
       aspect-ratio: 1/1;
