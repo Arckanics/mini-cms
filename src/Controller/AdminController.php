@@ -308,7 +308,7 @@ class AdminController extends AbstractController
   {
     $path = '/uploads/img';
     $uploaded = $req->files->get("image");
-    $destination = $this->getParameter('kernel.project_dir') . '\/public\/' . $path;
+    $destination = $this->getParameter('kernel.project_dir') . '/public' . $path;
     $name = "[" . uniqid() . "]-" . $uploaded->getClientOriginalName();
     $uploaded->move($destination, $name);
     return $this->json([
