@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Functions\Entities;
+namespace App\Functions;
 use App\Entity\Articles;
 use App\Entity\Pages;
 use App\Entity\Settings;
-class ExtEntityManager {
+class Entities {
   private $repo;
   private $entity;
 

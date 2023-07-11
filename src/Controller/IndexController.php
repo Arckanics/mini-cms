@@ -6,7 +6,7 @@ use App\Entity\Articles;
 use App\Entity\Pages;
 use App\Entity\Settings;
 use App\Entity\Social;
-use App\Functions\Entities\ExtEntityManager;
+use App\Functions\Entities;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,7 +40,7 @@ class IndexController extends AbstractController
             ]);
         case "socials":
           $repo = $em->getRepository(Social::class);
-          $gem = new ExtEntityManager($repo, Social::class, $em);
+          $gem = new Entities($repo, Social::class, $em);
           return $this->json($gem->exportData(),200);
         default:
           break;
