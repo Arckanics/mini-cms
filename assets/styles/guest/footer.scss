@@ -1,10 +1,12 @@
 #footer {
-  @apply w-full py-2 shadow-2xl;
-  border-top: 2px solid darken($color: $yellow, $amount: 5);
+  @apply w-1/2 py-2 shadow-2xl m-auto mr-0 rounded-t-2xl absolute;
+  @apply bottom-0 left-1/2 w-1/2 min-w-fit -translate-x-1/2 bg-stone-100;
+  $outline: darken($color: $secondary, $amount: 5);
+  outline: 1px solid transparentize($color: $outline, $amount: .8);
 
   .footer-container {
     @apply container mx-auto flex justify-between items-center px-3;
-    color: $darkyellow;
+    color: $outline;
   }
 
   .socials {
@@ -51,9 +53,9 @@
 
 @media (prefers-color-scheme: dark) {
   #footer {
-    border-top: 1px solid $yellow;
+    @apply bg-stone-800;
     .footer-container {
-      color: $yellow;
+      color: $secondary;
     }
   }
 }

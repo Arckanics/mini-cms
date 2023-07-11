@@ -2,23 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+$primary : hsl(11, 69%, 49%);
+$secondary : hsl(191, 69%, 49%);
+$dark : hsl(185, 43%, 15%);
+$light : hsl(12, 12%, 90%);
+
 $yellow: hsl(44,81%,57%);
 $darkyellow: darken($color: $yellow, $amount: 45%);
-$secondary: hsl(164, 81%, 44%);
 
 // global
 html {
-  @apply font-sans bg-stone-200 text-stone-900;
+  @apply font-sans bg-stone-100 text-stone-900;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
-    @apply bg-stone-800 text-stone-200;
+    @apply bg-stone-800 text-stone-100;
   }
 }
 
 #root {
-  @apply max-w-[100vw] h-[100vh];
+  @apply max-w-[100vw] h-[100vh] relative;
   @apply flex flex-col flex-nowrap overflow-hidden;
 }
 
