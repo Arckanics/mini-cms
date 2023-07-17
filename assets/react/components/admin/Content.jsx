@@ -2,22 +2,24 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 const Content = ({ menu, children }) => {
-  const routes = menu ? menu : undefined
+  const routes = menu ? menu : undefined;
 
   return (
-    <section id="content">
-      {children}
-      {routes ? (
-        <Routes>
-          {routes.map(({ path, Page }, i) => (
-            <Route
-              key={i}
-              path={`mini-admin${path}`}
-              element={<Page url={path} />}
-            />
-          ))}
-        </Routes>
-      ) : null}
+    <>
+      <section id="content">
+        {children}
+        {routes ? (
+          <Routes>
+            {routes.map(({ path, Page }, i) => (
+              <Route
+                key={i}
+                path={`mini-admin${path}`}
+                element={<Page url={path} />}
+              />
+            ))}
+          </Routes>
+        ) : null}
+      </section>
       <footer id="admin-footer">
         <div className="link-group">
           <div className="link-prev">Créateur : </div>
@@ -39,7 +41,7 @@ const Content = ({ menu, children }) => {
           </a>
         </div>
       </footer>
-    </section>
+    </>
   );
 };
 

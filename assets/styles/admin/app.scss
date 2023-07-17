@@ -606,14 +606,21 @@ body {
 #layout {
   background-color: $light;
   position: relative;
-  height: 100vh;
+  height: 100dvh;
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   padding: 10px;
   gap: 10px;
   box-shadow: 0 0 8px 0 $light;
-  @apply flex flex-nowrap justify-start overflow-hidden relative;
+  @apply overflow-hidden relative;
+  display: grid;
+  grid-template-areas: 
+    "nav content"
+    "nav footer"
+  ;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr 50px;
 }
 
 #login, #reset-pass, #new-pass {
@@ -642,8 +649,9 @@ body {
   @apply relative duration-200 text-white 
     my-0 mx-auto rounded-md flex
     flex-col justify-between
-    max-w-[200px] min-w-[190px]
+    w-full
     ;
+  grid-area: nav;
   background-color: $primary;
   box-shadow: 0 0 8px 0 hsla(11, 69%, 30%, .6);
 
@@ -794,12 +802,12 @@ body {
 #content {
   width: 100%;
   height: 100%;
-  gap: 10px;
+  grid-area: content;
   @apply flex flex-col;
 
   .content-full {
     height: 100%;
-    @apply p-2 flex flex-col overflow-hidden relative;
+    @apply p-2 flex flex-col gap-2 overflow-hidden relative;
 
     .content-nav {
       height: 100%;
@@ -893,6 +901,8 @@ body {
   background-color: whitesmoke;
   box-shadow: 0 0 8px 0 transparentize($color: $primary, $amount: .8);
   @apply text-lg p-3 rounded-lg flex justify-between shrink-0;
+  @apply max-h-fit;
+  grid-area: footer;
 }
 
 // Animation class Classes
