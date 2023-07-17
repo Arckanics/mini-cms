@@ -135,11 +135,21 @@
   }
 
   #layout {
-    @apply flex-col p-1 gap-1;
+    @apply h-[100vh] max-h-[100vh];
+    @apply gap-1 p-1 h-[100dvh] max-h-[100dvh];
+    grid-template-areas: 
+      "nav"
+      "content"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px calc(100% - 118px) 50px;
   }
 
   #content {
-    @apply gap-1;
+    @apply h-full shrink;
+    .content-full {
+      @apply shrink p-1 gap-1;
+    }
   }
 
   #navbar {
