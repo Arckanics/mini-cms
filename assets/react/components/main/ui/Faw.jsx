@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faFacebookSquare,
@@ -16,6 +16,21 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+library.add(
+  faFacebookSquare,
+  faYoutubeSquare,
+  faTwitterSquare,
+  faInstagramSquare,
+  faTelegram,
+  faGithubSquare,
+  faMicrosoft,
+  faApple,
+  faLinux,
+  faTwitch,
+  faSteamSquare,
+  faDiscord,
+);
+
 export const Faw = ({icon, cls}) => {
   const iconNames = {
     facebook: "fa-square-facebook",
@@ -32,20 +47,26 @@ export const Faw = ({icon, cls}) => {
     discord: "fa-discord",
   };
 
-  library.add(
-    faFacebookSquare,
-    faYoutubeSquare,
-    faTwitterSquare,
-    faInstagramSquare,
-    faTelegram,
-    faGithubSquare,
-    faMicrosoft,
-    faApple,
-    faLinux,
-    faTwitch,
-    faSteamSquare,
-    faDiscord,
-  );
+  useEffect(() => {
+    library.add(
+      faFacebookSquare,
+      faYoutubeSquare,
+      faTwitterSquare,
+      faInstagramSquare,
+      faTelegram,
+      faGithubSquare,
+      faMicrosoft,
+      faApple,
+      faLinux,
+      faTwitch,
+      faSteamSquare,
+      faDiscord,
+    );
+    return () => {
+      library.reset()
+    }
+  }, [])
+
   return (
     <FontAwesomeIcon icon={"fa-brands "+iconNames[icon]} className={cls} />
   )
