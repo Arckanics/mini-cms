@@ -1,5 +1,5 @@
 .card-nav {
-  @apply relative grid;
+  @apply relative grid overflow-auto;
   grid-template-columns: repeat(auto-fill, 12rem);
   grid-template-rows: repeat(auto-fill, 18rem);
 
@@ -71,4 +71,25 @@
     }
   }
   
+}
+
+@media screen and (max-width: 1084px) {
+  .card-nav {
+    @apply relative grid justify-center;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .card {
+      &.edit-mode {
+        @apply absolute z-30 m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3;
+        background-color: white;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .card-nav {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(18rem);
+  }
 }
