@@ -49,7 +49,7 @@ const IconSelector = ({ cls, list, active, children, action }) => {
         <Faw icon={landing} cls="icon-value" />
         <Expand cls="icon indicate" />
       </div>
-      {!toggle ? (
+      {toggle ? (
         <div className="opt-wrapper">
           {Object.entries(list).map(([key, icon], k) => (
             
