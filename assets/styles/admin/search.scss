@@ -96,3 +96,34 @@
     }
   }
 }
+
+@media screen and (max-width: 760px) {
+  .content-nav {
+    &-header {
+      @apply justify-around;
+      .header-field {
+        &.mobile {
+          display: none!important;
+        }
+      }
+    }
+    &-search {
+      @apply justify-around;
+      .search-field {
+        &.mobile {
+          display: none!important;
+        }
+      }
+    }
+    .content-inner {
+      .header-field, .row-field, .search-field {
+        &.mobile {
+          display: none!important;
+        }
+      }
+      .content-row {
+        @apply justify-around;
+      }
+    }
+  }
+}

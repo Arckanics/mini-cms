@@ -135,9 +135,9 @@ const Pages = () => {
   };
 
   const header = [
-    { tag: "title", name: "titre", draw: "string", colSize: 4 },
-    { tag: "sort", name: "ordre", draw: "number", colSize: "1-5" },
-    { tag: "settings", name: "landing", draw: "bool", colSize: 2 },
+    { tag: "title", name: "titre", draw: "string", colSize: 4, mobile: true },
+    { tag: "sort", name: "ordre", draw: "number", colSize: "1-5", mobile: false },
+    { tag: "settings", name: "landing", draw: "bool", colSize: 2, mobile: true },
   ];
 
   return (

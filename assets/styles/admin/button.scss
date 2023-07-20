@@ -1,0 +1,306 @@
+@mixin btnSetting($color) {
+  
+  background-color: $color;
+  color: white;
+  svg {
+    fill: white;
+  }
+  box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.7);
+  outline: solid transparent 2px;
+  outline-offset: -2px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible,
+  &.toggle {
+    &:not(.static) {
+      background-color: whitesmoke;
+      outline-color: $color;
+      color: $color;
+      svg {
+        fill: $color;
+      }
+    }
+  }
+}
+
+@mixin btnWhiteDark($color) {
+  background-color: $color;
+  color: invert($color: $color);
+  svg {
+    fill: invert($color: $color);
+  }
+  outline: solid transparent 2px;
+  outline-offset: -2px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background-color: invert($color: $color);
+    outline-color: $color;
+    color: $color;
+    svg {
+      fill: $color;
+    }
+  }
+
+  &.primary {
+    color: $primary;
+    background-color: mix($color, $primary, 92%);
+    outline-color: transparentize($color: $primary, $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $primary;
+      svg {
+        fill: $primary;
+      }
+    }
+  }
+
+  &.secondary {
+    color: $secondary;
+    background-color: mix($color, $secondary, 92%);
+    outline-color: transparentize($color: $secondary , $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $secondary;
+      svg {
+        fill: $secondary;
+      }
+    }
+  }
+
+  &.success {
+    color: $success;
+    background-color: mix($color, $success, 92%);
+    outline-color: transparentize($color: $success , $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $success;
+      svg {
+        fill: $success;
+      }
+    }
+  }
+}
+
+@mixin btnSettingOutline($color) {
+  
+  background-color: white;
+  color: $color;
+  svg {
+    fill: $color;
+  }
+  @apply shadow;
+  outline: solid $color 1px;
+  outline-offset: -1px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible,
+  &.toggle {
+    background-color: $color;
+    outline-color: $color;
+    color: whitesmoke;
+    svg {
+      fill: whitesmoke;
+    }
+  }
+}
+
+@mixin btnWhiteDarkOutline($color) {
+  background-color: invert($color: $color);
+  color: $color;
+  svg {
+    fill: $color;
+  }
+  outline: solid transparent 2px;
+  outline-offset: -2px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background-color: $color ;
+    outline-color: $color;
+    color: invert($color: $color);
+    svg {
+      fill: invert($color: $color);
+    }
+  }
+
+  &.primary {
+    color: $primary;
+    background-color: mix($color, $primary, 92%);
+    outline-color: transparentize($color: $primary, $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $primary;
+      svg {
+        fill: $primary;
+      }
+    }
+  }
+
+  &.secondary {
+    color: $secondary;
+    background-color: mix($color, $secondary, 92%);
+    outline-color: transparentize($color: $secondary , $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $secondary;
+      svg {
+        fill: $secondary;
+      }
+    }
+  }
+
+  &.success {
+    color: $success;
+    background-color: mix($color, $success, 92%);
+    outline-color: transparentize($color: $success , $amount: 0.7);
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      background-color: $color;
+      outline-color: $success;
+      svg {
+        fill: $success;
+      }
+    }
+  }
+}
+
+.btn {
+  @apply block p-3 text-lg cursor-pointer text-center rounded-md duration-150;
+  
+  &.icon-btn {
+    @apply p-1 px-4 shadow-md max-w-fit rounded-xl flex;
+    background-color: white;
+
+    .icon {
+      @apply w-8;
+    }
+  }
+
+  .icon {
+    @apply m-auto;
+  }
+
+  &.btn-outline {
+    &.primary {
+      @include btnSettingOutline($primary);
+    }
+  
+    &.secondary {
+      @include btnSettingOutline($secondary);
+    }
+  
+    &.grey {
+      @include btnSettingOutline(desaturate($color: $secondary, $amount: 50%));
+    }
+  
+    &.success {
+      @include btnSettingOutline($success);
+    }
+  
+    &.danger {
+      @include btnSettingOutline($negative);
+    }
+  
+    &.white {
+      @include btnWhiteDarkOutline(whitesmoke);
+    }
+  }
+
+  &.primary {
+    @include btnSetting($primary);
+  }
+
+  &.secondary {
+    @include btnSetting($secondary);
+  }
+
+  &.info {
+    @include btnSetting($info);
+  }
+
+  &.grey {
+    @include btnSetting(desaturate($color: $secondary, $amount: 50%));
+  }
+
+  &.success {
+    @include btnSetting($success);
+  }
+
+  &.danger {
+    @include btnSetting($negative);
+  }
+
+  &.white {
+    @include btnWhiteDark(whitesmoke);
+  }
+
+  &[disabled] {
+    @apply bg-stone-400 shadow-transparent cursor-wait;
+    &:hover {
+      @apply bg-stone-400 outline-none text-white #{!important};
+    }
+  }
+}
+
+.btn-group {
+  @apply flex justify-items-stretch gap-2 w-full;
+
+  .btn {
+    @apply grow w-full rounded-sm;
+    &:first-child {
+      @apply rounded-l-lg;
+    }
+    &:last-child {
+      @apply rounded-r-lg;
+    }
+  }
+
+}
+
+@mixin btnNav($color) {
+  transition: 150ms;
+  @apply block p-1 rounded-md text-base;
+  background-color: inherit;
+  color: $color;
+  svg {
+    transition: 150ms;
+    fill: transparentize($color: $color, $amount: 0.6);
+  }
+  box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.8);
+  outline: solid transparentize($color: $color, $amount: 0.8) 1px;
+  outline-offset: -1px;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    background-color: white;
+    outline-color: $color;
+    color: $color;
+    svg {
+      fill: $color;
+    }
+  }
+}
+
+.btn-nav {
+  @apply cursor-pointer;
+  &.primary {
+    @include btnNav($primary);
+  }
+}

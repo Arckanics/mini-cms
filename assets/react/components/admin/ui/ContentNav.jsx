@@ -94,12 +94,12 @@ const ContentNav = ({ header, data, update, remove, create }) => {
   const basicRender = data =>
     data.map((field, k) => (
       <div key={k} className="content-row">
-        {header.map(({ tag, draw, colSize }, k) => (
-          <div key={k} className={`row-field colsize-${colSize}`}>
+        {header.map(({ tag, draw, colSize, mobile }, k) => (
+          <div key={k} className={`row-field colsize-${colSize}` + (!mobile ? ' mobile' : '')}>
             {setView(field[tag], draw, tag)}
           </div>
         ))}
-        <div className={`row-field action-field colsize-2`}>
+        <div className={`row-field action-field colsize-2 mobile`}>
           <ActionsRow
             id={k}
             update={() => update(field.id)}
@@ -156,12 +156,12 @@ const ContentNav = ({ header, data, update, remove, create }) => {
 
       return (
         <div key={k} className="content-row">
-          {header.map(({ tag, draw, colSize }, k) => (
-            <div key={k} className={`row-field colsize-${colSize}`}>
+          {header.map(({ tag, draw, colSize, mobile }, k) => (
+            <div key={k} className={`row-field colsize-${colSize}` + (!mobile ? ' mobile' : '')}>
               {setView(field[tag], draw, tag)}
             </div>
           ))}
-          <div className={`row-field action-field colsize-2`}>
+          <div className={`row-field action-field colsize-2 mobile`}>
             <ActionsRow id={k} update={() => update(field.id)} />
           </div>
         </div>
@@ -182,11 +182,11 @@ const ContentNav = ({ header, data, update, remove, create }) => {
     <section className="content-nav">
       <div className="content-nav-header">
         {header.map((h, k) => (
-          <div key={k} className={`header-field colsize-${h.colSize}`}>
+          <div key={k} className={`header-field colsize-${h.colSize}` + (!h.mobile ? ' mobile' : '')}>
             {capitalize(h.name)}
           </div>
         ))}
-        <div className={`header-field colsize-2 action-header`}>
+        <div className={`header-field colsize-2 action-header mobile`}>
           {capitalize("actions")}
         </div>
       </div>
@@ -204,11 +204,12 @@ const ContentNav = ({ header, data, update, remove, create }) => {
           {search
             ? header.map((h, k) => {
                 let Input;
+                const mobile = (!h.mobile ? ' mobile' : '');
                 switch (true) {
                   case new RegExp(/^num/gi).test(h.draw):
                     Input = (
                       <NumberInput
-                        cls={`secondary colsize-10`}
+                        cls={`secondary colsize-10 ${mobile}`}
                         inpCls="input-number secondary"
                         change={(e, value) =>
                           searchHandleChange(e, h.tag, value)
@@ -221,7 +222,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
                   case new RegExp(/^bool/gi).test(h.draw):
                     Input = (
                       <SwitchInput
-                        cls="secondary"
+                        cls={"secondary" + mobile}
                         value={search[h.tag].value}
                         change={e =>
                           searchHandleChange(e, h.tag, !search[h.tag].value)
@@ -232,7 +233,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
                   case new RegExp(/^obj/gi).test(h.draw):
                     Input = (
                       <Selector
-                        cls="secondary"
+                        cls={"secondary" + mobile}
                         list={search[h.tag].value}
                         active={search[h.tag].value.find(el => el.filtered).id}
                         action={value => updateArrayFilter(value, h.tag)}
@@ -243,7 +244,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
                     Input = (
                       <input
                         type="text"
-                        className="input-txt secondary colsize-10"
+                        className={"input-txt secondary colsize-10" + mobile}
                         onChange={e =>
                           searchHandleChange(e, h.tag, e.target.value)
                         }
@@ -255,10 +256,10 @@ const ContentNav = ({ header, data, update, remove, create }) => {
                 return (
                   <div
                     key={k}
-                    className={`search-field colsize-${h.colSize} flex justify-items-stretch flex-nowrap`}
+                    className={`search-field colsize-${h.colSize} flex justify-items-stretch flex-nowrap ${mobile}`}
                   >
                     <Checkbox
-                      cls="secondary"
+                      cls={"secondary"+mobile}
                       checked={search[h.tag].active}
                       change={e => toggleFilter(e, h.tag)}
                     />
@@ -267,7 +268,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
                 );
               })
             : null}
-          <div className={`header-field colsize-2 action-search`}></div>
+          <div className={`header-field colsize-2 action-search mobile`}></div>
         </div>
       </div>
 

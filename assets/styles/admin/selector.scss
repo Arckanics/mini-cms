@@ -1,0 +1,134 @@
+
+@mixin selector($color) {
+  position: relative;
+  transition: 150ms;
+
+  svg {
+    fill: $dark;
+  }
+
+  .opt {
+    @apply select-none cursor-pointer;
+
+    &:not(.active) {
+      &:hover {
+        background-color: $color;
+        color: $light;
+      }
+    }
+    .icon-value {
+      height: 28px!important;
+    }
+  }
+
+  @apply p-2 text-lg rounded-md;
+
+  .active {
+    transition: 150ms;
+    @apply p-3 pl-4 align-middle cursor-pointer overflow-hidden gap-2;
+    background-color: $light;
+    box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.5) inset;
+    display: flex;
+    outline: solid transparent 2px;
+
+    .txt {
+      @apply overflow-hidden text-ellipsis whitespace-nowrap;
+      width: 100%;
+    }
+
+    .icon, .icon-value {
+      height: 28px;
+    }
+  }
+
+  .opt-wrapper {
+    background-color: white;
+    box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5);
+    border: 1px solid $color;
+  }
+
+  &.icon {
+    .opt-wrapper {
+      border: none;
+      outline: 1px solid transparentize($color: $color, $amount: .7);
+      .opt {
+        outline: 1px solid transparentize($color: $color, $amount: .8);
+      }
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    background-color: transparentize($color: $color, $amount: .9);
+
+    .active {
+      outline-color: $color;
+    }
+  }
+
+  &.opened {
+    svg {
+      fill: darken($color: $color, $amount: 5%)
+    }
+  }
+}
+
+.selector {
+  @include selector($primary);
+
+  .active {
+    @apply rounded-md;
+  }
+
+  &.secondary {
+    @include selector($secondary)
+  }
+  svg {
+    transition: 150ms;
+  }
+
+  &.opened {
+    .indicate {
+      transform: rotate(90deg);
+    }
+  }
+
+  .opt-wrapper {
+    position: absolute;
+    width: calc(100% - 32px);
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    top: calc(100% + .4rem);
+    
+    @apply rounded-md overflow-auto z-10 max-h-[30vh];
+
+    .opt {
+      @apply p-2 px-3 text-lg;
+
+      &:first-child {
+        @apply rounded-t-md;
+      }
+      &:last-child {
+        @apply rounded-b-md;
+      }
+    }
+  }
+
+  &.icon {
+    .active {
+      @apply justify-between items-center;
+    }
+    .opt-wrapper {
+      @apply grid max-w-none p-2 gap-2 overflow-x-auto w-fit ml-2;
+      grid-template-columns: 1fr 1fr 1fr;
+      .opt {
+        @apply rounded flex justify-center w-11 h-11;
+        .icon-value {
+          @apply m-auto;
+        }
+      }
+    }
+  }
+}

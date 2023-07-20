@@ -140,11 +140,11 @@ const Articles = () => {
   };
 
   const header = [
-    { tag: "title", name: "titre", draw: "string", colSize: 2 },
-    { tag: "sort", name: "ordre", draw: "number", colSize: "1-5" },
-    { tag: "page", name: "page", draw: "object.title", colSize: 2 },
-    { tag: "published", name: "visible", draw: "bool", colSize: 1 },
-    { tag: "isdynamic", name: "dynamique", draw: "bool", colSize: 1 },
+    { tag: "title", name: "titre", draw: "string", colSize: 2, mobile: true },
+    { tag: "sort", name: "ordre", draw: "number", colSize: "1-5", mobile: false },
+    { tag: "page", name: "page", draw: "object.title", colSize: 2, mobile: true },
+    { tag: "published", name: "visible", draw: "bool", colSize: 1, mobile: false },
+    { tag: "isdynamic", name: "dynamique", draw: "bool", colSize: 1, mobile: false },
   ];
 
   return (
