@@ -386,3 +386,17 @@ $inp-style: (
     
   }
 }
+
+@media screen and (max-width: 1084px) { 
+  .input-wrap {
+    @apply p-1 #{!important};
+    .label {
+      @apply px-1 py-0 pb-0.5;
+    }
+  }
+
+  .input-txt {
+    @apply py-1 px-1.5 #{!important};
+  }
+  
+}
