@@ -16,35 +16,24 @@
         color: $light;
       }
     }
-    .icon-value {
-      height: 28px!important;
-    }
+    
   }
 
-  @apply p-2 text-lg rounded-md;
+  
 
   .active {
-    transition: 150ms;
-    @apply p-3 pl-4 align-middle cursor-pointer overflow-hidden gap-2;
     background-color: $light;
     box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: 0.5) inset;
-    display: flex;
     outline: solid transparent 2px;
 
-    .txt {
-      @apply overflow-hidden text-ellipsis whitespace-nowrap;
-      width: 100%;
-    }
+    
 
-    .icon, .icon-value {
-      height: 28px;
-    }
   }
 
   .opt-wrapper {
     background-color: white;
     box-shadow: 0 0 4px 0 transparentize($color: $color, $amount: .5);
-    border: 1px solid $color;
+    outline: 1px solid $color;
   }
 
   &.icon {
@@ -75,10 +64,18 @@
 }
 
 .selector {
+  @apply p-2 text-lg rounded-md;
   @include selector($primary);
 
   .active {
-    @apply rounded-md;
+    @apply rounded-md p-3 pl-4 flex  gap-2 align-middle cursor-pointer duration-150 overflow-hidden;
+    .icon, .icon-value {
+      height: 28px;
+    }
+    .txt {
+      @apply overflow-hidden text-ellipsis whitespace-nowrap;
+      width: 100%;
+    }
   }
 
   &.secondary {
@@ -112,6 +109,9 @@
       }
       &:last-child {
         @apply rounded-b-md;
+      }
+      .icon-value {
+        height: 28px!important;
       }
     }
   }
