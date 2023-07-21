@@ -134,7 +134,7 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
       <div
         tabIndex={-1}
         id={id ? id : null}
-        className={"flex"+ (target ? ' inner-window' : ' gap-3') +" items-stretch"}
+        className={"img-explorer-buttons" + (target ? ' inner-window' : ' gap-3')}
         onFocus={e => setTarget(e.target)}
       >
         {target ? (
@@ -151,7 +151,7 @@ const ImgExplorer = ({ label, labelCls, divCls, id, value, action }) => {
             </div>
           </div>
         ) : (
-          <div className={"btn secondary relative grow w-full"}>
+          <div className={"btn secondary"}>
             Choisir une image
           </div>
         )}

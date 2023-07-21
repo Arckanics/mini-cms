@@ -9,6 +9,13 @@
     }
   }
 
+  .img-explorer-buttons {
+    @apply flex items-stretch;
+    .btn {
+      @apply relative grow w-full;
+    }
+  }
+
   .img-explorer {
     @apply 
       p-1 z-50 bg-white overflow-hidden
@@ -154,6 +161,17 @@
         }
       }
 
+    }
+  }
+}
+
+@media screen and (max-width: 1084px) {
+  .img-explorer-container {
+    .img-current {
+      @apply max-h-9 max-w-fit shrink;
+      img {
+        @apply max-h-full rounded-md m-auto;
+      }
     }
   }
 }
