@@ -10,6 +10,7 @@
 
   #logo {
     @apply max-h-[5rem] min-h-[3rem] flex flex-col justify-center w-auto shrink-0 aspect-square;
+    @apply drop-shadow-lg;
     .logo-img {
       @apply block min-h-[2.5rem];
       aspect-ratio: 1/1;
@@ -24,4 +25,13 @@
     $darkshadow : transparentize($color: black, $amount: .7);
     box-shadow: 0px 30px 15px -30px $darkshadow;
   }
+}
+
+@media screen and (max-width: 1280px) { 
+  #header {
+    #logo {
+      @apply max-h-[4rem] min-h-[3rem]
+    }
+  }
+  
 }
