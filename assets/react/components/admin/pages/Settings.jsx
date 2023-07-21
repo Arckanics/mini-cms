@@ -116,7 +116,7 @@ const Settings = () => {
               list={data.Pages}
               action={setLanding}
             >
-              <h2 className="block py-2">Page d'accueil</h2>
+              <h2 className="select-title">Page d'accueil</h2>
             </Selector>
           </>
         ) : null}
