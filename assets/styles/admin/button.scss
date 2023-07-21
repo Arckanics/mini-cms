@@ -304,3 +304,8 @@
     @include btnNav($primary);
   }
 }
+
+@media screen and (max-width: 1084px) {
+  .btn {
+  }
+}
