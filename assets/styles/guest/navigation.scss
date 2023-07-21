@@ -11,11 +11,6 @@
       @apply block text-lg font-bold relative duration-150 ease-in;
       color: $dark;
 
-      @apply 
-        lg:text-2xl xl:text-lg
-        lg:py-3 lg:px-5
-        xl:px-4 xl:py-2
-      ;
       &::first-letter {
         @apply uppercase;
       }
