@@ -44,7 +44,7 @@ const Navbar = ({Pages}) => {
           <h1>Mini-CMS</h1>
         </div>
         <nav id="navigation">
-          <ul className='icon-nav mobile'>
+          <ul className='icon-nav mobile-ui'>
             <li>
               <div onClick={handleActive} className={'nav-link' + (toggle ? " active" : "")}><Faw icon="bars" className='svg-icon' /></div>
             </li>

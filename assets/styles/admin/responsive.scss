@@ -1,7 +1,7 @@
 
 // responsive classes
 
-.mobile, *.mobile {
+.mobile-ui, *.mobile-ui {
   display: none!important;
 }
 
@@ -12,7 +12,7 @@
     display: none !important;
   }
   
-  .mobile {
+  .mobile-ui {
     display: inherit!important;
   }
 

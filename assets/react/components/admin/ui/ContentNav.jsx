@@ -193,7 +193,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
       <div className="relative">
         <div
           className={
-            "btn btn-outline icon-btn secondary mobile" +
+            "btn btn-outline icon-btn secondary mobile-ui" +
             (navSearch ? " toggle" : "")
           }
           onClick={() => setNavSearch(!navSearch)}
