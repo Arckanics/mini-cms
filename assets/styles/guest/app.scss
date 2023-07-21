@@ -22,7 +22,7 @@ html {
 }
 
 #root {
-  @apply max-w-[100vw] h-[100vh] relative;
+  @apply max-w-[100vw] h-[100dvh] relative;
   @apply flex flex-col flex-nowrap overflow-hidden;
 }
 
