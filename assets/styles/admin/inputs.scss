@@ -391,12 +391,12 @@ $inp-style: (
   .input-wrap {
     @apply p-1 #{!important};
     .label {
-      @apply px-1 py-0 pb-0.5;
+      @apply pl-1 py-0 pb-0.5 text-xs no-underline;
     }
   }
 
-  .input-txt {
-    @apply py-1 px-1.5 #{!important};
+  .input-txt[type=text], .input-txt[type=password], .input-txt {
+    @apply text-sm p-2;
   }
   
 }

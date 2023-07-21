@@ -307,5 +307,6 @@
 
 @media screen and (max-width: 1084px) {
   .btn {
+    @apply text-sm p-2;
   }
 }
