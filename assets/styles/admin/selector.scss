@@ -67,10 +67,14 @@
   @apply p-2 text-lg rounded-md;
   @include selector($primary);
 
+  .select-title {
+    @apply block py-2;
+  }
+
   .active {
     @apply rounded-md p-3 pl-4 flex  gap-2 align-middle cursor-pointer duration-150 overflow-hidden;
     .icon, .icon-value {
-      height: 28px;
+      @apply h-7;
     }
     .txt {
       @apply overflow-hidden text-ellipsis whitespace-nowrap;
@@ -111,7 +115,7 @@
         @apply rounded-b-md;
       }
       .icon-value {
-        height: 28px!important;
+        @apply h-7;
       }
     }
   }
@@ -121,13 +125,32 @@
       @apply justify-between items-center;
     }
     .opt-wrapper {
-      @apply grid max-w-none p-2 gap-2 overflow-x-auto w-fit ml-2;
-      grid-template-columns: 1fr 1fr 1fr;
+      @apply grid max-w-none p-2 gap-2 overflow-x-auto items-center justify-center;
+      grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
       .opt {
-        @apply rounded flex justify-center w-11 h-11;
+        @apply rounded flex justify-center w-11 h-11 m-auto;
         .icon-value {
           @apply m-auto;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1084px) {
+  .selector {
+
+    @apply p-1;
+
+    .select-title {
+      @apply py-1 text-xs;
+    }
+
+    .opt, .opt-wrapper .opt {
+      @apply text-sm p-2;
+
+      .icon, .icon-value, .indicate {
+        @apply h-5;
       }
     }
   }
