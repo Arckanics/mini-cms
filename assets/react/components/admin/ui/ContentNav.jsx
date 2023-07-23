@@ -10,10 +10,16 @@ import { NumberInput, Checkbox, SwitchInput, Selector } from "./Inputs";
 import { ActionsRow } from "./";
 import { Filter, Success, Close } from "../../../icon/icon-ui";
 
-const ContentNav = ({ header, data, update, remove, create }) => {
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { pushData } from "../redux/reducers/ajaxSlice";
+
+const ContentNav = ({ header, update, remove, create, dataName }) => {
   const [search, updateSearch] = useState(null);
   const ajaxData = useSelector(state => state.ajax.data);
+  const dispatch = useDispatch()
   const [navSearch, setNavSearch] = useState(false);
+  const dataState = useSelector(state => state.ajax.data[dataName])
 
   useEffect(() => {
     // initiation des filtres
@@ -37,6 +43,20 @@ const ContentNav = ({ header, data, update, remove, create }) => {
     );
     updateSearch({ ...sFields });
   }, []);
+
+  // remise dans l'ordre après le drag n drop
+  const ordering = (startIndex, endIndex) => {
+    const results = [...dataState]
+    const [removed] = results.splice(startIndex, 1)
+    results.splice(endIndex, 0, removed)
+
+    dispatch(pushData({ name: dataName, data: results }))
+  }
+
+  
+  const dragEnd = (res) => {
+    ordering(res.source.index, res.destination.index)
+  }
 
   // format les donnée pour affichage
   const setView = (value, set = "value", tag) => {
@@ -92,22 +112,43 @@ const ContentNav = ({ header, data, update, remove, create }) => {
 
   // rendu sans filtres
   const basicRender = data =>
-    data.map((field, k) => (
-      <div key={k} className="content-row">
-        {header.map(({ tag, draw, colSize, mobile }, k) => (
-          <div key={k} className={`row-field colsize-${colSize}` + (!mobile ? ' mobile' : '')}>
-            {setView(field[tag], draw, tag)}
-          </div>
-        ))}
-        <div className={`row-field action-field colsize-2 mobile`}>
-          <ActionsRow
-            id={k}
-            update={() => update(field.id)}
-            remove={() => remove(field.id)}
-          />
-        </div>
-      </div>
-    ));
+    data.map((field, k) => {
+      const id = `row-${field.id}`
+      return (
+        <Draggable key={id} draggableId={id} index={k}>
+          {(provided, snapshot) => (
+            <div>
+              <div 
+                className={"content-row" + (snapshot.isDragging ? " dragging" : "") + (snapshot.isDropAnimating ? " dropping" : "")}
+                ref={provided.innerRef}
+                {...provided.dragHandleProps}
+                {...provided.draggableProps}
+              >
+                {header.map(({ tag, draw, colSize, mobile }, k) => (
+                  <div
+                    key={k}
+                    className={
+                      `row-field colsize-${colSize}` +
+                      (!mobile ? " mobile" : "")
+                    }
+                  >
+                    {setView(field[tag], draw, tag)}
+                  </div>
+                ))}
+                <div className={`row-field action-field colsize-2 mobile`}>
+                  <ActionsRow
+                    id={k}
+                    update={() => update(field.id)}
+                    remove={() => remove(field.id)}
+                  />
+                </div>
+              </div>
+              {provided.placeholder}
+            </div>
+          )}
+        </Draggable>
+      );
+    });
 
   // rendu avec filtres
   const filterRender = data => {
@@ -157,7 +198,12 @@ const ContentNav = ({ header, data, update, remove, create }) => {
       return (
         <div key={k} className="content-row">
           {header.map(({ tag, draw, colSize, mobile }, k) => (
-            <div key={k} className={`row-field colsize-${colSize}` + (!mobile ? ' mobile' : '')}>
+            <div
+              key={k}
+              className={
+                `row-field colsize-${colSize}` + (!mobile ? " mobile" : "")
+              }
+            >
               {setView(field[tag], draw, tag)}
             </div>
           ))}
@@ -182,7 +228,12 @@ const ContentNav = ({ header, data, update, remove, create }) => {
     <section className="content-nav">
       <div className="content-nav-header">
         {header.map((h, k) => (
-          <div key={k} className={`header-field colsize-${h.colSize}` + (!h.mobile ? ' mobile' : '')}>
+          <div
+            key={k}
+            className={
+              `header-field colsize-${h.colSize}` + (!h.mobile ? " mobile" : "")
+            }
+          >
             {capitalize(h.name)}
           </div>
         ))}
@@ -204,7 +255,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
           {search
             ? header.map((h, k) => {
                 let Input;
-                const mobile = (!h.mobile ? ' mobile' : '');
+                const mobile = !h.mobile ? " mobile" : "";
                 switch (true) {
                   case new RegExp(/^num/gi).test(h.draw):
                     Input = (
@@ -260,7 +311,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
                     className={`search-field colsize-${h.colSize} flex justify-items-stretch flex-nowrap ${mobile}`}
                   >
                     <Checkbox
-                      cls={"secondary"+mobile}
+                      cls={"secondary" + mobile}
                       checked={search[h.tag].active}
                       change={e => toggleFilter(e, h.tag)}
                     />
@@ -273,15 +324,22 @@ const ContentNav = ({ header, data, update, remove, create }) => {
         </div>
       </div>
 
-      <div className="content-inner">
-        {!search || (search && !getPropsBoolStatus(search, "active", true))
-          ? data && isArray(data)
-            ? basicRender(data)
-            : null
-          : data && isArray(data)
-          ? filterRender(data)
-          : null}
-      </div>
+      <DragDropContext onDragEnd={dragEnd}>
+        <Droppable droppableId="content-sort">
+          {(provided, snapshot) => (
+            <div className="content-inner" ref={provided.innerRef}>
+              {!search ||
+              (search && !getPropsBoolStatus(search, "active", true))
+                ? dataState && isArray(dataState)
+                  ? basicRender(dataState)
+                  : null
+                : dataState && isArray(dataState)
+                ? filterRender(dataState)
+                : null}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <div className="content-nav-action">
         <div className="btn success" onClick={create}>
           Créer

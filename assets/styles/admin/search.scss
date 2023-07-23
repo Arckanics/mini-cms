@@ -60,34 +60,38 @@
       0 0 2px 0 transparentize($color: $secondary, $amount: .3),
       0 0 8px 0 transparentize($color: $secondary, $amount: .6) inset;
     background-color: hsl(0, 0%, 94%);
-    @apply rounded-md;
+    @apply rounded-md p-1 flex flex-col gap-1;
     .content-row {
-      transition: outline 100ms ease-in;
-      @apply flex px-3 justify-between flex-nowrap;
-      outline: transparent solid 2px;
+      transition: 
+        outline 150ms ease-in,
+        background-color 150ms ease-in
+      ;
+      @apply flex px-3 justify-between flex-nowrap rounded-xl shadow;
+      outline: transparentize($color: $secondary, $amount: .5) solid 2px;
       outline-offset: -2px;
-      
-      &:nth-child(odd) {
-        background-color: transparentize($color: $secondary, $amount: .7);
+      background-color: color-mix(in srgb, white 94%, $secondary 6%);
+
+      &.dragging {
+        background-color: color-mix(in srgb, white 85%, $primary 15%);
+        outline-color: transparentize($color: $primary, $amount: .3)
       }
+
+      &.dropping {
+        background-color: color-mix(in srgb, white 85%, $success 15%);
+        outline-color: transparentize($color: $success, $amount: .3)
+      }
+
       .row-field {
         @apply text-center p-3 block
           justify-center overflow-hidden
           whitespace-nowrap
-          text-ellipsis
+          text-ellipsis select-none
+          
           ;
 
         &.action-field {
           @apply p-1;
         }        
-      }
-
-      &:last-child {
-        @apply rounded-b-md;
-      }
-
-      &:first-child {
-        @apply rounded-t-md;
       }
 
       &:hover {

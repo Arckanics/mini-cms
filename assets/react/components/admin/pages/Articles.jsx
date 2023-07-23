@@ -152,11 +152,11 @@ const Articles = () => {
       {typeof articles === "object" && typeof pages === "object" ? (
         !modal.enable ? (
           <ContentNav
-            data={articles}
             header={header}
             create={createArticle}
             update={updateArticle}
             remove={removeArticle}
+            dataName="articles"
           />
         ) : null
       ) : null}
