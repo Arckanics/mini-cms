@@ -150,8 +150,12 @@
       @apply text-sm p-2;
 
       .icon, .icon-value, .indicate {
-        @apply h-5;
+        @apply h-5 #{!important};
       }
+    }
+
+    svg {
+      @apply h-5;
     }
   }
 }
