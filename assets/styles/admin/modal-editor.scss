@@ -60,20 +60,22 @@
   }
 
   .modal-window {
-    @apply flex flex-wrap justify-start bg-white;
+    @apply flex flex-wrap gap-3 p-2 justify-start bg-white;
     .modal-field {
       .input-label {
         @apply shrink-0;
       }
       
       .input-txt {
-        @apply p-1 px-2 my-auto;
+        @apply p-1 px-2;
       }
 
       .selector {
-        @apply p-0 w-48 my-auto;
-        .active {
-          @apply p-1 px-2;
+        @apply p-0 w-48;
+        .opt {
+          &.active {
+            @apply p-1 px-2;
+          }
         }
 
         .opt-wrapper {
@@ -88,7 +90,7 @@
         flex: 3 3 auto;
       }
   
-      @apply p-2 block gap-3 min-w-max;
+      @apply flex gap-2 items-center min-w-max;
     }
   }
 
