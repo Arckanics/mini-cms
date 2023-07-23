@@ -53,8 +53,8 @@ const ModalEditor = ({ data, schema, title, close, command, small }) => {
               switch (value.type) {
                 case "string":
                   Input = (
-                    <div className="flex gap-3">
-                      <label className="input-label p-2 font-bold">
+                    <>
+                    <label className="input-label p-2 font-bold">
                         {value.name} :
                       </label>
                       <input
@@ -65,29 +65,27 @@ const ModalEditor = ({ data, schema, title, close, command, small }) => {
                         onChange={e =>
                           setData({ ...mData, [key]: e.target.value })
                         }
-                      />
-                    </div>
+                      /></>
                   );
                   break;
                 case "bool":
                   Input = (
-                    <div className="flex gap-3">
-                      <label className="input-label p-2 font-bold">
+                    <>
+                    <label className="input-label p-2 font-bold">
                         {value.name} :
                       </label>
                       <SwitchInput
                         value={mData[key]}
                         change={() => setData({ ...mData, [key]: !mData[key] })}
-                      />
-                    </div>
+                      /></>
                   );
                   break;
                 case "sorting":
                 case "select":
                   const reKey = key.replace(/s$/g, "");
                   Input = (
-                    <div className="flex gap-3">
-                      <label className="input-label p-2 font-bold">
+                    <>
+                    <label className="input-label p-2 font-bold">
                         {value.name} :
                       </label>
                       <Selector
@@ -97,26 +95,22 @@ const ModalEditor = ({ data, schema, title, close, command, small }) => {
                         active={mData[reKey]}
                         action={v => setData({ ...mData, [reKey]: v })}
                         sortProp={reKey}
-                      />
-                    </div>
+                      /></>
                   );
                   break;
                 case "date":
                   const date = mData[key] || new Date();
                   Input = (
-                    <div className="flex gap-3">
-                      <label className="input-label p-2 font-bold">
+                    <>
+                    <label className="input-label p-2 font-bold">
                         {value.name} :{" "}
                       </label>
-                      <React.StrictMode>
                       <DatePicker
                         value={date}
                         change={v => {
                           setData({ ...mData, [key]: v });
                         }}
-                      />
-                      </React.StrictMode>
-                    </div>
+                      /></>
                   );
                   break;
                 default:

@@ -72,12 +72,12 @@
   }
 
   .active {
-    @apply rounded-md p-3 pl-4 flex  gap-2 align-middle cursor-pointer duration-150 overflow-hidden;
+    @apply rounded-md p-3 pl-4 flex gap-2 align-middle cursor-pointer duration-150 overflow-hidden h-full;
     .icon, .icon-value {
-      @apply h-7;
+      @apply h-7 m-auto;
     }
     .txt {
-      @apply overflow-hidden text-ellipsis whitespace-nowrap;
+      @apply overflow-hidden text-ellipsis whitespace-nowrap m-auto;
       width: 100%;
     }
   }
