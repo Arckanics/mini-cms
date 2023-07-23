@@ -298,6 +298,10 @@ $inp-style: (
       @apply p-2;
     }
 
+    &.floating {
+      @apply rounded-xl;
+    }
+
     .calendar-current {
       @apply text-sm font-bold drop-shadow-md p-1 pb-0 flex justify-between items-end pl-2;
       border-bottom: 1px solid $secondary;
@@ -312,7 +316,7 @@ $inp-style: (
     .month-year {
       @apply flex flex-nowrap capitalize justify-items-stretch items-stretch gap-4;
       & > div {
-        @apply grow shrink text-center flex justify-between;
+        @apply grow shrink text-center flex justify-between w-1/2;
       }
 
       .icon {
@@ -322,6 +326,9 @@ $inp-style: (
 
     .day-names {
       @apply flex flex-nowrap text-xs py-0 font-semibold justify-items-center items-stretch gap-2 underline;
+      .case {
+        @apply capitalize;
+      }
     }
 
     
