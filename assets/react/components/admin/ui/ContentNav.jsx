@@ -234,6 +234,7 @@ const ContentNav = ({ header, data, update, remove, create }) => {
                     Input = (
                       <Selector
                         cls={"secondary" + mobile}
+                        iconCls={"icon"}
                         list={search[h.tag].value}
                         active={search[h.tag].value.find(el => el.filtered).id}
                         action={value => updateArrayFilter(value, h.tag)}
