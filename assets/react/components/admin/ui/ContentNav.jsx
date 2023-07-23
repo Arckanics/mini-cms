@@ -161,6 +161,7 @@ const ContentNav = ({ header, update, remove, create, dataName }) => {
     }
 
     return data.map((field, k) => {
+      const id = `row-${field.id}`
       for (const [k, v] of Object.entries(searchFilter)) {
         switch (typeof v) {
           case "string":
@@ -196,21 +197,38 @@ const ContentNav = ({ header, update, remove, create, dataName }) => {
       }
 
       return (
-        <div key={k} className="content-row">
-          {header.map(({ tag, draw, colSize, mobile }, k) => (
-            <div
-              key={k}
-              className={
-                `row-field colsize-${colSize}` + (!mobile ? " mobile" : "")
-              }
-            >
-              {setView(field[tag], draw, tag)}
+        <Draggable key={id} draggableId={id} index={k}>
+          {(provided, snapshot) => (
+            <div>
+              <div 
+                className={"content-row" + (snapshot.isDragging ? " dragging" : "") + (snapshot.isDropAnimating ? " dropping" : "")}
+                ref={provided.innerRef}
+                {...provided.dragHandleProps}
+                {...provided.draggableProps}
+              >
+                {header.map(({ tag, draw, colSize, mobile }, k) => (
+                  <div
+                    key={k}
+                    className={
+                      `row-field colsize-${colSize}` +
+                      (!mobile ? " mobile" : "")
+                    }
+                  >
+                    {setView(field[tag], draw, tag)}
+                  </div>
+                ))}
+                <div className={`row-field action-field colsize-2 mobile`}>
+                  <ActionsRow
+                    id={k}
+                    update={() => update(field.id)}
+                    remove={() => remove(field.id)}
+                  />
+                </div>
+              </div>
+              {provided.placeholder}
             </div>
-          ))}
-          <div className={`row-field action-field colsize-2 mobile`}>
-            <ActionsRow id={k} update={() => update(field.id)} />
-          </div>
-        </div>
+          )}
+        </Draggable>
       );
     });
   };
