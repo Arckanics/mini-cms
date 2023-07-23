@@ -131,7 +131,7 @@
 
   .input-number {
     @apply text-lg rounded-none cursor-pointer;
-    @apply px-8 #{!important};
+    @apply px-8;
   }
     
 
@@ -397,6 +397,17 @@ $inp-style: (
 
   .input-txt[type=text], .input-txt[type=password], .input-txt {
     @apply text-sm p-2;
+  }
+
+  .input-number-wrap {
+    
+    .arrow-btn {
+      @apply m-0 top-1 bottom-1 h-auto mx-1 text-sm;
+    }
+
+    .input-number {
+      @apply p-0 text-sm;
+    }
   }
   
 }
