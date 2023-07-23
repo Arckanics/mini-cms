@@ -1,7 +1,7 @@
 .action-button {
   transition: 150ms;
-  background-color: whitesmoke;
-  outline: 2px solid transparent;
+  background-color: white;
+  outline: 2px solid transparentize($color: $primary, $amount: 0.9);
   outline-offset: -1px;
   @apply p-1 my-1 rounded-lg shadow-md cursor-pointer;
   &:hover {
@@ -12,6 +12,7 @@
     }
   }
   &.secondary {
+    outline-color: transparentize($color: $secondary, $amount: 0.9);
     &:hover {
       outline-color: transparentize($color: $secondary, $amount: 0.5);
     }

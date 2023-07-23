@@ -144,11 +144,11 @@ const Pages = () => {
     <PagesContainer title={"Pages"}>
       {data ? (
         <ContentNav
-          data={data}
           header={header}
           update={updatePage}
           remove={removePage}
           create={createPage}
+          dataName="pages"
         />
       ) : null}
       {modal.enable ? (
