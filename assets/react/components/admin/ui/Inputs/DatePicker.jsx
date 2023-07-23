@@ -26,7 +26,7 @@ const DatePicker = ({ change, value }) => {
       const limit = parent.width + parent.x;
       const pads = Number(window.getComputedStyle(el.parentNode).paddingLeft.replace(/\D/g,'')) * 2
 
-      const box = el.scrollWidth + children.x + pads + 8;
+      const box = el.scrollWidth + children.x + pads + 4;
       return limit - box
     }
 
@@ -34,8 +34,6 @@ const DatePicker = ({ change, value }) => {
 
 
     if (result < 0) {
-      console.log(result);
-      cal.style.transform = `translateX(${result}px)`;
       cal.classList.add('floating')
     }
   }

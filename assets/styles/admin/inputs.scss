@@ -299,7 +299,7 @@ $inp-style: (
     }
 
     &.floating {
-      @apply rounded-xl;
+      @apply rounded-xl rounded-tr-md left-auto right-[-2px];
     }
 
     .calendar-current {

@@ -72,7 +72,7 @@
   }
 
   .active {
-    @apply rounded-md p-3 pl-4 flex gap-2 align-middle cursor-pointer duration-150 overflow-hidden h-full;
+    @apply rounded-md p-3 pl-4 flex gap-2 align-middle cursor-pointer duration-150 overflow-hidden;
     .icon, .icon-value {
       @apply h-7 m-auto;
     }
