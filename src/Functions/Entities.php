@@ -8,11 +8,14 @@ class Entities {
   private $repo;
   private $entity;
 
+  private $entities;
+
   private $em;
   public function __construct($repo, $entity, $EntityManager) {
     $this->repo = $repo;
     $this->entity = $entity;
     $this->em = $EntityManager;
+    $this->entities = $repo->findAll();
   }
 
   private function prepareGetMethods() {
@@ -32,8 +35,8 @@ class Entities {
     return get_class_methods($this->entity);
   }
 
-  public function exportData() {
-    $entities = $this->repo->findAll();
+  public function exportData($sort = null) : array {
+    $entities = $this->entities;
     $methods = $this->prepareGetMethods();
     $res = [];
     foreach ($entities as $entity) {
@@ -52,5 +55,21 @@ class Entities {
       $res[] = $e;
     }
     return $res;
+  }
+
+  public function exportSortBy($key = null, $desc = false) : array {
+    if (!$key) {
+      return $this->exportData();
+    }
+
+    $sort = (!$desc) ? 'ASC' : 'DESC';
+    
+    $this->entities = $this->repo->createQueryBuilder('v')
+      ->orderBy("v.$key", $sort)
+      ->getQuery()
+      ->getResult();
+
+    return $this->exportData();
+    
   }
 }

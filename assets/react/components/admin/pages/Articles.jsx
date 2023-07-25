@@ -5,6 +5,7 @@ import { pushData } from "../redux/reducers/ajaxSlice";
 import axios from "axios";
 import { prepareForSend } from "../../../Functions/app";
 import { notify, notifyClose } from "../redux/reducers/notificationSlice";
+import { orderUpdate } from "../Functions/Data";
 
 // CRUD Complet pour les Articles
 
@@ -47,6 +48,22 @@ const Articles = () => {
         }
       });
   }, []);
+
+  const reordering = res => {
+    orderUpdate("articles", ajax, res)
+    .then(res => {
+      const { data } = res;
+      dispatch(
+        notify({
+          type: "success",
+          msg: data.msg,
+          timeout: setTimeout(() => dispatch(notifyClose()), 2000),
+        })
+      );
+      dispatch(pushData({ name: "articles", data: [...data.data] }));
+    })
+  }
+
 
   const closeModal = () => {
     setModal({ ...modal, enable: false });
@@ -156,6 +173,7 @@ const Articles = () => {
             create={createArticle}
             update={updateArticle}
             remove={removeArticle}
+            orderUpdate={reordering}
             dataName="articles"
           />
         ) : null

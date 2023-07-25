@@ -14,7 +14,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { pushData } from "../redux/reducers/ajaxSlice";
 
-const ContentNav = ({ header, update, remove, create, dataName }) => {
+const ContentNav = ({ header, update, remove, create, dataName, orderUpdate }) => {
   const [search, updateSearch] = useState(null);
   const ajaxData = useSelector(state => state.ajax.data);
   const dispatch = useDispatch()
@@ -49,8 +49,8 @@ const ContentNav = ({ header, update, remove, create, dataName }) => {
     const results = [...dataState]
     const [removed] = results.splice(startIndex, 1)
     results.splice(endIndex, 0, removed)
-
     dispatch(pushData({ name: dataName, data: results }))
+    orderUpdate(results)
   }
 
   

@@ -6,6 +6,7 @@ import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 import { ModalEditor } from "../ui"
 import axios from "axios";
 import { strNormalize } from "../../../Functions/app";
+import { orderUpdate } from "../Functions/Data";
 
 // CRUD Complet pour les Pages
 
@@ -36,6 +37,22 @@ const Pages = () => {
         }
       });
   }, []);
+
+  const reordering = res => {
+    orderUpdate("pages", ajax, res)
+    .then(res => {
+      const { data } = res;
+      dispatch(
+        notify({
+          type: "success",
+          msg: data.msg,
+          timeout: setTimeout(() => dispatch(notifyClose()), 2000),
+        })
+      );
+      dispatch(pushData({ name: "pages", data: [...data.data] }));
+    })
+  }
+
   const sendData = data => {
     const {where,type} = modal
     if (type !== "delete") {
@@ -148,6 +165,7 @@ const Pages = () => {
           update={updatePage}
           remove={removePage}
           create={createPage}
+          orderUpdate={reordering}
           dataName="pages"
         />
       ) : null}
