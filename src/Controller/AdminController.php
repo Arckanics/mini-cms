@@ -7,6 +7,7 @@ use App\Entity\Pages;
 use App\Entity\Articles;
 use App\Entity\Social;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Repository\RepositoryFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Functions\Entities;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[IsGranted('ROLE_ADMIN')]
@@ -328,7 +331,52 @@ class AdminController extends AbstractController
 
   #[Route('/ordering', name: 'app_admin_ordering')]
   public function ordering(Request $req, EntityManagerInterface $em, Session $session) : Response | JsonResponse {
-    return $this->json($req);
+    if (!$this->refreshSession($session)) {
+      return new JsonResponse(['redirect' => '/logout'], 302);
+    }
+    $data = json_decode($req->getContent(), true);
+
+    function getEntitiesSetup($where, $em) {
+      switch ($where) {
+        case 'pages':
+          return [
+            "repo" => $em->getRepository(Pages::class),
+            "class" => Pages::class
+          ];
+        case 'articles':
+          return [
+            "repo" => $em->getRepository(Articles::class),
+            "class" => Articles::class
+          ];
+        default:
+          return null;
+      }
+    }
+
+    $setup = getEntitiesSetup($data['where'], $em);
+    $repo = $setup['repo'];
+    $entity = $setup['class'];
+    $list = $data['list'];
+
+    if ($repo === null) {
+      return $this->json([
+        'msg' => 'Répertoire introuvable!'
+      ],404);
+    }
+
+    for ($i = 0; $i < count($list); $i++) {
+      $index = $list[$i];
+      $item = $repo->find($index);
+      $item->setSort($i);
+    }
+    $em->flush();
+
+    $gem = new Entities($repo, $entity, $em);
+
+    return $this->json([
+      'msg' => 'remise en ordre',
+      'data' => $gem->exportSortBy('sort')
+    ]);
   }
 
   #[Route('/fileupload', name: 'app_admin_fileupload')]
