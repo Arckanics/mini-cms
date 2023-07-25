@@ -151,13 +151,16 @@ class AdminController extends AbstractController
           }
           $page = new Pages();
           $page->setTitle($data["title"]);
-          $page->setUrl($data["title"]);
+          $page->setUrl(strtolower($data["title"]));
           $page->setSort(count($pages->findAll()));
           $em->persist($page);
           $em->flush();
           $gem = new Entities($pages, Pages::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'articles':
+          if (strlen($data["title"]) == 0 || !isset($data["title"])) {
+            return new JsonResponse(["error" => "Titre manquant!"], 428);
+          }
           $createdAt = new DateTimeImmutable("now");
           $article = new Articles();
           $article->setCreatedAt($createdAt);
@@ -174,6 +177,12 @@ class AdminController extends AbstractController
           $gem = new Entities($articles, Articles::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'footer':
+          if (strlen($data["url"]) <= 12 || !isset($data["url"])) {
+            return new JsonResponse(["error" => "Lien invalide!"], 428);
+          }
+          if (curl_init($data["url"]) === false) {
+            return new JsonResponse(["error" => "Lien invalide!"], 428);
+          }
           $social = new Social();
           $social->setName($data["name"]);
           $social->setIcon($data["icon"]);
@@ -204,13 +213,19 @@ class AdminController extends AbstractController
       $socials = $em->getRepository(Social::class);
       switch ($body['where']) {
         case 'pages':
+          if (strlen($data["title"]) == 0 || !isset($data["title"])) {
+            return new JsonResponse(["error" => "Titre manquant!"], 428);
+          }
           $gem = new Entities($pages, Pages::class, $em);
           $page = $pages->find($data['id']);
-          $page->setUrl($data['url']);
+          $page->setUrl(strtolower($data['url']));
           $page->setTitle($data['title']);
           $em->flush();
           return new JsonResponse($gem->exportData(), 200);
         case 'articles':
+          if (strlen($data["title"]) == 0 || !isset($data["title"])) {
+            return new JsonResponse(["error" => "Titre manquant!"], 428);
+          }
           $article = $articles->find($data["id"]);
           $article->setContent($data["content"]);
           $article->setIsDynamic($data["isdynamic"]);
@@ -224,6 +239,12 @@ class AdminController extends AbstractController
           $gem = new Entities($articles, Articles::class, $em);
           return new JsonResponse($gem->exportData(), 200);
         case 'footer':
+          if (strlen($data["url"]) <= 12 || !isset($data["url"])) {
+            return new JsonResponse(["error" => "Lien invalide!"], 428);
+          }
+          if (curl_init($data["url"]) === false) {
+            return new JsonResponse(["error" => "Lien invalide!"], 428);
+          }
           $social = $socials->find($data["id"]);
           $social->setName($data["name"]);
           $social->setIcon($data["icon"]);
@@ -301,6 +322,13 @@ class AdminController extends AbstractController
       }
     }
     return new JsonResponse(['error', 'Not Found'], 404);
+  }
+
+  // route pour ordonner les pages et articles
+
+  #[Route('/ordering', name: 'app_admin_ordering')]
+  public function ordering(Request $req, EntityManagerInterface $em, Session $session) : Response | JsonResponse {
+    return $this->json($req);
   }
 
   #[Route('/fileupload', name: 'app_admin_fileupload')]
