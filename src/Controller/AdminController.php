@@ -116,15 +116,15 @@ class AdminController extends AbstractController
         case 'pages':
           $pages = $em->getRepository(Pages::class);
           $gem = new Entities($pages, Pages::class, $em);
-          return new JsonResponse($gem->exportData(), 200);
+          return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'articles':
           $article = $em->getRepository(Articles::class);
           $gem = new Entities($article, Articles::class, $em);
-          return new JsonResponse($gem->exportData(), 200);
+          return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'footer':
           $social = $em->getRepository(Social::class);
           $gem = new Entities($social, Social::class, $em);
-          return new JsonResponse($gem->exportData(), 200);
+          return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'settings':
         default:
           $res = $em->getRepository(Settings::class)->find(1);
@@ -377,7 +377,7 @@ class AdminController extends AbstractController
       'msg' => 'remise en ordre',
       'data' => $gem->exportSortBy('sort')
     ]);
-  }
+}
 
   #[Route('/fileupload', name: 'app_admin_fileupload')]
   public function fileUpload(Request $req): Response|JsonResponse
