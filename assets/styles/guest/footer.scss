@@ -1,11 +1,11 @@
 #footer {
-  @apply w-1/2 py-2 shadow-2xl m-auto mr-0 rounded-t-2xl absolute;
+  @apply w-1/2 shadow-2xl m-auto mr-0 rounded-t-2xl absolute text-sm select-none;
   @apply bottom-0 left-1/2 w-1/2 min-w-fit -translate-x-1/2 bg-stone-100;
   $outline: darken($color: $secondary, $amount: 5);
   outline: 1px solid transparentize($color: $outline, $amount: .8);
 
   .footer-container {
-    @apply container mx-auto flex justify-between items-center px-3;
+    @apply container mx-auto flex justify-between items-center p-1;
     color: $outline;
   }
 
@@ -16,12 +16,12 @@
 
   .social-link,
   .source-link {
-    @apply p-2 drop-shadow-lg;
+    @apply p-1 drop-shadow-lg;
     a {
-      @apply flex flex-col justify-center h-11 w-11 duration-150;
+      @apply flex flex-col justify-center h-8 w-8 duration-150;
     }
     .icon {
-      @apply h-10 m-auto;
+      @apply h-8 m-auto;
     }
     &:hover {
       a {
@@ -31,18 +31,9 @@
   }
 
   .source-link {
-    @apply px-3 py-0;
-    a {
-      @apply flex flex-row w-fit gap-2 items-end;
-    }
-    .icon {
-      @apply h-8 m-0 p-1;
-    }
-
+    @apply opacity-50;
     &:hover {
-      a {
-        @apply scale-100;
-      }
+      @apply scale-100 opacity-100;
     }
   }
 
