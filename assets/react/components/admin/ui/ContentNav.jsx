@@ -199,7 +199,7 @@ const ContentNav = ({ header, update, remove, create, dataName }) => {
       return (
         <Draggable key={id} draggableId={id} index={k}>
           {(provided, snapshot) => (
-            <div>
+            <div> 
               <div 
                 className={"content-row" + (snapshot.isDragging ? " dragging" : "") + (snapshot.isDropAnimating ? " dropping" : "")}
                 ref={provided.innerRef}
