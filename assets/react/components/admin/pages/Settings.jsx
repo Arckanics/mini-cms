@@ -3,7 +3,7 @@ import { PagesContainer } from "../ui";
 import { Button, Selector, TxtLabelInput, ImgExplorer } from "../ui/Inputs";
 import { areEqual } from "../../../Functions/app";
 import { useDispatch, useSelector } from "react-redux";
-import { pushData } from "../redux/reducers/ajaxSlice";
+import { clearData, pushData } from "../redux/reducers/ajaxSlice";
 import axios from "axios";
 import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 
@@ -18,8 +18,9 @@ const Settings = () => {
   const [initialState, setInitialState] = useState({});
 
   useEffect(() => {
+    const controller = new AbortController()
     ajax
-      .get("/request")
+      .get("/request", {signal: controller.signal})
       .then(res => {
         dispatch(pushData({ name: "settings", data: res.data }));
         setInitialState({ ...res.data });
@@ -30,6 +31,10 @@ const Settings = () => {
           location.replace("/mini-admin/logout");
         }
       });
+      return () => {
+        controller.abort()
+        dispatch(clearData())
+      }
   }, []);
 
 

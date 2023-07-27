@@ -49,7 +49,6 @@ const ContentNav = ({ header, update, remove, create, dataName, orderUpdate }) =
     const results = [...dataState]
     const [removed] = results.splice(startIndex, 1)
     results.splice(endIndex, 0, removed)
-    dispatch(pushData({ name: dataName, data: results }))
     orderUpdate(results)
   }
 
@@ -58,12 +57,12 @@ const ContentNav = ({ header, update, remove, create, dataName, orderUpdate }) =
     ordering(res.source.index, res.destination.index)
   }
 
-  // format les donnée pour affichage
+  // formate les donnée pour affichage
   const setView = (value, set = "value", tag) => {
     switch (true) {
       case new RegExp(/^object\..+/g).test(set):
         let name = set.split(".")[set.split(".").length - 1];
-        return capitalize(ajaxData[`${tag}s`][Number(value) - 1][name]);
+        return capitalize(ajaxData[`${tag}s`].find(el => el.id === value)[name]);
       case new RegExp(/^bool/g).test(set):
         return value ? (
           <Success cls="h-6 w-6 m-auto icon success" />
@@ -80,18 +79,6 @@ const ContentNav = ({ header, update, remove, create, dataName, orderUpdate }) =
   // update des filtres de recherches
   const searchHandleChange = (e, field, value) => {
     e.stopPropagation();
-    switch (field) {
-      case "sort":
-        value =
-          value < 0 || value == ""
-            ? 0
-            : value > data.length - 1
-            ? data.length - 1
-            : value;
-        break;
-      default:
-        break;
-    }
     updateSearch({ ...search, [field]: { ...search[field], value: value } });
   };
 
@@ -156,7 +143,9 @@ const ContentNav = ({ header, update, remove, create, dataName, orderUpdate }) =
 
     for (const [k, v] of Object.entries(search)) {
       if (v.active) {
-        searchFilter[k] = v.value;
+        isArray(v.value) 
+        ? searchFilter[k] = v.value.find(el => el.filtered).id
+        : searchFilter[k] = v.value;
       }
     }
 
@@ -176,6 +165,7 @@ const ContentNav = ({ header, update, remove, create, dataName, orderUpdate }) =
             if (v !== field[k]) {
               return null;
             }
+            console.log({filter: v, fieldVal: field[k] });
             break;
           case "boolean":
             if (v === true && !field[k]) {
@@ -187,7 +177,7 @@ const ContentNav = ({ header, update, remove, create, dataName, orderUpdate }) =
           case "object":
             if (isArray(v)) {
               const filter = v.find(el => el.filtered).id;
-              if (field[k] !== filter) {
+              if (field[k] == filter) {
                 return null;
               }
             }

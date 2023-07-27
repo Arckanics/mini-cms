@@ -6,7 +6,6 @@ const prepareForSend = (data) => {
       v.setDate(v.getDate()+1)
       v.setHours(0,0,0,0)
       result[k] = v.toISOString().replace(/T.+$/gi, ' 00:00:00')
-      console.log(result[k]);
     } else {
       result[k] = v
     }

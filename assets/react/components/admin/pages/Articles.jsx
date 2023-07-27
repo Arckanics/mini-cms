@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PagesContainer, ContentNav, ModalEditor } from "../ui";
 import { useSelector, useDispatch } from "react-redux";
-import { pushData } from "../redux/reducers/ajaxSlice";
+import { clearData, pushData } from "../redux/reducers/ajaxSlice";
 import axios from "axios";
 import { prepareForSend } from "../../../Functions/app";
 import { notify, notifyClose } from "../redux/reducers/notificationSlice";
@@ -24,20 +24,21 @@ const Articles = () => {
   });
 
   useEffect(() => {
-    ajax
-      .get("/request")
-      .then(res => {
-        dispatch(pushData({ name: "articles", data: res.data }));
-      })
-      .catch(res => {
-        const status = res.response.status;
-        if (status === 302) {
-          location.replace("/mini-admin/logout");
-        }
-      });
+    const controller = new AbortController();
+    !articles && ajax
+        .get("/request", { ...axiosSet, signal: controller.signal })
+        .then(res => {
+          dispatch(pushData({ name: "articles", data: res.data }));
+        })
+        .catch(res => {
+          const status = res.response.status;
+          if (status === 302) {
+            location.replace("/mini-admin/logout");
+          }
+        });
 
     ajax
-      .get("/request", { ...axiosSet, params: { page: "pages" } })
+      .get("/request", { ...axiosSet, signal: controller.signal, params: { page: "pages" } })
       .then(res => {
         dispatch(pushData({ name: "pages", data: res.data }));
       })
@@ -47,12 +48,16 @@ const Articles = () => {
           location.replace("/mini-admin/logout");
         }
       });
+    return () => {
+      controller.abort();
+      dispatch(clearData());
+    };
   }, []);
 
   const reordering = res => {
-    orderUpdate("articles", ajax, res)
-    .then(res => {
+    orderUpdate("articles", ajax, res).then(res => {
       const { data } = res;
+      dispatch(pushData({ name: "articles", data: [...data.data] }));
       dispatch(
         notify({
           type: "success",
@@ -60,10 +65,9 @@ const Articles = () => {
           timeout: setTimeout(() => dispatch(notifyClose()), 2000),
         })
       );
-      dispatch(pushData({ name: "articles", data: [...data.data] }));
-    })
-  }
-
+      
+    });
+  };
 
   const closeModal = () => {
     setModal({ ...modal, enable: false });
@@ -158,10 +162,34 @@ const Articles = () => {
 
   const header = [
     { tag: "title", name: "titre", draw: "string", colSize: 2, mobile: true },
-    { tag: "sort", name: "ordre", draw: "number", colSize: "1-5", mobile: false },
-    { tag: "page", name: "page", draw: "object.title", colSize: 2, mobile: true },
-    { tag: "published", name: "visible", draw: "bool", colSize: 1, mobile: false },
-    { tag: "isdynamic", name: "dynamique", draw: "bool", colSize: 1, mobile: false },
+    {
+      tag: "sort",
+      name: "ordre",
+      draw: "number",
+      colSize: "1-5",
+      mobile: false,
+    },
+    {
+      tag: "page",
+      name: "page",
+      draw: "object.title",
+      colSize: 2,
+      mobile: true,
+    },
+    {
+      tag: "published",
+      name: "visible",
+      draw: "bool",
+      colSize: 1,
+      mobile: false,
+    },
+    {
+      tag: "isdynamic",
+      name: "dynamique",
+      draw: "bool",
+      colSize: 1,
+      mobile: false,
+    },
   ];
 
   return (

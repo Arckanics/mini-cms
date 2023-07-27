@@ -33,7 +33,6 @@ const Navbar = ({Pages}) => {
   const handleActive = e => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(toggle);
     setToggle(!toggle)
   }
 

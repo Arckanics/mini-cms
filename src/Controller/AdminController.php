@@ -124,7 +124,7 @@ class AdminController extends AbstractController
         case 'footer':
           $social = $em->getRepository(Social::class);
           $gem = new Entities($social, Social::class, $em);
-          return new JsonResponse($gem->exportSortBy("sort"), 200);
+          return new JsonResponse($gem->exportData("sort"), 200);
         case 'settings':
         default:
           $res = $em->getRepository(Settings::class)->find(1);
@@ -159,7 +159,7 @@ class AdminController extends AbstractController
           $em->persist($page);
           $em->flush();
           $gem = new Entities($pages, Pages::class, $em);
-          return new JsonResponse($gem->exportData(), 200);
+          return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'articles':
           if (strlen($data["title"]) == 0 || !isset($data["title"])) {
             return new JsonResponse(["error" => "Titre manquant!"], 428);
@@ -178,7 +178,7 @@ class AdminController extends AbstractController
           $em->persist($article);
           $em->flush();
           $gem = new Entities($articles, Articles::class, $em);
-          return new JsonResponse($gem->exportData(), 200);
+          return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'footer':
           if (strlen($data["url"]) <= 12 || !isset($data["url"])) {
             return new JsonResponse(["error" => "Lien invalide!"], 428);
@@ -224,7 +224,7 @@ class AdminController extends AbstractController
           $page->setUrl(strtolower($data['url']));
           $page->setTitle($data['title']);
           $em->flush();
-          return new JsonResponse($gem->exportData(), 200);
+          return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'articles':
           if (strlen($data["title"]) == 0 || !isset($data["title"])) {
             return new JsonResponse(["error" => "Titre manquant!"], 428);
@@ -240,7 +240,7 @@ class AdminController extends AbstractController
           $article->setTitle($data["title"]);
           $em->flush();
           $gem = new Entities($articles, Articles::class, $em);
-          return new JsonResponse($gem->exportData(), 200);
+          return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'footer':
           if (strlen($data["url"]) <= 12 || !isset($data["url"])) {
             return new JsonResponse(["error" => "Lien invalide!"], 428);

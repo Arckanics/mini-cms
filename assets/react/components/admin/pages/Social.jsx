@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pushData } from "../redux/reducers/ajaxSlice";
+import { clearData, pushData } from "../redux/reducers/ajaxSlice";
 import axios from "axios";
 import { PagesContainer } from "../ui";
 import { Button, IconSelector, SocialCard, TxtLabelInput } from "../ui/Inputs";
@@ -43,16 +43,21 @@ const Social = () => {
   };
 
   useEffect(() => {
+    const controller = new AbortController()
     !data
       ? ajax
-          .get("/request")
+          .get("/request", {signal: controller.signal})
           .then(res => {
             const data = [...res.data];
             appendData(data);
           })
           .catch(res => axiosError(res))
       : null;
-  }, [data]);
+    return () => {
+      controller.abort()
+      dispatch(clearData())
+    }
+  }, []);
 
   const axiosSuccess = (res,msg) => {
     const data = [...res.data];
@@ -97,7 +102,6 @@ const Social = () => {
           .then(res => axiosSuccess(res,'Lien social mis à jour'))
           .catch(res => axiosError(res));
       case "delete":
-        console.log(action);
         return ajax
           .delete("/request", { data: {where: 'footer', data: action.id}})
           .then(res => axiosSuccess(res,'Lien social supprimé'))

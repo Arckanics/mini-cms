@@ -24,7 +24,6 @@ const ImgModal = ({close, update, props, create, command}) => {
       form.append("image", file)
       xml.post('/fileupload', form)
         .then(res => {
-          console.log(res);
           dispatch(notify({
             type: "success",
             msg: "image importée !"

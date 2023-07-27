@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PagesContainer, ContentNav } from "../ui";
 import { useDispatch, useSelector } from "react-redux";
-import { pushData } from "../redux/reducers/ajaxSlice";
+import { clearData, pushData } from "../redux/reducers/ajaxSlice";
 import { notify, notifyClose } from "../redux/reducers/notificationSlice";
 import { ModalEditor } from "../ui"
 import axios from "axios";
@@ -25,8 +25,9 @@ const Pages = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const controller = new AbortController()
     ajax
-      .get("/request")
+      .get("/request", {signal: controller.signal})
       .then(res => {
         dispatch(pushData({ name: "pages", data: [...res.data] }));
       })
@@ -36,12 +37,17 @@ const Pages = () => {
           location.replace("/mini-admin/logout");
         }
       });
+    return () => {
+      controller.abort()
+      dispatch(clearData())
+    }
   }, []);
 
   const reordering = res => {
     orderUpdate("pages", ajax, res)
     .then(res => {
       const { data } = res;
+      dispatch(pushData({ name: "pages", data: [...data.data] }));
       dispatch(
         notify({
           type: "success",
@@ -49,7 +55,7 @@ const Pages = () => {
           timeout: setTimeout(() => dispatch(notifyClose()), 2000),
         })
       );
-      dispatch(pushData({ name: "pages", data: [...data.data] }));
+      
     })
   }
 
