@@ -181,3 +181,12 @@
     }
   }
 }
+
+@media screen and (max-height: 480px) and (orientation: landscape) {
+  #content {
+    @apply m-0 w-full shrink;
+    .wrapper {
+      @apply px-3;
+    }
+  }
+}

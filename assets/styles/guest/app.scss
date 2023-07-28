@@ -11,12 +11,12 @@ $yellow: hsl(44,81%,57%);
 $darkyellow: darken($color: $yellow, $amount: 45%);
 
 // global
-html {
+html, #root {
   @apply font-sans bg-stone-100 text-stone-900;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
+  html, #root {
     @apply bg-stone-800 text-stone-100;
   }
 }
@@ -26,6 +26,12 @@ html {
   @apply flex flex-col flex-nowrap overflow-hidden;
 }
 
+@media screen and (max-height: 480px) and (orientation: landscape) {
+  #root {
+    @apply flex-row gap-2;
+  }
+}
+
 @import './header.scss';
 
 @import './navigation.scss';
@@ -33,3 +39,5 @@ html {
 @import './content.scss';
 
 @import './footer.scss';
+
+@import './toggle-menu.scss';

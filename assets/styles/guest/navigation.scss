@@ -1,14 +1,14 @@
 #navigation {
   @apply flex items-center max-h-max shrink-0 p-2;
   .wrapper {
-    @apply space-x-3 flex gap-4 select-none justify-items-end;
+    @apply flex gap-4 select-none justify-items-end;
 
     .nav-container {
       @apply relative;
     }
 
     .navLink {
-      @apply block text-lg font-bold relative duration-150 ease-in;
+      @apply block text-lg font-bold relative duration-150 ease-in m-auto;
       color: $dark;
 
       &::first-letter {
@@ -36,7 +36,52 @@
 @media (prefers-color-scheme: dark) {
   #navigation .wrapper {
     .navLink {
-      @apply text-stone-100;
+      @apply text-stone-100 whitespace-nowrap;
+    }
+  }
+}
+
+@media screen and (max-height: 480px) and (orientation: landscape) {
+  #navigation .wrapper {
+    @apply flex-col py-2;
+    .nav-container {
+      @apply m-auto;
+    }
+  }
+
+  // mobile menu (landscape)
+
+  #navigation {
+    @apply -translate-x-full opacity-0 duration-300 h-full shrink;
+    &.toggle {
+      @apply translate-x-[0%] opacity-100;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #navigation {
+    @apply absolute top-full z-50 m-1 mt-2 p-4 w-1/2 min-w-fit rounded-lg shadow-xl duration-300;
+    @apply -right-full opacity-0;
+    background-color: inherit;
+    outline: 1px solid transparentize($color: $primary, $amount: .6);
+    outline-offset: -1px;
+
+    &.toggle {
+      @apply right-0 opacity-100;
+    }
+
+    .wrapper {
+      @apply flex-col gap-4 w-full;
+      .nav-container {
+        @apply bg-black bg-opacity-10 p-2 px-4 rounded-md;
+        outline: 1px solid transparentize($color: $primary, $amount: .6);
+        outline-offset: -1px;
+
+}
+      .navLink {
+        @apply text-2xl ;
+      }
     }
   }
 }
