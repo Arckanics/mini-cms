@@ -65,7 +65,7 @@ class MailerController extends AbstractController
       $mail
         ->from("no-reply@mini-cms.fr")
         ->to($email)
-        ->subject("Symfony Mailer")
+        ->subject("Réinitialiser le mot de passe")
         ->text($this->renderView('/emails/txt/reset.txt'))
         ->html($this->renderView('/emails/html/reset.html.twig', ["reset" => $url]))
       ;
