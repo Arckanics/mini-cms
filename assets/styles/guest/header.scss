@@ -8,7 +8,7 @@
   }
   background-color: inherit;
 
-  
+  outline: 3px solid $primary;
 
   #logo {
     @apply max-h-[5rem] min-h-[3rem] flex flex-col justify-center w-auto shrink-0 aspect-square;

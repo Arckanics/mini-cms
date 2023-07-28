@@ -4,7 +4,35 @@
     @apply flex gap-4 select-none justify-items-end;
 
     .nav-container {
-      @apply relative;
+      @apply relative p-3 duration-300 w-full;
+      background-color: transparent;
+      &:has(.active) {
+        background-color: $primary;
+        .navLink {
+          @apply text-stone-800;
+          &::after {
+            @apply w-[0%] left-[50%]
+          }
+        }
+      }
+
+      &:hover {
+        .navLink:not(.active) {
+          color: $primary;
+          &::after {
+            @apply w-[100%] left-[0%];
+            background-color: $primary;
+          }
+        }
+      }
+
+      &:hover {
+        .navLink {
+          &::after {
+            @apply w-[100%] left-[0%]
+          }
+        }
+      }
     }
 
     .navLink {
@@ -17,14 +45,13 @@
 
       &::after {
         content: '';
-        @apply absolute w-[0%] bottom-0 left-1/2 h-0.5 duration-200 opacity-60;
-        background-color: $primary;
+        @apply absolute w-[0%] bottom-0 left-1/2 h-0.5 duration-200 opacity-60 bg-slate-800;
       }
 
       
 
-      &:hover, &.active {
-        color: lighten($color: $primary, $amount: 10%);
+      &.active {
+        @apply text-stone-800;
         &::after {
           @apply w-[100%] left-[0%];
         }
@@ -61,10 +88,10 @@
 
 @media screen and (max-width: 768px) {
   #navigation {
-    @apply absolute top-full z-50 m-1 mt-2 p-4 w-1/2 min-w-fit rounded-lg shadow-xl duration-300;
+    @apply absolute top-full z-50 p-4 mt-0.5 w-1/2 min-w-fit rounded shadow-xl duration-300;
     @apply -right-full opacity-0;
     background-color: inherit;
-    outline: 1px solid transparentize($color: $primary, $amount: .6);
+    outline: 1px solid transparentize($color: $primary, $amount: .8);
     outline-offset: -1px;
 
     &.toggle {
@@ -74,7 +101,7 @@
     .wrapper {
       @apply flex-col gap-4 w-full;
       .nav-container {
-        @apply bg-black bg-opacity-10 p-2 px-4 rounded-md;
+        @apply bg-black bg-opacity-10 p-2 px-4 rounded-sm;
         outline: 1px solid transparentize($color: $primary, $amount: .6);
         outline-offset: -1px;
 

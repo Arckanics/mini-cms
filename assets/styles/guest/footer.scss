@@ -1,20 +1,16 @@
 #footer {
-  @apply w-1/2 shadow-2xl m-auto mr-0 rounded-t-2xl absolute text-sm select-none;
-  @apply bottom-0 left-1/2 w-1/2 min-w-fit -translate-x-1/2 bg-stone-100;
-  $outline: darken(
-    $color: $secondary,
-    $amount: 5,
-  );
-  outline: 1px solid transparentize($color: $outline, $amount: 0.8);
+  @apply  shadow-2xl text-sm select-none bg-inherit;
+  @apply bottom-0 min-w-fit;
+  outline: 2px solid transparentize($color: $primary, $amount: 0.55);
 
   .footer-container {
     @apply container mx-auto flex justify-between items-center p-1 min-w-fit;
-    color: $outline;
+    color: darken($color: $primary, $amount: 12);
   }
 
   .socials {
     @apply flex gap-3 items-center;
-    color: $secondary;
+    color: darken($color: $primary, $amount: 12);
   }
 
   .social-link,
@@ -46,12 +42,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  #footer {
-    @apply bg-stone-800;
-    .footer-container {
-      color: $secondary;
-    }
-  }
 }
 
 @media screen and (max-height: 480px) and (orientation: landscape) {
