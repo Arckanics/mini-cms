@@ -1,37 +1,8 @@
 {
   "entrypoints": {
-    "app": {
-      "js": [
-        "/build/runtime.js",
-        "/build/vendors-node_modules_fortawesome_react-fontawesome_index_es_js-node_modules_reduxjs_toolkit_d-0ca055.js",
-        "/build/vendors-node_modules_html-react-parser_index_mjs.js",
-        "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-2d9401.js",
-        "/build/app.js"
-      ]
-    },
-    "app_admin": {
-      "js": [
-        "/build/runtime.js",
-        "/build/vendors-node_modules_fortawesome_react-fontawesome_index_es_js-node_modules_reduxjs_toolkit_d-0ca055.js",
-        "/build/vendors-node_modules_lexical_react_LexicalComposer_js-node_modules_lexical_react_LexicalConte-27506f.js",
-        "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-assets_bo-2d9401.js",
-        "/build/app_admin.js"
-      ]
-    },
-    "admin": {
-      "js": [
-        "/build/runtime.js"
-      ],
-      "css": [
-        "/build/admin.css"
-      ]
-    },
     "main": {
       "js": [
-        "/build/runtime.js"
-      ],
-      "css": [
-        "/build/main.css"
+        "/__cypress/src/runtime.js"
       ]
     }
   }

@@ -8,7 +8,8 @@
     "dev-server": "encore dev-server",
     "dev": "encore dev",
     "watch": "encore dev --watch",
-    "build": "encore production --progress"
+    "build": "encore production --progress",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,7 @@
     "@symfony/ux-react": "file:vendor/symfony/ux-react/assets",
     "@symfony/webpack-encore": "^4.2.0",
     "autoprefixer": "^10.4.13",
+    "cypress": "^12.17.2",
     "jasmine-browser-runner": "^2.1.0",
     "jasmine-core": "^5.1.0",
     "postcss": "^8.4.21",
