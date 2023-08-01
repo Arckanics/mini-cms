@@ -88,6 +88,11 @@
     }
   }
 
+  .list-ordered {
+    @apply list-inside;
+    list-style-type: decimal;
+  }
+
   &::-webkit-scrollbar {
     width: 8px;
   }

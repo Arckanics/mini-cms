@@ -60,7 +60,7 @@
   }
 
   .modal-window {
-    @apply flex flex-wrap gap-3 p-2 justify-start bg-white;
+    @apply flex flex-wrap gap-3 p-2 justify-start bg-white z-40;
     .modal-field {
       .input-label {
         @apply shrink-0;
