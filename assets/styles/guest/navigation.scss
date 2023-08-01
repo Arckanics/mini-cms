@@ -70,19 +70,31 @@
 
 @media screen and (max-height: 480px) and (orientation: landscape) {
   #navigation .wrapper {
-    @apply flex-col py-2;
+    @apply grid p-3 gap-3 h-[100dvh] w-full justify-between;
+    grid-template-rows: repeat(auto-fill, 48px);
+    grid-auto-flow: column;
     .nav-container {
-      @apply m-auto;
+      @apply bg-black bg-opacity-10 p-2 px-4 rounded-md w-full h-fit min-w-[180px];
+      outline: 1px solid transparentize($color: $primary, $amount: 0.6);
+      outline-offset: -1px;
+    }
+    .navLink {
+      @apply text-2xl;
     }
   }
 
   // mobile menu (landscape)
 
   #navigation {
-    @apply -translate-x-full opacity-0 duration-300 h-full shrink;
+    @apply absolute block m-0 top-0 translate-y-[-101%] left-full 
+      opacity-50 duration-300 bg-inherit z-40 h-[100dvh] p-0
+      ml-[1px] shadow-md rounded-xl w-auto
+      ;
     &.toggle {
-      @apply translate-x-[0%] opacity-100;
+      @apply translate-y-[0%] opacity-100 rounded-none;
     }
+    outline: 1px solid transparentize($color: $primary, $amount: 0.4);
+
   }
 }
 
@@ -104,10 +116,9 @@
         @apply bg-black bg-opacity-10 p-2 px-4 rounded-sm;
         outline: 1px solid transparentize($color: $primary, $amount: .6);
         outline-offset: -1px;
-
-}
+      }
       .navLink {
-        @apply text-2xl ;
+        @apply text-2xl;
       }
     }
   }

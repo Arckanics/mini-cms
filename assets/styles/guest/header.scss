@@ -39,11 +39,11 @@
 
 @media screen and (max-height: 480px) and (orientation: landscape) {
   #header .header-container {
-    @apply h-full flex-col p-2 pl-1 overflow-hidden gap-2 justify-between;
+    @apply h-full flex-col p-3 overflow-hidden gap-2 justify-between;
   }
 
   #header {
-    @apply shadow-none relative py-2;
+    @apply shadow-none relative;
     outline: 1px solid transparentize($color: $primary, $amount: .5);
   }
 }
