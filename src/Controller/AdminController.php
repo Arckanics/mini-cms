@@ -106,6 +106,21 @@ class AdminController extends AbstractController
     if (!$this->refreshSession($session)) {
       return new JsonResponse(['redirect' => '/logout'], 302);
     }
+
+    function testPattern($str, $exp): bool {
+      return preg_match($exp, $str);
+    }
+    function securityPageCheck($data): JsonResponse | null {
+      if (strlen($data["title"]) == 0 || !isset($data["title"])) {
+        return new JsonResponse(["error" => "Titre manquant!"], 428);
+      }
+      if (testPattern($data["url"], "/mini-admin/")) {
+        return new JsonResponse(["error" => "pour des raisons de sécurité, ce lien n'est pas autorisé (".$data["url"].")"], 428);
+      }
+      return null;
+    }
+    
+
     if ($req->getMethod() === "GET") {
       $body = $req->query->all();
       $default = ['page' => 'settings'];
@@ -147,14 +162,15 @@ class AdminController extends AbstractController
       $pages = $em->getRepository(Pages::class);
       $articles = $em->getRepository(Articles::class);
       $socials = $em->getRepository(Social::class);
+
       switch ($body['where']) {
         case 'pages':
-          if (strlen($data["title"]) == 0 || !isset($data["title"])) {
-            return new JsonResponse(["error" => "Titre manquant!"], 428);
+          if (securityPageCheck($data)) {
+            return securityPageCheck($data);
           }
           $page = new Pages();
           $page->setTitle($data["title"]);
-          $page->setUrl(strtolower($data["title"]));
+          $page->setUrl(strtolower($data["url"]));
           $page->setSort(count($pages->findAll()));
           $em->persist($page);
           $em->flush();
@@ -216,8 +232,8 @@ class AdminController extends AbstractController
       $socials = $em->getRepository(Social::class);
       switch ($body['where']) {
         case 'pages':
-          if (strlen($data["title"]) == 0 || !isset($data["title"])) {
-            return new JsonResponse(["error" => "Titre manquant!"], 428);
+          if (securityPageCheck($data)) {
+            return securityPageCheck($data);
           }
           $gem = new Entities($pages, Pages::class, $em);
           $page = $pages->find($data['id']);

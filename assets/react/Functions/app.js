@@ -93,8 +93,8 @@ const strNormalize = str => {
         return "c";
       case test(w, /ß/gi):
         return "ss";
-      case test(w, /\s/gi):
-        return "_";
+      case test(w, /\s|-/gi):
+        return "-";
       case test(w, /\d/gi):
         return "";
       case test(w, /\W/gi):
