@@ -80,6 +80,9 @@
     }
     .navLink {
       @apply text-2xl;
+      &.active {
+        color: $primary;
+      }
     }
   }
 
@@ -119,6 +122,9 @@
       }
       .navLink {
         @apply text-2xl;
+        &.active {
+          color: $primary;
+        }
       }
     }
   }
