@@ -70,7 +70,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) and (orientation: portrait) {
   #navigation {
     @apply absolute top-full z-50 m-1 mt-2 p-4 w-1/2 min-w-fit rounded-lg shadow-xl duration-300;
     @apply -right-full opacity-0;
