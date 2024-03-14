@@ -72,8 +72,6 @@ class MailerController extends AbstractController
 
         try {
             $mailer->send($mail);
-
-
         } catch (\Exception $error) {
             return $this->json([
                 "msg" => $error->getMessage(),
@@ -83,7 +81,7 @@ class MailerController extends AbstractController
         return $this->json([
             "msg" => "email envoyé ! \nvérifiez votre boîte mail",
             "type" => "success",
-        ], 202);
+        ], 200);
     }
 
     return $this->json([
