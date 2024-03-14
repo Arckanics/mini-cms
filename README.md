@@ -40,11 +40,11 @@ Mini-CMS has been made with popular technologies like :
 - <a href="https://react.dev/" target="_blank">React</a>
 - <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>
 
-## Fonctionnalités :
+## Functionalities :
 
 Mini-CMS get some simple functionalities to use to manage your pages,
 the content of your pages, site settings, social links...
 
-### Futur : 
+### Future : 
 
 This project is very recent and isn't in his final result.
