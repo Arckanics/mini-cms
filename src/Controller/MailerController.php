@@ -70,18 +70,25 @@ class MailerController extends AbstractController
         ->html($this->renderView('/emails/html/reset.html.twig', ["reset" => $url]))
       ;
 
-      $mailer->send($mail);
+        try {
+            $mailer->send($mail);
 
 
-      return $this->json([
-        "msg" => "email envoyé ! \nvérifiez votre boîte mail ()",
-        "type" => "success",
-      ], 202);
+        } catch (\Exception $error) {
+            return $this->json([
+                "msg" => $error->getMessage(),
+                "type" => "danger",
+            ], 500);
+        }
+        return $this->json([
+            "msg" => "email envoyé ! \nvérifiez votre boîte mail",
+            "type" => "success",
+        ], 202);
     }
 
     return $this->json([
       "msg" => "aucuns utilisateurs avec le mail: \"$data->email\"",
-      "type" => "danger"
+      "type" => "warning"
     ], 404);
   }
 
