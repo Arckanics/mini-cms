@@ -81,7 +81,7 @@ class MailerController extends AbstractController
         return $this->json([
             "msg" => "email envoyé ! \nvérifiez votre boîte mail",
             "type" => "success",
-        ], 200);
+        ]);
     }
 
     return $this->json([
