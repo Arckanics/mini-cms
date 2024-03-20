@@ -255,12 +255,11 @@ class AdminController extends AbstractController
           $gem = new Entities($articles, Articles::class, $em);
           return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'footer':
-          if (strlen($data["url"]) <= 12 || !isset($data["url"])) {
-            return new JsonResponse(["error" => "Lien invalide!"], 428);
-          }
-          if (curl_init($data["url"]) === false) {
-            return new JsonResponse(["error" => "Lien invalide!"], 428);
-          }
+            if (strlen($data["url"]) <= 12 || !isset($data["url"]) || !filter_var($data['url'], FILTER_VALIDATE_URL)) {
+
+                return new JsonResponse(["error" => "Lien invalide!"], 428);
+
+            }
           $social = $socials->find($data["id"]);
           $social->setName($data["name"]);
           $social->setIcon($data["icon"]);
