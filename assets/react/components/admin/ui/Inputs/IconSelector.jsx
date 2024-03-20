@@ -25,7 +25,7 @@ const IconSelector = ({ cls, list, active, children, action }) => {
     setLastEvent(e.type);
   };
 
-  const changeValue = (e, v) => {
+  const changeValue = (e, v, args) => {
     e.preventDefault();
     toggleSelect(e);
     action(v);
@@ -51,17 +51,20 @@ const IconSelector = ({ cls, list, active, children, action }) => {
       </div>
       {toggle ? (
         <div className="opt-wrapper">
-          {Object.entries(list).map(([key, icon], k) => (
-            
-            // l'id de l'élément choisi est directement envoyé dans "action" (function à passer en prop)
-            <div
-              key={k}
-              className="opt"
-              onClick={e => changeValue(e,key)}
-            >
-              <Faw icon={icon} cls="icon-value"/>
-            </div>
-          ))}
+          {
+                Object.entries(list).map(([key, icon], k) => (
+
+                // l'id de l'élément choisi est directement envoyé dans "action" (function à passer en prop)
+                <div
+                  key={k}
+                  className="opt"
+                  onClick={e => changeValue(e,icon, {key, icon, k})}
+                >
+                  <Faw icon={icon} cls="icon-value"/>
+                </div>
+                )
+                )
+          }
         </div>
       ) : null}
     </div>
