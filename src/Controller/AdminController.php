@@ -196,7 +196,7 @@ class AdminController extends AbstractController
           $gem = new Entities($articles, Articles::class, $em);
           return new JsonResponse($gem->exportSortBy("sort"), 200);
         case 'footer':
-          if (strlen($data["url"]) <= 12 || !isset($data["url"]) || filter_var($data['url'], FILTER_VALIDATE_URL)) {
+          if (strlen($data["url"]) <= 12 || !isset($data["url"]) || !filter_var($data['url'], FILTER_VALIDATE_URL)) {
             return new JsonResponse(["error" => "Lien invalide!"], 428);
           }
           $social = new Social();
