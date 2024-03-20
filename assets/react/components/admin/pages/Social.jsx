@@ -68,8 +68,10 @@ const Social = () => {
   const axiosError = (res) => {
     const status = res.response.status;
     if (status === 302) {
-      location.replace("/mini-admin/logout");
+      return location.replace("/mini-admin/logout");
     }
+    const data = res.response.data;
+    dispatch(notify({msg:data.error,type:"danger",timeout:setTimeout(() => dispatch(notifyClose()), 3000)}))
   }
 
   const createCard = e => {
