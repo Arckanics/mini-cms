@@ -202,14 +202,18 @@ class AdminController extends AbstractController
           if (curl_init($data["url"]) === false) {
             return new JsonResponse(["error" => "Lien invalide!"], 428);
           }
-          $social = new Social();
-          $social->setName($data["name"]);
-          $social->setIcon($data["icon"]);
-          $social->setUrl($data["url"]);
-          $em->persist($social);
-          $em->flush();
-          $gem = new Entities($socials, Social::class, $em);
-          return new JsonResponse($gem->exportData(), 200);
+          try {
+              $social = new Social();
+              $social->setName($data["name"]);
+              $social->setIcon($data["icon"]);
+              $social->setUrl($data["url"]);
+              $em->persist($social);
+              $em->flush();
+              $gem = new Entities($socials, Social::class, $em);
+              return new JsonResponse($gem->exportData(), 200);
+          } catch (\Exception $e) {
+              return $e->getMessage();
+          }
         case 'settings':
         default:
           $res = $em->getRepository(Settings::class)->find(1);
