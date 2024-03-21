@@ -3,12 +3,15 @@
   grid-template-columns: repeat(auto-fill, 12rem);
   grid-template-rows: repeat(auto-fill, 18rem);
 
-  @apply gap-2 h-full py-2;
+  outline: .125rem solid transparentize($color: $secondary, $amount: .9);
+  outline-offset: -.125rem;
+
+  @apply gap-2 h-full p-2 rounded-md;
 
   .card {
     @apply flex flex-col rounded-lg shadow-md p-2 text-center justify-between;
-    outline: 1px solid transparentize($color: $secondary, $amount: .8);
-    outline-offset: -1px;
+    outline: .125rem solid transparentize($color: $secondary, $amount: .9);
+    outline-offset: -.03125rem;
     .card-icon {
       @apply aspect-square flex flex-col justify-center;
 
@@ -32,12 +35,14 @@
         @apply w-1/2 h-auto m-auto drop-shadow-lg;
       }
 
-      &:hover {
-        outline-width: 3px;
-        outline-color: transparentize($color: $secondary, $amount: .7);
-        .add-icon {
-          color: transparentize($color: $secondary, $amount: .2);
-        }
+
+    }
+
+    &:hover {
+      outline-width: .325rem;
+      outline-color: transparentize($color: $secondary, $amount: .7);
+      .add-icon {
+        color: transparentize($color: $secondary, $amount: .2);
       }
     }
   }
@@ -47,8 +52,8 @@
       rounded-lg h-full
        flex flex-col justify-between
       ;
-      outline: 1px solid transparentize($color: $secondary, $amount: .8);
-      outline-offset: -1px;
+      outline: .125rem solid transparentize($color: $secondary, $amount: .9);
+      outline-offset: -.03125rem;
       
     .card-edit-title {
       @apply flex gap-2 justify-between font-bold capitalize rounded-t-md shrink-0;
@@ -90,6 +95,6 @@
 @media screen and (max-width: 760px) {
   .card-nav {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(18rem);
+    grid-template-rows: repeat(auto-fill,18rem);
   }
 }
