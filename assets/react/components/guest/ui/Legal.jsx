@@ -16,6 +16,7 @@ const Legal = () => {
                         </h3>
                         <hr className="separator"/>
                         <div className="article-content text-justify max-w-full overflow-auto break-words text-white">
+                            {/* Contenu des mentions légales */}
                             <h2 className="text-xl underline">Propriétaire du site :</h2>
                             <div>Nom : Alexis Fritsch</div>
                             <div>Adresse : 36 rue de Laneufville 54910 , VALLEROY</div>
@@ -24,8 +25,8 @@ const Legal = () => {
                             <hr className="separator opacity-50"/>
                             <h2 className="text-xl underline">Hébergeur :</h2>
                             <div>Nom : SCALEWAY</div>
-                            <hr className="separator opacity-50"/>
                             <div>Adresse : 8 rue de la Ville l’Evêque, 75008 Paris</div>
+                            <hr className="separator opacity-50"/>
                             <h2 className="text-xl underline">Propriété intellectuelle :</h2>
                             <div>Le contenu de ce site est libre de réutilisation, sauf indication contraire.
                                 Vous êtes autorisé à utiliser, copier, modifier et distribuer le contenu à des fins
