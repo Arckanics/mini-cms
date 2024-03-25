@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-$primary : #EABD37;
-$secondary : hsl(135, 65%, 50%);
-$dark : hsl(135, 50%, 18%);
-$light : hsl(12, 12%, 90%);
+$primary : #52d2eb;
+$secondary : hsl(217, 65%, 50%);
+$dark : hsl(217, 35%, 11%);
+$light : hsl(217, 35%, 93%);
 
 $yellow: hsl(44,81%,57%);
 $darkyellow: darken($color: $yellow, $amount: 45%);
