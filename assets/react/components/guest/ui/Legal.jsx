@@ -3,6 +3,7 @@ import React, {useState} from "react";
 
 const Legal = () => {
     const [toggle, setToggle] = useState(false)
+    const date = new Date().getFullYear()
     return (
         <>
             {
@@ -20,24 +21,26 @@ const Legal = () => {
                             <div>Adresse : 36 rue de Laneufville 54910 , VALLEROY</div>
                             <div>Email : <a href="mailto:alexis.fritsch68@gmail.com">alexis.fritsch68@gmail.com</a>
                             </div>
-                            <hr className="separator"/>
+                            <hr className="separator opacity-50"/>
                             <h2 className="text-xl underline">Hébergeur :</h2>
                             <div>Nom : SCALEWAY</div>
-                            <hr className="separator"/>
+                            <hr className="separator opacity-50"/>
                             <div>Adresse : 8 rue de la Ville l’Evêque, 75008 Paris</div>
                             <h2 className="text-xl underline">Propriété intellectuelle :</h2>
                             <div>Le contenu de ce site est libre de réutilisation, sauf indication contraire.
                                 Vous êtes autorisé à utiliser, copier, modifier et distribuer le contenu à des fins
                                 non commerciales, à condition de mentionner la source.
                             </div>
-                            <hr className="separator"/>
+                            <hr className="separator opacity-50"/>
                             <h2 className="text-xl underline">Utilisation des données personnelles :</h2>
                             <p>Aucune donnée personnelle n'est collectée ni utilisée sur ce site.</p>
-                            <hr className="separator"/>
+                            <hr className="separator opacity-50"/>
                             <h2 className="text-xl underline">Cookies :</h2>
                             <p>Ce site utilise des cookies uniquement pour des fonctionnalités spécifiques et ne
                                 collecte pas de données personnelles.
                             </p>
+                            <hr className="separator opacity-50"/>
+                            <p>© {date} Tous droits réservés.</p>
                         </div>
                     </article>
                 </div>
