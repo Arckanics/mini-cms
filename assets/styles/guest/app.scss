@@ -13,11 +13,18 @@ $darkyellow: darken($color: $yellow, $amount: 45%);
 // global
 html, #root {
   @apply font-sans bg-stone-100 text-stone-900;
+  &.toggle-light-dark {
+    @apply bg-stone-800 text-stone-100;
+  }
 }
+
 
 @media (prefers-color-scheme: dark) {
   html, #root {
     @apply bg-stone-800 text-stone-100;
+    &.toggle-light-dark {
+      @apply bg-stone-100 text-stone-900;
+    }
   }
 }
 
